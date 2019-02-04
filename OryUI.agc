@@ -25,6 +25,7 @@ type typeOryUIParameters
 	fixToscreen as integer
 	group as integer
 	imageID as float
+	itemSize# as float[2]
 	//leftIconImageID as float
 	leftLine1Text$ as string
 	leftLine1TextAlignment as integer
@@ -148,6 +149,7 @@ function OryUIResetParametersType()
 	OryUIParameters.titleTextSize# = -999999	
 	for i = 1 to 4
 		if (i < 3)
+			OryUIParameters.itemSize#[i] = -999999
 			OryUIParameters.maxSize#[i] = -999999
 			OryUIParameters.offset#[i] = -999999
 			OryUIParameters.position#[i] = -999999
@@ -249,6 +251,9 @@ function OryUISetParametersType(parameters$ as string)
 			OryUIParameters.size#[2] = valFloat(value$)
 		elseif (variable$ = "image")
 			OryUIParameters.imageID = val(value$)
+		elseif (variable$ = "itemsize")
+			OryUIParameters.itemSize#[1] = valFloat(GetStringToken(value$, ",", 1))
+			OryUIParameters.itemSize#[2] = valFloat(GetStringToken(value$, ",", 2))
 		//elseif (variable$ = "lefticonimage")
 			//OryUIParameters.leftIconImageID = val(value$)
 		elseif (variable$ = "leftline1text")
@@ -940,6 +945,7 @@ foldstart // OryUIList Component
 type typeOryUIList
 	// Variables for list container
 	id as integer
+	itemSize# as float[2]
 	noOfLeftLines as integer
 	noOfRightLines as integer
 	//showLeftIcon as integer
@@ -971,6 +977,8 @@ function OryUICreateList(parameters$ as string)
 	listID = OryUIListCollection.length
 	OryUIListCollection[listID].id = listID
 
+	OryUIListCollection[listID].itemSize#[1] = 100
+	OryUIListCollection[listID].itemSize#[2] = 7
 	OryUIListCollection[listID].noOfLeftLines = 1
 	OryUIListCollection[listID].noOfRightLines = 0
 	//OryUIListCollection[listID].showLeftIcon = 0
@@ -979,7 +987,7 @@ function OryUICreateList(parameters$ as string)
 	//OryUIListCollection[listID].showRightThumbnail = 0
 
 	OryUIListCollection[listID].sprBackground = CreateSprite(0)
-	SetSpriteSize(OryUIListCollection[listID].sprBackground, 100, 0)
+	SetSpriteSize(OryUIListCollection[listID].sprBackground, OryUIListCollection[listID].itemSize#[1], 0)
 	SetSpriteColor(OryUIListCollection[listID].sprBackground, 204, 204, 204, 255)
 	SetSpriteOffset(OryUIListCollection[listID].sprBackground, 0, 0)
 	SetSpritePositionByOffset(OryUIListCollection[listID].sprBackground, 0, 0)
@@ -1063,11 +1071,11 @@ function OryUIInsertListItem(listID, index, parameters$ as string)
 	endif
 
 	OryUIListCollection[listID].sprItemBackground[itemID] = CreateSprite(0)
-	SetSpriteSize(OryUIListCollection[listID].sprItemBackground[itemID], 100, 7)
+	SetSpriteSize(OryUIListCollection[listID].sprItemBackground[itemID], OryUIListCollection[listID].itemSize#[1], OryUIListCollection[listID].itemSize#[2])
 	SetSpriteDepth(OryUIListCollection[listID].sprItemBackground[itemID], GetSpriteDepth(OryUIListCollection[listID].sprBackground) - 1)
 	SetSpriteColor(OryUIListCollection[listID].sprItemBackground[itemID], 255, 255, 255, 255)
 	SetSpriteOffset(OryUIListCollection[listID].sprItemBackground[itemID], 0, 0)
-	SetSpritePositionByOffset(OryUIListCollection[listID].sprItemBackground[itemID], GetSpriteXByOffset(OryUIListCollection[listID].sprBackground), GetSpriteYByOffset(OryUIListCollection[listID].sprBackground) + 0.1 + (itemID * 7.0))
+	SetSpritePositionByOffset(OryUIListCollection[listID].sprItemBackground[itemID], GetSpriteXByOffset(OryUIListCollection[listID].sprBackground), GetSpriteYByOffset(OryUIListCollection[listID].sprBackground) + 0.1 + (itemID * OryUIListCollection[listID].itemSize#[2]))
 
 	OryUIListCollection[listID].txtItemLeftLine1[itemID] = CreateText(" ")
 	SetTextSize(OryUIListCollection[listID].txtItemLeftLine1[itemID], 3)
@@ -1167,6 +1175,8 @@ function OryUIUpdateList(listID as integer, parameters$ as string)
 
 	if (GetSpriteExists(OryUIListCollection[listID].sprBackground))
 		OryUIParameters.depth = GetSpriteDepth(OryUIListCollection[listID].sprBackground)
+		OryUIParameters.itemSize#[1] = OryUIListCollection[listID].itemSize#[1]
+		OryUIParameters.itemSize#[2] = OryUIListCollection[listID].itemSize#[2]
 		OryUIParameters.noOfLeftLines = OryUIListCollection[listID].noOfLeftLines
 		OryUIParameters.noOfRightLines = OryUIListCollection[listID].noOfRightLines
 		OryUIParameters.position#[1] = GetSpriteXByOffset(OryUIListCollection[listID].sprBackground)
@@ -1181,6 +1191,8 @@ function OryUIUpdateList(listID as integer, parameters$ as string)
 	
 		OryUISetParametersType(parameters$)
 
+		if (OryUIParameters.itemSize#[1] > 0) then OryUIListCollection[listID].itemSize#[1] = OryUIParameters.itemSize#[1]
+		if (OryUIParameters.itemSize#[2] > 0) then OryUIListCollection[listID].itemSize#[2] = OryUIParameters.itemSize#[2]
 		if (OryUIParameters.noOfLeftLines > 0) then OryUIListCollection[listID].noOfLeftLines = OryUIParameters.noOfLeftLines
 		if (OryUIParameters.noOfRightLines > 0) then OryUIListCollection[listID].noOfRightLines = OryUIParameters.noOfRightLines
 		//if (OryUIParameters.showLeftIcon >= 0) then OryUIListCollection[listID].showLeftIcon = OryUIParameters.showLeftIcon
@@ -1256,7 +1268,7 @@ function OryUIUpdateListItem(listID, itemID as integer, parameters$ as string)
 		//OryUIParameters.rightThumbnailImageID = GetSpriteImageID(OryUIListCollection[listID].sprItemRightThumbnail[itemID])
 		
 		OryUISetParametersType(parameters$)
-		
+
 		SetSpriteColor(OryUIListCollection[listID].sprItemBackground[itemID], OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
 		
 		if (OryUIListCollection[listID].showLeftThumbnail = 1)
@@ -1349,6 +1361,9 @@ function OryUIUpdateListItem(listID, itemID as integer, parameters$ as string)
 		//endif
 		//SetTextColor(OryUIListCollection[listID].txtItemRightLine3[itemID], OryUIParameters.rightLine3TextColor#[1], OryUIParameters.rightLine3TextColor#[2], OryUIParameters.rightLine3TextColor#[3], OryUIParameters.rightLine3TextColor#[4])
 		//SetTextPosition(OryUIListCollection[listID].txtItemRightLine3[itemID], GetSpriteX(OryUIListCollection[listID].sprItemBackground[itemID]) + 4, GetSpriteY(OryUIListCollection[listID].sprItemBackground[itemID]) + (GetSpriteHeight(OryUIListCollection[listID].sprItemBackground[itemID]) / 2.0) - (GetTextTotalHeight(OryUIListCollection[listID].txtItemRightLine3[itemID]) / 2.0))
+
+		SetSpritePositionByOffset(OryUIListCollection[listID].sprItemDivider[itemID], GetSpriteXByOffset(OryUIListCollection[listID].sprItemBackground[itemID]), GetSpriteYByOffset(OryUIListCollection[listID].sprItemBackground[itemID]) + GetSpriteHeight(OryUIListCollection[listID].sprItemBackground[itemID]))
+
 	endif
 endfunction
 
