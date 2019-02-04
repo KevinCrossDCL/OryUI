@@ -1,5 +1,5 @@
 # OryUI
-OryUI is a GUI framework to be used with AGK2 (AppGameKit). It's a work in progress.
+OryUI is a UI framework to be used with AGK2 (AppGameKit). It's a work in progress.
 
 With it you can create the following UI components:
 
