@@ -19,3 +19,6 @@ To include it in your project add the following line to the top of your script
 The above insert line is based on the OryUI.agc file being placed in your project folder. You will need to change the insert path if you place the file somewhere else.
 
 A copy of AGK2 is required to use OryUI. https://www.appgamekit.com
+
+## Documentation
+I've started on some documentation which can be found here in the Wiki section: https://github.com/KevinCrossDCL/OryUI/wiki
