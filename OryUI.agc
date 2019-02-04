@@ -932,7 +932,7 @@ foldend
 //			list2 = OryUICreateList("")
 //			OryUIUpdateList(list2, "showLeftThumbnail:true;noOfLeftLines:2;noOfRightLines:1;position:0,20")
 //			OryUIInsertListItem(list2, -1, "leftThumbnailImage:" + str(user[1].profileImage) + ";leftLine1Text:Agnes Talbot;leftLine2Text:I'm watching it now;rightLine1Text:3d;rightLine1TextColor:0,0,0,130")
-//			OryUIInsertListItem(list2, -1, "leftThumbnailImage:" + str(user[2].profileImage) + ";leftLine1Text:Eren Wade;leftLine2Text:Hey boo!;rightLine1Text:1h;rightLine1TextColor:0,0,0,130")
+//			OryUIInsertListItem(list2, -1, "leftThumbnailImage:" + str(user[2].profileImage) + ";leftLine1Text:Sophie Wade;leftLine2Text:Hey boo!;rightLine1Text:1h;rightLine1TextColor:0,0,0,130")
 //			OryUIUpdateListItem(list2, 1, "leftLine2Text:Hope you're well xx;leftLine2TextBold:true;rightLine1Text:1s")
 //
 foldstart // OryUIList Component
