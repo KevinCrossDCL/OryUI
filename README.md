@@ -29,4 +29,4 @@ I've started on some documentation which can be found here in the Wiki section: 
 This is the first framework I've attempted to create so any feedback, suggestions, and constructive criticsm will be greatly appreciated.
 
 ## License
-The OryUI framework is open-source software licensed under the [MIT license]: https://opensource.org/licenses/MIT.
+The OryUI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
