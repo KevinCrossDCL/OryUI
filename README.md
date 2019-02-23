@@ -45,8 +45,8 @@ I've started on some documentation which can be found here in the Wiki section: 
 ## Feedback / Suggestions
 This is the first framework I've attempted to create so any feedback, suggestions, and constructive criticsm will be greatly appreciated. You can contact me on the below forum post or the OryUI Discord server
 
-[AGK Forum thread for OryUI](https://forum.thegamecreators.com/thread/223719)
-[OryUI Discord](https://discord.gg/Ebvtt2f)
+* [AGK Forum thread for OryUI](https://forum.thegamecreators.com/thread/223719)
+* [OryUI Discord](https://discord.gg/Ebvtt2f)
 
 ## License
 The OryUI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
