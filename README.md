@@ -12,7 +12,7 @@ With it you can create the following UI components:
 
 It also contains a number of sprite and text functions including a number of 'pin sprite to' and 'pin text to', as well as a WrapText function.
 
-OryUI at the moment is set to work best with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing.
+OryUI at the moment is set to work best with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps)
 
 It's in an early stage of development so you may only want to play around with it and not put it in a live app (although I am). How components are called and displayed may change slightly. All effort would be taken to make sure future changes made will not break old code in your app.
 
