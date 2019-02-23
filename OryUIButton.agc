@@ -134,6 +134,22 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer), OryUIParameters.size#[2])
 		endif
+		if (OryUIParameters.text$ <> "")
+			SetTextString(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.text$)
+		endif
+		if (OryUIParameters.textAlignment = 0)
+			OryUIPinTextToCentreLeftOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
+		elseif (OryUIParameters.textAlignment = 1)
+			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
+		elseif (OryUIParameters.textAlignment = 2)
+			OryUIPinTextToCentreRightOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
+		endif
+		if (OryUIParameters.textBold > -999999)
+			SetTextBold(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textBold)
+		endif
+		if (OryUIParameters.textSize# > -999999)
+			SetTextSize(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textSize#)
+		endif
 		if (OryUIParameters.offsetCenter = 1)
 			SetSpriteOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer) / 2, GetSpriteHeight(OryUIButtonCollection[oryUIButtonID].sprContainer) / 2)
 		else
@@ -166,24 +182,8 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 		if (OryUIParameters.imageID > -999999)
 			SetSpriteImage(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.imageID)
 		endif
-		if (OryUIParameters.text$ <> "")
-			SetTextString(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.text$)
-		endif
-		if (OryUIParameters.textAlignment = 0)
-			OryUIPinTextToCentreLeftOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
-		elseif (OryUIParameters.textAlignment = 1)
-			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
-		elseif (OryUIParameters.textAlignment = 2)
-			OryUIPinTextToCentreRightOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
-		endif
-		if (OryUIParameters.textBold > -999999)
-			SetTextBold(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textBold)
-		endif
 		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
 			SetTextColor(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
-		endif
-		if (OryUIParameters.textSize# > -999999)
-			SetTextSize(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textSize#)
 		endif
 	endif
 endfunction
