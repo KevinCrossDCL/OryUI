@@ -19,9 +19,10 @@ It's in an early stage of development so you may only want to play around with i
 ## Installation
 To include it in your project add the following line to the top of your script
 
-#insert "OryUI.agc"\n
-#insert "OryUIButton.agc"\n
-#insert "OryUIButtonGroup.agc"\n
+```
+#insert "OryUI.agc"
+#insert "OryUIButton.agc"
+#insert "OryUIButtonGroup.agc"
 #insert "OryUIFloatingActionButton.agc"
 #insert "OryUIList.agc"
 #insert "OryUIMedia.agc"
@@ -30,6 +31,7 @@ To include it in your project add the following line to the top of your script
 #insert "OryUITextCard.agc"
 #insert "OryUITextfield.agc"
 #insert "OryUITouch.agc"
+```
 
 You will also need to copy the OryUIMedia folder into your media folder as a subfolder.
 
