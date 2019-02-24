@@ -1,5 +1,5 @@
 
-foldstart // OryUIButtonGroup Component (Updated 23/02/2019)
+foldstart // OryUIButtonGroup Component (Updated 24/02/2019)
 
 type typeOryUIButtonGroup
 	id as integer
@@ -93,7 +93,7 @@ function OryUIGetButtonGroupItemPressed(oryUIButtonGroupID as integer, oryUIItem
 	local oryUIButtonGroupItemSprite as integer
 	local oryUIButtonGroupItemText as integer
 	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer))
-		if (OryUIGetDraggingVertically() = 0)
+		if (OryUIGetSwipingVertically() = 0)
 			if (GetPointerPressed())
 				oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				oryUIButtonGroupItemText = GetTextHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
@@ -123,7 +123,7 @@ function OryUIGetButtonGroupItemReleased(oryUIButtonGroupID as integer, oryUIIte
 	local oryUIButtonGroupItemSprite as integer
 	local oryUIButtonGroupItemText as integer
 	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer))
-		if (OryUIGetDraggingVertically() = 0)
+		if (OryUIGetSwipingVertically() = 0)
 			if (GetPointerPressed())
 				oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				oryUIButtonGroupItemText = GetTextHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
