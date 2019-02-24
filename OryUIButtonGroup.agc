@@ -240,11 +240,11 @@ function OryUIUpdateButtonGroup(oryUIButtonGroupID as integer, oryUIComponentPar
 				SetSpriteOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, OryUIParameters.offset#[1], OryUIParameters.offset#[2])
 			endif
 		endif
-		if (OryUIParameters.position#[1] > -999999 or OryUIParameters.position#[2] > -999999)
+		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 or OryUIParameters.position#[2] = -999999)
+		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
 			SetSpritePositionByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
-		elseif (OryUIParameters.position#[1] = -999999 or OryUIParameters.position#[2] > -999999)
+		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, GetSpriteXByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer), OryUIParameters.position#[2])
 		endif
 
