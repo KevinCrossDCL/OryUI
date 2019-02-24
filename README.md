@@ -33,7 +33,7 @@ To include it in your project add the following line to the top of your script
 #insert "OryUITouch.agc"
 ```
 
-You will also need to copy the OryUIMedia folder into your media folder as a subfolder.
+You will also need to copy the OryUIMedia folder into your media folder as a subfolder i.e. media\OryUIMedia.
 
 The above insert line is based on the files being placed in your project folder. You will need to change the insert path if you place the file somewhere else.
 
