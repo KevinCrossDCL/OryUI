@@ -1,8 +1,8 @@
 
-foldstart // OryUITouch (Updated 17/02/2019)
+foldstart // OryUITouch (Updated 24/02/2019)
 
-global oryUIDraggingHorizontally as integer
-global oryUIDraggingVertically as integer
+global oryUISwipingHorizontally as integer
+global oryUISwipingVertically as integer
 global oryUIDX# as float
 global oryUIDY# as float
 global oryUIPressedX# as float
@@ -18,19 +18,19 @@ global oryUIViewY# as float
 
 function OryUIEndTrackingTouch()
 	if (GetPointerReleased())
-		oryUIDraggingHorizontally = 0
-		oryUIDraggingVertically = 0
+		oryUISwipingHorizontally = 0
+		oryUISwipingVertically = 0
 		oryUISpriteHit = 0
 	endif
 endfunction
 
-function OryUIGetDraggingHorizontally()
+function OryUIGetSwipingHorizontally()
 
-endfunction oryUIDraggingHorizontally
+endfunction oryUISwipingHorizontally
 
-function OryUIGetDraggingVertically()
+function OryUIGetSwipingVertically()
 
-endfunction oryUIDraggingVertically
+endfunction oryUISwipingVertically
 
 function OryUIStartTrackingTouch()
 	if (GetPointerPressed())
@@ -58,7 +58,7 @@ function OryUIStartTrackingTouch()
 					//if (viewDX# < contentStartX#) then viewDX# = contentStartX#
 					//SetViewOffset(oryUIViewDX#, GetViewOffsetY())
 					if (abs(oryUIDX#) > 0.5)
-						oryUIDraggingHorizontally = 1
+						oryUISwipingHorizontally = 1
 					endif
 				//endif
 				//if (scrollStartY# > contentStartY#)
@@ -70,7 +70,7 @@ function OryUIStartTrackingTouch()
 					//if (viewDY# < 0) then viewDY# = 0
 					//SetViewOffset(GetViewOffsetX(), oryUIViewDY#)
 					if (abs(oryUIDY#) > 0.5)
-						oryUIDraggingVertically = 1
+						oryUISwipingVertically = 1
 						//if (contentHeight# > 100 - contentStartY#)
 						//	UpdateSprite(sprScrollBar, "size:1," + str((100 - contentStartY#) * (100 / contentHeight#)) + ";position:" + str((screenNo * 10000) + 99) + "," + str(GetScrollBarY(contentStartY#, 100)) + ";alpha:75")
 						//endif
