@@ -1,5 +1,5 @@
 # OryUI
-OryUI is a UI framework to be used with AGK2 (AppGameKit). It's a work in progress.
+OryUI is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
 
 With it you can create the following UI components:
 
@@ -35,7 +35,7 @@ To include it in your project add the following line to the top of your script
 
 You will also need to copy the OryUIMedia folder into your media folder as a subfolder i.e. media\OryUIMedia.
 
-The above insert line is based on the files being placed in your project folder. You will need to change the insert path if you place the file somewhere else.
+The above insert lines are based on the files being placed in your project folder. You will need to change the insert paths if you place the files somewhere else.
 
 If you want to access the OryUI Touch events (only swiping available at the moment) then you will need to add OryUIStartTrackingTouch() and OryUIEndTrackingTouch() to your main game/app do loop. This is required for when using textfields and may become necessary for other components in the future.
 
@@ -53,7 +53,7 @@ do
 loop
 ```
 
-A copy of AGK2 is required to use OryUI. https://www.appgamekit.com
+A copy of AGK2 is required to use OryUI. For more information on AGK2 check out: https://www.appgamekit.com
 
 ## Documentation
 I've started on some documentation which can be found here in the Wiki section: https://github.com/KevinCrossDCL/OryUI/wiki
