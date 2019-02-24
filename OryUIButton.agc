@@ -50,7 +50,7 @@ function OryUIGetButtonPressed(oryUIButtonID as integer)
 	local oryUIButtonSprite as integer
 	local oryUIButtonText as integer
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		if (OryUIGetDraggingVertically() = 0)
+		if (OryUIGetSwipingVertically() = 0)
 			if (GetPointerPressed())
 				oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
@@ -80,7 +80,7 @@ function OryUIGetButtonReleased(oryUIButtonID as integer)
 	local oryUIButtonSprite as integer
 	local oryUIButtonText as integer
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		if (OryUIGetDraggingVertically() = 0)
+		if (OryUIGetSwipingVertically() = 0)
 			if (GetPointerPressed())
 				oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
