@@ -265,7 +265,7 @@ function OryUIUpdateListItem(oryUIListID as integer, oryUIListItemID as integer,
 			SetTextBold(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1TextBold)
 		endif
 		if (OryUIParameters.rightLine1TextSize# > -999999)
-			SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine1TextSize#)
+			SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1TextSize#)
 		endif
 		if (OryUIParameters.rightLine2Text$ <> "")
 			SetTextString(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2Text$)
