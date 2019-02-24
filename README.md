@@ -7,10 +7,10 @@ With it you can create the following UI components:
 * Button Groups (Radio buttons)
 * Floating Action Buttons
 * Lists (1 or 2 line lists with left and right text, and left thumbnail images if required)
-* TextCards (Simple cards, with title and subtitle)
-* Textfields
 * Sprites
 * Text
+* Text Cards (Simple cards, with title and supporting text)
+* Textfields
 
 OryUI at the moment is set to work best with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps)
 
