@@ -70,7 +70,7 @@ function OryUIGetFloatingActionButtonPressed(oryUIFloatingActionButtonID as inte
 	local oryUIFloatingActionButtonContainerSprite as integer
 	local oryUIFloatingActionButtonIconSprite as integer
 	if (GetSpriteExists(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
-		if (OryUIGetDraggingVertically() = 0)
+		if (OryUIGetSwipingVertically() = 0)
 			if (GetPointerPressed())
 				oryUIFloatingActionButtonContainerSprite = GetSpriteHitTest(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				oryUIFloatingActionButtonIconSprite = GetSpriteHitTest(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
@@ -100,7 +100,7 @@ function OryUIGetFloatingActionButtonReleased(oryUIFloatingActionButtonID as int
 	local oryUIFloatingActionButtonContainerSprite as integer
 	local oryUIFloatingActionButtonIconSprite as integer
 	if (GetSpriteExists(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
-		if (OryUIGetDraggingVertically() = 0)
+		if (OryUIGetSwipingVertically() = 0)
 			if (GetPointerPressed())
 				oryUIFloatingActionButtonContainerSprite = GetSpriteHitTest(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				oryUIFloatingActionButtonIconSprite = GetSpriteHitTest(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
