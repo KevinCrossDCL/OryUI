@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 22/02/2019)
+foldstart // OryUITextfield Component (Updated 24/02/2019)
 
 type typeOryUITextfield
 	id as integer
@@ -131,7 +131,7 @@ function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover))
 			if (GetPointerReleased())
-				if (OryUIGetDraggingVertically() = 0)
+				if (OryUIGetSwipingVertically() = 0)
 					if (oryUISpriteHit = OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover)
 						SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
 						SetEditBoxFocus(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
