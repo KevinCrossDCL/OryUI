@@ -115,25 +115,25 @@ function OryUIInsertListItem(oryUIListID as integer, oryUIListIndex as integer, 
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], 0, 0)
 	SetSpritePositionByOffset(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], GetSpriteXByOffset(OryUIListCollection[oryUIListID].sprContainer), GetSpriteYByOffset(OryUIListCollection[oryUIListID].sprContainer) + 0.1 + (oryUIListItemID * OryUIListCollection[oryUIListID].itemSize#[2]))
 
-	OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID] = CreateText(" ")
+	OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID] = CreateText("Left Line 1")
 	SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], 3)
 	SetTextColor(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], 0, 0, 0, 255)
 	SetTextAlignment(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], 0)
 	SetTextDepth(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 
-	OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID] = CreateText(" ")
+	OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID] = CreateText("Left Line 2")
 	SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], 2.6)
 	SetTextColor(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], 0, 0, 0, 255)
 	SetTextAlignment(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], 0)
 	SetTextDepth(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 
-	OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID] = CreateText(" ")
+	OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID] = CreateText("Right Line 1")
 	SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], 3)
 	SetTextColor(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], 0, 0, 0, 255)
 	SetTextAlignment(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], 2)
 	SetTextDepth(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 
-	OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID] = CreateText(" ")
+	OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID] = CreateText("Right Line 2")
 	SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], 2.6)
 	SetTextColor(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], 0, 0, 0, 255)
 	SetTextAlignment(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], 2)
@@ -238,8 +238,43 @@ function OryUIUpdateListItem(oryUIListID as integer, oryUIListItemID as integer,
 			if (lower(OryUIParameters.rightIcon$) = "delete") then SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], oryUIIconDeleteImage)
 			OryUIPinSpriteToCentreRightOfSprite(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], -(2 + (GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID]) / 2)), 0)
 		elseif (OryUIListCollection[oryUIListID].showRightIcon = 0)
-			print("got here")
 			SetSpriteSize(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], 0, 0)
+		endif
+		if (OryUIParameters.leftLine1Text$ <> "")
+			SetTextString(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1Text$)
+		endif
+		if (OryUIParameters.leftLine1TextBold > -999999)
+			SetTextBold(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1TextBold)
+		endif
+		if (OryUIParameters.leftLine1TextSize# > -999999)
+			SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1TextSize#)
+		endif
+		if (OryUIParameters.leftLine2Text$ <> "")
+			SetTextString(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2Text$)
+		endif
+		if (OryUIParameters.leftLine2TextBold > -999999)
+			SetTextBold(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2TextBold)
+		endif
+		if (OryUIParameters.leftLine2TextSize# > -999999)
+			SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2TextSize#)
+		endif
+		if (OryUIParameters.rightLine1Text$ <> "")
+			SetTextString(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1Text$)
+		endif
+		if (OryUIParameters.rightLine1TextBold > -999999)
+			SetTextBold(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1TextBold)
+		endif
+		if (OryUIParameters.rightLine1TextSize# > -999999)
+			SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine1TextSize#)
+		endif
+		if (OryUIParameters.rightLine2Text$ <> "")
+			SetTextString(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2Text$)
+		endif
+		if (OryUIParameters.rightLine2TextBold > -999999)
+			SetTextBold(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2TextBold)
+		endif
+		if (OryUIParameters.rightLine2TextSize# > -999999)
+			SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2TextSize#)
 		endif
 		if (OryUIParameters.noOfLeftLines = 1)
 			SetTextPosition(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + 4 + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID]), (GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0)) - (GetTextTotalHeight(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID]) / 2.0))
@@ -254,61 +289,37 @@ function OryUIUpdateListItem(oryUIListID as integer, oryUIListItemID as integer,
 			SetTextPosition(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + 4 + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID]), (GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0)) - GetTextTotalHeight(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID]) - 0.1)
 			SetTextPosition(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + 4 + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID]), GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0) + 0.1)
 		endif
-
+		if (OryUIParameters.noOfRightLines = 1)
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], (GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])) - 2, (GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0)) - (GetTextTotalHeight(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID]) / 2.0))
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], -10000, -10000)
+		elseif (OryUIParameters.noOfRightLines = 2)
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], (GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])) - 2, (GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0)) - GetTextTotalHeight(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID]) - 0.1)
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], (GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])) - 2, GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0) + 0.1)
+		elseif (OryUIListCollection[oryUIListID].noOfRightLines = 1)
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], (GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])) - 2, (GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0)) - (GetTextTotalHeight(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID]) / 2.0))
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], -10000, -10000)
+		elseif (OryUIListCollection[oryUIListID].noOfRightLines = 2)
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], (GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])) - 2, (GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0)) - GetTextTotalHeight(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID]) - 0.1)
+			SetTextPosition(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], (GetSpriteX(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])) - 2, GetSpriteY(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + (GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) / 2.0) + 0.1)
+		endif
 		// THE REST OF THE PARAMETERS NEXT
 		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
 			SetSpriteColor(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.leftLine1Text$ <> "")
-			SetTextString(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1Text$)
-		endif
-		if (OryUIParameters.leftLine1TextBold > -999999)
-			SetTextBold(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1TextBold)
-		endif
 		if (OryUIParameters.leftLine1TextColor#[1] > -999999 or OryUIParameters.leftLine1TextColor#[2] > -999999 or OryUIParameters.leftLine1TextColor#[3] > -999999 or OryUIParameters.leftLine1TextColor#[4] > -999999)
 			SetTextColor(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1TextColor#[1], OryUIParameters.leftLine1TextColor#[2], OryUIParameters.leftLine1TextColor#[3], OryUIParameters.leftLine1TextColor#[4])
-		endif
-		if (OryUIParameters.leftLine1TextSize# > -999999)
-			SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], OryUIParameters.leftLine1TextSize#)
-		endif
-		if (OryUIParameters.leftLine2Text$ <> "")
-			SetTextString(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2Text$)
-		endif
-		if (OryUIParameters.leftLine2TextBold > -999999)
-			SetTextBold(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2TextBold)
 		endif
 		if (OryUIParameters.leftLine2TextColor#[1] > -999999 or OryUIParameters.leftLine2TextColor#[2] > -999999 or OryUIParameters.leftLine2TextColor#[3] > -999999 or OryUIParameters.leftLine2TextColor#[4] > -999999)
 			SetTextColor(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2TextColor#[1], OryUIParameters.leftLine2TextColor#[2], OryUIParameters.leftLine2TextColor#[3], OryUIParameters.leftLine2TextColor#[4])
 		endif
-		if (OryUIParameters.leftLine2TextSize# > -999999)
-			SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine2[oryUIListItemID], OryUIParameters.leftLine2TextSize#)
-		endif
 		if (OryUIParameters.rightIconColor#[1] > -999999 or OryUIParameters.rightIconColor#[2] > -999999 or OryUIParameters.rightIconColor#[3] > -999999 or OryUIParameters.rightIconColor#[4] > -999999)
 			SetSpriteColor(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], OryUIParameters.rightIconColor#[1], OryUIParameters.rightIconColor#[2], OryUIParameters.rightIconColor#[3], OryUIParameters.rightIconColor#[4])
-		endif
-		if (OryUIParameters.rightLine1Text$ <> "")
-			SetTextString(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1Text$)
-		endif
-		if (OryUIParameters.rightLine1TextBold > -999999)
-			SetTextBold(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1TextBold)
 		endif
 		if (OryUIParameters.rightLine1TextColor#[1] > -999999 or OryUIParameters.rightLine1TextColor#[2] > -999999 or OryUIParameters.rightLine1TextColor#[3] > -999999 or OryUIParameters.rightLine1TextColor#[4] > -999999)
 			SetTextColor(OryUIListCollection[oryUIListID].txtItemRightLine1[oryUIListItemID], OryUIParameters.rightLine1TextColor#[1], OryUIParameters.rightLine1TextColor#[2], OryUIParameters.rightLine1TextColor#[3], OryUIParameters.rightLine1TextColor#[4])
 		endif
-		if (OryUIParameters.rightLine1TextSize# > -999999)
-			SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine1TextSize#)
-		endif
-		if (OryUIParameters.rightLine2Text$ <> "")
-			SetTextString(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2Text$)
-		endif
-		if (OryUIParameters.rightLine2TextBold > -999999)
-			SetTextBold(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2TextBold)
-		endif
 		if (OryUIParameters.rightLine2TextColor#[1] > -999999 or OryUIParameters.rightLine2TextColor#[2] > -999999 or OryUIParameters.rightLine2TextColor#[3] > -999999 or OryUIParameters.rightLine2TextColor#[4] > -999999)
 			SetTextColor(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2TextColor#[1], OryUIParameters.rightLine2TextColor#[2], OryUIParameters.rightLine2TextColor#[3], OryUIParameters.rightLine2TextColor#[4])
-		endif
-		if (OryUIParameters.rightLine2TextSize# > -999999)
-			SetTextSize(OryUIListCollection[oryUIListID].txtItemRightLine2[oryUIListItemID], OryUIParameters.rightLine2TextSize#)
 		endif
 		SetSpriteSize(OryUIListCollection[oryUIListID].sprItemDivider[oryUIListItemID], GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]), 0.05)
 		SetSpritePositionByOffset(OryUIListCollection[oryUIListID].sprItemDivider[oryUIListItemID], GetSpriteXByOffset(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]), GetSpriteYByOffset(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) + GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]))
