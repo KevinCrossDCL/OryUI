@@ -96,6 +96,8 @@ function OryUISetSpriteToPan(oryUISpriteToPan as integer)
 	OryUITouchCollection[0].spriteToPan = oryUISpriteToPan
 endfunction
 
+// The GetRawTouch code in the below function is based on @baxslash's PinchZoom function he shared on the AGK forum
+// https://forum.thegamecreators.com/thread/205033
 function OryUIStartTrackingTouch()
 	OryUITouchCollection[0].previousTouchCount = OryUITouchCollection[0].touchCount
 	OryUITouchCollection[0].touchCount = 0
