@@ -13,7 +13,7 @@ With it you can create the following UI components:
 * Text Cards (Simple cards, with title and supporting text)
 * Textfields
 
-OryUI at the moment is set to work best with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps)
+OryUI at the moment is set to work with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps so it's not a high priority for me). This is an important fact to consider because a button 30% wide and 5% high will look much smaller if you're not using percentages because it will actually be sized as 30px wide and 5px high. Another example is the Edit Avatar screen which fills the screen when using percentages, but looks silly on pixel based positioning and sizing because it only fills 100x100 pixels of the screen.
 
 It's in an early stage of development so you may only want to play around with it and not put it in a live app (although I am). How components are called and displayed may change slightly. All effort would be taken to make sure future changes made will not break old code in your app.
 
