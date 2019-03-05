@@ -139,6 +139,9 @@ function OryUIGetButtonGroupItemReleased(oryUIButtonGroupID as integer, oryUIIte
 							OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].pressed = 0
 						endif
 					endif
+					if (OryUIGetSwipingVertically())
+						OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].pressed = 0
+					endif
 				endif
 				if (GetPointerReleased())
 					oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
