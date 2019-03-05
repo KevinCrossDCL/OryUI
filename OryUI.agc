@@ -7,19 +7,21 @@
  * 	License	: MIT
  */
 
-foldstart // OryUI Main Types (Updated 22/02/2019)
+foldstart // OryUI Main Types (Updated 05/03/2019)
 
 type typeOryUIParameters
 	alignment as integer 					// OryUIText
 	angle# as float 						// OryUISprite, OryUIText
 	attachToSpriteID as integer 			// OryUIFloatingActionButton
 	autoHeight as integer					// OryUITextCard
-	backgroundColor# as float[4]			// OryUITextfield
+	backgroundColor# as float[4]			// OryUIProfileImageScreen, OryUITextfield
 	blockOrder$ as string[]					// OryUICard
 	bold as integer							// OryUIText
+	cancelText$ as string					// OryUIProfileImageScreen
 	color# as float[4]						// OryUIButton, OryUIFloatingActionButton, OryUIList, OryUISprite, OryUIText, OryUITextfield
 	depth as integer						// OryUIButton, OryUIButtonGroup, OryUIFloatingActionButton, OryUIList, OryUISprite, OryUIText
 	fixToscreen as integer					// OryUIButton, OryUISprite, OryUIText
+	frameShape$ as String					// OryUIProfileImageScreen
 	group as integer						// OryUISprite
 	headerText$ as string					// OryUITextCard
 	headerTextAlignment as integer			// OryUITextCard
@@ -28,7 +30,7 @@ type typeOryUIParameters
 	headerTextSize# as float				// OryUITextCard
 	icon$ as string 						// OryUIFloatingActionButton
 	iconColor# as float[4]					// OryUIFloatingActionButton
-	imageID as float						// OryUIButton, OryUISprite
+	imageID as integer						// OryUIButton, OryUIProfileImageScreen, OryUISprite
 	inputText$ as string					// OryUITextfield
 	inputType$ as string					// OryUITextfield
 	itemSize# as float[2]					// OryUIList
@@ -43,13 +45,14 @@ type typeOryUIParameters
 	leftLine2TextSize# as float				// OryUIList
 	leftThumbnailImageID as float			// OryUIList
 	maxLength as integer					// OryUITextfield
+	maxZoom# as float						// OryUIProfileImageScreen
 	mini as integer 						// OryUIFloatingActionButton
 	noOfLeftLines as integer				// OryUIList
 	noOfRightLines as integer				// OryUIList
 	offset# as float[2]						// OryUIButton, OryUIButtonGroup, OryUISprite
 	offsetCenter as integer					// OryUIButton, OryUIButtonGroup, OryUISprite
 	placement$ as string					// OryUIFloatingActionButton
-	position# as float[2]					// OryUIButton, OryUIButtonGroup, OryUIList, OryUISprite, OryUIText, OryUITextfield
+	position# as float[2]					// OryUIButton, OryUIButtonGroup, OryUIList, OryUIProfileImageScreen, OryUISprite, OryUIText, OryUITextfield
 	rightIcon$ as string					// OryUIList
 	rightIconColor# as float[4]				// OryUIList
 	rightLine1Text$ as string				// OryUIList
@@ -60,6 +63,7 @@ type typeOryUIParameters
 	rightLine2TextBold as integer			// OryUIList
 	rightLine2TextColor# as float[4]		// OryUIList
 	rightLine2TextSize# as float			// OryUIList
+	saveText$ as string						// OryUIProfileImageScreen
 	selected as integer						// OryUIButtonGroup
 	selectedColor# as float[4]				// OryUIButtonGroup
 	selectedTextBold as integer				// OryUIButtonGroup
@@ -114,8 +118,10 @@ function OryUIResetParametersType()
 	OryUIParameters.autoHeight = -999999
 	OryUIParameters.blockOrder$.length = -1
 	OryUIParameters.bold = -999999
+	OryUIParameters.cancelText$ = ""
 	OryUIParameters.depth = -999999
 	OryUIParameters.fixToscreen = -999999
+	OryUIParameters.frameShape$ = ""
 	OryUIParameters.group = -999999
 	OryUIParameters.headerText$ = ""
 	OryUIParameters.headerTextAlignment = -999999
@@ -134,6 +140,7 @@ function OryUIResetParametersType()
 	OryUIParameters.leftLine2TextSize# = -999999
 	OryUIParameters.leftThumbnailImageID = -999999
 	OryUIParameters.maxLength = -999999
+	OryUIParameters.maxZoom# = -999999
 	OryUIParameters.mini = -999999
 	OryUIParameters.noOfLeftLines = -999999
 	OryUIParameters.noOfRightLines = -999999
@@ -146,6 +153,7 @@ function OryUIResetParametersType()
 	OryUIParameters.rightLine2Text$ = ""
 	OryUIParameters.rightLine2TextBold = -999999
 	OryUIParameters.rightLine2TextSize# = -999999
+	OryUIParameters.saveText$ = ""
 	OryUIParameters.selected = -999999
 	OryUIParameters.selectedTextBold = -999999
 	OryUIParameters.selectedTextSize# = -999999	
@@ -255,6 +263,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.bold = 0
 			endif
+		elseif (oryUIVariable$ = "canceltext")
+			OryUIParameters.cancelText$ = oryUIValue$
 		elseif (oryUIVariable$ = "color")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.color#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -278,6 +288,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.fixToScreen = 0
 			endif
+		elseif (oryUIVariable$ = "frameshape")
+			OryUIParameters.frameShape$ = oryUIValue$
 		elseif (oryUIVariable$ = "group")
 			OryUIParameters.group = val(oryUIValue$)
 		elseif (oryUIVariable$ = "headertext")
@@ -395,6 +407,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.leftLine2TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "leftthumbnailimage")
 			OryUIParameters.leftThumbnailImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "maxzoom")
+			OryUIParameters.maxZoom# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "mini")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.mini = 1
@@ -484,6 +498,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.rightLine2TextColor#[4] = 255
 		elseif (oryUIVariable$ = "rightline2textsize")
 			OryUIParameters.rightLine2TextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "savetext")
+			OryUIParameters.saveText$ = oryUIValue$
 		elseif (oryUIVariable$ = "selected")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.selected = 1
