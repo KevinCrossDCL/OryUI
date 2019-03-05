@@ -5,6 +5,7 @@ With it you can create the following UI components:
 
 * Buttons
 * Button Groups (Radio buttons)
+* Edit Avatar Screen
 * Floating Action Buttons
 * Lists (1 or 2 line lists with left and right text, and left thumbnail images if required)
 * Sprites
@@ -23,6 +24,7 @@ To include it in your project add the following line to the top of your script
 #insert "OryUI.agc"
 #insert "OryUIButton.agc"
 #insert "OryUIButtonGroup.agc"
+#insert "OryUIEditAvatarScreen.agc"
 #insert "OryUIFloatingActionButton.agc"
 #insert "OryUIList.agc"
 #insert "OryUIMedia.agc"
