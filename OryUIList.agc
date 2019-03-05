@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Component (Updated 24/02/2019)
+foldstart // OryUIList Component (Updated 05/03/2019)
 
 type typeOryUIList
 	id as integer
@@ -188,7 +188,7 @@ function OryUIInsertListListener(oryUIListID as integer)
 	for oryUIForI = 0 to OryUIGetListItemCount(oryUIListID)
 		if (oryUIForI <= OryUIListCollection[oryUIListID].itemID.length)
 			OryUIUpdateListItem(oryUIListID, oryUIForI, "")
-			if (GetSpriteExists(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIForI]))
+			if (GetSpriteExists(OryUIListCollection[oryUIListID].sprItemContainer[oryUIForI]))
 				if (OryUIGetSwipingVertically() = 0)
 					if (GetPointerPressed())
 						oryUIListItemRightIconSprite = GetSpriteHitTest(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIForI], ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
