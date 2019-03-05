@@ -210,16 +210,19 @@ function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer,
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
+			OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 		endif
 		if (lower(OryUIParameters.placement$) = "bottomcenter" or lower(OryUIParameters.placement$) = "bottomcentre")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomCenter"
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) / 2, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer) / 2, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
+			OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 		endif
 		if (lower(OryUIParameters.placement$) = "bottomleft")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomLeft"
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 0, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
+			OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 		endif
 		if (OryUIParameters.shadow >= 0)
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = OryUIParameters.shadow
