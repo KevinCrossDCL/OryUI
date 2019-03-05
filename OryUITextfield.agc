@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 24/02/2019)
+foldstart // OryUITextfield Component (Updated 05/03/2019)
 
 type typeOryUITextfield
 	id as integer
@@ -130,16 +130,39 @@ function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 	//local oryUITextfieldSprite as integer
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover))
-			if (GetPointerReleased())
+			if (GetPointerPressed())
 				if (OryUIGetSwipingVertically() = 0)
-					if (oryUISpriteHit = OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover)
-						SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
-						SetEditBoxFocus(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
+					oryUITextfieldIvisibleCoverSprite = GetSpriteHitTest(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+					if (oryUITextfieldIvisibleCoverSprite = 1)
+						OryUITextfieldCollection[oryUITextfieldID].pressed = 1
 					else
-						SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
-						SetEditBoxFocus(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
+						OryUITextfieldCollection[oryUITextfieldID].pressed = 0
+					endif
+				else
+					OryUITextfieldCollection[oryUITextfieldID].pressed = 0
+				endif
+			elseif (OryUITextfieldCollection[oryUITextfieldID].pressed = 1)
+				if (GetPointerState())
+					if (OryUIGetSwipingVertically())
+						OryUITextfieldCollection[oryUITextfieldID].pressed = 0
 					endif
 				endif
+				if (GetPointerReleased())
+					if (OryUIGetSwipingVertically() = 0)
+						oryUITextfieldIvisibleCoverSprite = GetSpriteHitTest(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+						if (OryUITextfieldCollection[oryUITextfieldID].pressed = 1)
+							if (oryUITextfieldIvisibleCoverSprite = 1)
+								SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
+								SetEditBoxFocus(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
+							else
+								SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
+								SetEditBoxFocus(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
+							endif
+						endif
+					endif
+					OryUITextfieldCollection[oryUITextfieldID].pressed = 0
+				endif
+				
 			endif
 		endif
 		if (GetEditBoxExists(OryUITextfieldCollection[oryUITextfieldID].editBox))
