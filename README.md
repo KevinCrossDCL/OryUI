@@ -39,7 +39,7 @@ You will also need to copy the OryUIMedia folder into your media folder as a sub
 
 The above insert lines are based on the files being placed in your project folder. You will need to change the insert paths if you place the files somewhere else.
 
-If you want to access the OryUI Touch events (only swiping available at the moment) then you will need to add OryUIStartTrackingTouch() and OryUIEndTrackingTouch() to your main game/app do loop. This is required for when using textfields and may become necessary for other components in the future.
+If you want to access the OryUI Touch events (only swiping available at the moment) then you will need to add OryUIStartTrackingTouch() and OryUIEndTrackingTouch() to your main game/app do loop. This is required for when using textfields, and the edit avatar screen component. It may become necessary for other components in the future too.
 
 ```
 do
