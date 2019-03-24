@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Component (Updated 05/03/2019)
+foldstart // OryUIList Component (Updated 23/03/2019)
 
 type typeOryUIList
 	id as integer
@@ -89,6 +89,7 @@ function OryUIGetListHeight(oryUIListID as integer)
 		endif
 	next
 	oryUIListHeight# = oryUIListEndY# - oryUIListStartY#
+	if (oryUIListHeight# < 0) then oryUIListHeight# = 0
 endfunction oryUIListHeight#
 
 function OryUIGetListItemCount(oryUIListID as integer)
@@ -301,6 +302,10 @@ function OryUIUpdateListItem(oryUIListID as integer, oryUIListItemID as integer,
 			if (OryUIListCollection[oryUIListID].showRightIcon = 1)
 				if (OryUIParameters.rightIcon$ <> "") then OryUIListCollection[oryUIListID].rightIconType$[oryUIListItemID] = OryUIParameters.rightIcon$
 				if (lower(OryUIListCollection[oryUIListID].rightIconType$[oryUIListItemID]) = "delete") then SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], oryUIIconDeleteImage)
+				if (OryUIParameters.rightIconID > -999999)
+					OryUIListCollection[oryUIListID].rightIconType$[oryUIListItemID] = "custom"
+					SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], OryUIParameters.rightIconID)
+				endif
 				OryUIPinSpriteToCentreRightOfSprite(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], -(2 + (GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID]) / 2)), 0)
 			elseif (OryUIListCollection[oryUIListID].showRightIcon = 0)
 				SetSpriteSize(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], 0, 0)
