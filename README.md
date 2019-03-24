@@ -1,5 +1,5 @@
 # OryUI
-OryUI is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
+OryUI (v0.2a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
 
 With it you can create the following UI components:
 
@@ -7,11 +7,15 @@ With it you can create the following UI components:
 * Button Groups (Radio buttons)
 * Edit Avatar Screen
 * Floating Action Buttons
-* Lists (1 or 2 line lists with left and right text, and left thumbnail images if required)
+* Lists (1 or 2 line lists with left and right text, and thumbnail/icon images if required)
+* Menus (Drop down / pop up type menus)
+* Progress Indicators
 * Sprites
+* Tabs
 * Text
 * Text Cards (Simple cards, with title and supporting text)
 * Textfields
+* Top Bars
 
 OryUI at the moment is set to work with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps so it's not a high priority for me). This is an important fact to consider because a button 30% wide and 5% high will look much smaller if you're not using percentages because it will actually be sized as 30px wide and 5px high. Another example is the Edit Avatar screen which fills the screen when using percentages, but looks silly on pixel based positioning and sizing because it only fills 100x100 pixels of the screen.
 
@@ -28,10 +32,14 @@ To include it in your project add the following line to the top of your script
 #insert "OryUIFloatingActionButton.agc"
 #insert "OryUIList.agc"
 #insert "OryUIMedia.agc"
+#insert "OryUIMenu.agc"
+#insert "OryUIProgressIndicator.agc"
 #insert "OryUISprite.agc"
+#insert "OryUITabs.agc"
 #insert "OryUIText.agc"
 #insert "OryUITextCard.agc"
 #insert "OryUITextfield.agc"
+#insert "OryUITopBar.agc"
 #insert "OryUITouch.agc"
 ```
 
@@ -39,7 +47,7 @@ You will also need to copy the OryUIMedia folder into your media folder as a sub
 
 The above insert lines are based on the files being placed in your project folder. You will need to change the insert paths if you place the files somewhere else.
 
-If you want to access the OryUI Touch events (only swiping available at the moment) then you will need to add OryUIStartTrackingTouch() and OryUIEndTrackingTouch() to your main game/app do loop. This is required for when using textfields, and the edit avatar screen component. It may become necessary for other components in the future too.
+If you want to access the OryUI Touch events then you will need to add OryUIStartTrackingTouch() and OryUIEndTrackingTouch() to your main game/app do loop. This is required for some components like textfields, and the edit avatar screen component.
 
 ```
 do
