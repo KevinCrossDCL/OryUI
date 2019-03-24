@@ -1,11 +1,12 @@
 
-foldstart // OryUIButtonGroup Component (Updated 24/02/2019)
+foldstart // OryUIButtonGroup Component (Updated 18/03/2019)
 
 type typeOryUIButtonGroup
 	id as integer
 	buttons as typeOryUIButtonGroupItem[]
 	name$ as string
 	selected as integer
+	selectedChange as integer
 	selectedColor# as float[4]
 	selectedTextBold as integer
 	selectedTextColor# as float[4]
@@ -15,6 +16,7 @@ type typeOryUIButtonGroup
 	unselectedTextBold as integer
 	unselectedTextColor# as float[4]
 	unselectedTextSize# as float
+	updatedButtons as integer
 endtype
 
 type typeOryUIButtonGroupItem
@@ -50,9 +52,9 @@ function OryUICreateButtonGroup(oryUIComponentParameters$ as string)
 	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[3] = 199
 	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[4] = 255
 	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextBold = 0
-	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[1] = 255
-	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[2] = 255
-	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[3] = 255
+	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[1] = 128
+	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[2] = 128
+	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[3] = 128
 	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[4] = 255
 	OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextSize# = 3
 
@@ -74,6 +76,7 @@ endfunction
 
 function OryUIDeleteButtonGroupItem(oryUIButtonGroupID as integer, oryUIItemID as integer)
 	DeleteSprite(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID].sprContainer)
+	DeleteText(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID].txtLabel)
 endfunction
 
 function OryUIGetButtonGroupHeight(oryUIButtonGroupID as integer)
@@ -87,6 +90,13 @@ function OryUIGetButtonGroupItemCount(oryUIButtonGroupID as integer)
 	local oryUIButtonGroupItemCount
 	oryUIButtonGroupItemCount = OryUIButtonGroupCollection[oryUIButtonGroupID].buttons.length + 1
 endfunction oryUIButtonGroupItemCount
+
+function OryUIGetButtonGroupItemHeight(oryUIButtonGroupID as integer, oryUIItemID as integer)
+	local oryUIButtonGroupItemHeight#
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer))
+		oryUIButtonGroupItemHeight# = GetSpriteHeight(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer)
+	endif
+endfunction oryUIButtonGroupItemHeight#
 
 function OryUIGetButtonGroupItemPressed(oryUIButtonGroupID as integer, oryUIItemID as integer)
 	local oryUIButtonGroupItemPressed as integer
@@ -165,7 +175,22 @@ function OryUIGetButtonGroupItemSelected(oryUIButtonGroupID as integer)
 	oryUIButtonGroupItemSelected = OryUIButtonGroupCollection[oryUIButtonGroupID].selected
 endfunction oryUIButtonGroupItemSelected
 
-function OryUIInsertButtonGroupItem(oryUIButtonGroupID, oryUIIndex, oryUIComponentParameters$ as string)
+function OryUIGetButtonGroupItemWidth(oryUIButtonGroupID as integer, oryUIItemID as integer)
+	local oryUIButtonGroupItemWidth#
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer))
+		oryUIButtonGroupItemWidth# = GetSpriteWidth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIItemID - 1].sprContainer)
+	endif
+endfunction oryUIButtonGroupItemWidth#
+
+function OryUIGetButtonGroupWidth(oryUIButtonGroupID as integer)
+	local oryUIButtonGroupWidth#
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		oryUIButtonGroupWidth# = GetSpriteWidth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer)
+	endif
+endfunction oryUIButtonGroupWidth#
+
+
+function OryUIInsertButtonGroupItem(oryUIButtonGroupID as integer, oryUIIndex as integer, oryUIComponentParameters$ as string)
 	local oryUIButtonGroupItemID as integer
 	if (oryUIIndex = -1)
 		OryUIButtonGroupCollection[oryUIButtonGroupID].buttons.length = OryUIButtonGroupCollection[oryUIButtonGroupID].buttons.length + 1
@@ -187,7 +212,7 @@ function OryUIInsertButtonGroupItem(oryUIButtonGroupID, oryUIIndex, oryUICompone
 	SetTextDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel, GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer) - 1)
 	OryUIPinTextToCentreOfSprite(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel, OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer, 0, 0)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIButtonGroupItemID, oryUIComponentParameters$)
+	if (oryUIComponentParameters$ <> "") then OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIButtonGroupItemID + 1, oryUIComponentParameters$)
 endfunction
 
 function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
@@ -195,14 +220,22 @@ function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
 		if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprContainer))
 			if (OryUIGetButtonGroupItemReleased(oryUIButtonGroupID, oryUIForI + 1))
 				OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIForI + 1
-			endif
-			if (OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIForI + 1)
-				OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIForI, "color:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[4]) + ";textBold:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextBold) + ";textColor:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[4]) + ";textSize:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextSize#))
-			else
-				OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIForI, "color:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[4]) + ";textBold:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextBold) + ";textColor:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[4]) + ";textSize:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextSize#))
+				OryUIButtonGroupCollection[oryUIButtonGroupID].selectedChange = 1
 			endif
 		endif
 	next
+	if (OryUIButtonGroupCollection[oryUIButtonGroupID].selectedChange = 1)
+		for oryUIForI = 0 to OryUIGetButtonGroupItemCount(oryUIButtonGroupID) - 1
+			if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprContainer))
+				if (OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIForI + 1)
+					OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIForI + 1, "color:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedColor#[4]) + ";textBold:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextBold) + ";textColor:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextColor#[4]) + ";textSize:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].selectedTextSize#))
+				else
+					OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIForI + 1, "color:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[4]) + ";textBold:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextBold) + ";textColor:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[1]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[2]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[3]) + "," + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextColor#[4]) + ";textSize:" + str(OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedTextSize#))
+				endif
+			endif
+		next
+	endif
+	OryUIButtonGroupCollection[oryUIButtonGroupID].selectedChange = 0
 endfunction
 
 function OryUIResizeAndPositionButtonsInButtonGroup(oryUIButtonGroupID as integer)
@@ -219,8 +252,22 @@ function OryUIResizeAndPositionButtonsInButtonGroup(oryUIButtonGroupID as intege
 	next
 endfunction
 
+function OryUISetButtonGroupItemCount(oryUIButtonGroupID as integer, oryUINewButtonGroupItemCount as integer)
+	local oryUIOldButtonGroupItemCount
+	oryUIOldButtonGroupItemCount = OryUIGetButtonGroupItemCount(oryUIButtonGroupID) - 1
+	while (OryUIGetButtonGroupItemCount(oryUIButtonGroupID) - 1 > oryUINewButtonGroupItemCount - 1)
+		OryUIDeleteButtonGroupItem(oryUIButtonGroupID, OryUIGetButtonGroupItemCount(oryUIButtonGroupID) - 1)
+	endwhile
+	for oryUIForI = 0 to oryUINewButtonGroupItemCount - 1
+		if (oryUIForI > oryUIOldButtonGroupItemCount)
+			OryUIInsertButtonGroupItem(oryUIButtonGroupID, -1, "")
+		endif
+	next
+endfunction
+
 function OryUISetButtonGroupItemSelected(oryUIButtonGroupID as integer, oryUIItemID as integer)
 	OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIItemID
+	OryUIButtonGroupCollection[oryUIButtonGroupID].selectedChange = 1
 endfunction
 
 function OryUIUpdateButtonGroup(oryUIButtonGroupID as integer, oryUIComponentParameters$ as string)
@@ -296,28 +343,28 @@ function OryUIUpdateButtonGroup(oryUIButtonGroupID as integer, oryUIComponentPar
 	OryUIResizeAndPositionButtonsInButtonGroup(oryUIButtonGroupID)
 endfunction
 
-function OryUIUpdateButtonGroupItem(oryUIButtonGroupID, oryUIButtonGroupItemID as integer, oryUIComponentParameters$ as string)
+function OryUIUpdateButtonGroupItem(oryUIButtonGroupID as integer, oryUIButtonGroupItemID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
-	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer))
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].sprContainer))
 		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+			SetSpriteColor(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
 		endif
 		if (OryUIParameters.selected > -999999)
-			OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].selected = OryUIParameters.selected
-			OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIButtonGroupItemID + 1
+			OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].selected = OryUIParameters.selected
+			OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIButtonGroupItemID
 		endif
 		if (OryUIParameters.text$ <> "")
-			SetTextString(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel, OryUIParameters.text$)
+			SetTextString(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].txtLabel, OryUIParameters.text$)
 		endif
 		if (OryUIParameters.textBold > -999999)
-			SetTextBold(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel, OryUIParameters.textBold)
+			SetTextBold(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].txtLabel, OryUIParameters.textBold)
 		endif
 		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-			SetTextColor(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
+			SetTextColor(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
 		endif
 		if (OryUIParameters.textSize# > -999999)
-			SetTextSize(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel, OryUIParameters.textSize#)
+			SetTextSize(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].txtLabel, OryUIParameters.textSize#)
 		endif
 	endif
 
