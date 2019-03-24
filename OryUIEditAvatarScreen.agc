@@ -1,9 +1,10 @@
 
-foldstart // OryUIEditAvatarScreen (Updated 28/02/2019)
+foldstart // OryUIEditAvatarScreen (Updated 16/03/2019)
 
 type typeOryUIEditAvatarScreen
 	id as integer
 	cancelButtonPressed as integer
+	cancelButtonReleased as integer
 	frameShape$ as string
 	imageAspect# as float
 	imageInID as integer
@@ -19,7 +20,9 @@ type typeOryUIEditAvatarScreen
 	originalOffsetY# as float
 	originalZoom# as float
 	rotateButtonPressed as integer
+	rotateButtonReleased as integer
 	saveButtonPressed as integer
+	saveButtonReleased as integer
 	screenX# as float
 	screenY# as float
 	sprAvatar as integer
@@ -81,7 +84,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 2)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 45, GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame) / 2)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 50, 50)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, 5, GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame))
@@ -89,7 +92,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 2)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, 0, GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame) / 2)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, 0, 50)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, 5, GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame))
@@ -97,7 +100,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 2)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, 5, GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame) / 2)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, 100, 50)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, 100, (100 - GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame)) / 2)
@@ -105,7 +108,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 2)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, 50, 0)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, 50, 0)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, 100, (100 - GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame)) / 2)
@@ -113,7 +116,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 2)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, 50, GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom))
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, 50, 100)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 40, 8)
@@ -121,7 +124,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 3)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 92)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel = CreateText("Cancel")
 	SetTextSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, 4)
@@ -131,7 +134,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetTextAlignment(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, 1)
 	SetTextDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer) - 1)
 	OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 0)
-	FixTextToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, 1)
+	//FixTextToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 20, 8)
@@ -139,7 +142,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 3)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 40, 92)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, -1, 4)
@@ -149,7 +152,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, GetSpriteWidth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon) / 2, 2)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, 0, 0)
 	OryUIPinSpriteToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 0, 0)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, 1)
 		
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer = CreateSprite(0)
 	SetSpriteSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 40, 8)
@@ -157,7 +160,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground) - 3)
 	SetSpriteOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 60, 92)
-	FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 1)
+	//FixSpriteToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 1)
 
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel = CreateText("Save")
 	SetTextSize(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, 4)
@@ -167,7 +170,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	SetTextAlignment(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, 1)
 	SetTextDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, GetSpriteDepth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer) - 1)
 	OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 0, 0)
-	FixTextToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, 1)
+	//FixTextToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, 1)
 
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateEditAvatarScreen(oryUIEditAvatarScreenID, oryUIComponentParameters$)
 endfunction oryUIEditAvatarScreenID
@@ -192,13 +195,13 @@ function OryUIGetFinalAvatar(oryUIEditAvatarScreenID as integer)
 	
 endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].imageOutID
 
-function OryUIGetEditAvatarCancelButtonReleased(oryUIEditAvatarScreenID)
+function OryUIGetEditAvatarCancelButtonReleased(oryUIEditAvatarScreenID as integer)
 
-endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonPressed
+endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonReleased
 
-function OryUIGetEditAvatarSaveButtonReleased(oryUIEditAvatarScreenID)
+function OryUIGetEditAvatarSaveButtonReleased(oryUIEditAvatarScreenID as integer)
 
-endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonPressed
+endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonReleased
 
 function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 	local oryUIMaxPanX# as float
@@ -207,6 +210,40 @@ function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 	local oryUIMinPanY# as float
 	local oryUIEditAvatarHeight# as float
 	local oryUIEditAvatarWidth# as float
+
+	if (GetViewOffsetX() >= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# - 100 and GetViewOffsetX() <= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 100 and GetViewOffsetY() >= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# - 100 and GetViewOffsetY() <= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 100)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatar, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, GetViewOffsetX() + 50, GetViewOffsetY() + 50)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, GetViewOffsetX() + 0, GetViewOffsetY() + 50)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, GetViewOffsetX() + 100, GetViewOffsetY() + 50)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, GetViewOffsetX() + 50, GetViewOffsetY() + 0)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, GetViewOffsetX() + 50, GetViewOffsetY() + 100)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, GetViewOffsetX() + 0, GetViewOffsetY() + 92)
+		OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 0)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, GetViewOffsetX() + 40, GetViewOffsetY() + 92)
+		OryUIPinSpriteToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 0, 0)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, GetViewOffsetX() + 60, GetViewOffsetY() + 92)
+		OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 0, 0)
+	else
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatar, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, -999999, -999999)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, -999999, -999999)
+		OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 0)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, -999999, -999999)
+		OryUIPinSpriteToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 0, 0)
+		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, -999999, -999999)
+		OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 0, 0)
+	endif
+
+	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonReleased = 0
+	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].rotateButtonReleased = 0
+	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonReleased = 0
 	if (GetSpriteExists(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatar))
 		if (GetPointerPressed())
 			oryUIEditAvatarCancelButtonContainerSprite = GetSpriteHitTest(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
@@ -257,13 +294,14 @@ function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 				oryUIEditAvatarSaveButtonLabelText = GetTextHitTest(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				if (OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonPressed)
 					if (oryUIEditAvatarCancelButtonContainerSprite = 1 or oryUIEditAvatarCancelButtonLabelText = 1)
-						OryUIDeleteEditAvatarScreen(oryUIEditAvatarScreenID)
+						//OryUIDeleteEditAvatarScreen(oryUIEditAvatarScreenID)
 						OryUISetScreenScrollLimits(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMinViewX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMaxViewX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMinViewY#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMaxViewY#)
 						OryUISetScreenZoomLimits(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMinViewZoom#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMaxViewZoom#)
 						//SetViewOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalOffsetX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalOffsetY#)
 						SetViewZoom(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalZoom#)
 						//OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].rotateButtonPressed = 0
 						OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonPressed = 0
+						OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonReleased = 1
 					endif
 				endif
 				if (OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].rotateButtonPressed)
@@ -273,6 +311,7 @@ function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 						SetSpriteAngle(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatar, GetSpriteAngle(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatar) - 90)
 						//SetViewOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY#)
 						//SetViewZoom(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalZoom#)
+						OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].rotateButtonReleased = 1
 					endif
 					OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonPressed = 0
 					OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].rotateButtonPressed = 0
@@ -283,12 +322,14 @@ function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 						SetSpriteColorAlpha(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 0)
 						Render()
 						OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].imageOutID = GetImage(GetSpriteX(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame), GetSpriteY(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame), GetSpriteWidth(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame), GetSpriteHeight(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame))
-						OryUIDeleteEditAvatarScreen(oryUIEditAvatarScreenID)
+						SetSpriteColorAlpha(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 190)
+						//OryUIDeleteEditAvatarScreen(oryUIEditAvatarScreenID)
 						OryUISetScreenScrollLimits(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMinViewX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMaxViewX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMinViewY#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMaxViewY#)
 						OryUISetScreenZoomLimits(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMinViewZoom#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalMaxViewZoom#)
 						//SetViewOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalOffsetX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalOffsetY#)
 						SetViewZoom(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].originalZoom#)
 						OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].cancelButtonPressed = 0
+						OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonReleased = 1
 					endif
 				endif
 			endif
@@ -323,17 +364,20 @@ function OryUIUpdateEditAvatarScreen(oryUIEditAvatarScreenID as integer, oryUICo
 			if (OryUIParameters.position#[1] <> OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# and OryUIParameters.position#[2] <> OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY#)
 				OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# = OryUIParameters.position#[1]
 				OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# = OryUIParameters.position#[2]
-				SetViewOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY#)
+				//SetViewOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX#, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY#)
 				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
 				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatar, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, 50, 50)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, 0, 50)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, 100, 50)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, 50, 0)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, 50, 100)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 92)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 40, 92)
-				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 60, 92)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprAvatarFrame, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayLeft, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 0, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayRight, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 100, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayTop, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY#+ 0)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprOverlayBottom, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 100)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 0, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 92)
+				OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtCancelButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprCancelButtonContainer, 0, 0)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 40, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 92)
+				OryUIPinSpriteToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonIcon, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprRotateButtonContainer, 0, 0)
+				SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 60, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 92)
+				OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 0, 0)
 			endif
 		endif
 
