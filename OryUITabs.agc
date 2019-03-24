@@ -347,6 +347,7 @@ function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as inte
 			SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
 		endif
 		if (OryUIParameters.text$ <> "")
+			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].label$ = OryUIParameters.text$
 			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].txtLabel, upper(OryUIParameters.text$))
 		endif
 		remstart
