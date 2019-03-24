@@ -1,0 +1,64 @@
+BUILD 0.2a
+------------------------
+- OryUI
+	- Added global variable OryUIStatusBarHeight#
+	- Added parameters for new components
+	
+- OryUIButton
+	- Added function OryUIGetButtonX()
+	- Added function OryUIGetButtonY()
+	
+- OryUIButtonGroup
+	- Added variable types to function OryUIInsertButtonGroupItem() parameters
+	- Added variable types to function OryUIUpdateButtonGroupItem() parameters
+	- Added function OryUISetButtonGroupItemCount()
+	- Added function OryUIGetButtonGroupItemHeight()
+	- Added function OryUIGetButtonGroupItemWidth()
+	- Added function OryUIGetButtonGroupWidth()
+	- Fixed OryUIUpdateButtonGroupItem(). Index now starts from 1 not 0
+	- Fixed OryUIInsertButtonGroupListener(). Was running slow if multiple listeners existed
+	- Changed the default values for 'unselectedTextColor'
+	- Fixed OryUIDeleteButtonGroupItem(). It wasn't deleting txtLabel
+
+- OryUIEditAvatarScreen
+	- Added variable types to function OryUIGetEditAvatarCancelButtonReleased() parameters
+	- Added variable types to function OryUIGetEditAvatarSaveButtonReleased() parameters
+	- Positioning the screen anywhere now works better
+	- Fixed OryUIGetEditAvatarCancelButtonReleased(). Was returning pressed not released
+	- Fixed OryUIGetEditAvatarSaveButtonReleased(). Was returning pressed not released
+	- No longer deletes itself when you press Cancel or Save, allowing you to re-use the screen
+	
+- OryUIFloatingActionButton
+	- Added function OryUIGetFloatingActionButtonVisible()
+	- Added new icons to function OryUIUpdateFloatingActionButton()
+	- Added parameter 'iconID' to let you use any image loaded with LoadImage()
+
+- OryUIList
+	- Fixed OryUIGetListHeight(). Was returning a negative number if the list was empty.
+	- Added parameter 'rightIconID' to let you use any image loaded with LoadImage()
+	
+- OryUIMedia
+	- Added new images
+
+- OryUIMenu (New Component)
+
+- OryUIProgressIndicator (New Component)
+
+- OryUISprite
+	- Added parameter 'spriteShader'
+
+- OryUITabs (New Component)
+
+- OryUITextCard
+	- Fixed parameter 'headerTextColorID'
+	
+- OryUITextfield
+	- Fixed parameter 'inputText' in function OryUIUpdateTextfield()
+	- Added parameter 'textColor' in function OryUIUpdateTextfield()
+	- Placeholder text now uses the parameter 'textColor' and 'textColorID'
+
+- OryUITopBar (New Component)
+
+- OryUITouch
+	- Added function OryUIGetSpritePressed()
+	- Added function OryUIGetSpriteReleased()
