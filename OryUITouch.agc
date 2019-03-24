@@ -1,5 +1,5 @@
 
-foldstart // OryUITouch (Updated 25/02/2019)
+foldstart // OryUITouch (Updated 24/03/2019)
 
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)
@@ -10,6 +10,7 @@ type typeOryUITouch
 	currentDistanceY# as float
 	currentMovedX# as float
 	currentMovedY# as float
+	currentSpriteHit as integer
 	currentViewX# as float
 	currentViewY# as float
 	currentZoom# as float
@@ -17,6 +18,7 @@ type typeOryUITouch
 	currentY# as float
 	distanceMovedX# as float
 	distanceMovedY# as float
+	firstSpriteHit as integer
 	maxViewX# as float
 	maxViewY# as float
 	maxViewZoom# as float
@@ -27,7 +29,8 @@ type typeOryUITouch
 	panVerticallyAllowed as integer
 	pinchToZoomAllowed as integer
 	previousTouchCount as integer
-	spriteHit as integer
+	spritePressed as integer
+	spriteReleased as integer
 	spriteToPan as integer
 	spriteToScale as integer
 	startDistance# as float
@@ -57,20 +60,45 @@ OryUISetScreenScrollLimits(0, 0, 0, 0)
 function OryUIEndTrackingTouch()
 	if (GetMultiTouchExists() = 1)
 		if (GetRawTouchCount(1) = 0)
+			OryUITouchCollection[1].currentSpriteHit = 0
+			OryUITouchCollection[1].firstSpriteHit = 0
 			OryUITouchCollection[0].previousTouchCount = 0
-			OryUITouchCollection[1].spriteHit = 0
+			OryUITouchCollection[1].spritePressed = 0
+			OryUITouchCollection[1].spriteReleased = 0
 			OryUITouchCollection[0].swipingHorizontally = 0
 			OryUITouchCollection[0].swipingVertically = 0
 			OryUITouchCollection[0].touchCount = 0
 		endif
 	else
 		if (GetPointerReleased())
-			OryUITouchCollection[1].spriteHit = 0
+			OryUITouchCollection[1].currentSpriteHit = 0
+			OryUITouchCollection[1].firstSpriteHit = 0
+			OryUITouchCollection[1].spritePressed = 0
+			OryUITouchCollection[1].spriteReleased = 0
 			OryUITouchCollection[0].swipingHorizontally = 0
 			OryUITouchCollection[0].swipingVertically = 0
 		endif
 	endif
 endfunction
+
+function OryUIGetSpritePressed()
+
+endfunction OryUITouchCollection[1].firstSpriteHit
+
+function OryUIGetSpriteReleased()
+	local oryUISpriteReleased as integer
+	if (OryUITouchCollection[1].firstSpriteHit = OryUITouchCollection[1].currentSpriteHit)
+		if (GetMultiTouchExists() = 1)
+			if (GetRawTouchCount(1) = 0)
+				oryUISpriteReleased = OryUITouchCollection[1].currentSpriteHit
+			endif
+		else
+			if (GetPointerReleased())
+				oryUISpriteReleased = OryUITouchCollection[1].currentSpriteHit
+			endif
+		endif
+	endif
+endfunction oryUISpriteReleased
 
 function OryUIGetSwipingHorizontally()
 
@@ -110,7 +138,8 @@ function OryUIStartTrackingTouch()
 			OryUITouchCollection[OryUITouchCollection[0].touchCount].startY# = GetRawTouchStartY(oryUITouchEvent)
 			OryUITouchCollection[OryUITouchCollection[0].touchCount].currentX# = GetRawTouchCurrentX(oryUITouchEvent)
 			OryUITouchCollection[OryUITouchCollection[0].touchCount].currentY# = GetRawTouchCurrentY(oryUITouchEvent)
-			OryUITouchCollection[OryUITouchCollection[0].touchCount].spriteHit = GetSpriteHit(ScreenToWorldX(GetRawTouchStartX(oryUITouchEvent)), ScreenToWorldY(GetRawTouchStartY(oryUITouchEvent)))
+			OryUITouchCollection[OryUITouchCollection[0].touchCount].currentSpriteHit = GetSpriteHit(ScreenToWorldX(GetRawTouchCurrentX(oryUITouchEvent)), ScreenToWorldY(GetRawTouchCurrentY(oryUITouchEvent)))
+			OryUITouchCollection[OryUITouchCollection[0].touchCount].firstSpriteHit = GetSpriteHit(ScreenToWorldX(GetRawTouchStartX(oryUITouchEvent)), ScreenToWorldY(GetRawTouchStartY(oryUITouchEvent)))
 			oryUITouchEvent = GetRawNextTouchEvent()
 		endwhile
 
@@ -168,12 +197,13 @@ function OryUIStartTrackingTouch()
 		if (GetPointerPressed())
 			OryUITouchCollection[0].startX# = GetPointerX()
 			OryUITouchCollection[0].startY# = GetPointerY()
-			OryUITouchCollection[1].spriteHit = GetSpriteHit(ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+			OryUITouchCollection[1].firstSpriteHit = GetSpriteHit(ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 			OryUITouchCollection[0].touchTime# = timer()
 			OryUITouchCollection[0].startViewX# = GetViewOffsetX()
 			OryUITouchCollection[0].startViewY# = GetViewOffsetY()
 		else
 			if (GetPointerState())
+				OryUITouchCollection[1].currentSpriteHit = GetSpriteHit(ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				if (timer() - OryUITouchCollection[0].touchTime# > 0.1)
 					OryUITouchCollection[0].currentDistanceX# = OryUITouchCollection[0].startX# - GetPointerX()
 					OryUITouchCollection[0].currentDistanceY# = OryUITouchCollection[0].startY# - GetPointerY()
