@@ -1,5 +1,5 @@
 
-foldstart // OryUIFloatingActionButton Component (Updated 05/03/2019)
+foldstart // OryUIFloatingActionButton Component (Updated 23/03/2019)
 
 type typeOryUIFloatingActionButton
 	id as integer
@@ -134,6 +134,10 @@ function OryUIGetFloatingActionButtonReleased(oryUIFloatingActionButtonID as int
 	endif
 endfunction oryUIFloatingActionButtonReleased
 
+function OryUIGetFloatingActionButtonVisible(oryUIFloatingActionButtonID as integer)
+
+endfunction OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].visible
+
 function OryUIHideFloatingActionButton(oryUIFloatingActionButtonID as integer)
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].visible = 0
 	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, -999999, -999999)
@@ -189,11 +193,16 @@ function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer,
 			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIParameters.depth - 1)
 		endif
 		if (lower(OryUIParameters.icon$) = "add") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconAddImage)
+		if (lower(OryUIParameters.icon$) = "back") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconBackImage)
 		if (lower(OryUIParameters.icon$) = "camera") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconCameraImage)
+		if (lower(OryUIParameters.icon$) = "menu") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconMenuImage)
+		if (lower(OryUIParameters.icon$) = "profile") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconProfileImage)
+		if (lower(OryUIParameters.icon$) = "refresh") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconRefreshImage)
 		if (lower(OryUIParameters.icon$) = "save") then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconSaveImage)
 		if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
 			SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
 		endif
+		if (OryUIParameters.iconID > -999999) then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIParameters.iconID)
 		if (OryUIParameters.mini >= 0)
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = OryUIParameters.mini
 			if (OryUIParameters.mini = 0)
