@@ -1,5 +1,5 @@
 
-foldstart // OryUISprite (Updated 17/02/2019)
+foldstart // OryUISprite (Updated 24/03/2019)
 
 function OryUICreateSprite(oryUIComponentParameters$ as string)
 	local oryUISpriteID
@@ -117,6 +117,9 @@ function OryUIUpdateSprite(oryUISpriteID as integer, oryUIComponentParameters$ a
 			SetSpritePositionByOffset(oryUISpriteID, OryUIParameters.position#[1], GetSpriteYByOffset(oryUISpriteID))
 		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(oryUISpriteID, GetSpriteXByOffset(oryUISpriteID), OryUIParameters.position#[2])
+		endif
+		if (OryUIParameters.spriteShader > -999999)
+			SetSpriteShader(oryUISpriteID, OryUIParameters.spriteShader)
 		endif
 	endif
 endfunction
