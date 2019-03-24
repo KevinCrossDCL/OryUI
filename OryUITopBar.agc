@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 23/03/2019)
+foldstart // OryUITopBar Component (Updated 24/03/2019)
 
 type typeOryUITopBar
 	id as integer
@@ -201,6 +201,13 @@ function OryUIGetTopBarNavigationReleasedIcon(oryUITopBarID as integer)
 		oryUITopBarNavigationIcon$ = OryUITopBarCollection[oryUITopBarID].icon$
 	endif
 endfunction oryUITopBarNavigationIcon$
+
+function OryUIGetTopBarNavigationReleased(oryUITopBarID as integer)
+	local oryUITopBarNavigationReleased as integer
+	if (OryUITopBarCollection[oryUITopBarID].navigationReleased = 1)
+		oryUITopBarNavigationReleased = 1
+	endif
+endfunction oryUITopBarNavigationReleased
 
 function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComponentParameters$ as string)
 	local oryUITopBarActionID as integer
