@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 24/02/2019)
+foldstart // OryUIButton Component (Updated 23/03/2019)
 
 type typeOryUIButton
 	id as integer
@@ -120,6 +120,20 @@ function OryUIGetButtonWidth(oryUIButtonID as integer)
 		oryUIButtonWidth# = GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer)
 	endif
 endfunction oryUIButtonWidth#
+
+function OryUIGetButtonX(oryUIButtonID as integer)
+	local oryUIButtonX#
+	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
+		oryUIButtonX# = GetSpriteX(OryUIButtonCollection[oryUIButtonID].sprContainer)
+	endif
+endfunction oryUIButtonX#
+
+function OryUIGetButtonY(oryUIButtonID as integer)
+	local oryUIButtonY#
+	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
+		oryUIButtonY# = GetSpriteY(OryUIButtonCollection[oryUIButtonID].sprContainer)
+	endif
+endfunction oryUIButtonY#
 
 function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
