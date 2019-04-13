@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 23/03/2019)
+foldstart // OryUITabs Component (Updated 29/03/2019)
 
 type typeOryUITabs
 	id as integer
@@ -86,6 +86,7 @@ endfunction
 function OryUIDeleteTabsButton(oryUITabsID as integer, oryUIButtonID as integer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].sprIcon)
 	DeleteText(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].txtLabel)
+	OryUITabsCollection[oryUITabsID].buttons.remove(oryUIButtonID)
 endfunction
 
 function OryUIGetTabsButtonCount(oryUITabsID as integer)
@@ -93,7 +94,7 @@ function OryUIGetTabsButtonCount(oryUITabsID as integer)
 	oryUITabsButtonCount = OryUITabsCollection[oryUITabsID].buttons.length + 1
 endfunction oryUITabsButtonCount
 
-function OryUIGetTabsButtonReleasedIcon(oryUITabsID as integer)
+function OryUIGetTabsButtonReleasedIcon(oryUITabsID as integer)	
 	local oryUITabsButtonIcon$ as string
 	if (OryUITabsCollection[oryUITabsID].buttonReleased > -1)
 		oryUITabsButtonIcon$ = OryUITabsCollection[oryUITabsID].buttons[OryUITabsCollection[oryUITabsID].buttonReleased].icon$
@@ -156,6 +157,8 @@ function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponen
 endfunction
 
 function OryUIInsertTabsListener(oryUITabsID as integer)
+	if (oryUIDialogVisible = 1) then exitfunction
+	
 	local oryUITabsButtonReleased as integer
 	local oryUITabsButtonSprite as integer
 
