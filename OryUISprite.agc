@@ -1,5 +1,5 @@
 
-foldstart // OryUISprite (Updated 24/03/2019)
+foldstart // OryUISprite (Updated 04/04/2019)
 
 function OryUICreateSprite(oryUIComponentParameters$ as string)
 	local oryUISpriteID
@@ -95,8 +95,8 @@ function OryUIUpdateSprite(oryUISpriteID as integer, oryUIComponentParameters$ a
 		if (OryUIParameters.depth > -999999)
 			SetSpriteDepth(oryUISpriteID, OryUIParameters.depth)
 		endif
-		if (OryUIParameters.fixToScreen = 1)
-			FixSpriteToScreen(oryUISpriteID, 1)
+		if (OryUIParameters.fixToScreen > -999999)
+			FixSpriteToScreen(oryUISpriteID, OryUIParameters.fixToScreen)
 		endif
 		if (OryUIParameters.group > -999999)
 			SetSpriteGroup(oryUISpriteID, OryUIParameters.group)
