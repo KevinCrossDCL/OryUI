@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 23/03/2019)
+foldstart // OryUIButton Component (Updated 13/04/2019)
 
 type typeOryUIButton
 	id as integer
@@ -73,6 +73,8 @@ function OryUIGetButtonPressed(oryUIButtonID as integer)
 		endif
 		oryUIButtonPressed = OryUIButtonCollection[oryUIButtonID].pressed					
 	endif
+	
+	if (oryUIDialogVisible = 1) then oryUIButtonPressed = 0
 endfunction oryUIButtonPressed
 
 function OryUIGetButtonReleased(oryUIButtonID as integer)
@@ -112,6 +114,8 @@ function OryUIGetButtonReleased(oryUIButtonID as integer)
 			endif
 		endif
 	endif
+	
+	if (oryUIDialogVisible = 1) then oryUIButtonReleased = 0
 endfunction oryUIButtonReleased
 
 function OryUIGetButtonWidth(oryUIButtonID as integer)
