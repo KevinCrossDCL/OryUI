@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 24/03/2019)
+foldstart // OryUITopBar Component (Updated 29/03/2019)
 
 type typeOryUITopBar
 	id as integer
@@ -7,7 +7,7 @@ type typeOryUITopBar
 	actions as typeOryUITopBarAction[]
 	defaultIconColor# as float[4]
 	extended as integer
-	icon$ as string
+	navigationIcon$ as string
 	//overflowMenu as integer
 	navigationPressed as integer
 	navigationReleased as integer
@@ -95,6 +95,7 @@ endfunction
 function OryUIDeleteTopBarAction(oryUITopBarID as integer, oryUIActionID as integer)
 	DeleteSprite(OryUITopBarCollection[oryUITopBarID].actions[oryUIActionID].sprIcon)
 	DeleteText(OryUITopBarCollection[oryUITopBarID].actions[oryUIActionID].txtLabel)
+	OryUITopBarCollection[oryUITopBarID].actions.remove(oryUIActionID)
 endfunction
 
 function OryUIGetTopBarActionCount(oryUITopBarID as integer)
@@ -198,7 +199,7 @@ endfunction oryUITopBarHeight#
 function OryUIGetTopBarNavigationReleasedIcon(oryUITopBarID as integer)
 	local oryUITopBarNavigationIcon$ as string
 	if (OryUITopBarCollection[oryUITopBarID].navigationReleased = 1)
-		oryUITopBarNavigationIcon$ = OryUITopBarCollection[oryUITopBarID].icon$
+		oryUITopBarNavigationIcon$ = OryUITopBarCollection[oryUITopBarID].navigationIcon$
 	endif
 endfunction oryUITopBarNavigationIcon$
 
@@ -229,6 +230,8 @@ function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComp
 endfunction
 
 function OryUIInsertTopBarListener(oryUITopBarID as integer)
+	if (oryUIDialogVisible = 1) then exitfunction
+
 	local oryUITopBarActionReleased as integer
 	local oryUITopBarActionSprite as integer
 	local oryUITopBarNavigationReleased as integer
@@ -384,18 +387,16 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		if (OryUIParameters.imageID > -999999)
 			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprContainer, OryUIParameters.imageID)
 		endif
-		if (OryUIParameters.navigationIcon$ <> "") then OryUITopBarCollection[oryUITopBarID].icon$ = lower(OryUIParameters.navigationIcon$)
-		if (lower(OryUIParameters.navigationIcon$) = "add") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconAddImage)
-		if (lower(OryUIParameters.navigationIcon$) = "back") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconBackImage)
-		if (lower(OryUIParameters.navigationIcon$) = "camera") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconCameraImage)
-		if (lower(OryUIParameters.navigationIcon$) = "menu") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconMenuImage)
-		if (lower(OryUIParameters.navigationIcon$) = "profile") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconProfileImage)
-		if (lower(OryUIParameters.navigationIcon$) = "refresh") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconRefreshImage)
-		if (lower(OryUIParameters.navigationIcon$) = "save") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIIconSaveImage)
+		if (OryUIParameters.navigationIcon$ <> "" and OryUIParameters.navigationIconID > -999999)
+			OryUITopBarCollection[oryUITopBarID].navigationIcon$ = lower(OryUIParameters.navigationIcon$)
+			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, OryUIParameters.navigationIconID)
+		elseif (OryUIParameters.navigationIconID > -999999)
+			OryUITopBarCollection[oryUITopBarID].navigationIcon$ = "custom"
+			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, OryUIParameters.navigationIconID)
+		endif
 		if (OryUIParameters.text$ <> "")
 			SetTextString(OryUITopBarCollection[oryUITopBarID].txtTitle, OryUIParameters.text$)
 		endif
-		
 		if (OryUIParameters.textAlignment > -999999)
 			SetTextAlignment(OryUITopBarCollection[oryUITopBarID].txtTitle, OryUIParameters.textAlignment)
 		endif
@@ -425,14 +426,13 @@ function OryUIUpdateTopBarAction(oryUITopBarID as integer, oryUITopBarActionID a
 		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
 			SetSpriteColor(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.icon$ <> "") then OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].icon$ = lower(OryUIParameters.icon$)
-		if (lower(OryUIParameters.icon$) = "add") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconAddImage)
-		if (lower(OryUIParameters.icon$) = "back") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconBackImage)
-		if (lower(OryUIParameters.icon$) = "camera") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconCameraImage)
-		if (lower(OryUIParameters.icon$) = "menu") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconMenuImage)
-		if (lower(OryUIParameters.icon$) = "profile") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconProfileImage)
-		if (lower(OryUIParameters.icon$) = "refresh") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconRefreshImage)
-		if (lower(OryUIParameters.icon$) = "save") then SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, oryUIIconSaveImage)
+		if (OryUIParameters.icon$ <> "" and OryUIParameters.iconID > -999999)
+			OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].icon$ = lower(OryUIParameters.icon$)
+			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUIParameters.iconID)
+		elseif (OryUIParameters.iconID > -999999)
+			OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].icon$ = "custom"
+			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUIParameters.iconID)
+		endif
 	endif
 
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)
