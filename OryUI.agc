@@ -7,22 +7,166 @@
  * 	License	: MIT
  */
 
-foldstart // OryUI Main Types (Updated 24/03/2019)
+foldstart // OryUI Main Types (Updated 04/04/2019)
+
+type typeOryUIDefaults
+
+	// OryUIDialog
+	dialogAutoHeight as integer
+	dialogBottomMargin# as float
+	dialogButtonColor# as float[4]
+	dialogButtonHeight# as float
+	dialogButtonTextBold as integer
+	dialogButtonTextColor# as float[4]
+	dialogButtonTextSize# as float
+	dialogButtonXSpacing# as float
+	dialogButtonYSpacing# as float
+	dialogColor# as float[4]
+	dialogDepth as integer
+	dialogFlexButtons as integer
+	dialogHeight# as float
+	dialogLeftMargin# as float
+	dialogRightMargin# as float
+	dialogScrimColor# as float[4]
+	dialogSpacingBetweenSupportingTextAndButtons# as float
+	dialogSpacingBetweenTitleAndSupportingText# as float
+	dialogStackButtons as integer
+	dialogSupportingTextAlignment as integer
+	dialogSupportingTextColor# as float[4]
+	dialogSupportingTextSize# as float
+	dialogTitleTextAlignment as integer
+	dialogTitleTextColor# as float[4]
+	dialogTitleTextSize# as float
+	dialogTopMargin# as float
+	dialogWidth# as float
+
+	// OryUIInputSpinner
+	inputSpinnerAutoCorrectIfOutOfRange as integer
+	inputSpinnerBackgroundColor# as float[4]
+	inputSpinnerButtonActiveColor# as float[4]
+	inputSpinnerButtonActiveIconColor# as float[4]
+	inputSpinnerButtonColor# as float[4]
+	inputSpinnerButtonHeight# as float
+	inputSpinnerButtonIconHeight# as float
+	inputSpinnerButtonIconWidth# as float
+	inputSpinnerButtonInactiveColor# as float[4]
+	inputSpinnerButtonInactiveIconColor# as float[4]
+	inputSpinnerButtonWidth# as float
+	inputSpinnerHeight# as float
+	inputSpinnerTextColor# as float[4]
+	inputSpinnerTextSize# as float
+	inputSpinnerWidth# as float
+
+	// OryUIMenu
+	menuColor# as float[4]
+	menuDepth as integer
+	menuItemHeight# as float
+	menuItemLeftIconColor# as float[4]
+	menuItemLeftIconHeight# as float
+	menuItemLeftIconLeftPadding# as float
+	menuItemRightIconColor# as float[4]
+	menuItemRightIconHeight# as float
+	menuItemRightIconRightPadding# as float
+	menuItemTextBold as integer
+	menuItemTextColor# as float[4]
+	menuItemTextPadding# as float
+	menuItemTextSize# as float
+	menuScrimColor# as float[4]
+	menuShowLeftIcon as integer
+	menuShowRightIcon as integer
+	menuWidth# as float
+	
+	// OryUINavigationDrawer
+	navigationDrawerColor# as float[4]
+	navigationDrawerDepth as integer
+	navigationDrawerDividerColor# as float[4]
+	navigationDrawerDividerHeight# as float
+	navigationDrawerHeaderBackroundImage as integer
+	navigationDrawerHeaderColor# as float[4]
+	navigationDrawerHeaderHeight# as float
+	navigationDrawerHeaderTextBold as integer
+	navigationDrawerHeaderTextColor# as float[4]
+	navigationDrawerHeaderTextLeftPadding# as float
+	navigationDrawerHeaderTextScrimColor# as float[4]
+	navigationDrawerHeaderTextScrimHeight# as float
+	navigationDrawerHeaderTextSize# as float
+	navigationDrawerLocation$ as string
+	navigationDrawerOptionActiveOverlayColor# as float[4]
+	navigationDrawerOptionActiveOverlayHeight# as float
+	navigationDrawerOptionColor# as float[4]
+	navigationDrawerOptionHeight# as float
+	navigationDrawerOptionIconColor# as float[4]
+	navigationDrawerOptionIconHeight# as float
+	navigationDrawerOptionIconLeftPadding# as float
+	navigationDrawerOptionRightTextBold as integer
+	navigationDrawerOptionRightTextColor# as float[4]
+	navigationDrawerOptionRightTextRightPadding# as float
+	navigationDrawerOptionRightTextSize# as float
+	navigationDrawerOptionTextBold as integer
+	navigationDrawerOptionTextColor# as float[4]
+	navigationDrawerOptionTextLeftPadding# as float
+	navigationDrawerOptionTextSize# as float
+	navigationDrawerScrimColor# as float[4]
+	navigationDrawerShowOptionIcon as integer
+	navigationDrawerShowOptionRightText as integer
+	navigationDrawerShowShadow as integer
+	navigationDrawerStatusBarColor# as float[4]
+	navigationDrawerSubtitleColor# as float[4]
+	navigationDrawerSubtitleHeight# as float
+	navigationDrawerSubtitleTextBold as integer
+	navigationDrawerSubtitleTextColor# as float[4]
+	navigationDrawerSubtitleTextLeftPadding# as float
+	navigationDrawerSubtitleTextSize# as float
+	navigationDrawerType$ as string
+	navigationDrawerWidth# as float
+
+	// OryUITemplate
+	templateColor# as float[4]
+	templateDepth as integer
+	templateHeight# as float
+	templateItemColor# as float[4]
+	templateItemHeight# as float
+	templateItemWidth# as float
+	templateWidth# as float
+
+	// OryUITooltip
+	tooltipColor# as float[4]
+	tooltipDepth as integer
+	tooltipHeight# as float
+	tooltipTextAlignment as integer
+	tooltipTextBold as integer
+	tooltipTextColor# as float[4]
+	tooltipTextSize# as float
+endtype
 
 type typeOryUIParameters
+	activeButtonColor# as float[4]			// OryUIInputSpinner
 	activeColor# as float[4]				// OryUITabs
+	activeIconColor# as float[4]			// OryUIInputSpinner
+	addIcon$ as string 						// OryUIInputSpinner
+	addIconColor# as float[4]				// OryUIInputSpinner
+	addIconID as integer 					// OryUIInputSpinner
+	addIconSize# as float[2]				// OryUIInputSpinner
 	alignment as integer 					// OryUIText
 	angle# as float 						// OryUISprite, OryUIText
 	attachToSpriteID as integer 			// OryUIFloatingActionButton
+	autoCorrectIfOutOfRange as integer		// OryUIInputSpinner
 	autoHeight as integer					// OryUITextCard
 	backgroundColor# as float[4]			// OryUIProfileImageScreen, OryUITextfield
 	blockOrder$ as string[]					// OryUICard
 	bold as integer							// OryUIText
 	cancelText$ as string					// OryUIProfileImageScreen
 	color# as float[4]						// OryUIButton, OryUIFloatingActionButton, OryUIList, OryUIMenu, OryUIProgressIndicator, OryUISprite, OryUITabs, OryUIText, OryUITextfield, OryUITopBar
+	decimals as integer						// OryUIInputSpinner
+	decisionRequired as integer				// OryUIDialog
+	defaultValue# as float					// OryUIInputSpinner
 	depth as integer						// OryUIButton, OryUIButtonGroup, OryUIFloatingActionButton, OryUIList, OryUIMenu, OryUIProgressIndicator, OryUISprite, OryUIText, OryUITopBar
+	dialogType$ as string					// OryUIDialog
+	drawerLocation$ as string				// OryUINavigationDrawer
+	drawerType$ as string					// OryUINavigationDrawer
 	extended as integer						// OryUITopBar
 	fixToscreen as integer					// OryUIButton, OryUIProgressIndicator, OryUISprite, OryUIText
+	flexButtons as integer					// OryUIDialog
 	frameShape$ as String					// OryUIProfileImageScreen
 	group as integer						// OryUISprite
 	headerText$ as string					// OryUITextCard
@@ -30,14 +174,24 @@ type typeOryUIParameters
 	headerTextBold as integer				// OryUITextCard
 	headerTextColor# as float[4]			// OryUITextCard
 	headerTextSize# as float				// OryUITextCard
+	helperText$ as String					// OryUITextfield
+	helperTextBold as integer				// OryUITextfield
+	helperTextColor# as float[4]			// OryUITextfield
+	helperTextSize# as float				// OryUITextfield
 	icon$ as string 						// OryUIFloatingActionButton, OryUITopBar
 	iconColor# as float[4]					// OryUIFloatingActionButton, OryUITopBar
 	iconID as integer 						// OryUIFloatingActionButton, OryUITopBar
+	iconPlacement$ as string				// OryUIButtonGroup
+	iconSize# as float[2]					// OryUIButtonGroup
 	imageID as integer						// OryUIButton, OryUIProfileImageScreen, OryUISprite, OryUITabs, OryUITopBar
+	inactiveButtonColor# as float[4]		// OryUIInputSpinner
 	inactiveColor# as float[4]				// OryUITabs
+	inactiveIconColor# as float[4]			// OryUIInputSpinner
 	inputText$ as string					// OryUITextfield
 	inputType$ as string					// OryUITextfield
-	itemSize# as float[2]					// OryUIList, OryUIMenu
+	itemHeight# as float					// OryUIMenu
+	itemSize# as float[2]					// OryUIList
+	itemType$ as String						// OryUINavigationDrawer
 	labelText$ as string					// OryUITextfield
 	leftIcon$ as string						// OryUIMenu
 	leftIconID as integer					// OryUIMenu
@@ -50,14 +204,22 @@ type typeOryUIParameters
 	leftLine2TextBold as integer			// OryUIList
 	leftLine2TextColor# as float[4]			// OryUIList
 	leftLine2TextSize# as float				// OryUIList
+	leftText$ as string						// OryUINavigationDrawer
+	leftTextBold as integer					// OryUINavigationDrawer
+	leftTextColor# as float[4]				// OryUINavigationDrawer
+	leftTextSize# as float					// OryUINavigationDrawer
 	leftThumbnailImageID as float			// OryUIList
+	max# as float							// OryUIInputSpinner
 	maxLength as integer					// OryUITextfield
 	maxPosition# as float[2]				// OryUITabs
 	maxZoom# as float						// OryUIProfileImageScreen
+	min# as float							// OryUIInputSpinner
 	mini as integer 						// OryUIFloatingActionButton
 	minPosition# as float[2]				// OryUITabs
 	name$ as String							// OryUIMenu
 	navigationIcon$ as string 				// OryUITopBar
+	navigationIconColor# as float[4]		// OryUITopBar
+	navigationIconID as integer				// OryUITopBar
 	noOfLeftLines as integer				// OryUIList
 	noOfRightLines as integer				// OryUIList
 	offset# as float[2]						// OryUIButton, OryUIButtonGroup, OryUIProgressIndicator, OryUISprite
@@ -76,20 +238,40 @@ type typeOryUIParameters
 	rightLine2TextBold as integer			// OryUIList
 	rightLine2TextColor# as float[4]		// OryUIList
 	rightLine2TextSize# as float			// OryUIList
+	rightText$ as string					// OryUINavigationDrawer
+	rightTextBold as integer				// OryUINavigationDrawer
+	rightTextColor# as float[4]				// OryUINavigationDrawer
+	rightTextSize# as float					// OryUINavigationDrawer
 	saveText$ as string						// OryUIProfileImageScreen
 	scrollable as integer					// OryUITabs
+	scrimColor# as float[4]
 	selected as integer						// OryUIButtonGroup
 	selectedColor# as float[4]				// OryUIButtonGroup
 	selectedTextBold as integer				// OryUIButtonGroup
 	selectedTextColor# as float[4]			// OryUIButtonGroup
 	selectedTextSize# as float				// OryUIButtonGroup
 	shadow as integer						// OryUIFloatingActionButton
+	showHelperText as integer				// OryUITextfield
+	showIcon as integer						// OryUINavigationDrawer
 	showLeftIcon as integer					// OryUIMenu
 	showLeftThumbnail as integer			// OryUIList
 	showRightIcon as integer				// OryUIList, OryUIMenu
+	showRightText as integer				// OryUINavigationDrawer
+	showShadow as integer					// OryUINavigationDrawer
 	size# as float[2]						// OryUIButton, OryUIButtonGroup, OryUIList, OryUIProgressIndicator, OryUISprite, OryUITabs, OryUIText, OryUITextfield
-	spriteShader as integer					// OryUISprite
+	spriteShader as integer					// OryUISpritestep# as float							// OryUIDialog
+	stackButtons as integer					// OryUIDialog
+	step# as float							// OryUIDialog
 	strokeColor# as float[4]				// OryUITextfield
+	subtitleText$ as string					// OryUINavigationDrawer
+	subtitleTextAlignment as integer		// OryUINavigationDrawer
+	subtitleTextBold as integer				// OryUINavigationDrawer
+	subtitleTextColor# as float[4]			// OryUINavigationDrawer
+	subtitleTextSize# as float				// OryUINavigationDrawer
+	subtractIcon$ as string 				// OryUIInputSpinner
+	subtractIconColor# as float[4]			// OryUIInputSpinner
+	subtractIconID as integer 				// OryUIInputSpinner
+	subtractIconSize# as float[2]			// OryUIInputSpinner
 	supportingText$ as string				// OryUITextCard
 	supportingTextAlignment as integer		// OryUITextCard
 	supportingTextBold as integer			// OryUITextCard
@@ -100,6 +282,11 @@ type typeOryUIParameters
 	textBold as integer						// OryUIButton, OryUIButtonGroup, OryUIMenu, OryUITopBar
 	textColor# as float[4]					// OryUIButton, OryUIButtonGroup, OryUIMenu, OryUITopBar
 	textSize# as float						// OryUIButton, OryUIButtonGroup, OryUIMenu
+	titleText$ as string					// OryUIDialog
+	titleTextAlignment as integer			// OryUIDialog
+	titleTextBold as integer				// OryUIDialog
+	titleTextColor# as float[4]				// OryUIDialog
+	titleTextSize# as float					// OryUIDialog
 	unselectedColor# as float[4]			// OryUIButtonGroup
 	unselectedTextBold as integer			// OryUIButtonGroup
 	unselectedTextColor# as float[4]		// OryUIButtonGroup
@@ -109,47 +296,66 @@ endtype
 foldend
 
 
-foldstart // OryUI Main Global Variables (Updated 22/02/2019)
+foldstart // OryUI Main Global Variables (Updated 04/04/2019)
 
+global oryUIBlockScreenScrolling as integer
 global oryUIBottomBannerAdOnScreen as integer
 global oryUIContentHeight# as float 			// NOT YET USED
 global oryUIContentStartX# as float				// NOT YET USED
 global oryUIContentStartY# as float				// NOT YET USED
 global oryUIContentWidth# as float				// NOT YET USED
+global oryUIDefaults as typeOryUIDefaults
+global oryUIDialogVisible as integer
 global OryUIParameters as typeOryUIParameters
 global OryUIStatusBarHeight# as float : OryUIStatusBarHeight# = 3.6
 
 foldend
 
 
-foldstart // OryUI Main Functions (Updated 22/02/2019)
+foldstart // OryUI Main Functions (Updated 04/04/2019)
 
 function OryUIAddToContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIContentHeight# + oryUIHeight#
 endfunction
 
 function OryUIResetParametersType()
+	OryUIParameters.addIcon$ = ""
+	OryUIParameters.addIconID = -999999
 	OryUIParameters.alignment = -999999
 	OryUIParameters.angle# = -999999
 	OryUIParameters.attachToSpriteID = -999999
+	OryUIParameters.autoCorrectIfOutOfRange = -999999
 	OryUIParameters.autoHeight = -999999
 	OryUIParameters.blockOrder$.length = -1
 	OryUIParameters.bold = -999999
 	OryUIParameters.cancelText$ = ""
+	OryUIParameters.decimals = -999999
+	OryUIParameters.decisionRequired = -999999
+	OryUIParameters.defaultValue# = -999999
 	OryUIParameters.depth = -999999
+	OryUIParameters.dialogType$ = ""
+	OryUIParameters.drawerLocation$ = ""
+	OryUIParameters.drawerType$ = ""
 	OryUIParameters.extended = -999999
 	OryUIParameters.fixToscreen = -999999
+	OryUIParameters.flexButtons = -999999
 	OryUIParameters.frameShape$ = ""
 	OryUIParameters.group = -999999
 	OryUIParameters.headerText$ = ""
 	OryUIParameters.headerTextAlignment = -999999
 	OryUIParameters.headerTextBold = -999999
 	OryUIParameters.headerTextSize# = -999999
+	OryUIParameters.helperText$ = ""
+	OryUIParameters.helperTextBold = -999999
+	OryUIParameters.helperTextSize# = -999999
 	OryUIParameters.icon$ = ""
 	OryUIParameters.iconID = -999999
+	OryUIParameters.iconPlacement$ = ""
 	OryUIParameters.imageID = -999999
 	OryUIParameters.inputText$ = ""
 	OryUIParameters.inputType$ = ""
+	OryUIParameters.itemHeight# = -999999
+	OryUIParameters.itemType$ = ""
 	OryUIParameters.labelText$ = ""
 	OryUIParameters.leftIcon$ = ""
 	OryUIParameters.leftIconID = -999999
@@ -159,12 +365,18 @@ function OryUIResetParametersType()
 	OryUIParameters.leftLine2Text$ = ""
 	OryUIParameters.leftLine2TextBold = -999999
 	OryUIParameters.leftLine2TextSize# = -999999
+	OryUIParameters.leftText$ = ""
+	OryUIParameters.leftTextBold = -999999
+	OryUIParameters.leftTextSize# = -999999
 	OryUIParameters.leftThumbnailImageID = -999999
+	OryUIParameters.max# = -999999
 	OryUIParameters.maxLength = -999999
 	OryUIParameters.maxZoom# = -999999
+	OryUIParameters.min# = -999999
 	OryUIParameters.mini = -999999
 	OryUIParameters.name$ = ""
 	OryUIParameters.navigationIcon$ = ""
+	OryUIParameters.navigationIconID = -999999
 	OryUIParameters.noOfLeftLines = -999999
 	OryUIParameters.noOfRightLines = -999999
 	OryUIParameters.offsetCenter = -999999
@@ -178,16 +390,30 @@ function OryUIResetParametersType()
 	OryUIParameters.rightLine2Text$ = ""
 	OryUIParameters.rightLine2TextBold = -999999
 	OryUIParameters.rightLine2TextSize# = -999999
+	OryUIParameters.rightText$ = ""
+	OryUIParameters.rightTextBold = -999999
+	OryUIParameters.rightTextSize# = -999999
 	OryUIParameters.saveText$ = ""
 	OryUIParameters.scrollable = -999999
 	OryUIParameters.selected = -999999
 	OryUIParameters.selectedTextBold = -999999
 	OryUIParameters.selectedTextSize# = -999999	
 	OryUIParameters.shadow = -999999
+	OryUIParameters.showIcon = -999999
 	OryUIParameters.showLeftIcon = -999999
 	OryUIParameters.showLeftThumbnail = -999999
 	OryUIParameters.showRightIcon = -999999
+	OryUIParameters.showRightText = -999999
+	OryUIParameters.showShadow = -999999
 	OryUIParameters.spriteShader = -999999
+	OryUIParameters.stackButtons = -999999
+	OryUIParameters.step# = -999999
+	OryUIParameters.subtitleText$ = ""
+	OryUIParameters.subtitleTextAlignment = -999999
+	OryUIParameters.subtitleTextBold = -999999
+	OryUIParameters.subtitleTextSize# = -999999
+	OryUIParameters.subtractIcon$ = ""
+	OryUIParameters.subtractIconID = -999999
 	OryUIParameters.supportingText$ = ""
 	OryUIParameters.supportingTextAlignment = -999999
 	OryUIParameters.supportingTextBold = -999999
@@ -196,38 +422,71 @@ function OryUIResetParametersType()
 	OryUIParameters.textAlignment = -999999
 	OryUIParameters.textBold = -999999
 	OryUIParameters.textSize# = -999999
+	OryUIParameters.titleText$ = ""
+	OryUIParameters.titleTextAlignment = -999999
+	OryUIParameters.titleTextBold = -999999
+	OryUIParameters.titleTextSize# = -999999
 	OryUIParameters.unselectedTextBold = -999999
 	OryUIParameters.unselectedTextSize# = -999999	
 	for i = 1 to 4
 		if (i < 3)
+			OryUIParameters.addIconSize#[i] = -999999
+			OryUIParameters.iconSize#[i] = -999999
 			OryUIParameters.itemSize#[i] = -999999
 			OryUIParameters.maxPosition#[i] = -999999
 			OryUIParameters.minPosition#[i] = -999999
 			OryUIParameters.offset#[i] = -999999
 			OryUIParameters.position#[i] = -999999
 			OryUIParameters.size#[i] = -999999
+			OryUIParameters.subtractIconSize#[i] = -999999
 		endif
+		OryUIParameters.activeButtonColor#[i] = -999999
 		OryUIParameters.activeColor#[i] = -999999
+		OryUIParameters.activeIconColor#[i] = -999999
+		OryUIParameters.addIconColor#[i] = -999999
 		OryUIParameters.backgroundColor#[i] = -999999
 		OryUIParameters.color#[i] = -999999
 		OryUIParameters.headerTextColor#[i] = -999999
+		OryUIParameters.helperTextColor#[i] = -999999
 		OryUIParameters.iconColor#[i] = -999999
+		OryUIParameters.inactiveButtonColor#[i] = -999999
 		OryUIParameters.inactiveColor#[i] = -999999
+		OryUIParameters.inactiveIconColor#[i] = -999999
 		OryUIParameters.leftIconColor#[i] = -999999
 		OryUIParameters.leftLine1TextColor#[i] = -999999
 		OryUIParameters.leftLine2TextColor#[i] = -999999
+		OryUIParameters.leftTextColor#[i] = -999999
+		OryUIParameters.navigationIconColor#[i] = -999999
 		OryUIParameters.rightIconColor#[i] = -999999
 		OryUIParameters.rightLine1TextColor#[i] = -999999
 		OryUIParameters.rightLine2TextColor#[i] = -999999
+		OryUIParameters.rightTextColor#[i] = -999999
+		OryUIParameters.scrimColor#[i] = -999999
 		OryUIParameters.selectedColor#[i] = -999999
 		OryUIParameters.selectedTextColor#[i] = -999999
 		OryUIParameters.strokeColor#[i] = -999999
+		OryUIParameters.subtitleTextColor#[i] = -999999
+		OryUIParameters.subtractIconColor#[i] = -999999
 		OryUIParameters.supportingTextColor#[i] = -999999
 		OryUIParameters.textColor#[i] = -999999
+		OryUIParameters.titleTextColor#[i] = -999999
 		OryUIParameters.unselectedColor#[i] = -999999
 		OryUIParameters.unselectedTextColor#[i] = -999999
 	next
 endfunction
+
+function OryUIReturnIconID(oryUIIcon$ as string)
+	local oryUIIconID as integer
+	oryUIIconID = -999999
+	if (lower(oryUIIcon$) = "add") then oryUIIconID = oryUIIconAddImage
+	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
+	if (lower(oryUIIcon$) = "camera") then oryUIIconID = oryUIIconCameraImage
+	if (lower(oryUIIcon$) = "menu") then oryUIIconID = oryUIIconMenuImage
+	if (lower(oryUIIcon$) = "profile") then oryUIIconID = oryUIIconProfileImage
+	if (lower(oryUIIcon$) = "refresh") then oryUIIconID = oryUIIconRefreshImage
+	if (lower(oryUIIcon$) = "save") then oryUIIconID = oryUIIconSaveImage
+	if (lower(oryUIIcon$) = "subtract") then oryUIIconID = oryUIIconSubtractImage
+endfunction oryUIIconID
 
 function OryUISetContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIHeight#
@@ -251,7 +510,22 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIComponentParameter$, ":", 1), " "))
 		oryUIValue$ = GetStringToken(oryUIComponentParameter$, ":", 2)
 		oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
-		if (oryUIVariable$ = "activecolor")
+		if (oryUIVariable$ = "activebuttoncolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.activeButtonColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.activeButtonColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.activeButtonColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.activeButtonColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "activebuttoncolorid")
+			oryUIActiveButtonColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.activeButtonColor#[1] = GetColorRed(oryUIActiveButtonColorID)
+			OryUIParameters.activeButtonColor#[2] = GetColorGreen(oryUIActiveButtonColorID)
+			OryUIParameters.activeButtonColor#[3] = GetColorBlue(oryUIActiveButtonColorID)
+			OryUIParameters.activeButtonColor#[4] = 255
+		elseif (oryUIVariable$ = "activecolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.activeColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 				OryUIParameters.activeColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -266,6 +540,44 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.activeColor#[2] = GetColorGreen(oryUIActiveColorID)
 			OryUIParameters.activeColor#[3] = GetColorBlue(oryUIActiveColorID)
 			OryUIParameters.activeColor#[4] = 255
+		elseif (oryUIVariable$ = "activeiconcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.activeIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.activeIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.activeIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.activeIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "activeiconcolorid")
+			oryUIActiveIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.activeIconColor#[1] = GetColorRed(oryUIActiveIconColorID)
+			OryUIParameters.activeIconColor#[2] = GetColorGreen(oryUIActiveIconColorID)
+			OryUIParameters.activeIconColor#[3] = GetColorBlue(oryUIActiveIconColorID)
+			OryUIParameters.activeIconColor#[4] = 255
+		elseif (oryUIVariable$ = "addicon")
+			OryUIParameters.addIcon$ = oryUIValue$
+			OryUIParameters.addIconID = OryUIReturnIconID(oryUIValue$)
+		elseif (oryUIVariable$ = "addiconcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.addIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.addIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.addIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.addIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "addiconcolorid")
+			oryUIAddIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.addIconColor#[1] = GetColorRed(oryUIAddIconColorID)
+			OryUIParameters.addIconColor#[2] = GetColorGreen(oryUIAddIconColorID)
+			OryUIParameters.addIconColor#[3] = GetColorBlue(oryUIAddIconColorID)
+			OryUIParameters.addIconColor#[4] = 255
+		elseif (oryUIVariable$ = "addiconid")
+			OryUIParameters.addIconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "addiconsize")
+			OryUIParameters.addIconSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.addIconSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "alignment")
 			if (oryUIValue$ = "left")
 				OryUIParameters.alignment = 0
@@ -280,6 +592,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.angle# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "attachtospriteid")
 			OryUIParameters.attachToSpriteID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "autocorrectifoutofrange")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.autoCorrectIfOutOfRange = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.autoCorrectIfOutOfRange = 0
+			endif
 		elseif (oryUIVariable$ = "autoheight")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.autoHeight = 1
@@ -328,8 +646,30 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.color#[2] = GetColorGreen(oryUIColorID)
 			OryUIParameters.color#[3] = GetColorBlue(oryUIColorID)
 			OryUIParameters.color#[4] = 255
+		elseif (oryUIVariable$ = "decimals")
+			OryUIParameters.decimals = val(oryUIValue$)
+		elseif (oryUIVariable$ = "decisionrequired")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.decisionRequired = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.decisionRequired = 0
+			endif
+		elseif (oryUIVariable$ = "defaultvalue")
+			OryUIParameters.defaultValue# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "depth")
 			OryUIParameters.depth = val(oryUIValue$)
+		elseif (oryUIVariable$ = "dialogtype")
+			OryUIParameters.dialogType$ = oryUIValue$
+		elseif (oryUIVariable$ = "drawerlocation")
+			if (oryUIValue$ = "bottom")
+				OryUIParameters.drawerLocation$ = "Bottom"
+			elseif (oryUIValue$ = "left")
+				OryUIParameters.drawerLocation$ = "Left"
+			elseif (oryUIValue$ = "right")
+				OryUIParameters.drawerLocation$ = "Right"
+			endif
+		elseif (oryUIVariable$ = "drawertype")
+			OryUIParameters.drawerType$ = oryUIValue$
 		elseif (oryUIVariable$ = "extended")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.extended = 1
@@ -341,6 +681,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				OryUIParameters.fixToScreen = 1
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.fixToScreen = 0
+			endif
+		elseif (oryUIVariable$ = "flexbuttons")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.flexButtons = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.flexButtons = 0
 			endif
 		elseif (oryUIVariable$ = "frameshape")
 			OryUIParameters.frameShape$ = oryUIValue$
@@ -379,10 +725,36 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.headerTextColor#[4] = 255
 		elseif (oryUIVariable$ = "headertextsize")
 			OryUIParameters.headerTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "helpertext")
+			OryUIParameters.helperText$ = oryUIValue$
 		elseif (oryUIVariable$ = "height")
 			OryUIParameters.size#[2] = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "helpertextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.helperTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.helperTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "helpertextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.helperTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.helperTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.helperTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.helperTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "helpertextcolorid")
+			oryUIHelperTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.helperTextColor#[1] = GetColorRed(oryUIHelperTextColorID)
+			OryUIParameters.helperTextColor#[2] = GetColorGreen(oryUIHelperTextColorID)
+			OryUIParameters.helperTextColor#[3] = GetColorBlue(oryUIHelperTextColorID)
+			OryUIParameters.helperTextColor#[4] = 255
+		elseif (oryUIVariable$ = "helpertextsize")
+			OryUIParameters.helperTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "icon")
 			OryUIParameters.icon$ = oryUIValue$
+			OryUIParameters.iconID = OryUIReturnIconID(oryUIValue$)
 		elseif (oryUIVariable$ = "iconcolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.iconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -400,8 +772,28 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.iconColor#[4] = 255
 		elseif (oryUIVariable$ = "iconid")
 			OryUIParameters.iconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "iconplacement")
+			OryUIParameters.iconPlacement$ = oryUIValue$
+		elseif (oryUIVariable$ = "iconsize")
+			OryUIParameters.iconSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.iconSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "image")
 			OryUIParameters.imageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "inactivebuttoncolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.inactiveButtonColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.inactiveButtonColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.inactiveButtonColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.inactiveButtonColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "inactivebuttoncolorid")
+			oryUIInactiveButtonColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.inactiveButtonColor#[1] = GetColorRed(oryUIInactiveButtonColorID)
+			OryUIParameters.inactiveButtonColor#[2] = GetColorGreen(oryUIInactiveButtonColorID)
+			OryUIParameters.inactiveButtonColor#[3] = GetColorBlue(oryUIInactiveButtonColorID)
+			OryUIParameters.inactiveButtonColor#[4] = 255
 		elseif (oryUIVariable$ = "inactivecolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.inactiveColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -417,6 +809,21 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.inactiveColor#[2] = GetColorGreen(oryUIInactiveColorID)
 			OryUIParameters.inactiveColor#[3] = GetColorBlue(oryUIInactiveColorID)
 			OryUIParameters.inactiveColor#[4] = 255
+		elseif (oryUIVariable$ = "inactiveiconcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.inactiveIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.inactiveIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.inactiveIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.inactiveIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "inactiveiconcolorid")
+			oryUIInactiveIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.inactiveIconColor#[1] = GetColorRed(oryUIInactiveIconColorID)
+			OryUIParameters.inactiveIconColor#[2] = GetColorGreen(oryUIInactiveIconColorID)
+			OryUIParameters.inactiveIconColor#[3] = GetColorBlue(oryUIInactiveIconColorID)
+			OryUIParameters.inactiveIconColor#[4] = 255
 		elseif (oryUIVariable$ = "inputtext")
 			OryUIParameters.inputText$ = oryUIValue$
 		elseif (oryUIVariable$ = "inputtype")
@@ -426,12 +833,15 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "itemsize")
 			OryUIParameters.itemSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			OryUIParameters.itemSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "itemtype")
+			OryUIParameters.itemType$ = oryUIValue$
 		elseif (oryUIVariable$ = "itemwidth")
 			OryUIParameters.itemSize#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "labeltext")
 			OryUIParameters.labelText$ = oryUIValue$
 		elseif (oryUIVariable$ = "lefticon")
 			OryUIParameters.leftIcon$ = oryUIValue$
+			OryUIParameters.leftIconID = OryUIReturnIconID(oryUIValue$)
 		elseif (oryUIVariable$ = "lefticoncolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.leftIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -449,6 +859,31 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.leftIconColor#[4] = 255
 		elseif (oryUIVariable$ = "lefticonid")
 			OryUIParameters.leftIconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "lefttext")
+			OryUIParameters.leftText$ = oryUIValue$
+		elseif (oryUIVariable$ = "lefttextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.leftTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.leftTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "lefttextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.leftTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.leftTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.leftTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.leftTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "lefttextcolorid")
+			oryUILeftTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.leftTextColor#[1] = GetColorRed(oryUILeftTextColorID)
+			OryUIParameters.leftTextColor#[2] = GetColorGreen(oryUILeftTextColorID)
+			OryUIParameters.leftTextColor#[3] = GetColorBlue(oryUILeftTextColorID)
+			OryUIParameters.leftTextColor#[4] = 255
+		elseif (oryUIVariable$ = "lefttextsize")
+			OryUIParameters.leftTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "leftline1text")
 			OryUIParameters.leftLine1Text$ = oryUIValue$
 		elseif (oryUIVariable$ = "leftline1textbold")
@@ -501,6 +936,10 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.leftLine2TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "leftthumbnailimage")
 			OryUIParameters.leftThumbnailImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "max")
+			OryUIParameters.max# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "maxlength")
+			OryUIParameters.maxLength = val(oryUIValue$)
 		elseif (oryUIVariable$ = "maxposition")
 			OryUIParameters.maxPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			OryUIParameters.maxPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -510,6 +949,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.maxPosition#[2] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "maxzoom")
 			OryUIParameters.maxZoom# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "min")
+			OryUIParameters.min# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "mini")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.mini = 1
@@ -527,6 +968,24 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.name$ = oryUIValue$
 		elseif (oryUIVariable$ = "navigationicon")
 			OryUIParameters.navigationIcon$ = oryUIValue$
+			OryUIParameters.navigationIconID = OryUIReturnIconID(oryUIValue$)
+		elseif (oryUIVariable$ = "navigationiconcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.navigationIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.navigationIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.navigationIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.navigationIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "navigationiconcolorid")
+			oryUINavigationIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.navigationIconColor#[1] = GetColorRed(oryUINavigationIconColorID)
+			OryUIParameters.navigationIconColor#[2] = GetColorGreen(oryUINavigationIconColorID)
+			OryUIParameters.navigationIconColor#[3] = GetColorBlue(oryUINavigationIconColorID)
+			OryUIParameters.navigationIconColor#[4] = 255
+		elseif (oryUIVariable$ = "navigationiconid")
+			OryUIParameters.navigationIconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "noofleftlines")
 			OryUIParameters.noOfLeftLines = val(oryUIValue$)
 		elseif (oryUIVariable$ = "noofrightlines")
@@ -547,6 +1006,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.progressType$ = oryUIValue$
 		elseif (oryUIVariable$ = "righticon")
 			OryUIParameters.rightIcon$ = oryUIValue$
+			OryUIParameters.rightIconID = OryUIReturnIconID(oryUIValue$)
 		elseif (oryUIVariable$ = "righticoncolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.rightIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -564,6 +1024,31 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.rightIconColor#[4] = 255
 		elseif (oryUIVariable$ = "righticonid")
 			OryUIParameters.rightIconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "righttext")
+			OryUIParameters.rightText$ = oryUIValue$
+		elseif (oryUIVariable$ = "righttextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.rightTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.rightTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "righttextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.rightTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.rightTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.rightTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.rightTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "righttextcolorid")
+			oryUIRightTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.rightTextColor#[1] = GetColorRed(oryUIRightTextColorID)
+			OryUIParameters.rightTextColor#[2] = GetColorGreen(oryUIRightTextColorID)
+			OryUIParameters.rightTextColor#[3] = GetColorBlue(oryUIRightTextColorID)
+			OryUIParameters.rightTextColor#[4] = 255
+		elseif (oryUIVariable$ = "righttextsize")
+			OryUIParameters.rightTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "rightline1text")
 			OryUIParameters.rightLine1Text$ = oryUIValue$
 		elseif (oryUIVariable$ = "rightline1textbold")
@@ -616,6 +1101,21 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.rightLine2TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "savetext")
 			OryUIParameters.saveText$ = oryUIValue$
+		elseif (oryUIVariable$ = "scrimcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.scrimColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.scrimColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.scrimColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.scrimColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "scrimcolorid")
+			oryUIScrimColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.scrimColor#[1] = GetColorRed(oryUIScrimColorID)
+			OryUIParameters.scrimColor#[2] = GetColorGreen(oryUIScrimColorID)
+			OryUIParameters.scrimColor#[3] = GetColorBlue(oryUIScrimColorID)
+			OryUIParameters.scrimColor#[4] = 255
 		elseif (oryUIVariable$ = "scrollable")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.scrollable = 1
@@ -672,6 +1172,18 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.shadow = 0
 			endif
+		elseif (oryUIVariable$ = "showhelpertext")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.showHelperText = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.showHelperText = 0
+			endif
+		elseif (oryUIVariable$ = "showicon")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.showIcon = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.showIcon = 0
+			endif
 		elseif (oryUIVariable$ = "showlefticon")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.showLeftIcon = 1
@@ -690,11 +1202,31 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.showRightIcon = 0
 			endif
+		elseif (oryUIVariable$ = "showrighttext")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.showRightText = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.showRightText = 0
+			endif
+		elseif (oryUIVariable$ = "showshadow")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.showShadow = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.showShadow = 0
+			endif
 		elseif (oryUIVariable$ = "size")
 			OryUIParameters.size#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			OryUIParameters.size#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "spriteshader")
 			OryUIParameters.spriteShader = val(oryUIValue$)
+		elseif (oryUIVariable$ = "stackbuttons")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.stackButtons = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.stackButtons = 0
+			endif
+		elseif (oryUIVariable$ = "step")
+			OryUIParameters.step# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "string")
 			OryUIParameters.text$ = oryUIValue$
 		elseif (oryUIVariable$ = "strokecolor")
@@ -712,6 +1244,63 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.strokeColor#[2] = GetColorGreen(oryUIStrokeColorID)
 			OryUIParameters.strokeColor#[3] = GetColorBlue(oryUIStrokeColorID)
 			OryUIParameters.strokeColor#[4] = 255
+		elseif (oryUIVariable$ = "subtitletext")
+			OryUIParameters.subtitleText$ = oryUIValue$
+		elseif (oryUIVariable$ = "subtitletextalignment")
+			if (oryUIValue$ = "left")
+				OryUIParameters.subtitleTextAlignment = 0
+			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+				OryUIParameters.subtitleTextAlignment = 1
+			elseif (oryUIValue$ = "right")
+				OryUIParameters.subtitleTextAlignment = 2
+			endif
+		elseif (oryUIVariable$ = "subtitletextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.subtitleTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.subtitleTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "subtitletextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.subtitleTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.subtitleTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.subtitleTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.subtitleTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "subtitletextcolorid")
+			oryUISubTitleTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.subtitleTextColor#[1] = GetColorRed(oryUISubtitleTextColorID)
+			OryUIParameters.subtitleTextColor#[2] = GetColorGreen(oryUISubtitleTextColorID)
+			OryUIParameters.subtitleTextColor#[3] = GetColorBlue(oryUISubtitleTextColorID)
+			OryUIParameters.subtitleTextColor#[4] = 255
+		elseif (oryUIVariable$ = "subtitletextsize")
+			OryUIParameters.subtitleTextSize# = valFloat(oryUIValue$)
+
+		elseif (oryUIVariable$ = "subtracticon")
+			OryUIParameters.subtractIcon$ = oryUIValue$
+			OryUIParameters.subtractIconID = OryUIReturnIconID(oryUIValue$)
+		elseif (oryUIVariable$ = "subtracticoncolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.subtractIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.subtractIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.subtractIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.subtractIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "subtracticoncolorid")
+			oryUISubtractIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.subtractIconColor#[1] = GetColorRed(oryUISubtractIconColorID)
+			OryUIParameters.subtractIconColor#[2] = GetColorGreen(oryUISubtractIconColorID)
+			OryUIParameters.subtractIconColor#[3] = GetColorBlue(oryUISubtractIconColorID)
+			OryUIParameters.subtractIconColor#[4] = 255
+		elseif (oryUIVariable$ = "subtracticonid")
+			OryUIParameters.subtractIconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "subtracticonsize")
+			OryUIParameters.subtractIconSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.subtractIconSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "supportingtext")
 			OryUIParameters.supportingText$ = oryUIValue$
 		elseif (oryUIVariable$ = "supportingtextalignment")
@@ -778,6 +1367,39 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.textColor#[4] = 255
 		elseif (oryUIVariable$ = "textsize")
 			OryUIParameters.textSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "titletext")
+			OryUIParameters.titleText$ = oryUIValue$
+		elseif (oryUIVariable$ = "titletextalignment")
+			if (oryUIValue$ = "left")
+				OryUIParameters.titleTextAlignment = 0
+			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+				OryUIParameters.titleTextAlignment = 1
+			elseif (oryUIValue$ = "right")
+				OryUIParameters.titleTextAlignment = 2
+			endif
+		elseif (oryUIVariable$ = "titletextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.titleTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.titleTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "titletextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.titleTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.titleTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.titleTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.titleTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "titletextcolorid")
+			oryUITitleTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.titleTextColor#[1] = GetColorRed(oryUITitleTextColorID)
+			OryUIParameters.titleTextColor#[2] = GetColorGreen(oryUITitleTextColorID)
+			OryUIParameters.titleTextColor#[3] = GetColorBlue(oryUITitleTextColorID)
+			OryUIParameters.titleTextColor#[4] = 255
+		elseif (oryUIVariable$ = "titletextsize")
+			OryUIParameters.titleTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedcolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.unselectedColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
