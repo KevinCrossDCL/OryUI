@@ -1,3 +1,109 @@
+
+BUILD 0.3a
+------------------------
+- OryUI
+	- Added function OryUIDisableScreenScrolling()
+	- Added function OryUIEnableScreenScrolling()
+	- Added type variable oryUIDefaults. This will eventually make it easier to theme and overwrite default settings for each component
+
+- OryUIButton
+	- Amended functions OryUIGetButtonPressed() and OryUIGetButtonReleased() to ignore touches if OryUIDialog is visible
+
+- OryUIButtonGroup
+	- Added function OryUIGetButtonGroupItemPressedByName()
+	- Added function OryUIGetButtonGroupItemReleasedByName()
+	- Added function OryUIGetButtonGroupItemReleasedIndex()
+	- Added function OryUIGetButtonGroupItemReleasedName()
+	- Added function OryUIGetButtonGroupItemSelectedName()
+	- Added function OryUISetButtonGroupItemSelectedByName()
+	- Added parameter 'icon' to let you use the OryUI icons set
+	- Added parameter 'iconID' to let you use any image with LoadImage()
+	- Added parameter 'iconPlacement' to let you place the icon at the top, left, right, and bottom of the label
+	- Added parameter 'iconSize'
+	- Added parameter 'name'
+	- Amended functions OryUIGetButtonGroupItemPressedByIndex(), OryUIGetButtonGroupItemPressedByName(), oryUIButtonGroupItemPressed(), OryUIGetButtonGroupItemReleasedByIndex() and OryUIGetButtonGroupItemReleasedByName() to ignore touches if OryUIDialog is visible
+	- Fixed a bug where buttons weren't resizing to the height of the main container
+	- Fixed a bug where iconID$ was being set as "custom"
+	- Fixed a bug where OryUIInsertButtonGroupItem() was not setting the buttons depth correctly
+	- Fixed a bug where OryUISetButtonGroupItemCount() would freeze the app
+	- Fixed a bug where scrolling the screen was activating buttons when touched
+	- Icon and text can both be present on each button
+	- Renamed function OryUIGetButtonGroupItemPressed() to OryUIGetButtonGroupItemPressedByIndex()
+	- Renamed function OryUIGetButtonGroupItemReleased() to OryUIGetButtonGroupItemReleasedByIndex()
+	- Renamed function OryUIGetButtonGroupItemSelected() to OryUIGetButtonGroupItemSelectedIndex()
+	- Renamed function OryUISetButtonGroupItemSelected() to OryUISetButtonGroupItemSelectedByIndex()
+
+- OryUIDefaultSettings (Default settings for each component)
+	- Added default settings for OryUIDialog
+	- Added default settings for OryUIInputSpinner
+	- Added default settings for OryUIMenu
+	- Added default settings for OryUINavigationDrawer
+	- Added default settings for OryUITooltip
+
+- OryUIDialog (New Component)
+
+- OryUIEditAvatarScreen
+	- Amended function OryUIInsertEditAvatarScreenListener() to ignore touches if OryUIDialog is visible
+
+- OryUIFloatingActionButton
+	- Added the setting of icons to functions OryUISetParametersType() & OryUIReturnIconID() in OryUI.agc to remove duplicate code across components
+	- Amended functions OryUIGetFloatingActionButtonPressed() and OryUIGetFloatingActionButtonReleased() to ignore touches if OryUIDialog is visible
+
+- OryUIInputSpinner (New Component)
+
+- OryUIList
+	- Added the setting of icons to functions OryUISetParametersType() & OryUIReturnIconID() in OryUI.agc to remove duplicate code across components
+	- Amended function OryUIInsertListListener() to ignore touches if OryUIDialog is visible
+
+- OryUIMedia
+	- Added new images
+	
+- OryUIMenu
+	- Added function OryUIGetMenuVisible()
+	- Added function OryUIGetMenuX()
+	- Added function OryUIGetMenuY()
+	- Added the setting of icons to functions OryUISetParametersType() & OryUIReturnIconID() in OryUI.agc to remove duplicate code across components
+	- Amended function OryUIInsertMenuListener() to ignore touches if OryUIDialog is visible
+	- Fixed a bug that let you scroll the screen when a menu was visible
+	- Fixed a bug where leftIconID$ was being set as "custom"
+	- Fixed a bug where OryUISetMenuItemCount() would freeze the app
+	- Fixed a bug where rightIconID$ was being set as "custom"
+	- Fixed parameter 'depth'
+
+- OryUINavigationDrawer (New Component)
+
+- OryUISprite
+	- Fixed parameter 'fixToScreen'
+	
+- OryUITabs
+	- Amended function OryUIInsertTabsListener() to ignore touches if OryUIDialog is visible
+	- Fixed a bug where OryUISetTabsButtonCount() would freeze the app
+
+- OryUITemplate (Template file for all future components)
+
+- OryUITextCard
+	- Added function OryUIGetTextCardX()
+	- Added function OryUIGetTextCardY()
+	
+- OryUITextfield
+	- Added function OryUIGetTextfieldHasFocus()
+	- Added parameter 'helperText'
+	- Added parameter 'helperTextColor'
+	- Added parameter 'showHelperText'
+	- Amended function OryUIInsertTextfieldListener() to ignore touches if OryUIDialog is visible
+
+- OryUITooltip (New Component)
+
+- OryUITopBar
+	- Added parameter 'iconID' to let you use any image loaded with LoadImage()
+	- Added parameter 'navigationIconID' to let you use any image loaded with LoadImage()
+	- Amended function OryUIInsertTopBarListener() to ignore touches if OryUIDialog is visible
+	- Fixed a bug where icon$ was being set as "custom"
+	- Fixed a bug where navigationIcon$ was being set as "custom"
+	- Fixed a bug where OryUISetTopBarActionCount() would freeze the app
+
+
+	
 BUILD 0.2a
 ------------------------
 - OryUI
