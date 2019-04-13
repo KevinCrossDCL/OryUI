@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Component (Updated 23/03/2019)
+foldstart // OryUIList Component (Updated 29/03/2019)
 
 type typeOryUIList
 	id as integer
@@ -182,6 +182,8 @@ function OryUIInsertListItem(oryUIListID as integer, oryUIListIndex as integer, 
 endfunction
 
 function OryUIInsertListListener(oryUIListID as integer)
+	if (oryUIDialogVisible = 1) then exitfunction
+
 	local oryUIListItemRightIconReleased as integer
 	local oryUIListItemRightIconSprite as integer
 
@@ -301,7 +303,6 @@ function OryUIUpdateListItem(oryUIListID as integer, oryUIListItemID as integer,
 			endif
 			if (OryUIListCollection[oryUIListID].showRightIcon = 1)
 				if (OryUIParameters.rightIcon$ <> "") then OryUIListCollection[oryUIListID].rightIconType$[oryUIListItemID] = OryUIParameters.rightIcon$
-				if (lower(OryUIListCollection[oryUIListID].rightIconType$[oryUIListItemID]) = "delete") then SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], oryUIIconDeleteImage)
 				if (OryUIParameters.rightIconID > -999999)
 					OryUIListCollection[oryUIListID].rightIconType$[oryUIListItemID] = "custom"
 					SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], OryUIParameters.rightIconID)
