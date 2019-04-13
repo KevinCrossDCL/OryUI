@@ -63,6 +63,20 @@ function OryUIGetTextCardWidth(oryUITextCardID as integer)
 	endif
 endfunction oryUITextCardWidth#
 
+function OryUIGetTextCardX(oryUITextCardID as integer)
+	local oryUITextCardX#
+	if (GetSpriteExists(OryUITextCardCollection[oryUITextCardID].sprContainer))
+		oryUITextCardX# = GetSpriteX(OryUITextCardCollection[oryUITextCardID].sprContainer)
+	endif
+endfunction oryUITextCardX#
+
+function OryUIGetTextCardY(oryUITextCardID as integer)
+	local oryUITextCardY#
+	if (GetSpriteExists(OryUITextCardCollection[oryUITextCardID].sprContainer))
+		oryUITextCardY# = GetSpriteY(OryUITextCardCollection[oryUITextCardID].sprContainer)
+	endif
+endfunction oryUITextCardY#
+
 function OryUIUpdateTextCard(oryUITextCardID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
