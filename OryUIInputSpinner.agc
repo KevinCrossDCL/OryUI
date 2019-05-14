@@ -1,5 +1,5 @@
 
-foldstart // OryUIInputSpinner Component (Updated 10/04/2019)
+foldstart // OryUIInputSpinner Component (Updated 14/04/2019)
 
 type typeOryUIInputSpinner
 	id as integer
@@ -7,6 +7,7 @@ type typeOryUIInputSpinner
 	activeIconColor# as float[4]
 	autoCorrectIfOutOfRange as integer
 	buttons as typeOryUIInputSpinnerButton[2]
+	changedValue as integer
 	decimals as integer
 	defaultValue# as float
 	editBox as integer
@@ -153,6 +154,13 @@ function OryUIDeleteInputSpinner(oryUIInputSpinnerID as integer)
 	endif
 endfunction
 
+function OryUIGetInputSpinnerChangedValue(OryUIInputSpinnerID as integer)
+	local oryUIInputSpinnerChangedValue as integer
+	if (OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = 1)
+		oryUIInputSpinnerChangedValue = 1
+	endif
+endfunction oryUIInputSpinnerChangedValue
+
 function OryUIGetInputSpinnerHasFocus(oryUIInputSpinnerID as integer)
 	local oryUIInputSpinnerHasFocus as integer
 	if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
@@ -208,9 +216,10 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 		SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(OryUIInputSpinnerCollection[oryUIInputSpinnerID].defaultValue#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
 	endif
 	if (oryUIInputSpinnerID <= OryUIInputSpinnerCollection.length)
+		OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = -1
 		if (GetSpriteExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover))
-			if (GetPointerPressed())
-				if (OryUIGetSwipingVertically() = 0)
+			if (OryUIGetSwipingVertically() = 0)
+				if (GetPointerPressed())
 					oryUIInputSpinnerAddButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIInputSpinnerIvisibleCoverSprite = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIInputSpinnerSubtractButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
@@ -228,32 +237,25 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 						OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].pressed = 1
 						OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].timePressed# = timer()
 					endif
-				else
-					OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 0
-				endif
-			elseif (OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 1)
-				if (GetPointerState())
-					if (OryUIGetSwipingVertically() = 0)
+				elseif (OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 1)
+					if (GetPointerState())
 						oryUIInputSpinnerAddButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIInputSpinnerSubtractButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (timer() - OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].timePressed# >= 0.4 and oryUIInputSpinnerAddButton = 1)
 							SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(valFloat(GetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox)) + OryUIInputSpinnerCollection[oryUIInputSpinnerID].step#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
+							OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = 1
 						endif
 						if (timer() - OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].timePressed# >= 0.4 and oryUIInputSpinnerSubtractButton = 1)
 							SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(valFloat(GetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox)) - OryUIInputSpinnerCollection[oryUIInputSpinnerID].step#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
+							OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = 1
 						endif
 					endif
-					//if (OryUIGetSwipingVertically())
-					//	OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 0
-					//endif
-				endif
-				if (GetPointerReleased())
-					if (OryUIGetSwipingVertically() = 0)
+					if (GetPointerReleased())
 						oryUIInputSpinnerAddButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIInputSpinnerIvisibleCoverSprite = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIInputSpinnerSubtractButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 1)
-							if (oryUIInputSpinnerAddButton = 1)
+							if (oryUIInputSpinnerAddButton = 1 and OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].pressed = 1)
 								SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(valFloat(GetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox)) + OryUIInputSpinnerCollection[oryUIInputSpinnerID].step#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
 							endif
 							if (oryUIInputSpinnerIvisibleCoverSprite = 1)
@@ -263,22 +265,30 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 								SetEditBoxActive(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 0)
 								SetEditBoxFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 0)
 							endif
-							if (oryUIInputSpinnerSubtractButton = 1)
+							if (oryUIInputSpinnerSubtractButton = 1 and OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].pressed = 1)
 								SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(valFloat(GetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox)) - OryUIInputSpinnerCollection[oryUIInputSpinnerID].step#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
 							endif
+							OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = 1
 						endif
+						OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 0
 					endif
-					OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 0
 				endif
-				
+			else
+				OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 0
+				OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].pressed = 0
+				OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].timePressed# = timer()
+				OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].pressed = 0
+				OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].timePressed# = timer()
 			endif
 		endif
-		if (GetEditBoxExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
-			if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
-				OryUITextfieldIDFocused = oryUIInputSpinnerID
-			else
-				if (OryUITextfieldIDFocused = oryUIInputSpinnerID) then OryUITextfieldIDFocused = -1
-				SetEditBoxActive(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 0)
+		if (OryUIGetSwipingVertically() = 0)
+			if (GetEditBoxExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
+				if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
+					OryUITextfieldIDFocused = oryUIInputSpinnerID
+				else
+					if (OryUITextfieldIDFocused = oryUIInputSpinnerID) then OryUITextfieldIDFocused = -1
+					SetEditBoxActive(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 0)
+				endif
 			endif
 		endif
 	endif
