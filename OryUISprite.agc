@@ -1,5 +1,5 @@
 
-foldstart // OryUISprite (Updated 04/04/2019)
+foldstart // OryUISprite (Updated 21/04/2019)
 
 function OryUICreateSprite(oryUIComponentParameters$ as string)
 	local oryUISpriteID
@@ -89,8 +89,11 @@ function OryUIUpdateSprite(oryUISpriteID as integer, oryUIComponentParameters$ a
 		if (OryUIParameters.angle# > -999999)
 			SetSpriteAngle(oryUISpriteID, OryUIParameters.angle#)
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(oryUISpriteID, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999)
+			SetSpriteColor(oryUISpriteID, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], GetSpriteColorAlpha(oryUISpriteID))
+		endif
+		if (OryUIParameters.color#[4] > -999999)
+			SetSpriteColorAlpha(oryUISpriteID, OryUIParameters.color#[4])
 		endif
 		if (OryUIParameters.depth > -999999)
 			SetSpriteDepth(oryUISpriteID, OryUIParameters.depth)
