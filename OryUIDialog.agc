@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 04/04/2019)
+foldstart // OryUIDialog Component (Updated 20/04/2019)
 
 type typeOryUIDialog
 	id as integer
@@ -7,16 +7,24 @@ type typeOryUIDialog
 	buttonPressed
 	buttonReleased as integer
 	buttons as typeOryUIDialogButton[]
+	checkboxAlignment as integer
+	checkboxPressed as integer
+	checked as integer
+	checkedImage as integer
 	decisionRequired as integer
 	flexButtons as integer
 	//scrimPressed as integer
 	//scrimReleased as integer
 	scrolling as integer
+	showCheckbox as integer
+	sprCheckbox as integer
 	sprContainer as integer
 	sprScrim as integer
 	stackButtons as integer
+	txtCheckbox as integer
 	txtSupportingText as integer
 	txtTitle as integer
+	uncheckedImage as integer
 	visible as integer
 endtype
 
@@ -40,11 +48,14 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 
 	// DEFAULT SETTINGS
 	OryUIDialogCollection[oryUIDialogID].autoHeight = oryUIDefaults.dialogAutoHeight
+	OryUIDialogCollection[oryUIDialogID].checkboxAlignment = oryUIDefaults.dialogCheckboxAlignment
+	OryUIDialogCollection[oryUIDialogID].checkedImage = oryUIDefaults.dialogCheckboxCheckedImage
 	OryUIDialogCollection[oryUIDialogID].decisionRequired = 1
 	OryUIDialogCollection[oryUIDialogID].flexButtons = oryUIDefaults.dialogFlexButtons
 	OryUIDialogCollection[oryUIDialogID].scrolling = 0
 	OryUIDialogCollection[oryUIDialogID].stackButtons = oryUIDefaults.dialogStackButtons
-
+	OryUIDialogCollection[oryUIDialogID].uncheckedImage = oryUIDefaults.dialogCheckboxUncheckedImage
+	
 	OryUIDialogCollection[oryUIDialogID].sprScrim = CreateSprite(0)
 	SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprScrim, 100, 100)
 	SetSpriteDepth(OryUIDialogCollection[oryUIDialogID].sprScrim, oryUIDefaults.dialogDepth)
@@ -73,14 +84,31 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtSupportingText, oryUIDefaults.dialogDepth - 2)
 	SetTextPosition(OryUIDialogCollection[oryUIDialogID].txtSupportingText, -999999, -999999)
 
+	OryUIDialogCollection[oryUIDialogID].sprCheckbox = CreateSprite(0)
+	SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprCheckbox, -1, 2.8)
+	SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprCheckbox, OryUIDialogCollection[oryUIDialogID].uncheckedImage)
+	SetSpriteDepth(OryUIDialogCollection[oryUIDialogID].sprCheckbox, oryUIDefaults.dialogDepth - 2)
+	SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprCheckbox, oryUIDefaults.dialogCheckboxColor#[1], oryUIDefaults.dialogCheckboxColor#[2], oryUIDefaults.dialogCheckboxColor#[3], oryUIDefaults.dialogCheckboxColor#[4])
+	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, 0, 0)
+	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, -999999, -999999)
+
+	OryUIDialogCollection[oryUIDialogID].txtCheckbox = CreateText("")
+	SetTextSize(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIDefaults.dialogCheckboxTextSize#)
+	SetTextColor(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIDefaults.dialogCheckboxTextColor#[1], oryUIDefaults.dialogCheckboxTextColor#[2], oryUIDefaults.dialogCheckboxTextColor#[3], oryUIDefaults.dialogCheckboxTextColor#[4])
+	SetTextAlignment(OryUIDialogCollection[oryUIDialogID].txtCheckbox, 0)
+	SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIDefaults.dialogDepth - 2)
+	SetTextPosition(OryUIDialogCollection[oryUIDialogID].txtCheckbox, -999999, -999999)
+
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateDialog(oryUIDialogID, oryUIComponentParameters$)
 endfunction oryUIDialogID
 
 function OryUIDeleteDialog(oryUIDialogID as integer)
 	DeleteSprite(OryUIDialogCollection[oryUIDialogID].sprScrim)
 	DeleteSprite(OryUIDialogCollection[oryUIDialogID].sprContainer)
+	DeleteSprite(OryUIDialogCollection[oryUIDialogID].sprCheckbox)
 	DeleteText(OryUIDialogCollection[oryUIDialogID].txtTitle)
 	DeleteText(OryUIDialogCollection[oryUIDialogID].txtSupportingText)
+	DeleteText(OryUIDialogCollection[oryUIDialogID].txtCheckbox)
 	while (OryUIDialogCollection[oryUIDialogID].buttons.length > 0)
 		OryUIDeleteDialogButton(oryUIDialogID, 0)
 	endwhile
@@ -137,6 +165,10 @@ function OryUIGetDialogButtonWidth(oryUIDialogID as integer, oryUIButtonID as in
 	endif
 endfunction oryUIDialogButtonWidth#
 
+function OryUIGetDialogChecked(oryUIDialogID as integer)
+
+endfunction OryUIDialogCollection[oryUIDialogID].checked
+
 function OryUIGetDialogHeight(oryUIDialogID as integer)
 	local oryUIDialogHeight#
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].sprContainer))
@@ -157,8 +189,10 @@ function OryUIHideDialog(oryUIDialogID as integer)
 	OryUIDialogCollection[oryUIDialogID].visible = 0
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, -999999, -999999)
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, -999999, -999999)
+	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, -999999, -999999)
 	SetTextPosition(OryUIDialogCollection[oryUIDialogID].txtTitle, -999999, -999999)
 	SetTextPosition(OryUIDialogCollection[oryUIDialogID].txtSupportingText, -999999, -999999)
+	SetTextPosition(OryUIDialogCollection[oryUIDialogID].txtCheckbox, -999999, -999999)
 	for oryUIForI = 0 to OryUIGetDialogButtonCount(oryUIDialogID) - 1
 		if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer))
 			SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, -999999, -999999)
@@ -204,9 +238,14 @@ function OryUIInsertDialogListener(oryUIDialogID as integer)
 				if (OryUIGetSwipingVertically() = 0)
 					if (GetPointerPressed())
 						oryUIDialogScrimSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprScrim, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+						oryUIDialogCheckboxSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprCheckbox, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+						oryUIDialogCheckboxText = GetTextHitTest(OryUIDialogCollection[oryUIDialogID].txtCheckbox, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIDialogButtonSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (oryUIDialogScrimSprite = 1 and oryUIDialogButtonSprite = 0 and OryUIDialogCollection[oryUIDialogID].decisionRequired = 0)
 							OryUIHideDialog(oryUIDialogID)
+						endif
+						if (oryUIDialogCheckboxSprite = 1 or oryUIDialogCheckboxText = 1)
+							OryUIDialogCollection[oryUIDialogID].checkboxPressed = 1
 						endif
 						if (oryUIDialogButtonSprite = 1)
 							OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].pressed = 1
@@ -224,7 +263,18 @@ function OryUIInsertDialogListener(oryUIDialogID as integer)
 						endif
 						if (GetPointerReleased())
 							oryUIDialogScrimSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprScrim, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+							oryUIDialogCheckboxSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprCheckbox, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+							oryUIDialogCheckboxText = GetTextHitTest(OryUIDialogCollection[oryUIDialogID].txtCheckbox, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							oryUIDialogButtonSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+							if (OryUIDialogCollection[oryUIDialogID].checkboxPressed)
+								if (OryUIDialogCollection[oryUIDialogID].checked = 0)
+									OryUIDialogCollection[oryUIDialogID].checked = 1
+									SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprCheckbox, OryUIDialogCollection[oryUIDialogID].checkedImage)
+								else
+									OryUIDialogCollection[oryUIDialogID].checked = 0
+									SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprCheckbox, OryUIDialogCollection[oryUIDialogID].uncheckedImage)
+								endif
+							endif
 							if (OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].pressed)
 								if (oryUIDialogButtonSprite = 1)
 									OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].released = 1
@@ -232,6 +282,7 @@ function OryUIInsertDialogListener(oryUIDialogID as integer)
 								endif
 								OryUIHideDialog(oryUIDialogID)
 							endif
+							OryUIDialogCollection[oryUIDialogID].checkboxPressed = 0
 							OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].pressed = 0
 							OryUIDialogCollection[oryUIDialogID].buttonPressed = 0
 						endif
@@ -256,20 +307,31 @@ function OryUISetDialogButtonCount(oryUIDialogID as integer, oryUINewDialogButto
 endfunction
 
 function OryUIShowDialog(oryUIDialogID as integer)
+	local oryUIButtonWidth# as float
+	local oryUICheckboxHeight# as float
 	local oryUILastButtonX# as float
 	local oryUILastButtonY# as float
-	local oryUIButtonWidth# as float
-	
+	local oryUITotalCheckboxWidth# as float
+
+	oryUIBlockScreenScrolling = 1
 	oryUIDialogVisible = 1
 	OryUIDialogCollection[oryUIDialogID].visible = 1
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, GetViewOffsetX(), GetViewOffsetY())
 
+	OryUIDialogCollection[oryUIDialogID].checked = 0
+	SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprCheckbox, OryUIDialogCollection[oryUIDialogID].uncheckedImage)
+	
 	if (OryUIDialogCollection[oryUIDialogID].autoHeight = 1)
+		if (OryUIDialogCollection[oryUIDialogID].showCheckbox = 0)
+			oryUICheckboxHeight# = oryUIDefaults.dialogSpacingBetweenSupportingTextAndButtons#
+		else
+			oryUICheckboxHeight# = GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].sprCheckbox) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText# + oryUIDefaults.dialogSpacingBetweenSupportingTextAndButtons#
+		endif
 		if (OryUIDialogCollection[oryUIDialogID].stackButtons = 0)
-			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), oryUIDefaults.dialogTopMargin# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtTitle) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUIDefaults.dialogSpacingBetweenSupportingTextAndButtons# + GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].buttons[0].sprContainer) + oryUIDefaults.dialogBottomMargin#)
+			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), oryUIDefaults.dialogTopMargin# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtTitle) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUICheckboxHeight# + GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].buttons[0].sprContainer) + oryUIDefaults.dialogBottomMargin#)
 		endif
 		if (OryUIDialogCollection[oryUIDialogID].stackButtons = 1)
-			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), oryUIDefaults.dialogTopMargin# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtTitle) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUIDefaults.dialogSpacingBetweenSupportingTextAndButtons# + (OryUIGetDialogButtonCount(oryUIDialogID) * (GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].buttons[0].sprContainer) + oryUIDefaults.dialogButtonYSpacing#)) + oryUIDefaults.dialogBottomMargin#)
+			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), oryUIDefaults.dialogTopMargin# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtTitle) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUICheckboxHeight# + (OryUIGetDialogButtonCount(oryUIDialogID) * (GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].buttons[0].sprContainer) + oryUIDefaults.dialogButtonYSpacing#)) + oryUIDefaults.dialogBottomMargin#)
 		endif
 	endif
 	
@@ -289,6 +351,17 @@ function OryUIShowDialog(oryUIDialogID as integer)
 	elseif (GetTextAlignment(OryUIDialogCollection[oryUIDialogID].txtSupportingText) = 2)
 		OryUIPinTextToTopRightOfSprite(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIDefaults.dialogRightMargin#, oryUIDefaults.dialogTopMargin# + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtTitle) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText#)
 	endif
+	if (OryUIDialogCollection[oryUIDialogID].showCheckbox = 1)
+		oryUITotalCheckboxWidth# = GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprCheckbox) + GetTextTotalWidth(OryUIDialogCollection[oryUIDialogID].txtCheckbox)
+		if (OryUIDialogCollection[oryUIDialogID].checkboxAlignment = 0)
+			SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, GetSpriteX(OryUIDialogCollection[oryUIDialogID].sprContainer) + oryUIDefaults.dialogLeftMargin#, GetTextY(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText#)
+		elseif (OryUIDialogCollection[oryUIDialogID].checkboxAlignment = 1)
+			SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, (GetSpriteX(OryUIDialogCollection[oryUIDialogID].sprContainer) + (GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) / 2)) - (oryUITotalCheckboxWidth# / 2), GetTextY(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText#)
+		elseif (OryUIDialogCollection[oryUIDialogID].checkboxAlignment = 2)
+			SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, (GetSpriteX(OryUIDialogCollection[oryUIDialogID].sprContainer) + GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer)) - oryUITotalCheckboxWidth# - oryUIDefaults.dialogRightMargin#, GetTextY(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUIDefaults.dialogSpacingBetweenTitleAndSupportingText#)
+		endif
+		OryUIPinTextToCentreLeftOfSprite(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIDialogCollection[oryUIDialogID].sprCheckbox, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprCheckbox), 0)
+	endif
 
 	oryUILastButtonX# = GetSpriteX(OryUIDialogCollection[oryUIDialogID].sprContainer) + GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer)
 	if (OryUIDialogCollection[oryUIDialogID].stackButtons = 0)
@@ -301,7 +374,7 @@ function OryUIShowDialog(oryUIDialogID as integer)
 					oryUIButtonWidth# = (GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) - ((OryUIGetDialogButtonCount(oryUIDialogID) + 1) * 2)) / OryUIGetDialogButtonCount(oryUIDialogID)
 					SetSpriteSize(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, oryUIButtonWidth#, GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer))
 				endif
-				SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, oryUILastButtonX# - oryUIDefaults.dialogButtonXSpacing# - GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer), GetTextY(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUIDefaults.dialogSpacingBetweenSupportingTextAndButtons#)
+				SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, oryUILastButtonX# - oryUIDefaults.dialogButtonXSpacing# - GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer), GetTextY(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + GetTextTotalHeight(OryUIDialogCollection[oryUIDialogID].txtSupportingText) + oryUICheckboxHeight#)
 				OryUIPinTextToCentreOfSprite(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].txtLabel, OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, 0, 0)
 				oryUILastButtonX# = GetSpriteX(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer)
 			endif
@@ -339,6 +412,21 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].sprContainer))
 		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), OryUIParameters.size#[2])
+		endif
+		if (OryUIParameters.showCheckbox > -999999)
+			OryUIDialogCollection[oryUIDialogID].showCheckbox = OryUIParameters.showCheckbox
+		endif
+		if (OryUIParameters.checkboxAlignment >- 999999)
+			OryUIDialogCollection[oryUIDialogID].checkboxAlignment = OryUIParameters.checkboxAlignment
+		endif
+		if (OryUIParameters.checkboxTextBold > -999999)
+			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIParameters.checkboxTextBold)
+		endif
+		if (OryUIParameters.checkboxTextSize# > -999999)
+			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIParameters.checkboxTextSize#)
+		endif
+		if (OryUIParameters.checkboxText$ <> "")
+			SetTextString(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIParameters.checkboxText$)
 		endif
 		if (OryUIParameters.supportingTextBold > -999999)
 			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.supportingTextBold)
@@ -380,6 +468,9 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 		//endif
 
 		// THE REST OF THE PARAMETERS NEXT
+		if (OryUIParameters.checkedImageID > -999999)
+			OryUIDialogCollection[oryUIDialogID].checkedImage = OryUIParameters.checkedImageID
+		endif
 		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
 			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
 		endif
@@ -408,6 +499,9 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 		endif
 		if (OryUIParameters.supportingTextColor#[1] > -999999 or OryUIParameters.supportingTextColor#[2] > -999999 or OryUIParameters.supportingTextColor#[3] > -999999 or OryUIParameters.supportingTextColor#[4] > -999999)
 			SetTextColor(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.supportingTextColor#[1], OryUIParameters.supportingTextColor#[2], OryUIParameters.supportingTextColor#[3], OryUIParameters.supportingTextColor#[4])
+		endif
+		if (OryUIParameters.uncheckedImageID > -999999)
+			OryUIDialogCollection[oryUIDialogID].uncheckedImage = OryUIParameters.uncheckedImageID
 		endif
 	endif
 endfunction
