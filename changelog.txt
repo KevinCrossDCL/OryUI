@@ -1,4 +1,68 @@
 
+BUILD 0.4a
+------------------------
+- OryUIButton
+	- Fixed parameter 'textAlignment'
+	
+- OryUIButtonGroup
+	- Added parameter 'selectedIconColor'
+	- Added parameter 'unselectedIconColor'
+	- Added touch code to OryUIInsertButtonGroupListener()
+	- Amended function OryUIInsertButtonGroupItem() to position items correctly
+	- Fixed a bug where icons were no longer placed in the centre of the buttons
+	- Fixed a bug where OryUIGetButtonGroupItemReleasedName() could return an out of array bounds error
+	- Fixed a bug where OryUIResizeAndPositionButtonsInButtonGroup() was not positioning invisible icons
+	- Fixed a bug where OryUIUpdateButtonGroup() was not automatically changing the colours
+	- Removed touch code from OryUIGetButtonGroupItemPressedByIndex()
+	- Removed touch code from OryUIGetButtonGroupItemPressedByName()
+	- Removed touch code from OryUIGetButtonGroupItemReleasedByIndex()
+	- Removed touch code from OryUIGetButtonGroupItemReleasedByName()
+	- Updated function OryUIDeleteButtonGroupItem()
+
+- OryUIDefaultSettings
+	- Added more settings for OryUIDialog
+	- Added default settings for OryUIPagination
+
+- OryUIDialog
+	- Added function OryUIGetDialogChecked()
+	- Added parameter 'checkboxColor'
+	- Added parameter 'checkboxColorID'
+	- Added parameter 'checkboxTextBold'
+	- Added parameter 'checkboxTextColor'
+	- Added parameter 'checkboxTextColorID'
+	- Added parameter 'checkboxTextSize'
+	- Added parameter 'checkedImageID'
+	- Added parameter 'showIcon'
+	- Added parameter 'uncheckedImageID'
+	- Fixed a bug that let you scroll the screen when a dialog was visible
+	
+- OryUIInputSpinner
+	- Fixed a bug where scrolling the screen was activating buttons when touched
+
+- OryUIPagination (New Component)
+
+- OryUIProgressIndicator
+	- Added function OryUIProgressIndicatorWidth()
+	- Added function OryUIProgressIndicatorX()
+	- Added function OryUIProgressIndicatorY()
+	- Amended function OryUISetProgressIndicatorPercentage() to correct values below 0 or above 100
+		
+- OryUISprite
+	- Fixed a bug where setting alpha only could also change the rgb values
+
+- OryUITemplate
+	- Added default settings
+	
+- OryUIText
+	- Fixed a bug where setting alpha only could also change the rgb values
+
+- OryUITopBar
+	- Amended function OryUIInsertTopBarListener() to keep top bar in place when scrolling horizontally
+	- Fixed a bug where OryUIUpdateTopBarAction() could return an out of array bounds error
+	- Fixed OryUIUpdateTopBarAction(). Index now starts from 1 not 0
+
+
+
 BUILD 0.3a
 ------------------------
 - OryUI
