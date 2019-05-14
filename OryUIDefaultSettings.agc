@@ -1,9 +1,23 @@
 
-foldstart // Default Settings for OryUIDialog (04/04/2019)
+foldstart // Default Settings for OryUIDialog (19/04/2019)
 
 // MAIN
 oryUIDefaults.dialogAutoHeight = 1
 oryUIDefaults.dialogBottomMargin# = 1
+oryUIDefaults.dialogCheckboxAlignment = 0
+oryUIDefaults.dialogCheckboxCheckedImage = oryUICheckboxCheckedImage
+oryUIDefaults.dialogCheckboxColor#[1] = 0
+oryUIDefaults.dialogCheckboxColor#[2] = 0
+oryUIDefaults.dialogCheckboxColor#[3] = 0
+oryUIDefaults.dialogCheckboxColor#[4] = 255
+oryUIDefaults.dialogCheckboxHeight# = 2.8
+oryUIDefaults.dialogCheckboxTextColor#[1] = 0
+oryUIDefaults.dialogCheckboxTextColor#[2] = 0
+oryUIDefaults.dialogCheckboxTextColor#[3] = 0
+oryUIDefaults.dialogCheckboxTextColor#[4] = 200
+oryUIDefaults.dialogCheckboxTextSize# = 2.5
+oryUIDefaults.dialogCheckboxUncheckedImage = oryUICheckboxUncheckedImage
+oryUIDefaults.dialogCheckboxWidth# = -1
 oryUIDefaults.dialogColor#[1] = 255
 oryUIDefaults.dialogColor#[2] = 255
 oryUIDefaults.dialogColor#[3] = 255
@@ -36,8 +50,8 @@ oryUIDefaults.dialogTopMargin# = 1.5
 oryUIDefaults.dialogWidth# = 78
 
 // BUTTONS
-oryUIDefaults.dialogButtonColor#[1] = 230
-oryUIDefaults.dialogButtonColor#[2] = 230
+oryUIDefaults.dialogButtonColor#[1] = 255
+oryUIDefaults.dialogButtonColor#[2] = 255
 oryUIDefaults.dialogButtonColor#[3] = 255
 oryUIDefaults.dialogButtonColor#[4] = 255
 oryUIDefaults.dialogButtonHeight# = 5
@@ -228,6 +242,71 @@ oryUIDefaults.navigationDrawerDividerColor#[2] = 230
 oryUIDefaults.navigationDrawerDividerColor#[3] = 230
 oryUIDefaults.navigationDrawerDividerColor#[4] = 255
 oryUIDefaults.navigationDrawerDividerHeight# = 0.2
+
+foldend
+
+foldstart // Default Settings for OryUIPagination (23/04/2019)
+
+// MAIN
+//oryUIDefaults.paginationButtonHeight# = 5
+oryUIDefaults.paginationButtonMargin# = 0.5
+//oryUIDefaults.paginationButtonWidth# = -1
+oryUIDefaults.paginationColor#[1] = 255
+oryUIDefaults.paginationColor#[2] = 255
+oryUIDefaults.paginationColor#[3] = 255
+oryUIDefaults.paginationColor#[4] = 255
+oryUIDefaults.paginationDepth = 100
+//oryUIDefaults.paginationFlexButtons = 1
+oryUIDefaults.paginationHeight# = 7
+oryUIDefaults.paginationIconHeight# = 3
+oryUIDefaults.paginationIconWidth# = -1
+oryUIDefaults.paginationMaximumButtonsToDisplay = 11
+oryUIDefaults.paginationShowSkipToEndButtons = 1
+oryUIDefaults.paginationWidth# = 100
+
+// BUTTON
+oryUIDefaults.paginationInactiveColor#[1] = 255
+oryUIDefaults.paginationInactiveColor#[2] = 255
+oryUIDefaults.paginationInactiveColor#[3] = 255
+oryUIDefaults.paginationInactiveColor#[4] = 255
+oryUIDefaults.paginationInactiveIconColor#[1] = 44
+oryUIDefaults.paginationInactiveIconColor#[2] = 62
+oryUIDefaults.paginationInactiveIconColor#[3] = 180
+oryUIDefaults.paginationInactiveIconColor#[4] = 64
+oryUIDefaults.paginationInactiveTextBold = 0
+oryUIDefaults.paginationInactiveTextColor#[1] = 44
+oryUIDefaults.paginationInactiveTextColor#[2] = 62
+oryUIDefaults.paginationInactiveTextColor#[3] = 180
+oryUIDefaults.paginationInactiveTextColor#[4] = 64
+oryUIDefaults.paginationInactiveTextSize# = 3
+oryUIDefaults.paginationSelectedColor#[1] = 44
+oryUIDefaults.paginationSelectedColor#[2] = 62
+oryUIDefaults.paginationSelectedColor#[3] = 180
+oryUIDefaults.paginationSelectedColor#[4] = 255
+oryUIDefaults.paginationSelectedIconColor#[1] = 44
+oryUIDefaults.paginationSelectedIconColor#[2] = 62
+oryUIDefaults.paginationSelectedIconColor#[3] = 180
+oryUIDefaults.paginationSelectedIconColor#[4] = 255
+oryUIDefaults.paginationSelectedTextBold = 0
+oryUIDefaults.paginationSelectedTextColor#[1] = 255
+oryUIDefaults.paginationSelectedTextColor#[2] = 255
+oryUIDefaults.paginationSelectedTextColor#[3] = 255
+oryUIDefaults.paginationSelectedTextColor#[4] = 255
+oryUIDefaults.paginationSelectedTextSize# = 3
+oryUIDefaults.paginationUnselectedColor#[1] = 255
+oryUIDefaults.paginationUnselectedColor#[2] = 255
+oryUIDefaults.paginationUnselectedColor#[3] = 255
+oryUIDefaults.paginationUnselectedColor#[4] = 255
+oryUIDefaults.paginationUnselectedIconColor#[1] = 44
+oryUIDefaults.paginationUnselectedIconColor#[2] = 62
+oryUIDefaults.paginationUnselectedIconColor#[3] = 180
+oryUIDefaults.paginationUnselectedIconColor#[4] = 255
+oryUIDefaults.paginationUnselectedTextBold = 0
+oryUIDefaults.paginationUnselectedTextColor#[1] = 44
+oryUIDefaults.paginationUnselectedTextColor#[2] = 62
+oryUIDefaults.paginationUnselectedTextColor#[3] = 180
+oryUIDefaults.paginationUnselectedTextColor#[4] = 255
+oryUIDefaults.paginationUnselectedTextSize# = 3
 
 foldend
 
