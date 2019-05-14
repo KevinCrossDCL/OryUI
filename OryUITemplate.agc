@@ -1,12 +1,14 @@
 // This is a template file to use for future components
 
-foldstart // OryUITemplate Component (Updated 13/04/2019)
+foldstart // OryUITemplate Component (Updated 23/04/2019)
 
 type typeOryUITemplate
 	id as integer
+	itemColor# as float[4]
 	itemPressed as integer
 	itemReleased as integer
 	items as typeOryUITemplateItems[]
+	itemSize# as float[2]
 	selected as integer
 	selectedChange as integer
 	sprContainer as integer
@@ -33,6 +35,14 @@ function OryUICreateTemplate(oryUIComponentParameters$ as string)
 	OryUITemplateCollection[oryUITemplateID].id = oryUITemplateID
 
 	// DEFAULT SETTINGS
+	OryUITemplateCollection[oryUITemplateID].itemColor#[1] = oryUIDefaults.templateItemColor#[1]
+	OryUITemplateCollection[oryUITemplateID].itemColor#[2] = oryUIDefaults.templateItemColor#[2]
+	OryUITemplateCollection[oryUITemplateID].itemColor#[3] = oryUIDefaults.templateItemColor#[3]
+	OryUITemplateCollection[oryUITemplateID].itemColor#[4] = oryUIDefaults.templateItemColor#[4]
+	OryUITemplateCollection[oryUITemplateID].itemPressed = -1
+	OryUITemplateCollection[oryUITemplateID].itemReleased = -1
+	OryUITemplateCollection[oryUITemplateID].itemSize#[1] = oryUIDefaults.templateItemWidth#
+	OryUITemplateCollection[oryUITemplateID].itemSize#[2] = oryUIDefaults.templateItemHeight#
 	OryUITemplateCollection[oryUITemplateID].visible = 1
 
 	OryUITemplateCollection[oryUITemplateID].sprContainer = CreateSprite(0)
@@ -138,9 +148,9 @@ function OryUIInsertTemplateItem(oryUITemplateID as integer, oryUITemplateIndex 
 	endif
 
 	OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer = CreateSprite(0)
-	SetSpriteSize(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, oryUIDefaults.templateItemWidth#, oryUIDefaults.templateItemHeight#)
+	SetSpriteSize(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, OryUITemplateCollection[oryUITemplateID].itemSize#[1], OryUITemplateCollection[oryUITemplateID].itemSize#[1])
 	SetSpriteDepth(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, GetSpriteDepth(OryUITemplateCollection[oryUITemplateID].sprContainer) - 1)
-	SetSpriteColor(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, oryUIDefaults.templateItemColor#[1], oryUIDefaults.templateItemColor#[2], oryUIDefaults.templateItemColor#[3], oryUIDefaults.templateItemColor#[4])
+	SetSpriteColor(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, OryUITemplateCollection[oryUITemplateID].itemColor#[1], OryUITemplateCollection[oryUITemplateID].itemColor#[2], OryUITemplateCollection[oryUITemplateID].itemColor#[3], OryUITemplateCollection[oryUITemplateID].itemColor#[4])
 	SetSpriteOffset(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, -999999, -999999)
 
@@ -158,6 +168,7 @@ function OryUIInsertTemplateListener(oryUITemplateID as integer)
 	local oryUITemplateContainerSprite as integer
 	local oryUITemplateItemSprite as integer
 
+	OryUITemplateCollection[oryUITemplateID].itemPressed = -1
 	OryUITemplateCollection[oryUITemplateID].itemReleased = -1
 	if (OryUITemplateCollection[oryUITemplateID].visible = 1)
 		for oryUIForI = 0 to OryUIGetTemplateItemCount(oryUITemplateID) - 1
@@ -166,16 +177,16 @@ function OryUIInsertTemplateListener(oryUITemplateID as integer)
 					if (GetPointerPressed())
 						oryUITemplateItemSprite = GetSpriteHitTest(OryUITemplateCollection[oryUITemplateID].items[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (oryUITemplateItemSprite = 1)
-							OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed = 1
 							OryUITemplateCollection[oryUITemplateID].itemPressed = oryUIForI + 1
+							OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed = 1
 						endif
 					else
 						if (GetPointerState())
 							oryUITemplateItemSprite = GetSpriteHitTest(OryUITemplateCollection[oryUITemplateID].items[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed)
 								if (oryUITemplateItemSprite = 0)
+									OryUITemplateCollection[oryUITemplateID].itemPressed = -1
 									OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed = 0
-									OryUITemplateCollection[oryUITemplateID].itemPressed = 0
 								endif
 							endif
 						endif
@@ -183,18 +194,18 @@ function OryUIInsertTemplateListener(oryUITemplateID as integer)
 							oryUITemplateItemSprite = GetSpriteHitTest(OryUITemplateCollection[oryUITemplateID].items[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed)
 								if (oryUITemplateItemSprite = 1)
-									OryUITemplateCollection[oryUITemplateID].items[oryUIForI].released = 1
 									OryUITemplateCollection[oryUITemplateID].itemReleased = oryUIForI + 1
+									OryUITemplateCollection[oryUITemplateID].items[oryUIForI].released = 1
 								endif
 								//OryUIHideTemplate(oryUITemplateID)
 							endif
+							OryUITemplateCollection[oryUITemplateID].itemPressed = -1
 							OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed = 0
-							OryUITemplateCollection[oryUITemplateID].itemPressed = 0
 						endif
 					endif
 				else
-					OryUITemplateCollection[oryUITemplateID].itemPressed = 0
-					OryUITemplateCollection[oryUITemplateID].itemReleased = 0
+					OryUITemplateCollection[oryUITemplateID].itemPressed = -1
+					OryUITemplateCollection[oryUITemplateID].itemReleased = -1
 					OryUITemplateCollection[oryUITemplateID].items[oryUIForI].pressed = 0
 					OryUITemplateCollection[oryUITemplateID].items[oryUIForI].released = 0
 				endif
