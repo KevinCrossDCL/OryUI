@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 13/04/2019)
+foldstart // OryUIButton Component (Updated 04/05/2019)
 
 type typeOryUIButton
 	id as integer
@@ -155,12 +155,8 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 		if (OryUIParameters.text$ <> "")
 			SetTextString(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.text$)
 		endif
-		if (OryUIParameters.textAlignment = 0)
-			OryUIPinTextToCentreLeftOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
-		elseif (OryUIParameters.textAlignment = 1)
-			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
-		elseif (OryUIParameters.textAlignment = 2)
-			OryUIPinTextToCentreRightOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
+		if (OryUIParameters.textAlignment >- 999999)
+			SetTextAlignment(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textAlignment)
 		endif
 		if (OryUIParameters.textBold > -999999)
 			SetTextBold(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textBold)
@@ -177,13 +173,13 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 		endif
 		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
+			//OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
 		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
 			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer))
-			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
+			//OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
 		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteXByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer), OryUIParameters.position#[2])
-			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
+			//OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
 		endif
 
 		// THE REST OF THE PARAMETERS NEXT
@@ -199,6 +195,13 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 		endif
 		if (OryUIParameters.imageID > -999999)
 			SetSpriteImage(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.imageID)
+		endif
+		if (GetTextAlignment(OryUIButtonCollection[oryUIButtonID].txtLabel) = 0)
+			OryUIPinTextToCentreLeftOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
+		elseif (GetTextAlignment(OryUIButtonCollection[oryUIButtonID].txtLabel)  = 1)
+			OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
+		elseif (GetTextAlignment(OryUIButtonCollection[oryUIButtonID].txtLabel)  = 2)
+			OryUIPinTextToCentreRightOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 2, 0)
 		endif
 		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
 			SetTextColor(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
