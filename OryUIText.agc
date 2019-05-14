@@ -1,5 +1,5 @@
 
-foldstart // OryUIText (Updated 17/02/2019)
+foldstart // OryUIText (Updated 21/04/2019)
 
 function OryUICreateText(oryUIComponentParameters$ as string)
 	local oryUITextID
@@ -73,7 +73,7 @@ endfunction
 
 function OryUIUpdateText(oryUITextID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
-	
+
 	if (GetTextExists(oryUITextID))
 		if (OryUIParameters.alignment > -999999)
 			SetTextAlignment(oryUITextID, OryUIParameters.alignment)
@@ -84,8 +84,11 @@ function OryUIUpdateText(oryUITextID as integer, oryUIComponentParameters$ as st
 		if (OryUIParameters.bold > -999999)
 			SetTextBold(oryUITextID, OryUIParameters.bold)
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetTextColor(oryUITextID, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999)
+			SetTextColor(oryUITextID, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], GetTextColorAlpha(oryUITextID))
+		endif
+		if (OryUIParameters.color#[4] > -999999)
+			SetTextColorAlpha(oryUITextID, OryUIParameters.color#[4])
 		endif
 		if (OryUIParameters.depth > -999999)
 			SetTextDepth(oryUITextID, OryUIParameters.depth)
