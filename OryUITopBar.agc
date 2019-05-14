@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 29/03/2019)
+foldstart // OryUITopBar Component (Updated 28/04/2019)
 
 type typeOryUITopBar
 	id as integer
@@ -226,7 +226,7 @@ function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComp
 	
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTopBarAction(oryUITopBarID, oryUITopBarActionID, oryUIComponentParameters$)
+	if (oryUIComponentParameters$ <> "") then OryUIUpdateTopBarAction(oryUITopBarID, oryUITopBarActionID + 1, oryUIComponentParameters$)
 endfunction
 
 function OryUIInsertTopBarListener(oryUITopBarID as integer)
@@ -237,7 +237,7 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 	local oryUITopBarNavigationReleased as integer
 	local oryUITopBarNavigationSprite as integer
 
-	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetViewOffsetY())
+	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, GetViewOffsetX(), GetViewOffsetY())
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer))
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 2.46 / GetDisplayAspect(), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + OryUIStatusBarHeight# + 2.46)
 	if (OryUITopBarCollection[oryUITopBarID].extended = 0)
@@ -422,16 +422,18 @@ endfunction
 function OryUIUpdateTopBarAction(oryUITopBarID as integer, oryUITopBarActionID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
-	if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon))
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
-		endif
-		if (OryUIParameters.icon$ <> "" and OryUIParameters.iconID > -999999)
-			OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].icon$ = lower(OryUIParameters.icon$)
-			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUIParameters.iconID)
-		elseif (OryUIParameters.iconID > -999999)
-			OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].icon$ = "custom"
-			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUIParameters.iconID)
+	if (oryUITopBarActionID - 1 <= OryUITopBarCollection[oryUITopBarID].actions.length)
+		if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon))
+			if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
+				SetSpriteColor(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+			endif
+			if (OryUIParameters.icon$ <> "" and OryUIParameters.iconID > -999999)
+				OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].icon$ = lower(OryUIParameters.icon$)
+				SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon, OryUIParameters.iconID)
+			elseif (OryUIParameters.iconID > -999999)
+				OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].icon$ = "custom"
+				SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon, OryUIParameters.iconID)
+			endif
 		endif
 	endif
 
