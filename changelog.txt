@@ -1,4 +1,13 @@
 
+BUILD 0.5a
+------------------------
+- OryUITopBar
+	- Added function OryUIGetTopBarActionReleasedName()
+	- Added function OryUIGetTopBarNavigationReleasedName()
+	- Added parameter 'navigationName'
+
+	
+
 BUILD 0.4a
 ------------------------
 - OryUIButton
