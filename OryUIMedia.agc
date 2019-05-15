@@ -2,6 +2,8 @@
 foldstart // OryUIMedia (Updated 30/03/2019)
 
 global oryUIBottomShadowImage as integer : oryUIBottomShadowImage = LoadImage("OryUIMedia/Bottom-Shadow.png")
+global oryUICheckboxCheckedImage as integer : oryUICheckboxCheckedImage = LoadImage("OryUIMedia/Checkbox-Checked.png")
+global oryUICheckboxUncheckedImage as integer : oryUICheckboxUncheckedImage = LoadImage("OryUIMedia/Checkbox-Unchecked.png")
 global oryUICircleFrameImage as integer : oryUICircleFrameImage = LoadImage("OryUIMedia/Circle-Frame.png")
 global oryUIFloatingActionButtonImage as integer : oryUIFloatingActionButtonImage = LoadImage("OryUIMedia/Floating-Action-Button.png")
 global oryUIFloatingActionButtonShadowImage as integer : oryUIFloatingActionButtonShadowImage = LoadImage("OryUIMedia/Floating-Action-Button-Shadow.png")
