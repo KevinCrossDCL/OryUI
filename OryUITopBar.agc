@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 28/04/2019)
+foldstart // OryUITopBar Component (Updated 15/05/2019)
 
 type typeOryUITopBar
 	id as integer
@@ -8,6 +8,7 @@ type typeOryUITopBar
 	defaultIconColor# as float[4]
 	extended as integer
 	navigationIcon$ as string
+	navigationName$ as string
 	//overflowMenu as integer
 	navigationPressed as integer
 	navigationReleased as integer
@@ -22,6 +23,7 @@ type typeOryUITopBarAction
 	id as integer
 	icon$ as string
 	label$ as string
+	name$ as string
 	pressed as integer
 	sprIcon as integer
 	txtLabel as integer
@@ -135,6 +137,13 @@ function OryUIGetTopBarActionReleasedID(oryUITopBarID as integer)
 	endif
 endfunction oryUITopBarActionID
 
+function OryUIGetTopBarActionReleasedName(oryUITopBarID as integer)
+	local oryUITopBarActionName$ as string
+	if (OryUITopBarCollection[oryUITopBarID].actionReleased > -1)
+		oryUITopBarActionName$ = OryUITopBarCollection[oryUITopBarID].actions[OryUITopBarCollection[oryUITopBarID].actionReleased].name$
+	endif
+endfunction oryUITopBarActionName$
+
 function OryUIGetTopBarActionWidthByIcon(oryUITopBarID as integer, oryUIActionIcon$ as string)
 	local oryUITopBarActionWidth# as float
 	for oryUIForI = 0 to OryUIGetTopBarActionCount(oryUITopBarID) - 1
@@ -196,6 +205,13 @@ function OryUIGetTopBarHeight(oryUITopBarID as integer)
 	endif
 endfunction oryUITopBarHeight#
 
+function OryUIGetTopBarNavigationReleased(oryUITopBarID as integer)
+	local oryUITopBarNavigationReleased as integer
+	if (OryUITopBarCollection[oryUITopBarID].navigationReleased = 1)
+		oryUITopBarNavigationReleased = 1
+	endif
+endfunction oryUITopBarNavigationReleased
+
 function OryUIGetTopBarNavigationReleasedIcon(oryUITopBarID as integer)
 	local oryUITopBarNavigationIcon$ as string
 	if (OryUITopBarCollection[oryUITopBarID].navigationReleased = 1)
@@ -203,12 +219,12 @@ function OryUIGetTopBarNavigationReleasedIcon(oryUITopBarID as integer)
 	endif
 endfunction oryUITopBarNavigationIcon$
 
-function OryUIGetTopBarNavigationReleased(oryUITopBarID as integer)
-	local oryUITopBarNavigationReleased as integer
+function OryUIGetTopBarNavigationReleasedName(oryUITopBarID as integer)
+	local oryUITopBarNavigationName$ as string
 	if (OryUITopBarCollection[oryUITopBarID].navigationReleased = 1)
-		oryUITopBarNavigationReleased = 1
+		oryUITopBarNavigationName$ = OryUITopBarCollection[oryUITopBarID].navigationName$
 	endif
-endfunction oryUITopBarNavigationReleased
+endfunction oryUITopBarNavigationName$
 
 function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComponentParameters$ as string)
 	local oryUITopBarActionID as integer
@@ -394,6 +410,9 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 			OryUITopBarCollection[oryUITopBarID].navigationIcon$ = "custom"
 			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, OryUIParameters.navigationIconID)
 		endif
+		if (OryUIParameters.navigationName$ <> "")
+			OryUITopBarCollection[oryUITopBarID].navigationName$ = lower(OryUIParameters.navigationName$)
+		endif
 		if (OryUIParameters.text$ <> "")
 			SetTextString(OryUITopBarCollection[oryUITopBarID].txtTitle, OryUIParameters.text$)
 		endif
@@ -407,7 +426,6 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		elseif (GetTextAlignment(OryUITopBarCollection[oryUITopBarID].txtTitle) = 2)
 			SetTextX(OryUITopBarCollection[oryUITopBarID].txtTitle, (GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 100) - ((2.46 / GetDisplayAspect()) + GetSpriteWidth(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon) + ((2.46 * 2) / GetDisplayAspect())))
 		endif
-		
 		if (OryUIParameters.textBold > -999999)
 			SetTextBold(OryUITopBarCollection[oryUITopBarID].txtTitle, OryUIParameters.textBold)
 		endif
@@ -433,6 +451,9 @@ function OryUIUpdateTopBarAction(oryUITopBarID as integer, oryUITopBarActionID a
 			elseif (OryUIParameters.iconID > -999999)
 				OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].icon$ = "custom"
 				SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon, OryUIParameters.iconID)
+			endif
+			if (OryUIParameters.name$ <> "")
+				OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].name$ = lower(OryUIParameters.name$)
 			endif
 		endif
 	endif
