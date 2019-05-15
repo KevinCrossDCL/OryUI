@@ -1,5 +1,5 @@
 
-foldstart // OryUITouch (Updated 24/03/2019)
+foldstart // OryUITouch (Updated 26/03/2019)
 
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)
@@ -56,7 +56,15 @@ global OryUITouchCollection as typeOryUITouch[10]
 global oryUITouchCount as integer
 OryUISetScreenZoomLimits(1, 1)
 OryUISetScreenScrollLimits(0, 0, 0, 0)
-	
+
+function OryUIDisableScreenScrolling()
+	oryUIBlockScreenScrolling = 1
+endfunction
+
+function OryUIEnableScreenScrolling()
+	oryUIBlockScreenScrolling = 0
+endfunction
+
 function OryUIEndTrackingTouch()
 	if (GetMultiTouchExists() = 1)
 		if (GetRawTouchCount(1) = 0)
@@ -191,7 +199,7 @@ function OryUIStartTrackingTouch()
 			OryUITouchCollection[0].viewY# = OryUITouchCollection[0].startViewY# + OryUITouchCollection[0].distanceMovedY#
 			if (OryUITouchCollection[0].viewY# < OryUITouchCollection[0].minViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].minViewY#
 			if (OryUITouchCollection[0].viewY# > OryUITouchCollection[0].maxViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].maxViewY#
-			if (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0) then SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
+			if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
 		endif
 	else
 		if (GetPointerPressed())
@@ -240,7 +248,7 @@ function OryUIStartTrackingTouch()
 					if (OryUITouchCollection[0].viewX# > OryUITouchCollection[0].maxViewX#) then OryUITouchCollection[0].viewX# = OryUITouchCollection[0].maxViewX#
 					if (OryUITouchCollection[0].viewY# < OryUITouchCollection[0].minViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].minViewY#
 					if (OryUITouchCollection[0].viewY# > OryUITouchCollection[0].maxViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].maxViewY#
-					if (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0) then SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
+					if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
 				endif
 			endif
 		endif
