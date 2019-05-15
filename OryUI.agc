@@ -7,7 +7,7 @@
  * 	License	: MIT
  */
 
-foldstart // OryUI Main Types (Updated 04/04/2019)
+foldstart // OryUI Main Types (Updated 15/05/2019)
 
 type typeOryUIDefaults
 
@@ -21,6 +21,15 @@ type typeOryUIDefaults
 	dialogButtonTextSize# as float
 	dialogButtonXSpacing# as float
 	dialogButtonYSpacing# as float
+	dialogCheckboxAlignment as integer
+	dialogCheckboxCheckedImage as integer
+	dialogCheckboxColor# as float[4]
+	dialogCheckboxHeight# as float
+	dialogCheckboxTextBold as integer
+	dialogCheckboxTextColor# as float[4]
+	dialogCheckboxTextSize# as float
+	dialogCheckboxUncheckedImage as integer
+	dialogCheckboxWidth# as float
 	dialogColor# as float[4]
 	dialogDepth as integer
 	dialogFlexButtons as integer
@@ -120,6 +129,35 @@ type typeOryUIDefaults
 	navigationDrawerType$ as string
 	navigationDrawerWidth# as float
 
+	// OryUIPagination
+	//paginationButtonHeight# as float
+	paginationButtonMargin# as float
+	//paginationButtonWidth# as float
+	paginationColor# as float[4]
+	paginationDepth as integer
+	//paginationFlexButtons as integer
+	paginationHeight# as float
+	paginationIconHeight# as float
+	paginationIconWidth# as float
+	paginationInactiveColor# as float[4]
+	paginationInactiveIconColor# as float[4]
+	paginationInactiveTextBold as integer
+	paginationInactiveTextColor# as float[4]
+	paginationInactiveTextSize# as float
+	paginationMaximumButtonsToDisplay as integer
+	paginationSelectedColor# as float[4]
+	paginationSelectedIconColor# as float[4]
+	paginationSelectedTextBold as integer
+	paginationSelectedTextColor# as float[4]
+	paginationSelectedTextSize# as float
+	paginationShowSkipToEndButtons as integer
+	paginationUnselectedColor# as float[4]
+	paginationUnselectedIconColor# as float[4]
+	paginationUnselectedTextBold as integer
+	paginationUnselectedTextColor# as float[4]
+	paginationUnselectedTextSize# as float
+	paginationWidth# as float
+	
 	// OryUITemplate
 	templateColor# as float[4]
 	templateDepth as integer
@@ -155,7 +193,15 @@ type typeOryUIParameters
 	backgroundColor# as float[4]			// OryUIProfileImageScreen, OryUITextfield
 	blockOrder$ as string[]					// OryUICard
 	bold as integer							// OryUIText
+	buttonMargin# as float 					// OryUIPagination
 	cancelText$ as string					// OryUIProfileImageScreen
+	checkboxAlignment as integer			// OryUIDialog
+	checkboxColor# as float[4]				// OryUIDialog
+	checkboxText$ as string					// OryUIDialog
+	checkboxTextBold as integer				// OryUIDialog
+	checkboxTextColor# as float[4]			// OryUIDialog
+	checkboxTextSize# as float				// OryUIDialog
+	checkedImageID as integer				// OryUIDialog
 	color# as float[4]						// OryUIButton, OryUIFloatingActionButton, OryUIList, OryUIMenu, OryUIProgressIndicator, OryUISprite, OryUITabs, OryUIText, OryUITextfield, OryUITopBar
 	decimals as integer						// OryUIInputSpinner
 	decisionRequired as integer				// OryUIDialog
@@ -185,8 +231,11 @@ type typeOryUIParameters
 	iconSize# as float[2]					// OryUIButtonGroup
 	imageID as integer						// OryUIButton, OryUIProfileImageScreen, OryUISprite, OryUITabs, OryUITopBar
 	inactiveButtonColor# as float[4]		// OryUIInputSpinner
-	inactiveColor# as float[4]				// OryUITabs
-	inactiveIconColor# as float[4]			// OryUIInputSpinner
+	inactiveColor# as float[4]				// OryUITabs, OryUIPagination
+	inactiveIconColor# as float[4]			// OryUIInputSpinner, OryUIPagination
+	inactiveTextBold as integer				// OryUIPagination
+	inactiveTextColor# as float[4]			// OryUIPagination
+	inactiveTextSize# as float				// OryUIPagination
 	inputText$ as string					// OryUITextfield
 	inputType$ as string					// OryUITextfield
 	itemHeight# as float					// OryUIMenu
@@ -210,6 +259,7 @@ type typeOryUIParameters
 	leftTextSize# as float					// OryUINavigationDrawer
 	leftThumbnailImageID as float			// OryUIList
 	max# as float							// OryUIInputSpinner
+	maxButtonsToDisplay						// OryUIPagination
 	maxLength as integer					// OryUITextfield
 	maxPosition# as float[2]				// OryUITabs
 	maxZoom# as float						// OryUIProfileImageScreen
@@ -220,7 +270,9 @@ type typeOryUIParameters
 	navigationIcon$ as string 				// OryUITopBar
 	navigationIconColor# as float[4]		// OryUITopBar
 	navigationIconID as integer				// OryUITopBar
+	navigationName$ as string 				// OryUITopBar
 	noOfLeftLines as integer				// OryUIList
+	noOfPages as integer					// OryUIPagination
 	noOfRightLines as integer				// OryUIList
 	offset# as float[2]						// OryUIButton, OryUIButtonGroup, OryUIProgressIndicator, OryUISprite
 	offsetCenter as integer					// OryUIButton, OryUIButtonGroup, OryUIProgressIndicator, OryUISprite
@@ -247,10 +299,12 @@ type typeOryUIParameters
 	scrimColor# as float[4]
 	selected as integer						// OryUIButtonGroup
 	selectedColor# as float[4]				// OryUIButtonGroup
+	selectedIconColor# as float[4]			// OryUIButtonGroup
 	selectedTextBold as integer				// OryUIButtonGroup
 	selectedTextColor# as float[4]			// OryUIButtonGroup
 	selectedTextSize# as float				// OryUIButtonGroup
 	shadow as integer						// OryUIFloatingActionButton
+	showCheckbox as integer					// OryUIDialog
 	showHelperText as integer				// OryUITextfield
 	showIcon as integer						// OryUINavigationDrawer
 	showLeftIcon as integer					// OryUIMenu
@@ -258,6 +312,7 @@ type typeOryUIParameters
 	showRightIcon as integer				// OryUIList, OryUIMenu
 	showRightText as integer				// OryUINavigationDrawer
 	showShadow as integer					// OryUINavigationDrawer
+	showSkipToEndButtons as integer			// OryUIPagination
 	size# as float[2]						// OryUIButton, OryUIButtonGroup, OryUIList, OryUIProgressIndicator, OryUISprite, OryUITabs, OryUIText, OryUITextfield
 	spriteShader as integer					// OryUISpritestep# as float							// OryUIDialog
 	stackButtons as integer					// OryUIDialog
@@ -287,7 +342,9 @@ type typeOryUIParameters
 	titleTextBold as integer				// OryUIDialog
 	titleTextColor# as float[4]				// OryUIDialog
 	titleTextSize# as float					// OryUIDialog
+	uncheckedImageID as integer
 	unselectedColor# as float[4]			// OryUIButtonGroup
+	unselectedIconColor# as float[4]		// OryUIButtonGroup
 	unselectedTextBold as integer			// OryUIButtonGroup
 	unselectedTextColor# as float[4]		// OryUIButtonGroup
 	unselectedTextSize# as float			// OryUIButtonGroup
@@ -312,7 +369,7 @@ global OryUIStatusBarHeight# as float : OryUIStatusBarHeight# = 3.6
 foldend
 
 
-foldstart // OryUI Main Functions (Updated 04/04/2019)
+foldstart // OryUI Main Functions (Updated 15/05/2019)
 
 function OryUIAddToContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIContentHeight# + oryUIHeight#
@@ -328,7 +385,13 @@ function OryUIResetParametersType()
 	OryUIParameters.autoHeight = -999999
 	OryUIParameters.blockOrder$.length = -1
 	OryUIParameters.bold = -999999
+	OryUIParameters.buttonMargin# = -999999
 	OryUIParameters.cancelText$ = ""
+	OryUIParameters.checkboxAlignment = -999999
+	OryUIParameters.checkboxText$ = ""
+	OryUIParameters.checkboxTextBold = -999999
+	OryUIParameters.checkboxTextSize# = -999999
+	OryUIParameters.checkedImageID = -999999
 	OryUIParameters.decimals = -999999
 	OryUIParameters.decisionRequired = -999999
 	OryUIParameters.defaultValue# = -999999
@@ -352,6 +415,8 @@ function OryUIResetParametersType()
 	OryUIParameters.iconID = -999999
 	OryUIParameters.iconPlacement$ = ""
 	OryUIParameters.imageID = -999999
+	OryUIParameters.inactiveTextBold = -999999
+	OryUIParameters.inactiveTextSize# = -999999	
 	OryUIParameters.inputText$ = ""
 	OryUIParameters.inputType$ = ""
 	OryUIParameters.itemHeight# = -999999
@@ -370,6 +435,7 @@ function OryUIResetParametersType()
 	OryUIParameters.leftTextSize# = -999999
 	OryUIParameters.leftThumbnailImageID = -999999
 	OryUIParameters.max# = -999999
+	OryUIParameters.maxButtonsToDisplay = -999999
 	OryUIParameters.maxLength = -999999
 	OryUIParameters.maxZoom# = -999999
 	OryUIParameters.min# = -999999
@@ -377,7 +443,9 @@ function OryUIResetParametersType()
 	OryUIParameters.name$ = ""
 	OryUIParameters.navigationIcon$ = ""
 	OryUIParameters.navigationIconID = -999999
+	OryUIParameters.navigationName$ = ""
 	OryUIParameters.noOfLeftLines = -999999
+	OryUIParameters.noOfPages = -999999
 	OryUIParameters.noOfRightLines = -999999
 	OryUIParameters.offsetCenter = -999999
 	OryUIParameters.placement$ = ""
@@ -399,12 +467,14 @@ function OryUIResetParametersType()
 	OryUIParameters.selectedTextBold = -999999
 	OryUIParameters.selectedTextSize# = -999999	
 	OryUIParameters.shadow = -999999
+	OryUIParameters.showCheckbox = -999999
 	OryUIParameters.showIcon = -999999
 	OryUIParameters.showLeftIcon = -999999
 	OryUIParameters.showLeftThumbnail = -999999
 	OryUIParameters.showRightIcon = -999999
 	OryUIParameters.showRightText = -999999
 	OryUIParameters.showShadow = -999999
+	OryUIParameters.showSkipToEndButtons = -999999
 	OryUIParameters.spriteShader = -999999
 	OryUIParameters.stackButtons = -999999
 	OryUIParameters.step# = -999999
@@ -426,6 +496,7 @@ function OryUIResetParametersType()
 	OryUIParameters.titleTextAlignment = -999999
 	OryUIParameters.titleTextBold = -999999
 	OryUIParameters.titleTextSize# = -999999
+	OryUIParameters.uncheckedImageID = -999999
 	OryUIParameters.unselectedTextBold = -999999
 	OryUIParameters.unselectedTextSize# = -999999	
 	for i = 1 to 4
@@ -445,6 +516,8 @@ function OryUIResetParametersType()
 		OryUIParameters.activeIconColor#[i] = -999999
 		OryUIParameters.addIconColor#[i] = -999999
 		OryUIParameters.backgroundColor#[i] = -999999
+		OryUIParameters.checkboxColor#[i] = -999999
+		OryUIParameters.checkboxTextColor#[i] = -999999
 		OryUIParameters.color#[i] = -999999
 		OryUIParameters.headerTextColor#[i] = -999999
 		OryUIParameters.helperTextColor#[i] = -999999
@@ -452,6 +525,7 @@ function OryUIResetParametersType()
 		OryUIParameters.inactiveButtonColor#[i] = -999999
 		OryUIParameters.inactiveColor#[i] = -999999
 		OryUIParameters.inactiveIconColor#[i] = -999999
+		OryUIParameters.inactiveTextColor#[i] = -999999
 		OryUIParameters.leftIconColor#[i] = -999999
 		OryUIParameters.leftLine1TextColor#[i] = -999999
 		OryUIParameters.leftLine2TextColor#[i] = -999999
@@ -463,6 +537,7 @@ function OryUIResetParametersType()
 		OryUIParameters.rightTextColor#[i] = -999999
 		OryUIParameters.scrimColor#[i] = -999999
 		OryUIParameters.selectedColor#[i] = -999999
+		OryUIParameters.selectedIconColor#[i] = -999999
 		OryUIParameters.selectedTextColor#[i] = -999999
 		OryUIParameters.strokeColor#[i] = -999999
 		OryUIParameters.subtitleTextColor#[i] = -999999
@@ -471,6 +546,7 @@ function OryUIResetParametersType()
 		OryUIParameters.textColor#[i] = -999999
 		OryUIParameters.titleTextColor#[i] = -999999
 		OryUIParameters.unselectedColor#[i] = -999999
+		OryUIParameters.unselectedIconColor#[i] = -999999
 		OryUIParameters.unselectedTextColor#[i] = -999999
 	next
 endfunction
@@ -629,8 +705,52 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.bold = 0
 			endif
+		elseif (oryUIVariable$ = "buttonmargin")
+			OryUIParameters.buttonMargin# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "canceltext")
 			OryUIParameters.cancelText$ = oryUIValue$
+		elseif (oryUIVariable$ = "checkboxcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.checkboxColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.checkboxColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.checkboxColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.checkboxColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "checkboxcolorid")
+			oryUICheckboxColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.checkboxColor#[1] = GetColorRed(oryUICheckboxColorID)
+			OryUIParameters.checkboxColor#[2] = GetColorGreen(oryUICheckboxColorID)
+			OryUIParameters.checkboxColor#[3] = GetColorBlue(oryUICheckboxColorID)
+			OryUIParameters.checkboxColor#[4] = 255
+		elseif (oryUIVariable$ = "checkboxtext")
+			OryUIParameters.checkboxText$ = oryUIValue$
+		elseif (oryUIVariable$ = "checkboxtextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.checkboxTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.checkboxTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "checkboxtextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.checkboxTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.checkboxTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.checkboxTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.checkboxTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "checkboxtextcolorid")
+			oryUICheckboxTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.checkboxTextColor#[1] = GetColorRed(oryUICheckboxTextColorID)
+			OryUIParameters.checkboxTextColor#[2] = GetColorGreen(oryUICheckboxTextColorID)
+			OryUIParameters.checkboxTextColor#[3] = GetColorBlue(oryUICheckboxTextColorID)
+			OryUIParameters.checkboxTextColor#[4] = 255
+		elseif (oryUIVariable$ = "checkboxtextsize")
+			OryUIParameters.checkboxTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "checkedimageid")
+			OryUIParameters.checkedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "color")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.color#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -824,6 +944,29 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.inactiveIconColor#[2] = GetColorGreen(oryUIInactiveIconColorID)
 			OryUIParameters.inactiveIconColor#[3] = GetColorBlue(oryUIInactiveIconColorID)
 			OryUIParameters.inactiveIconColor#[4] = 255
+		elseif (oryUIVariable$ = "inactivetextbold")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.inactiveTextBold = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.inactiveTextBold = 0
+			endif
+		elseif (oryUIVariable$ = "inactivetextcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.inactiveTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.inactiveTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.inactiveTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.inactiveTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "inactivetextcolorid")
+			oryUIInactiveTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.inactiveTextColor#[1] = GetColorRed(oryUIInactiveTextColorID)
+			OryUIParameters.inactiveTextColor#[2] = GetColorGreen(oryUIInactiveTextColorID)
+			OryUIParameters.inactiveTextColor#[3] = GetColorBlue(oryUIInactiveTextColorID)
+			OryUIParameters.inactiveTextColor#[4] = 255
+		elseif (oryUIVariable$ = "inactivetextsize")
+			OryUIParameters.inactiveTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "inputtext")
 			OryUIParameters.inputText$ = oryUIValue$
 		elseif (oryUIVariable$ = "inputtype")
@@ -938,6 +1081,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.leftThumbnailImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "max")
 			OryUIParameters.max# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "maxbuttonstodisplay")
+			OryUIParameters.maxButtonsToDisplay = val(oryUIValue$)
 		elseif (oryUIVariable$ = "maxlength")
 			OryUIParameters.maxLength = val(oryUIValue$)
 		elseif (oryUIVariable$ = "maxposition")
@@ -986,8 +1131,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.navigationIconColor#[4] = 255
 		elseif (oryUIVariable$ = "navigationiconid")
 			OryUIParameters.navigationIconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "navigationname")
+			OryUIParameters.navigationName$ = oryUIValue$
 		elseif (oryUIVariable$ = "noofleftlines")
 			OryUIParameters.noOfLeftLines = val(oryUIValue$)
+		elseif (oryUIVariable$ = "noofpages")
+			OryUIParameters.noOfPages = val(oryUIValue$)
 		elseif (oryUIVariable$ = "noofrightlines")
 			OryUIParameters.noOfRightLines = val(oryUIValue$)	
 		elseif (oryUIVariable$ = "offset")
@@ -1143,6 +1292,21 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.selectedColor#[2] = GetColorGreen(oryUISelectedColorID)
 			OryUIParameters.selectedColor#[3] = GetColorBlue(oryUISelectedColorID)
 			OryUIParameters.selectedColor#[4] = 255
+		elseif (oryUIVariable$ = "selectediconcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.selectedIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.selectedIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.selectedIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.selectedIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "selectediconcolorid")
+			oryUISelectedIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.selectedIconColor#[1] = GetColorRed(oryUISelectedIconColorID)
+			OryUIParameters.selectedIconColor#[2] = GetColorGreen(oryUISelectedIconColorID)
+			OryUIParameters.selectedIconColor#[3] = GetColorBlue(oryUISelectedIconColorID)
+			OryUIParameters.selectedIconColor#[4] = 255
 		elseif (oryUIVariable$ = "selectedtextbold")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.selectedTextBold = 1
@@ -1171,6 +1335,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				OryUIParameters.shadow = 1
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.shadow = 0
+			endif
+		elseif (oryUIVariable$ = "showcheckbox")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.showCheckbox = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.showCheckbox = 0
 			endif
 		elseif (oryUIVariable$ = "showhelpertext")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
@@ -1213,6 +1383,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				OryUIParameters.showShadow = 1
 			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
 				OryUIParameters.showShadow = 0
+			endif
+		elseif (oryUIVariable$ = "showskiptoendbuttons")
+			if (oryUIValue$ = "true" or oryUIValue$ = "1")
+				OryUIParameters.showSkipToEndButtons = 1
+			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
+				OryUIParameters.showSkipToEndButtons = 0
 			endif
 		elseif (oryUIVariable$ = "size")
 			OryUIParameters.size#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -1400,6 +1576,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.titleTextColor#[4] = 255
 		elseif (oryUIVariable$ = "titletextsize")
 			OryUIParameters.titleTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "uncheckedimageid")
+			OryUIParameters.uncheckedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedcolor")
 			if (CountStringTokens(oryUIValue$, ",") >= 3)
 				OryUIParameters.unselectedColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
@@ -1415,6 +1593,21 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			OryUIParameters.unselectedColor#[2] = GetColorGreen(oryUIUnselectedColorID)
 			OryUIParameters.unselectedColor#[3] = GetColorBlue(oryUIUnselectedColorID)
 			OryUIParameters.unselectedColor#[4] = 255
+		elseif (oryUIVariable$ = "unselectediconcolor")
+			if (CountStringTokens(oryUIValue$, ",") >= 3)
+				OryUIParameters.unselectedIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+				OryUIParameters.unselectedIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+				OryUIParameters.unselectedIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
+			endif
+			if (CountStringTokens(oryUIValue$, ",") = 4)
+				OryUIParameters.unselectedIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
+			endif
+		elseif (oryUIVariable$ = "unselectediconcolorid")
+			oryUIUnselectedIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
+			OryUIParameters.unselectedIconColor#[1] = GetColorRed(oryUIUnselectedIconColorID)
+			OryUIParameters.unselectedIconColor#[2] = GetColorGreen(oryUIUnselectedIconColorID)
+			OryUIParameters.unselectedIconColor#[3] = GetColorBlue(oryUIUnselectedIconColorID)
+			OryUIParameters.unselectedIconColor#[4] = 255
 		elseif (oryUIVariable$ = "unselectedtextbold")
 			if (oryUIValue$ = "true" or oryUIValue$ = "1")
 				OryUIParameters.unselectedTextBold = 1
