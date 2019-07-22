@@ -80,10 +80,10 @@ A copy of AGK2 is required to use OryUI. For more information on AGK2 check out:
 I've started on some documentation which can be found here in the Wiki section: https://github.com/KevinCrossDCL/OryUI/wiki
 
 ## Feedback / Suggestions
-This is the first framework I've attempted to create so any feedback, suggestions, and constructive criticsm will be greatly appreciated. You can contact me on the below forum post or the OryUI Discord server
+This is the first framework I've attempted to create so any feedback, suggestions, and constructive criticsm will be greatly appreciated. You can contact me on the below forum post:
 
 * [AGK Forum thread for OryUI](https://forum.thegamecreators.com/thread/223719)
-* [OryUI Discord](https://discord.gg/Ebvtt2f)
+
 
 ## License
 The OryUI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
