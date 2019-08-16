@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 06/04/2019)
+foldstart // OryUITextfield Component (Updated 16/08/2019)
 
 type typeOryUITextfield
 	id as integer
@@ -151,7 +151,7 @@ function OryUIGetTextfieldWidth(oryUITextfieldID as integer)
 endfunction oryUITextfieldWidth#
 
 function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
-	if (oryUIDialogVisible = 1) then exitfunction
+	if (oryUIScrimVisible = 1) then exitfunction
 	
 	//local oryUITextfieldSprite as integer
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
