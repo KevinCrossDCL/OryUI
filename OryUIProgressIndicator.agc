@@ -1,8 +1,9 @@
 
-foldstart // OryUIProgressIndicator Component (Updated 21/04/2019)
+foldstart // OryUIProgressIndicator Component (Updated 16/08/2019)
 
 type typeOryUIProgressIndicator
 	id as integer
+	percentage# as float
 	progressType$ as string
 	sprTrack as integer
 	sprIndicator as integer
@@ -66,6 +67,10 @@ function OryUIGetProgressIndicatorHeight(oryUIProgressIndicatorID as integer)
 	endif
 endfunction oryUIProgressIndicatorHeight#
 
+function OryUIGetProgressIndicatorPercentage(oryUIProgressIndicatorID as integer)
+	
+endfunction OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].percentage#
+
 function OryUIGetProgressIndicatorWidth(oryUIProgressIndicatorID as integer)
 	local oryUIProgressIndicatorWidth#
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
@@ -90,6 +95,7 @@ endfunction oryUIProgressIndicatorY#
 function OryUISetProgressIndicatorPercentage(oryUIProgressIndicatorID as integer, oryUIPercentage# as float)
 	if (oryUIPercentage# < 0) then oryUIPercentage# = 0
 	if (oryUIPercentage# > 100) then oryUIPercentage# = 100
+	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].percentage# = oryUIPercentage#
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		SetSpriteSize(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, (GetSpriteWidth(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack) / 100.0) * oryUIPercentage#, GetSpriteHeight(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator))
 	endif
