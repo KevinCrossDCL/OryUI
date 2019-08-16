@@ -1,4 +1,110 @@
 
+BUILD 0.6a
+------------------------
+- OryUIButton
+	- Added function OryUIDisableButton()
+	- Added function OryUIEnableButton()
+	- Added function OryUIGetButtonHeld()
+	- Added parameter 'angle'
+	- Added parameter 'disabledColor'
+	- Added parameter 'disabledColorID'
+	- Added parameter 'disabledIcon'
+	- Added parameter 'disabledIconColor'
+	- Added parameter 'disabledIconColorID'
+	- Added parameter 'disabledIconID'
+	- Added parameter 'disabledIconPlacement'
+	- Added parameter 'disabledIconSize'
+	- Added parameter 'disabledImageID'
+	- Added parameter 'disabledText'
+	- Added parameter 'disabledTextAlignment'
+	- Added parameter 'disabledTextBold'
+	- Added parameter 'disabledTextColor'
+	- Added parameter 'disabledTextColorID'
+	- Added parameter 'disabledTextSize'
+	- Added parameter 'enabled'
+	- Added parameter 'enabledColor'
+	- Added parameter 'enabledColorID'
+	- Added parameter 'enabledIcon'
+	- Added parameter 'enabledIconColor'
+	- Added parameter 'enabledIconColorID'
+	- Added parameter 'enabledIconID'
+	- Added parameter 'enabledIconPlacement'
+	- Added parameter 'enabledIconSize'
+	- Added parameter 'enabledImageID'
+	- Added parameter 'enabledText'
+	- Added parameter 'enabledTextAlignment'
+	- Added parameter 'enabledTextBold'
+	- Added parameter 'enabledTextColor'
+	- Added parameter 'enabledTextColorID'
+	- Added parameter 'enabledTextSize'
+	- Added parameter 'icon'
+	- Added parameter 'iconColor'
+	- Added parameter 'iconColorID'
+	- Added parameter 'iconID'
+	- Added parameter 'iconPlacement'
+	- Added parameter 'iconSize'
+	- Fixed "textAlignment:right"
+	- Removed the default label 'Button' to allow for icons
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+	- Rewrote function OryUIGetButtonPressed()
+	- Rewrote function OryUIGetButtonReleased()
+
+- OryUIButtonGroup
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+- OryUIDefaultSettings
+	- Added default settings for OryUIButton
+
+- OryUIDialog
+	- Added function OryUIGetDialogVisible()
+	- Fixed a bug where OryUIInsertDialogListener() was no longer working
+
+- OryUIEditAvatarScreen
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+- OryUIFloatingActionButton
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+- OryUIHTTPSQueue (New Component)
+
+- OryUIInputSpinner
+	- Added function OryUIAnyInputSpinnerFocused()
+	- Added function OryUIGetInputSpinnerFloat()
+	- Added function OryUIGetInputSpinnerInteger()
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+	- Text size now automatically resizes to the input spinner height, if not specified
+
+- OryUIList
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+- OryUIMedia
+	- Added new images
+
+- OryUIMenu
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+- OryUINavigationDrawer
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+	
+- OryUIPagination
+	- Fixed a bug where OryUIDeletePaginationButton was not deleting the button text label
+
+- OryUIProgressIndicator
+	- Added function OryUIGetProgressIndicatorPercentage()
+	
+- OryUIScrollToTop (New Component)
+
+- OryUITabs
+	- Fixed a bug where touches were activating when a scrim from another component was visible
+
+- OryUITextfield
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+- OryUITopBar
+	- Replaced oryUIDialogVisible with oryUIScrimVisible
+
+
+
 BUILD 0.5a
 ------------------------
 - OryUITopBar
