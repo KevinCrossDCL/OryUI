@@ -1,5 +1,5 @@
 
-foldstart // OryUIPagination Component (Updated 23/04/2019)
+foldstart // OryUIPagination Component (Updated 16/08/2019)
 
 type typeOryUIPagination
 	id as integer
@@ -137,6 +137,8 @@ endfunction
 
 function OryUIDeletePaginationButton(oryUIPaginationID as integer, oryUIPaginationButtonID as integer)
 	DeleteSprite(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer)
+	DeleteSprite(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon)
+	DeleteText(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].txtLabel)
 	OryUIPaginationCollection[oryUIPaginationID].buttons.remove(oryUIPaginationButtonID)
 endfunction
 
@@ -603,7 +605,7 @@ function OryUIUpdatePagination(oryUIPaginationID as integer, oryUIComponentParam
 		endif
 		if (OryUIParameters.noOfPages > -999999)
 			OryUIPaginationCollection[oryUIPaginationID].noOfPages = OryUIParameters.noOfPages
-			if (OryUIPaginationCollection[oryUIPaginationID].noOfPages < OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay)
+			if (OryUIPaginationCollection[oryUIPaginationID].noOfPages <= OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay)
 				OryUISetPaginationButtonCount(oryUIPaginationID, OryUIPaginationCollection[oryUIPaginationID].noOfPages)
 			else
 				OryUISetPaginationButtonCount(oryUIPaginationID, OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay)
