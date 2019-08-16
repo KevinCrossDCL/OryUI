@@ -1,5 +1,5 @@
 
-foldstart // OryUIButtonGroup Component (Updated 23/04/2019)
+foldstart // OryUIButtonGroup Component (Updated 16/08/2019)
 
 type typeOryUIButtonGroup
 	id as integer
@@ -133,7 +133,7 @@ function OryUIGetButtonGroupItemPressedByIndex(oryUIButtonGroupID as integer, or
 			oryUIButtonGroupItemPressed = 1
 		endif
 	endif
-	if (oryUIDialogVisible = 1) then oryUIButtonGroupItemPressed = 0
+	if (oryUIScrimVisible = 1) then oryUIButtonGroupItemPressed = 0
 endfunction oryUIButtonGroupItemPressed
 
 function OryUIGetButtonGroupItemPressedByName(oryUIButtonGroupID as integer, oryUIItemName$ as string)
@@ -145,7 +145,7 @@ function OryUIGetButtonGroupItemPressedByName(oryUIButtonGroupID as integer, ory
 			oryUIButtonGroupItemPressed = 1
 		endif
 	endif
-	if (oryUIDialogVisible = 1) then oryUIButtonGroupItemPressed = 0
+	if (oryUIScrimVisible = 1) then oryUIButtonGroupItemPressed = 0
 endfunction oryUIButtonGroupItemPressed
 	
 function OryUIGetButtonGroupItemReleasedByIndex(oryUIButtonGroupID as integer, oryUIItemID as integer)
@@ -157,7 +157,7 @@ function OryUIGetButtonGroupItemReleasedByIndex(oryUIButtonGroupID as integer, o
 			oryUIButtonGroupItemReleased = 1
 		endif
 	endif
-	if (oryUIDialogVisible = 1) then oryUIButtonGroupItemReleased = 0
+	if (oryUIScrimVisible = 1) then oryUIButtonGroupItemReleased = 0
 endfunction oryUIButtonGroupItemReleased
 
 function OryUIGetButtonGroupItemReleasedByName(oryUIButtonGroupID as integer, oryUIItemName$ as string)
@@ -169,13 +169,13 @@ function OryUIGetButtonGroupItemReleasedByName(oryUIButtonGroupID as integer, or
 			oryUIButtonGroupItemReleased = 1
 		endif
 	endif
-	if (oryUIDialogVisible = 1) then oryUIButtonGroupItemReleased = 0
+	if (oryUIScrimVisible = 1) then oryUIButtonGroupItemReleased = 0
 endfunction oryUIButtonGroupItemReleased
 
 function OryUIGetButtonGroupItemReleasedIndex(oryUIButtonGroupID as integer)
 	local oryUIButtonGroupItemReleasedIndex
 	oryUIButtonGroupItemReleasedIndex = OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased
-	if (oryUIDialogVisible = 1) then oryUIButtonGroupItemReleasedIndex = 0
+	if (oryUIScrimVisible = 1) then oryUIButtonGroupItemReleasedIndex = 0
 endfunction oryUIButtonGroupItemReleasedIndex
 
 function OryUIGetButtonGroupItemReleasedName(oryUIButtonGroupID as integer)
@@ -183,7 +183,7 @@ function OryUIGetButtonGroupItemReleasedName(oryUIButtonGroupID as integer)
 	if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
 		oryUIButtonGroupItemReleasedName$ = OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased - 1].name$
 	endif
-	if (oryUIDialogVisible = 1) then oryUIButtonGroupItemReleasedName$ = ""
+	if (oryUIScrimVisible = 1) then oryUIButtonGroupItemReleasedName$ = ""
 endfunction oryUIButtonGroupItemReleasedName$
 
 function OryUIGetButtonGroupItemSelectedIndex(oryUIButtonGroupID as integer)
