@@ -1,5 +1,5 @@
 
-foldstart // OryUIMedia (Updated 30/03/2019)
+foldstart // OryUIMedia (Updated 16/08/2019)
 
 global oryUIBottomShadowImage as integer : oryUIBottomShadowImage = LoadImage("OryUIMedia/Bottom-Shadow.png")
 global oryUICheckboxCheckedImage as integer : oryUICheckboxCheckedImage = LoadImage("OryUIMedia/Checkbox-Checked.png")
@@ -16,10 +16,14 @@ global oryUIIconProfileImage as integer : oryUIIconProfileImage = LoadImage("Ory
 global oryUIIconRefreshImage as integer : oryUIIconRefreshImage = LoadImage("OryUIMedia/Icon-Refresh.png")
 global oryUIIconRotateImageImage as integer : oryUIIconRotateImageImage = LoadImage("OryUIMedia/Icon-Rotate-Image.png")
 global oryUIIconSaveImage as integer : oryUIIconSaveImage = LoadImage("OryUIMedia/Icon-Save.png")
+global oryUIIconScrollToTopImage as integer : oryUIIconScrollToTopImage = LoadImage("OryUIMedia/Icon-Scroll-To-Top.png")
+global oryUIIconShareImage as integer : oryUIIconShareImage = LoadImage("OryUIMedia/Icon-Share.png")
 global oryUIIconSubtractImage as integer : oryUIIconSubtractImage = LoadImage("OryUIMedia/Icon-Subtract.png")
 global oryUILeftShadowImage as integer : oryUILeftShadowImage = LoadImage("OryUIMedia/Left-Shadow.png")
 global oryUINavigationDrawerHeaderBackgroundImage as integer : oryUINavigationDrawerHeaderBackgroundImage = LoadImage("OryUIMedia/Navigation-Drawer-Header-Background.png")
 global oryUIRightShadowImage as integer : oryUIRightShadowImage = LoadImage("OryUIMedia/Right-Shadow.png")
+global oryUIScrollToTopButtonImage as integer : oryUIScrollToTopButtonImage = LoadImage("OryUIMedia/Scroll-To-Top-Button.png")
+global oryUIScrollToTopButtonShadowImage as integer : oryUIScrollToTopButtonShadowImage = LoadImage("OryUIMedia/Scroll-To-Top-Button-Shadow.png")
 global oryUITopBarShadowImage as integer : oryUITopBarShadowImage = LoadImage("OryUIMedia/Top-Bar-Shadow.png")
 global oryUITopShadowImage as integer : oryUITopShadowImage = LoadImage("OryUIMedia/Top-Shadow.png")
 
