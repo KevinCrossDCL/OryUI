@@ -1,5 +1,49 @@
 
-foldstart // Default Settings for OryUIDialog (19/04/2019)
+foldstart // Default Settings for OryUIButton
+
+// MAIN
+oryUIDefaults.buttonDisabledColor#[1] = 197
+oryUIDefaults.buttonDisabledColor#[2] = 197
+oryUIDefaults.buttonDisabledColor#[3] = 197
+oryUIDefaults.buttonDisabledColor#[4] = 255
+oryUIDefaults.buttonDisabledIconColor#[1] = 0
+oryUIDefaults.buttonDisabledIconColor#[2] = 0
+oryUIDefaults.buttonDisabledIconColor#[3] = 0
+oryUIDefaults.buttonDisabledIconColor#[4] = 128
+oryUIDefaults.buttonDisabledIconPlacement$ = "left"
+oryUIDefaults.buttonDisabledIconSize#[1] = -1
+oryUIDefaults.buttonDisabledIconSize#[2] = 3
+oryUIDefaults.buttonDisabledTextAlignment = 1
+oryUIDefaults.buttonDisabledTextBold = 0
+oryUIDefaults.buttonDisabledTextColor#[1] = 0
+oryUIDefaults.buttonDisabledTextColor#[2] = 0
+oryUIDefaults.buttonDisabledTextColor#[3] = 0
+oryUIDefaults.buttonDisabledTextColor#[4] = 128
+oryUIDefaults.buttonDisabledTextSize# = 3
+oryUIDefaults.buttonEnabledColor#[1] = 87
+oryUIDefaults.buttonEnabledColor#[2] = 7
+oryUIDefaults.buttonEnabledColor#[3] = 235
+oryUIDefaults.buttonEnabledColor#[4] = 255
+oryUIDefaults.buttonEnabledIconColor#[1] = 255
+oryUIDefaults.buttonEnabledIconColor#[2] = 255
+oryUIDefaults.buttonEnabledIconColor#[3] = 255
+oryUIDefaults.buttonEnabledIconColor#[4] = 255
+oryUIDefaults.buttonEnabledIconPlacement$ = "left"
+oryUIDefaults.buttonEnabledIconSize#[1] = -1
+oryUIDefaults.buttonEnabledIconSize#[2] = 3
+oryUIDefaults.buttonEnabledTextAlignment = 1
+oryUIDefaults.buttonEnabledTextBold = 0
+oryUIDefaults.buttonEnabledTextColor#[1] = 255
+oryUIDefaults.buttonEnabledTextColor#[2] = 255
+oryUIDefaults.buttonEnabledTextColor#[3] = 255
+oryUIDefaults.buttonEnabledTextColor#[4] = 255
+oryUIDefaults.buttonEnabledTextSize# = 3
+oryUIDefaults.buttonSize#[1] = 18
+oryUIDefaults.buttonSize#[2] = 5
+
+foldend
+
+foldstart // Default Settings for OryUIDialog
 
 // MAIN
 oryUIDefaults.dialogAutoHeight = 1
@@ -66,7 +110,7 @@ oryUIDefaults.dialogButtonYSpacing# = 1
 	
 foldend
 
-foldstart // Default Settings for OryUIInputSpinner (09/04/2019)
+foldstart // Default Settings for OryUIInputSpinner
 
 // MAIN
 oryUIDefaults.inputSpinnerAutoCorrectIfOutOfRange = 0
@@ -105,7 +149,7 @@ oryUIDefaults.inputSpinnerButtonWidth# = 3.8 / GetDisplayAspect()
 
 foldend
 
-foldstart // Default Settings for OryUIMenu (04/04/2019)
+foldstart // Default Settings for OryUIMenu
 
 // MAIN
 oryUIDefaults.menuColor#[1] = 255
@@ -145,7 +189,7 @@ oryUIDefaults.menuItemTextSize# = 3
 	
 foldend
 
-foldstart // Default Settings for OryUINavigationDrawer (04/04/2019)
+foldstart // Default Settings for OryUINavigationDrawer
 
 // MAIN
 oryUIDefaults.navigationDrawerColor#[1] = 255
@@ -245,7 +289,7 @@ oryUIDefaults.navigationDrawerDividerHeight# = 0.2
 
 foldend
 
-foldstart // Default Settings for OryUIPagination (23/04/2019)
+foldstart // Default Settings for OryUIPagination
 
 // MAIN
 //oryUIDefaults.paginationButtonHeight# = 5
@@ -310,7 +354,30 @@ oryUIDefaults.paginationUnselectedTextSize# = 3
 
 foldend
 
-foldstart // Default Settings for OryUITemplate (04/04/2019)
+foldstart // Default Settings for OryUIScrollToTop
+
+// MAIN
+oryUIDefaults.scrollToTopColor#[1] = 255
+oryUIDefaults.scrollToTopColor#[2] = 255
+oryUIDefaults.scrollToTopColor#[3] = 255
+oryUIDefaults.scrollToTopColor#[4] = 255
+oryUIDefaults.scrollToTopDepth = 1
+oryUIDefaults.scrollToTopHeight# = 7
+oryUIDefaults.scrollToTopIconColor#[1] = 255
+oryUIDefaults.scrollToTopIconColor#[2] = 255
+oryUIDefaults.scrollToTopIconColor#[3] = 255
+oryUIDefaults.scrollToTopIconColor#[4] = 255
+oryUIDefaults.scrollToTopIconHeight# = 2
+oryUIDefaults.scrollToTopIconImage = oryUIIconScrollToTopImage
+oryUIDefaults.scrollToTopIconWidth# = -1
+oryUIDefaults.scrollToTopPlacement$ = "bottomCenter"
+oryUIDefaults.scrollToTopShowShadow = 1
+oryUIDefaults.scrollToTopStartY# = 0
+oryUIDefaults.scrollToTopWidth# = -1
+
+foldend
+
+foldstart // Default Settings for OryUITemplate
 
 // MAIN
 oryUIDefaults.templateColor#[1] = 255
@@ -331,7 +398,7 @@ oryUIDefaults.templateItemWidth# = 100
 
 foldend
 
-foldstart // Default Settings for OryUITooltip (06/04/2019)
+foldstart // Default Settings for OryUITooltip
 
 // MAIN
 oryUIDefaults.tooltipColor#[1] = 0
