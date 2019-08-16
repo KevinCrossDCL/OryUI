@@ -1,5 +1,5 @@
 
-foldstart // OryUIFloatingActionButton Component (Updated 29/03/2019)
+foldstart // OryUIFloatingActionButton Component (Updated 16/08/2019)
 
 type typeOryUIFloatingActionButton
 	id as integer
@@ -94,7 +94,7 @@ function OryUIGetFloatingActionButtonPressed(oryUIFloatingActionButtonID as inte
 		oryUIFloatingActionButtonPressed = OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].pressed				
 	endif
 
-	if (oryUIDialogVisible = 1) then oryUIFloatingActionButtonPressed = 0
+	if (oryUIScrimVisible = 1) then oryUIFloatingActionButtonPressed = 0
 endfunction oryUIFloatingActionButtonPressed
 	
 function OryUIGetFloatingActionButtonReleased(oryUIFloatingActionButtonID as integer)
@@ -135,7 +135,7 @@ function OryUIGetFloatingActionButtonReleased(oryUIFloatingActionButtonID as int
 		endif
 	endif
 	
-	if (oryUIDialogVisible = 1) then oryUIFloatingActionButtonReleased = 0
+	if (oryUIScrimVisible = 1) then oryUIFloatingActionButtonReleased = 0
 endfunction oryUIFloatingActionButtonReleased
 
 function OryUIGetFloatingActionButtonVisible(oryUIFloatingActionButtonID as integer)
