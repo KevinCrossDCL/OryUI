@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Component (Updated 29/03/2019)
+foldstart // OryUIList Component (Updated 16/08/2019)
 
 type typeOryUIList
 	id as integer
@@ -182,7 +182,7 @@ function OryUIInsertListItem(oryUIListID as integer, oryUIListIndex as integer, 
 endfunction
 
 function OryUIInsertListListener(oryUIListID as integer)
-	if (oryUIDialogVisible = 1) then exitfunction
+	if (oryUIScrimVisible = 1) then exitfunction
 
 	local oryUIListItemRightIconReleased as integer
 	local oryUIListItemRightIconSprite as integer
