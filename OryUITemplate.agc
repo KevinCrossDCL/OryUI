@@ -1,6 +1,6 @@
 // This is a template file to use for future components
 
-foldstart // OryUITemplate Component (Updated 23/04/2019)
+foldstart // OryUITemplate Component (Updated 31/05/2019)
 
 type typeOryUITemplate
 	id as integer
@@ -158,7 +158,7 @@ function OryUIInsertTemplateItem(oryUITemplateID as integer, oryUITemplateIndex 
 endfunction
 
 function OryUIInsertTemplateListener(oryUITemplateID as integer)
-	//if (oryUIDialogVisible = 1)
+	//if (oryUIScrimVisible = 1)
 	//	if (OryUITemplateCollection[oryUITemplateID].visible = 1)
 	//		OryUIHideTemplate(oryUITemplateID)
 	//	endif
