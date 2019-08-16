@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 15/05/2019)
+foldstart // OryUITopBar Component (Updated 16/08/2019)
 
 type typeOryUITopBar
 	id as integer
@@ -245,9 +245,13 @@ function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComp
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateTopBarAction(oryUITopBarID, oryUITopBarActionID + 1, oryUIComponentParameters$)
 endfunction
 
-function OryUIInsertTopBarListener(oryUITopBarID as integer)
-	if (oryUIDialogVisible = 1) then exitfunction
-
+function OryUIInsertTopBarListener(oryUITopBarID as integer)	
+	if (oryUIScrimVisible = 1)
+		OryUITopBarCollection[oryUITopBarID].actionReleased = -1
+		OryUITopBarCollection[oryUITopBarID].navigationReleased = 0
+		exitfunction
+	endif
+	
 	local oryUITopBarActionReleased as integer
 	local oryUITopBarActionSprite as integer
 	local oryUITopBarNavigationReleased as integer
