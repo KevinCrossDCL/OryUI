@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Component (Updated 04/04/2019)
+foldstart // OryUINavigationDrawer Component (Updated 16/08/2019)
 
 type typeOryUINavigationDrawer
 	id as integer
@@ -176,6 +176,7 @@ function OryUIGetNavigationDrawerY(oryUINavigationDrawerID as integer)
 endfunction oryUINavigationDrawerY#
 
 function OryUIHideNavigationDrawer(oryUINavigationDrawerID as integer)
+	oryUIScrimVisible = 0
 	oryUIBlockScreenScrolling = 0
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].visible = 0
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, -999999, -999999)
@@ -446,6 +447,7 @@ function OryUISetNavigationDrawerItemSelectedByName(oryUINavigationDrawerID as i
 endfunction
 
 function OryUIShowNavigationDrawer(oryUINavigationDrawerID as integer)
+	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].visible = 1
 
