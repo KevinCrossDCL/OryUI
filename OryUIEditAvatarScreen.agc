@@ -1,5 +1,5 @@
 
-foldstart // OryUIEditAvatarScreen (Updated 29/03/2019)
+foldstart // OryUIEditAvatarScreen (Updated 16/08/2019)
 
 type typeOryUIEditAvatarScreen
 	id as integer
@@ -204,7 +204,7 @@ function OryUIGetEditAvatarSaveButtonReleased(oryUIEditAvatarScreenID as integer
 endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonReleased
 
 function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
-	if (oryUIDialogVisible = 1) then exitfunction
+	if (oryUIScrimVisible = 1) then exitfunction
 
 	local oryUIMaxPanX# as float
 	local oryUIMaxPanY# as float
