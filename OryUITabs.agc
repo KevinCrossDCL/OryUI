@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 29/03/2019)
+foldstart // OryUITabs Component (Updated 16/08/2019)
 
 type typeOryUITabs
 	id as integer
@@ -157,7 +157,7 @@ function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponen
 endfunction
 
 function OryUIInsertTabsListener(oryUITabsID as integer)
-	if (oryUIDialogVisible = 1) then exitfunction
+	if (oryUIScrimVisible = 1) then exitfunction
 	
 	local oryUITabsButtonReleased as integer
 	local oryUITabsButtonSprite as integer
