@@ -1,5 +1,5 @@
 
-foldstart // OryUIMenu Component (Updated 04/04/2019)
+foldstart // OryUIMenu Component (Updated 16/08/2019)
 
 type typeOryUIMenu
 	id as integer
@@ -135,6 +135,7 @@ function OryUIGetMenuY(oryUIMenuID as integer)
 endfunction oryUIMenuY#
 
 function OryUIHideMenu(oryUIMenuID as integer)
+	oryUIScrimVisible = 0
 	oryUIBlockScreenScrolling = 0
 	OryUIMenuCollection[oryUIMenuID].visible = 0
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, -999999, -999999)
@@ -270,6 +271,7 @@ function OryUISetMenuItemCount(oryUIMenuID as integer, oryUINewMenuItemCount as 
 endfunction
 
 function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
+	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	OryUIMenuCollection[oryUIMenuID].visible = 1
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, GetViewOffsetX(), GetViewOffsetY())
