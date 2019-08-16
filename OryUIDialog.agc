@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 20/04/2019)
+foldstart // OryUIDialog Component (Updated 16/08/2019)
 
 type typeOryUIDialog
 	id as integer
@@ -142,7 +142,7 @@ function OryUIGetDialogButtonReleasedByName(oryUIDialogID as integer, oryUIDialo
 	local oryUIDialogButtonReleased as integer
 	oryUIDialogButtonReleased = 0
 	if (OryUIDialogCollection[oryUIDialogID].buttonReleased > 0)
-		if (OryUIDialogCollection[oryUIDialogID].buttons[OryUIDialogCollection[oryUIDialogID].buttonReleased - 1].name$ = oryUIDialogButtonName$) then oryUIDialogButtonReleased = 1
+		if (lower(OryUIDialogCollection[oryUIDialogID].buttons[OryUIDialogCollection[oryUIDialogID].buttonReleased - 1].name$) = lower(oryUIDialogButtonName$)) then oryUIDialogButtonReleased = 1
 	endif
 endfunction oryUIDialogButtonReleased
 
@@ -183,7 +183,12 @@ function OryUIGetDialogWidth(oryUIDialogID as integer)
 	endif
 endfunction oryUIDialogWidth#
 
+function OryUIGetDialogVisible(oryUIDialogID as integer)
+
+endfunction oryUIDialogVisible
+
 function OryUIHideDialog(oryUIDialogID as integer)
+	oryUIScrimVisible = 0
 	oryUIBlockScreenScrolling = 0
 	oryUIDialogVisible = 0
 	OryUIDialogCollection[oryUIDialogID].visible = 0
@@ -229,7 +234,7 @@ endfunction
 
 function OryUIInsertDialogListener(oryUIDialogID as integer)
 	local oryUIDialogButtonSprite as integer
-
+	OryUIDialogCollection[oryUIDialogID].buttonPressed = -1
 	OryUIDialogCollection[oryUIDialogID].buttonReleased = -1
 	if (OryUIDialogCollection[oryUIDialogID].visible = 1)
 		for oryUIForI = 0 to OryUIGetDialogButtonCount(oryUIDialogID) - 1
@@ -237,11 +242,12 @@ function OryUIInsertDialogListener(oryUIDialogID as integer)
 			if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer))
 				if (OryUIGetSwipingVertically() = 0)
 					if (GetPointerPressed())
+						oryUIDialogContainerSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIDialogScrimSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprScrim, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIDialogCheckboxSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].sprCheckbox, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIDialogCheckboxText = GetTextHitTest(OryUIDialogCollection[oryUIDialogID].txtCheckbox, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIDialogButtonSprite = GetSpriteHitTest(OryUIDialogCollection[oryUIDialogID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-						if (oryUIDialogScrimSprite = 1 and oryUIDialogButtonSprite = 0 and OryUIDialogCollection[oryUIDialogID].decisionRequired = 0)
+						if (oryUIDialogScrimSprite = 1 and oryUIDialogContainerSprite = 0 and OryUIDialogCollection[oryUIDialogID].decisionRequired = 0)
 							OryUIHideDialog(oryUIDialogID)
 						endif
 						if (oryUIDialogCheckboxSprite = 1 or oryUIDialogCheckboxText = 1)
@@ -313,6 +319,7 @@ function OryUIShowDialog(oryUIDialogID as integer)
 	local oryUILastButtonY# as float
 	local oryUITotalCheckboxWidth# as float
 
+	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	oryUIDialogVisible = 1
 	OryUIDialogCollection[oryUIDialogID].visible = 1
