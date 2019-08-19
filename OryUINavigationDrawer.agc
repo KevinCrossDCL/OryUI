@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Component (Updated 16/08/2019)
+foldstart // OryUINavigationDrawer Component (Updated 19/08/2019)
 
 type typeOryUINavigationDrawer
 	id as integer
@@ -447,6 +447,7 @@ function OryUISetNavigationDrawerItemSelectedByName(oryUINavigationDrawerID as i
 endfunction
 
 function OryUIShowNavigationDrawer(oryUINavigationDrawerID as integer)
+	oryUIScrimDepth = GetSpriteDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim)
 	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].visible = 1
@@ -522,49 +523,49 @@ function OryUIUpdateNavigationDrawer(oryUINavigationDrawerID as integer, oryUICo
 
 	if (GetSpriteExists(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer))
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer))
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetSpriteXByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer))
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetSpriteXByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), oryUIParameters.position#[2])
 		endif
 		
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, OryUIParameters.depth)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIParameters.depth)
 		endif
-		if (OryUIParameters.drawerType$ <> "")
-			if (lower(OryUIParameters.drawerType$) = "modal")
+		if (oryUIParameters.drawerType$ <> "")
+			if (lower(oryUIParameters.drawerType$) = "modal")
 				OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerType$ = "modal"
 			endif
 		endif
-		if (OryUIParameters.drawerLocation$ <> "")
+		if (oryUIParameters.drawerLocation$ <> "")
 			if (OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerType$ = "modal")
-				//if (lower(OryUIParameters.drawerLocation$) = "bottom")
+				//if (lower(oryUIParameters.drawerLocation$) = "bottom")
 				//	OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$ = "bottom"
-				//elseif (lower(OryUIParameters.drawerLocation$) = "left")
-				if (lower(OryUIParameters.drawerLocation$) = "left")
+				//elseif (lower(oryUIParameters.drawerLocation$) = "left")
+				if (lower(oryUIParameters.drawerLocation$) = "left")
 					OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$ = "left"
-				elseif (lower(OryUIParameters.drawerLocation$) = "right")
+				elseif (lower(oryUIParameters.drawerLocation$) = "right")
 					OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$ = "right"
 				endif
 			endif
 		endif	
-		if (OryUIParameters.imageID > -999999)
-			SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > -999999)
+			SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIParameters.imageID)
 		endif
-		if (OryUIParameters.showIcon > -999999)
-			OryUINavigationDrawerCollection[oryUINavigationDrawerID].showIcon = OryUIParameters.showIcon
+		if (oryUIParameters.showIcon > -999999)
+			OryUINavigationDrawerCollection[oryUINavigationDrawerID].showIcon = oryUIParameters.showIcon
 		endif
-		if (OryUIParameters.showRightText > -999999)
-			OryUINavigationDrawerCollection[oryUINavigationDrawerID].showRightText = OryUIParameters.showRightText
+		if (oryUIParameters.showRightText > -999999)
+			OryUINavigationDrawerCollection[oryUINavigationDrawerID].showRightText = oryUIParameters.showRightText
 		endif
-		if (OryUIParameters.showShadow > -999999)
-			OryUINavigationDrawerCollection[oryUINavigationDrawerID].showShadow = OryUIParameters.showShadow
+		if (oryUIParameters.showShadow > -999999)
+			OryUINavigationDrawerCollection[oryUINavigationDrawerID].showShadow = oryUIParameters.showShadow
 		endif
 	endif
 endfunction
@@ -574,12 +575,12 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 
 	if (GetSpriteExists(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer))
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (lower(OryUIParameters.itemType$) = "divider")
+		if (lower(oryUIParameters.itemType$) = "divider")
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].itemType$ = "divider"
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), oryUIDefaults.navigationDrawerDividerHeight#)
 			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprDivider, oryUIDefaults.navigationDrawerDividerColor#[1], oryUIDefaults.navigationDrawerDividerColor#[2], oryUIDefaults.navigationDrawerDividerColor#[3], oryUIDefaults.navigationDrawerDividerColor#[4])
 		endif
-		if (lower(OryUIParameters.itemType$) = "header")
+		if (lower(oryUIParameters.itemType$) = "header")
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].itemType$ = "header"
 			SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, oryUIDefaults.navigationDrawerHeaderBackroundImage)	
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), oryUIDefaults.navigationDrawerHeaderHeight#)	
@@ -590,19 +591,19 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIDefaults.navigationDrawerHeaderTextBold)
 			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIDefaults.navigationDrawerHeaderTextColor#[1], oryUIDefaults.navigationDrawerHeaderTextColor#[2], oryUIDefaults.navigationDrawerHeaderTextColor#[3], oryUIDefaults.navigationDrawerHeaderTextColor#[4])
 		endif
-		if (lower(OryUIParameters.itemType$) = "option")
+		if (lower(oryUIParameters.itemType$) = "option")
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].itemType$ = "option"
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), oryUIDefaults.navigationDrawerOptionHeight#)
 			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, oryUIDefaults.navigationDrawerOptionColor#[1], oryUIDefaults.navigationDrawerOptionColor#[2], oryUIDefaults.navigationDrawerOptionColor#[3], oryUIDefaults.navigationDrawerOptionColor#[4])
 			if (OryUINavigationDrawerCollection[oryUINavigationDrawerID].showIcon = 1)
 				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, -1, 3.5)
 				SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, oryUIDefaults.navigationDrawerOptionIconColor#[1], oryUIDefaults.navigationDrawerOptionIconColor#[2], oryUIDefaults.navigationDrawerOptionIconColor#[3], oryUIDefaults.navigationDrawerOptionIconColor#[4])
-				if (OryUIParameters.icon$ <> "" and OryUIParameters.iconID > -999999)
-					OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].icon$ = lower(OryUIParameters.icon$)
-					SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, OryUIParameters.iconID)
-				elseif (OryUIParameters.iconID > -999999)
+				if (oryUIParameters.icon$ <> "" and oryUIParameters.iconID > -999999)
+					OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].icon$ = lower(oryUIParameters.icon$)
+					SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, oryUIParameters.iconID)
+				elseif (oryUIParameters.iconID > -999999)
 					OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].icon$ = "custom"
-					SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, OryUIParameters.iconID)
+					SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, oryUIParameters.iconID)
 				endif
 				if (OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].icon$ <> "")
 					SetSpriteColorAlpha(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, 255)
@@ -622,7 +623,7 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprActiveOverlay, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprActiveOverlay) / 2, GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprActiveOverlay) / 2)
 			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprActiveOverlay, oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[1], oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[2], oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[3], oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[4])
 		endif
-		if (lower(OryUIParameters.itemType$) = "subtitle")
+		if (lower(oryUIParameters.itemType$) = "subtitle")
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].itemType$ = "subtitle"
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), oryUIDefaults.navigationDrawerSubtitleHeight#)
 			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, oryUIDefaults.navigationDrawerSubtitleColor#[1], oryUIDefaults.navigationDrawerSubtitleColor#[2], oryUIDefaults.navigationDrawerSubtitleColor#[3], oryUIDefaults.navigationDrawerSubtitleColor#[4])
@@ -630,58 +631,58 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIDefaults.navigationDrawerSubtitleTextBold)
 			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIDefaults.navigationDrawerSubtitleTextColor#[1], oryUIDefaults.navigationDrawerSubtitleTextColor#[2], oryUIDefaults.navigationDrawerSubtitleTextColor#[3], oryUIDefaults.navigationDrawerSubtitleTextColor#[4])
 		endif
-		if (OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), oryUIParameters.size#[2])
 		endif
 		
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.imageID > -999999)
-			SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > -999999)
+			SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, oryUIParameters.imageID)
 		endif
-		if (OryUIParameters.text$ <> "")
-			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, OryUIParameters.text$)
+		if (oryUIParameters.text$ <> "")
+			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.text$)
 		endif
-		if (OryUIParameters.textBold > -999999)
-			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, OryUIParameters.textBold)
+		if (oryUIParameters.textBold > -999999)
+			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.textBold)
 		endif
-		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
+		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], oryUIParameters.textColor#[4])
 		endif
-		if (OryUIParameters.textSize# > -999999)
-			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, OryUIParameters.textSize#)
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.textSize#)
 		endif
-		if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
-			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
+		if (oryUIParameters.iconColor#[1] > -999999 or oryUIParameters.iconColor#[2] > -999999 or oryUIParameters.iconColor#[3] > -999999 or oryUIParameters.iconColor#[4] > -999999)
+			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
 		endif
-		if (OryUIParameters.name$ <> "")
-			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].name$ = OryUIParameters.name$
+		if (oryUIParameters.name$ <> "")
+			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].name$ = oryUIParameters.name$
 		endif
-		if (OryUIParameters.rightText$ <> "")
-			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, OryUIParameters.rightText$)
+		if (oryUIParameters.rightText$ <> "")
+			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, oryUIParameters.rightText$)
 		endif
-		if (OryUIParameters.rightTextBold > -999999)
-			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, OryUIParameters.rightTextBold)
+		if (oryUIParameters.rightTextBold > -999999)
+			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, oryUIParameters.rightTextBold)
 		endif
-		if (OryUIParameters.rightTextColor#[1] > -999999 or OryUIParameters.rightTextColor#[2] > -999999 or OryUIParameters.rightTextColor#[3] > -999999 or OryUIParameters.rightTextColor#[4] > -999999)
-			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, OryUIParameters.rightTextColor#[1], OryUIParameters.rightTextColor#[2], OryUIParameters.rightTextColor#[3], OryUIParameters.rightTextColor#[4])
+		if (oryUIParameters.rightTextColor#[1] > -999999 or oryUIParameters.rightTextColor#[2] > -999999 or oryUIParameters.rightTextColor#[3] > -999999 or oryUIParameters.rightTextColor#[4] > -999999)
+			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, oryUIParameters.rightTextColor#[1], oryUIParameters.rightTextColor#[2], oryUIParameters.rightTextColor#[3], oryUIParameters.rightTextColor#[4])
 		endif
-		if (OryUIParameters.rightTextSize# > -999999)
-			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, OryUIParameters.rightTextSize#)
+		if (oryUIParameters.rightTextSize# > -999999)
+			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, oryUIParameters.rightTextSize#)
 		endif
-		if (OryUIParameters.subtitleText$ <> "")
-			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, OryUIParameters.subtitleText$)
+		if (oryUIParameters.subtitleText$ <> "")
+			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIParameters.subtitleText$)
 		endif
-		if (OryUIParameters.subtitleTextBold > -999999)
-			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, OryUIParameters.subtitleTextBold)
+		if (oryUIParameters.subtitleTextBold > -999999)
+			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIParameters.subtitleTextBold)
 		endif
-		if (OryUIParameters.subtitleTextColor#[1] > -999999 or OryUIParameters.subtitleTextColor#[2] > -999999 or OryUIParameters.subtitleTextColor#[3] > -999999 or OryUIParameters.subtitleTextColor#[4] > -999999)
-			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, OryUIParameters.subtitleTextColor#[1], OryUIParameters.subtitleTextColor#[2], OryUIParameters.subtitleTextColor#[3], OryUIParameters.subtitleTextColor#[4])
+		if (oryUIParameters.subtitleTextColor#[1] > -999999 or oryUIParameters.subtitleTextColor#[2] > -999999 or oryUIParameters.subtitleTextColor#[3] > -999999 or oryUIParameters.subtitleTextColor#[4] > -999999)
+			SetTextColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIParameters.subtitleTextColor#[1], oryUIParameters.subtitleTextColor#[2], oryUIParameters.subtitleTextColor#[3], oryUIParameters.subtitleTextColor#[4])
 		endif
-		if (OryUIParameters.subtitleTextSize# > -999999)
-			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, OryUIParameters.subtitleTextSize#)
+		if (oryUIParameters.subtitleTextSize# > -999999)
+			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIParameters.subtitleTextSize#)
 		endif
 	endif
 endfunction
