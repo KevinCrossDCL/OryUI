@@ -1,16 +1,20 @@
 
-foldstart // OryUIHTTPSQueue Component (Updated 16/08/2019)
+foldstart // OryUIHTTPSQueue Component (Updated 19/08/2019)
 
 type typeOryUIHTTPSQueue
 	id as integer
+	delay# as float
 	domain$ as string
 	failedCount as integer
 	http as integer
 	items as typeOryUIHTTPSQueueItems[]
-	response$ as string
-	responseCode as integer
+	requestName$ as string
+	requestResponse$ as string
+	requestResponseCode as integer
+	requestScript$ as string
 	script$ as string
 	ssl as integer
+	timeLastCalled# as float
 	timeout as integer
 endtype
 
@@ -30,20 +34,20 @@ OryUIHTTPSQueueCollection.length = 1
 function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 	
-	if (OryUIParameters.script$ = "") then exitfunction
+	if (oryUIParameters.script$ = "") then exitfunction
 	
 	local oryUIFoundInIndex as integer
 	oryUIFoundInIndex = -1
 	// Check to see if the item already exists in the queue before adding
-	if (OryUIParameters.name$ <> "" and OryUIParameters.script$ <> "")
+	if (oryUIParameters.name$ <> "" and oryUIParameters.script$ <> "")
 		for i = 0 to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1
-			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[i].name$ = OryUIParameters.name$ and OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[i].script$ = OryUIParameters.script$)
+			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[i].name$ = oryUIParameters.name$ and OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[i].script$ = oryUIParameters.script$)
 				oryUIFoundInIndex = i
 				exit
 			endif
 		next
 	endif
-	if (OryUIParameters.addToFront = 1)
+	if (oryUIParameters.addToFront = 1)
 		// Item already in the first slot so do nothing
 		if (oryUIFoundInIndex = 0) 
 			exitfunction
@@ -51,12 +55,12 @@ function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentPa
 			// Move items before index backwards in the queue
 			OryUIMoveItemsBackInHTTPSQueue(oryUIHTTPSQueueID, oryUIFoundInIndex)
 			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].failedCount = 0
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ = OryUIParameters.file$
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].name$ = OryUIParameters.name$
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$ = OryUIParameters.postData$
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$ = OryUIParameters.script$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ = oryUIParameters.file$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].name$ = oryUIParameters.name$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$ = oryUIParameters.postData$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$ = oryUIParameters.script$
 			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].stickUntilComplete = OryUIParameters.stickUntilComplete
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].stickUntilComplete = oryUIParameters.stickUntilComplete
 		else
 			// Add a new blank item at the end of the queue
 			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length + 1
@@ -64,12 +68,12 @@ function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentPa
 			// Move all items in the queue back one
 			OryUIMoveItemsBackInHTTPSQueue(oryUIHTTPSQueueID, OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1)
 			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].failedCount = 0
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ = OryUIParameters.file$
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].name$ = OryUIParameters.name$
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$ = OryUIParameters.postData$
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$ = OryUIParameters.script$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ = oryUIParameters.file$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].name$ = oryUIParameters.name$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$ = oryUIParameters.postData$
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$ = oryUIParameters.script$
 			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].stickUntilComplete = OryUIParameters.stickUntilComplete
+			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].stickUntilComplete = oryUIParameters.stickUntilComplete
 		endif
 	else
 		if (oryUIFoundInIndex >= 0)
@@ -82,13 +86,22 @@ function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentPa
 		endif
 		oryUIHTTPSQueueItemID = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length
 		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].failedCount = 0
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].file$ = OryUIParameters.file$
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].name$ = OryUIParameters.name$
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].postData$ = OryUIParameters.postData$
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].script$ = OryUIParameters.script$
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].file$ = oryUIParameters.file$
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].name$ = oryUIParameters.name$
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].postData$ = oryUIParameters.postData$
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].script$ = oryUIParameters.script$
 		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].sentTime# = 0
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].stickUntilComplete = OryUIParameters.stickUntilComplete
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIHTTPSQueueItemID].stickUntilComplete = oryUIParameters.stickUntilComplete
 	endif
+endfunction
+
+function OryUIClearHTTPSQueue(oryUIHTTPSQueueID as integer)
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount = 0
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestName$ = ""
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponse$ = ""
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode = 0
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestScript$ = ""
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length = -1
 endfunction
 
 function OryUICreateHTTPSQueue(oryUIComponentParameters$ as string)
@@ -98,6 +111,7 @@ function OryUICreateHTTPSQueue(oryUIComponentParameters$ as string)
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].id = oryUIHTTPSQueueID
 
 	// DEFAULT SETTINGS
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].delay# = 0.1
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl = 1
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout = 10000
 	
@@ -106,6 +120,7 @@ endfunction oryUIHTTPSQueueID
 
 function OryUIDeleteHTTPSQueue(oryUIHTTPSQueueID as integer)
 	if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http > 0)
+		OryUIClearHTTPSQueue(oryUIHTTPSQueueID)
 		CloseHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
 		DeleteHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
 	endif
@@ -120,59 +135,70 @@ function OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID as integer)
 	oryUIHTTPSQueueItemCount = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length + 1
 endfunction oryUIHTTPSQueueItemCount
 
-function OryUIGetHTTPSQueueResponse(oryUIHTTPSQueueID)
+function OryUIGetHTTPSQueueRequestName(oryUIHTTPSQueueID)
 	
-endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].response$
+endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestName$
 
-function OryUIGetHTTPSQueueResponseCode(oryUIHTTPSQueueID)
+function OryUIGetHTTPSQueueRequestResponse(oryUIHTTPSQueueID)
 	
-endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].responseCode
+endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponse$
 
-function OryUIGetHTTPSQueueScript(oryUIHTTPSQueueID)
+function OryUIGetHTTPSQueueRequestResponseCode(oryUIHTTPSQueueID)
 	
-endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].script$
+endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode
+
+function OryUIGetHTTPSQueueRequestScript(oryUIHTTPSQueueID)
+
+endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestScript$
 
 function OryUIInsertHTTPSQueueListener(oryUIHTTPSQueueID as integer)
 	// To stop the app from crashing exit the function if domain is empty
 	if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$ = "") then exitfunction
 	
-	// Clear the response gathered on the last sync
-	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].response$ = ""
-	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].responseCode = 0
-	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].script$ = ""
+	if (timer() - OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeLastCalled# > OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].delay# or OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeLastCalled# > timer())
+		// Clear the response gathered on the last sync
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestName$ = ""
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponse$ = ""
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode = 0
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestScript$ = ""
 
-	if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) > 0)
-		if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0)
-			// If not already sent to the server, close any old connections, recreate a new one, and send the data
-			OryUIDeleteHTTPSQueue(oryUIHTTPSQueueID)
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http = CreateHTTPConnection()
-			SetHTTPHost(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl)
-			SetHTTPTimeout(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout)
-			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ <> "")
-				SendHTTPFile(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$)
-			else
-				SendHTTPRequestASync(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$)	
-			endif
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = timer()
-		else
-			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].responseCode = GetHTTPResponseReady(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
-			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].responseCode = -1)
-				inc OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount
-				// If not 'stick until complete' then increase the number of fails
-				if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].stickUntilComplete = 0) then inc OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].failedCount
-				// Retry while the number of fails is less than or equal to 5
-				if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].failedCount <= 5)
-					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0
+		if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) > 0)
+			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0)
+				// If not already sent to the server, close any old connections, recreate a new one, and send the data
+				CloseHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				DeleteHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http = CreateHTTPConnection()
+				SetHTTPHost(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl)
+				SetHTTPTimeout(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout)
+				if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ <> "")
+					SendHTTPFile(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$)
 				else
-					OryUIMoveItemToEndOfHTTPSQueue(oryUIHTTPSQueueID, 0)
+					SendHTTPRequestASync(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$)	
 				endif
-			elseif (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].responseCode > 0)
-				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount = 0
-				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].script$ = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$
-				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].response$ = GetHTTPResponse(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
-				OryUIRemoveItemFromHTTPSQueue(oryUIHTTPSQueueID, 0)
+				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = timer()
+			else
+				oryUIHTTPResponseCode = GetHTTPResponseReady(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				if (oryUIHTTPResponseCode = -1)
+					inc OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount
+					// If not 'stick until complete' then increase the number of fails
+					if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].stickUntilComplete = 0) then inc OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].failedCount
+					// Retry while the number of fails is less than or equal to 5
+					if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].failedCount <= 5)
+						OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0
+					else
+						OryUIMoveItemToEndOfHTTPSQueue(oryUIHTTPSQueueID, 0)
+					endif
+				elseif (oryUIHTTPResponseCode > 0)
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount = 0
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestName$ = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].name$
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponse$ = GetHTTPResponse(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode = oryUIHTTPResponseCode
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestScript$ = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$
+					OryUIRemoveItemFromHTTPSQueue(oryUIHTTPSQueueID, 0)
+				endif
 			endif
 		endif
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeLastCalled# = timer()
 	endif
 endfunction
 
@@ -233,7 +259,7 @@ endfunction
 function OryUIPrintHTTPSQueue(oryUIHTTPSQueueID as integer)
 	print("connectionID: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http))
 	print("failedCount: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount))
-	print("responseCode: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].responseCode))	
+	print("responseCode: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode))	
 	if (OryUIGetHTTPSQueueItemCount(httpsQueue) > 0)
 		for i = 0 to OryUIGetHTTPSQueueItemCount(httpsQueue) - 1
 			print("---------- Slot " + str(i) + " ----------")
@@ -255,17 +281,24 @@ function OryUIRemoveItemFromHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIIndex 
 	if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) >= 0) then OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length - 1
 endfunction
 
+function OryUIResetHTTPSQueueFailedCount(oryUIHTTPSQueueID as integer)
+	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount = 0
+endfunction
+
 function OryUIUpdateHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
-	if (OryUIParameters.domain$ <> "")
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$ = OryUIParameters.domain$
+	if (oryUIParameters.delay# > -999999)
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].delay# = oryUIParameters.delay#
 	endif
-	if (OryUIParameters.ssl > -999999)
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl = OryUIParameters.ssl
+	if (oryUIParameters.domain$ <> "")
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$ = oryUIParameters.domain$
 	endif
-	if (OryUIParameters.timeout > -999999)
-		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout = OryUIParameters.timeout
+	if (oryUIParameters.ssl > -999999)
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl = oryUIParameters.ssl
+	endif
+	if (oryUIParameters.timeout > -999999)
+		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout = oryUIParameters.timeout
 	endif
 endfunction
 
