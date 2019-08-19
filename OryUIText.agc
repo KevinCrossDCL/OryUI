@@ -1,5 +1,5 @@
 
-foldstart // OryUIText (Updated 21/04/2019)
+foldstart // OryUIText (Updated 19/08/2019)
 
 function OryUICreateText(oryUIComponentParameters$ as string)
 	local oryUITextID
@@ -75,39 +75,39 @@ function OryUIUpdateText(oryUITextID as integer, oryUIComponentParameters$ as st
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetTextExists(oryUITextID))
-		if (OryUIParameters.alignment > -999999)
-			SetTextAlignment(oryUITextID, OryUIParameters.alignment)
+		if (oryUIParameters.alignment > -999999)
+			SetTextAlignment(oryUITextID, oryUIParameters.alignment)
 		endif
-		if (OryUIParameters.angle# > -999999)
-			SetTextAngle(oryUITextID, OryUIParameters.angle#)
+		if (oryUIParameters.angle# > -999999)
+			SetTextAngle(oryUITextID, oryUIParameters.angle#)
 		endif
-		if (OryUIParameters.bold > -999999)
-			SetTextBold(oryUITextID, OryUIParameters.bold)
+		if (oryUIParameters.bold > -999999)
+			SetTextBold(oryUITextID, oryUIParameters.bold)
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999)
-			SetTextColor(oryUITextID, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], GetTextColorAlpha(oryUITextID))
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999)
+			SetTextColor(oryUITextID, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], GetTextColorAlpha(oryUITextID))
 		endif
-		if (OryUIParameters.color#[4] > -999999)
-			SetTextColorAlpha(oryUITextID, OryUIParameters.color#[4])
+		if (oryUIParameters.color#[4] > -999999)
+			SetTextColorAlpha(oryUITextID, oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetTextDepth(oryUITextID, OryUIParameters.depth)
+		if (oryUIParameters.depth > -999999)
+			SetTextDepth(oryUITextID, oryUIParameters.depth)
 		endif
-		if (OryUIParameters.fixToScreen = 1)
+		if (oryUIParameters.fixToScreen = 1)
 			FixTextToScreen(oryUITextID, 1)
 		endif
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetTextPosition(oryUITextID, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetTextPosition(oryUITextID, OryUIParameters.position#[1], GetTextY(oryUITextID))
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetTextPosition(oryUITextID, GetTextX(oryUITextID), OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetTextPosition(oryUITextID, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetTextPosition(oryUITextID, oryUIParameters.position#[1], GetTextY(oryUITextID))
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetTextPosition(oryUITextID, GetTextX(oryUITextID), oryUIParameters.position#[2])
 		endif
-		if (OryUIParameters.size#[1] > -999999)
-			SetTextSize(oryUITextID, OryUIParameters.size#[1])
+		if (oryUIParameters.size#[1] > -999999)
+			SetTextSize(oryUITextID, oryUIParameters.size#[1])
 		endif
-		if (OryUIParameters.text$ <> "")
-			SetTextString(oryUITextID, OryUIParameters.text$)
+		if (oryUIParameters.text$ <> "")
+			SetTextString(oryUITextID, oryUIParameters.text$)
 		endif
 	endif
 endfunction
