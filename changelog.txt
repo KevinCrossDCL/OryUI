@@ -1,4 +1,31 @@
 
+BUILD 0.7a
+------------------------
+- All files
+	- Changed OryUIParameters to oryUIParameters to fit chosen coding convention
+
+- OryUIButtonGroup
+	- Fixed a bug where touches were activating when a scrim from another component was visible
+
+- OryUIDefaultSettings
+	- Added default settings for OryUIProgressIndicator
+	
+- OryUIHTTPSQueue
+	- Added function OryUIClearHTTPSQueue()
+	- Added function OryUIGetHTTPSQueueRequestName()
+	- Added function OryUIResetHTTPSQueueFailedCount()
+	- Added parameter 'delay'
+	- Renamed function OryUIGetHTTPSQueueResponse() to OryUIGetHTTPSQueueRequestResponse()
+	- Renamed function OryUIGetHTTPSQueueResponseCode() to OryUIGetHTTPSQueueRequestResponseCode()
+	- Renamed function OryUIGetHTTPSQueueScript() to OryUIGetHTTPSQueueRequestScript()
+
+- OryUIProgressIndicator
+	- Added new progress type "Circular"
+	- Added parameter 'indicatorColor'
+	- Added parameter 'trackColor'
+
+
+
 BUILD 0.6a
 ------------------------
 - OryUIButton
