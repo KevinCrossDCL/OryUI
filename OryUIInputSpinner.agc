@@ -1,5 +1,5 @@
 
-foldstart // OryUIInputSpinner Component (Updated 16/08/2019)
+foldstart // OryUIInputSpinner Component (Updated 19/08/2019)
 
 type typeOryUIInputSpinner
 	id as integer
@@ -352,55 +352,55 @@ function OryUIUpdateInputSpinner(oryUIInputSpinnerID as integer, oryUIComponentP
 	if (GetSpriteExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
 		oryUIRepositionInputSpinnerButtons = 0
-		if (OryUIParameters.addIconSize#[1] > -999999 or OryUIParameters.addIconSize#[2] > -999999)
-			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, OryUIParameters.addIconSize#[1], OryUIParameters.addIconSize#[2])
+		if (oryUIParameters.addIconSize#[1] > -999999 or oryUIParameters.addIconSize#[2] > -999999)
+			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, oryUIParameters.addIconSize#[1], oryUIParameters.addIconSize#[2])
 			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon) / 2, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon) / 2)
 			oryUIRepositionInputSpinnerButtons = 1
 		endif
-		if (OryUIParameters.addIcon$ <> "" and OryUIParameters.addIconID > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].icon$ = lower(OryUIParameters.addIcon$)
-			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, OryUIParameters.addIconID)
-		elseif (OryUIParameters.addIconID > -999999)
+		if (oryUIParameters.addIcon$ <> "" and oryUIParameters.addIconID > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].icon$ = lower(oryUIParameters.addIcon$)
+			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, oryUIParameters.addIconID)
+		elseif (oryUIParameters.addIconID > -999999)
 			OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].icon$ = "custom"
-			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, OryUIParameters.addIconID)
+			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, oryUIParameters.addIconID)
 		endif
-		if (OryUIParameters.subtractIconSize#[1] > -999999 or OryUIParameters.subtractIconSize#[2] > -999999)
-			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, OryUIParameters.subtractIconSize#[1], OryUIParameters.subtractIconSize#[2])
+		if (oryUIParameters.subtractIconSize#[1] > -999999 or oryUIParameters.subtractIconSize#[2] > -999999)
+			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, oryUIParameters.subtractIconSize#[1], oryUIParameters.subtractIconSize#[2])
 			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon) / 2, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon) / 2)
 			oryUIRepositionInputSpinnerButtons = 1
 		endif
-		if (OryUIParameters.subtractIcon$ <> "" and OryUIParameters.subtractIconID > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].icon$ = lower(OryUIParameters.subtractIcon$)
-			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, OryUIParameters.subtractIconID)
-		elseif (OryUIParameters.subtractIconID > -999999)
+		if (oryUIParameters.subtractIcon$ <> "" and oryUIParameters.subtractIconID > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].icon$ = lower(oryUIParameters.subtractIcon$)
+			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, oryUIParameters.subtractIconID)
+		elseif (oryUIParameters.subtractIconID > -999999)
 			OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].icon$ = "custom"
-			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, OryUIParameters.subtractIconID)
+			SetSpriteImage(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, oryUIParameters.subtractIconID)
 		endif
-		if (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, OryUIParameters.size#[1], OryUIParameters.size#[2])
-		elseif (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] = -999999)
-			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
-		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
+		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
+			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+		elseif (oryUIParameters.size#[1] = -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer), oryUIParameters.size#[2])
 		endif
-		if (OryUIParameters.size#[2] > -999999)
-			SetEditBoxTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.size#[2] * 0.75)
-			SetTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString, OryUIParameters.size#[2] * 0.75)
+		if (oryUIParameters.size#[2] > -999999)
+			SetEditBoxTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.size#[2] * 0.75)
+			SetTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString, oryUIParameters.size#[2] * 0.75)
 		endif
-		if (OryUIParameters.textSize# > -999999)
-			SetEditBoxTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.textSize#)
-			SetTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString, OryUIParameters.textSize#)
+		if (oryUIParameters.textSize# > -999999)
+			SetEditBoxTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.textSize#)
+			SetTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString, oryUIParameters.textSize#)
 		endif
-		if (OryUIParameters.size#[1] > -999999 or OryUIParameters.size#[2] > -999999)
+		if (oryUIParameters.size#[1] > -999999 or oryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
 			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
 			SetEditBoxSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, GetTextTotalWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString) + GetTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString), GetTextSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].txtInvisibleString) * 1.25)
-			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, OryUIParameters.size#[1] - GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer) - GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, oryUIParameters.size#[1] - GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer) - GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
 			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover) / 2, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover) / 2)
 			oryUIRepositionInputSpinnerButtons = 1
 		endif
-		if (OryUIParameters.position#[1] > -999999 or OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 or oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
 			SetEditBoxPosition(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, GetSpriteX(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer), GetSpriteY(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) + ((GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) - GetEditBoxHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox)) / 2))
 			OryUIPinSpriteToCentreOfSprite(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, 0, 0)
 			oryUIRepositionInputSpinnerButtons = 1
@@ -413,83 +413,83 @@ function OryUIUpdateInputSpinner(oryUIInputSpinnerID as integer, oryUIComponentP
 		endif
 		
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.activeButtonColor#[1] > -999999 or OryUIParameters.activeButtonColor#[2] > -999999 or OryUIParameters.activeButtonColor#[3] > -999999 or OryUIParameters.activeButtonColor#[4] > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[1] = OryUIParameters.activeButtonColor#[1]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[2] = OryUIParameters.activeButtonColor#[2]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[3] = OryUIParameters.activeButtonColor#[3]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[4] = OryUIParameters.activeButtonColor#[4]
+		if (oryUIParameters.activeButtonColor#[1] > -999999 or oryUIParameters.activeButtonColor#[2] > -999999 or oryUIParameters.activeButtonColor#[3] > -999999 or oryUIParameters.activeButtonColor#[4] > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[1] = oryUIParameters.activeButtonColor#[1]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[2] = oryUIParameters.activeButtonColor#[2]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[3] = oryUIParameters.activeButtonColor#[3]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[4] = oryUIParameters.activeButtonColor#[4]
 		endif
-		if (OryUIParameters.activeIconColor#[1] > -999999 or OryUIParameters.activeIconColor#[2] > -999999 or OryUIParameters.activeIconColor#[3] > -999999 or OryUIParameters.activeIconColor#[4] > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[1] = OryUIParameters.activeIconColor#[1]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[2] = OryUIParameters.activeIconColor#[2]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[3] = OryUIParameters.activeIconColor#[3]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[4] = OryUIParameters.activeIconColor#[4]
+		if (oryUIParameters.activeIconColor#[1] > -999999 or oryUIParameters.activeIconColor#[2] > -999999 or oryUIParameters.activeIconColor#[3] > -999999 or oryUIParameters.activeIconColor#[4] > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[1] = oryUIParameters.activeIconColor#[1]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[2] = oryUIParameters.activeIconColor#[2]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[3] = oryUIParameters.activeIconColor#[3]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeIconColor#[4] = oryUIParameters.activeIconColor#[4]
 		endif
-		if (OryUIParameters.autoCorrectIfOutOfRange > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].autoCorrectIfOutOfRange = OryUIParameters.autoCorrectIfOutOfRange
+		if (oryUIParameters.autoCorrectIfOutOfRange > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].autoCorrectIfOutOfRange = oryUIParameters.autoCorrectIfOutOfRange
 		endif
-		if (OryUIParameters.backgroundColor#[1] > -999999 or OryUIParameters.backgroundColor#[2] > -999999 or OryUIParameters.backgroundColor#[3] > -999999 or OryUIParameters.backgroundColor#[4] > -999999)
-			SetSpriteColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, OryUIParameters.backgroundColor#[1], OryUIParameters.backgroundColor#[2], OryUIParameters.backgroundColor#[3], OryUIParameters.backgroundColor#[4])
-			SetEditBoxBackgroundColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.backgroundColor#[1], OryUIParameters.backgroundColor#[2], OryUIParameters.backgroundColor#[3], OryUIParameters.backgroundColor#[4])
+		if (oryUIParameters.backgroundColor#[1] > -999999 or oryUIParameters.backgroundColor#[2] > -999999 or oryUIParameters.backgroundColor#[3] > -999999 or oryUIParameters.backgroundColor#[4] > -999999)
+			SetSpriteColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.backgroundColor#[1], oryUIParameters.backgroundColor#[2], oryUIParameters.backgroundColor#[3], oryUIParameters.backgroundColor#[4])
+			SetEditBoxBackgroundColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.backgroundColor#[1], oryUIParameters.backgroundColor#[2], oryUIParameters.backgroundColor#[3], oryUIParameters.backgroundColor#[4])
 		endif
-		if (OryUIParameters.decimals > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals = OryUIParameters.decimals
+		if (oryUIParameters.decimals > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals = oryUIParameters.decimals
 		endif
-		if (OryUIParameters.defaultValue# > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].defaultValue# = OryUIParameters.defaultValue#
+		if (oryUIParameters.defaultValue# > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].defaultValue# = oryUIParameters.defaultValue#
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, OryUIParameters.depth)
-			SetEditBoxDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.depth - 1)
-			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, OryUIParameters.depth - 2)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.depth)
+			SetEditBoxDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.depth - 1)
+			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, oryUIParameters.depth - 2)
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) - 2)
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer) - 1)
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) - 2)
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer) - 1)
 		endif
-		if (OryUIParameters.inactiveButtonColor#[1] > -999999 or OryUIParameters.inactiveButtonColor#[2] > -999999 or OryUIParameters.inactiveButtonColor#[3] > -999999 or OryUIParameters.inactiveButtonColor#[4] > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[1] = OryUIParameters.inactiveButtonColor#[1]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[2] = OryUIParameters.inactiveButtonColor#[2]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[3] = OryUIParameters.inactiveButtonColor#[3]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[4] = OryUIParameters.inactiveButtonColor#[4]
+		if (oryUIParameters.inactiveButtonColor#[1] > -999999 or oryUIParameters.inactiveButtonColor#[2] > -999999 or oryUIParameters.inactiveButtonColor#[3] > -999999 or oryUIParameters.inactiveButtonColor#[4] > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[1] = oryUIParameters.inactiveButtonColor#[1]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[2] = oryUIParameters.inactiveButtonColor#[2]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[3] = oryUIParameters.inactiveButtonColor#[3]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[4] = oryUIParameters.inactiveButtonColor#[4]
 		endif
-		if (OryUIParameters.inactiveIconColor#[1] > -999999 or OryUIParameters.inactiveIconColor#[2] > -999999 or OryUIParameters.inactiveIconColor#[3] > -999999 or OryUIParameters.inactiveIconColor#[4] > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[1] = OryUIParameters.inactiveIconColor#[1]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[2] = OryUIParameters.inactiveIconColor#[2]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[3] = OryUIParameters.inactiveIconColor#[3]
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[4] = OryUIParameters.inactiveIconColor#[4]
+		if (oryUIParameters.inactiveIconColor#[1] > -999999 or oryUIParameters.inactiveIconColor#[2] > -999999 or oryUIParameters.inactiveIconColor#[3] > -999999 or oryUIParameters.inactiveIconColor#[4] > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[1] = oryUIParameters.inactiveIconColor#[1]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[2] = oryUIParameters.inactiveIconColor#[2]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[3] = oryUIParameters.inactiveIconColor#[3]
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[4] = oryUIParameters.inactiveIconColor#[4]
 		endif
-		if (OryUIParameters.inputText$ <> "")
+		if (oryUIParameters.inputText$ <> "")
 			if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox) = 0) // and GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) = "")
-				SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.inputText$)
+				SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.inputText$)
 			endif
 		endif
-		if (OryUIParameters.inputType$ <> "")
-			if (OryUIParameters.inputType$ = "integer" or OryUIParameters.inputType$ = "int")
+		if (oryUIParameters.inputType$ <> "")
+			if (oryUIParameters.inputType$ = "integer" or oryUIParameters.inputType$ = "int")
 
-			elseif (OryUIParameters.inputType$ = "decimal" or OryUIParameters.inputType$ = "float")
+			elseif (oryUIParameters.inputType$ = "decimal" or oryUIParameters.inputType$ = "float")
 
 			endif
 		endif
-		if (OryUIParameters.max# > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].max# = OryUIParameters.max#
+		if (oryUIParameters.max# > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].max# = oryUIParameters.max#
 			OryUIInputSpinnerCollection[oryUIInputSpinnerID].maxLimitSet = 1
-			SetEditBoxMaxChars(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, len(str(OryUIParameters.max#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals)))
+			SetEditBoxMaxChars(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, len(str(oryUIParameters.max#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals)))
 		endif
-		if (OryUIParameters.maxLength > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].maxLength = OryUIParameters.maxLength
-			SetEditBoxMaxChars(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.maxLength)
+		if (oryUIParameters.maxLength > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].maxLength = oryUIParameters.maxLength
+			SetEditBoxMaxChars(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.maxLength)
 		endif
-		if (OryUIParameters.min# > -999999)
+		if (oryUIParameters.min# > -999999)
 			OryUIInputSpinnerCollection[oryUIInputSpinnerID].minLimitSet = 1
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].min# = OryUIParameters.min#
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].min# = oryUIParameters.min#
 		endif
-		if (OryUIParameters.step# > -999999)
-			OryUIInputSpinnerCollection[oryUIInputSpinnerID].step# = OryUIParameters.step#
+		if (oryUIParameters.step# > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].step# = oryUIParameters.step#
 		endif
-		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-			SetEditBoxTextColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3])
-			SetEditBoxCursorColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3])
+		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+			SetEditBoxTextColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3])
+			SetEditBoxCursorColor(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3])
 		endif			
 	endif
 endfunction
