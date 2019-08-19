@@ -1,6 +1,6 @@
 // This is a template file to use for future components
 
-foldstart // OryUITemplate Component (Updated 31/05/2019)
+foldstart // OryUITemplate Component (Updated 19/08/2019)
 
 type typeOryUITemplate
 	id as integer
@@ -269,40 +269,40 @@ function OryUIUpdateTemplate(oryUITemplateID as integer, oryUIComponentParameter
 
 	if (GetSpriteExists(OryUITemplateCollection[oryUITemplateID].sprContainer))
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.size#[1], OryUIParameters.size#[2])
-		elseif (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] = -999999)
-			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer))
-		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, GetSpriteWidth(OryUITemplateCollection[oryUITemplateID].sprContainer), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
+		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
+			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer))
+		elseif (oryUIParameters.size#[1] = -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, GetSpriteWidth(OryUITemplateCollection[oryUITemplateID].sprContainer), oryUIParameters.size#[2])
 		endif
-		if (OryUIParameters.offsetCenter = 1)
+		if (oryUIParameters.offsetCenter = 1)
 			SetSpriteOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, GetSpriteWidth(OryUITemplateCollection[oryUITemplateID].sprContainer) / 2, GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer) / 2)
 		else
-			if (OryUIParameters.offset#[1] > -999999 or OryUIParameters.offset#[2] > -999999)
-				SetSpriteOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.offset#[1], OryUIParameters.offset#[2])
+			if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
+				SetSpriteOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.offset#[1], oryUIParameters.offset#[2])
 			endif
 		endif
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer))
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, GetSpriteXByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer), OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer))
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, GetSpriteXByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer), oryUIParameters.position#[2])
 		endif
 		
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.depth)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.depth)
 		endif
-		if (OryUIParameters.fixToScreen = 1)
+		if (oryUIParameters.fixToScreen = 1)
 			FixSpriteToScreen(OryUITemplateCollection[oryUITemplateID].sprContainer, 1)
 		endif
-		if (OryUIParameters.imageID > -999999)
-			SetSpriteImage(OryUITemplateCollection[oryUITemplateID].sprContainer, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > -999999)
+			SetSpriteImage(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.imageID)
 		endif
 	endif
 endfunction
@@ -311,11 +311,11 @@ function OryUIUpdateTemplateItem(oryUITemplateID as integer, oryUITemplateItemID
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].sprContainer))
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.name$ <> "")
-			OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].name$ = OryUIParameters.name$
+		if (oryUIParameters.name$ <> "")
+			OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].name$ = oryUIParameters.name$
 		endif
 	endif
 endfunction
