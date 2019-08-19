@@ -354,6 +354,42 @@ oryUIDefaults.paginationUnselectedTextSize# = 3
 
 foldend
 
+foldstart // Default Settings for OryUIProgressIndicator
+
+// TRACK
+oryUIDefaults.progressIndicatorTrackColor#[1] = 229
+oryUIDefaults.progressIndicatorTrackColor#[2] = 229
+oryUIDefaults.progressIndicatorTrackColor#[3] = 229
+oryUIDefaults.progressIndicatorTrackColor#[4] = 64
+oryUIDefaults.progressIndicatorTrackHeight# = 1
+oryUIDefaults.progressIndicatorTrackWidth# = 60
+
+// INDICATOR
+oryUIDefaults.progressIndicatorAnimationFPS = 10
+// Upto 100 frames allowed
+oryUIDefaults.progressIndicatorAnimationFrame[1] = oryUIPleaseWaitWheel01Image
+oryUIDefaults.progressIndicatorAnimationFrame[2] = oryUIPleaseWaitWheel02Image
+oryUIDefaults.progressIndicatorAnimationFrame[3] = oryUIPleaseWaitWheel03Image
+oryUIDefaults.progressIndicatorAnimationFrame[4] = oryUIPleaseWaitWheel04Image
+oryUIDefaults.progressIndicatorAnimationFrame[5] = oryUIPleaseWaitWheel05Image
+oryUIDefaults.progressIndicatorAnimationFrame[6] = oryUIPleaseWaitWheel06Image
+oryUIDefaults.progressIndicatorAnimationFrame[7] = oryUIPleaseWaitWheel07Image
+oryUIDefaults.progressIndicatorAnimationFrame[8] = oryUIPleaseWaitWheel08Image
+oryUIDefaults.progressIndicatorAnimationFrame[9] = oryUIPleaseWaitWheel09Image
+oryUIDefaults.progressIndicatorAnimationFrame[10] = oryUIPleaseWaitWheel10Image
+oryUIDefaults.progressIndicatorAnimationFrame[11] = oryUIPleaseWaitWheel11Image
+oryUIDefaults.progressIndicatorAnimationFrame[12] = oryUIPleaseWaitWheel12Image
+oryUIDefaults.progressIndicatorAnimationFrame[13] = oryUIPleaseWaitWheel13Image
+oryUIDefaults.progressIndicatorAnimationFrame[14] = oryUIPleaseWaitWheel14Image
+oryUIDefaults.progressIndicatorAnimationFrame[15] = oryUIPleaseWaitWheel15Image
+oryUIDefaults.progressIndicatorAnimationFrame[16] = oryUIPleaseWaitWheel16Image
+oryUIDefaults.progressIndicatorColor#[1] = 229
+oryUIDefaults.progressIndicatorColor#[2] = 229
+oryUIDefaults.progressIndicatorColor#[3] = 229
+oryUIDefaults.progressIndicatorColor#[4] = 225
+
+foldend
+
 foldstart // Default Settings for OryUIScrollToTop
 
 // MAIN
