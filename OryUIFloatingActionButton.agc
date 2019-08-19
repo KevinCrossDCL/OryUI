@@ -1,5 +1,5 @@
 
-foldstart // OryUIFloatingActionButton Component (Updated 16/08/2019)
+foldstart // OryUIFloatingActionButton Component (Updated 19/08/2019)
 
 type typeOryUIFloatingActionButton
 	id as integer
@@ -187,22 +187,22 @@ function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer,
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
-		if (OryUIParameters.attachToSpriteID > 0) then OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].attachToSpriteID = OryUIParameters.attachToSpriteID
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.attachToSpriteID > 0) then OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].attachToSpriteID = oryUIParameters.attachToSpriteID
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, OryUIParameters.depth)
-			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, OryUIParameters.depth - 1)
-			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIParameters.depth - 1)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIParameters.depth)
+			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIParameters.depth - 1)
+			SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIParameters.depth - 1)
 		endif
-		if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
-			SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
+		if (oryUIParameters.iconColor#[1] > -999999 or oryUIParameters.iconColor#[2] > -999999 or oryUIParameters.iconColor#[3] > -999999 or oryUIParameters.iconColor#[4] > -999999)
+			SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
 		endif
-		if (OryUIParameters.iconID > -999999) then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIParameters.iconID)
-		if (OryUIParameters.mini >= 0)
-			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = OryUIParameters.mini
-			if (OryUIParameters.mini = 0)
+		if (oryUIParameters.iconID > -999999) then SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIParameters.iconID)
+		if (oryUIParameters.mini >= 0)
+			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = oryUIParameters.mini
+			if (oryUIParameters.mini = 0)
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, -1, 9.5)
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, -1, 9.5)
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3)
@@ -212,28 +212,28 @@ function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer,
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3)
 			endif
 		endif
-		if (lower(OryUIParameters.placement$) = "bottomright")
+		if (lower(oryUIParameters.placement$) = "bottomright")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
 			OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 		endif
-		if (lower(OryUIParameters.placement$) = "bottomcenter" or lower(OryUIParameters.placement$) = "bottomcentre")
+		if (lower(oryUIParameters.placement$) = "bottomcenter" or lower(oryUIParameters.placement$) = "bottomcentre")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomCenter"
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) / 2, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer) / 2, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
 			OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 		endif
-		if (lower(OryUIParameters.placement$) = "bottomleft")
+		if (lower(oryUIParameters.placement$) = "bottomleft")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomLeft"
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 0, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 			SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
 			OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 		endif
-		if (OryUIParameters.shadow >= 0)
-			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = OryUIParameters.shadow
-			if (OryUIParameters.shadow = 0) then SetSpriteColorAlpha(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 0)
-			if (OryUIParameters.shadow = 1) then SetSpriteColorAlpha(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 255)
+		if (oryUIParameters.shadow >= 0)
+			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = oryUIParameters.shadow
+			if (oryUIParameters.shadow = 0) then SetSpriteColorAlpha(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 0)
+			if (oryUIParameters.shadow = 1) then SetSpriteColorAlpha(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 255)
 		endif
 	endif
 endfunction
