@@ -1,5 +1,5 @@
 
-foldstart // OryUITooltip Component (Updated 06/04/2019)
+foldstart // OryUITooltip Component (Updated 19/08/2019)
 
 type typeOryUITooltip
 	id as integer
@@ -100,27 +100,27 @@ function OryUIUpdateTooltip(oryUITooltipID as integer, oryUIComponentParameters$
 
 	if (GetSpriteExists(OryUITooltipCollection[oryUITooltipID].sprContainer))
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUITooltipCollection[oryUITooltipID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUITooltipCollection[oryUITooltipID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUITooltipCollection[oryUITooltipID].sprContainer, OryUIParameters.depth)
-			SetTextDepth(OryUITooltipCollection[oryUITooltipID].txtLabel, OryUIParameters.depth - 1)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUITooltipCollection[oryUITooltipID].sprContainer, oryUIParameters.depth)
+			SetTextDepth(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.depth - 1)
 		endif
-		if (OryUIParameters.text$ <> "")
-			SetTextString(OryUITooltipCollection[oryUITooltipID].txtLabel, OryUIParameters.text$)
+		if (oryUIParameters.text$ <> "")
+			SetTextString(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.text$)
 		endif
-		if (OryUIParameters.textAlignment > -999999)
-			SetTextAlignment(OryUITooltipCollection[oryUITooltipID].txtLabel, OryUIParameters.textAlignment)
+		if (oryUIParameters.textAlignment > -999999)
+			SetTextAlignment(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.textAlignment)
 		endif
-		if (OryUIParameters.textBold > -999999)
-			SetTextBold(OryUITooltipCollection[oryUITooltipID].txtLabel, OryUIParameters.textBold)
+		if (oryUIParameters.textBold > -999999)
+			SetTextBold(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.textBold)
 		endif
-		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-			SetTextColor(OryUITooltipCollection[oryUITooltipID].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
+		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+			SetTextColor(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], oryUIParameters.textColor#[4])
 		endif
-		if (OryUIParameters.textSize# > -999999)
-			SetTextSize(OryUITooltipCollection[oryUITooltipID].txtLabel, OryUIParameters.textSize#)
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.textSize#)
 		endif
 	endif
 endfunction
