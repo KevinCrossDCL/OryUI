@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 16/08/2019)
+foldstart // OryUITextfield Component (Updated 19/08/2019)
 
 type typeOryUITextfield
 	id as integer
@@ -227,17 +227,17 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 		if (GetEditBoxExists(OryUITextfieldCollection[oryUITextfieldID].editBox))
 
 			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-			if (OryUIParameters.size#[1] > -999999 or OryUIParameters.size#[2] > -999999)
-				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
+			if (oryUIParameters.size#[1] > -999999 or oryUIParameters.size#[2] > -999999)
+				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 				SetEditBoxSize(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 6, GetEditBoxHeight(OryUITextfieldCollection[oryUITextfieldID].editBox))
-				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, OryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
+				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			endif
-			if (OryUIParameters.position#[1] > -999999 or OryUIParameters.position#[2] > -999999)
-				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
+			if (oryUIParameters.position#[1] > -999999 or oryUIParameters.position#[2] > -999999)
+				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
 				SetEditBoxPosition(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3, GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 2.8)
 				SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3.4, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (GetTextTotalHeight(OryUITextfieldCollection[oryUITextfieldID].txtLabel) / 2))
 				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer), (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)) - 0.3)
-				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, OryUIParameters.position#[1], OryUIParameters.position#[2])
+				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.position#[1], oryUIParameters.position#[2])
 				if (OryUITextfieldCollection[oryUITextfieldID].showHelperText = 1)
 					SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtHelper, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3.4, GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 0.5)
 				else
@@ -246,73 +246,73 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 			endif
 
 			// THE REST OF THE PARAMETERS NEXT
-			if (OryUIParameters.backgroundColor#[1] > -999999 or OryUIParameters.backgroundColor#[2] > -999999 or OryUIParameters.backgroundColor#[3] > -999999 or OryUIParameters.backgroundColor#[4] > -999999)
-				SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprContainer, OryUIParameters.backgroundColor#[1], OryUIParameters.backgroundColor#[2], OryUIParameters.backgroundColor#[3], OryUIParameters.backgroundColor#[4])
-				SetEditBoxBackgroundColor(OryUITextfieldCollection[oryUITextfieldID].editBox, OryUIParameters.backgroundColor#[1], OryUIParameters.backgroundColor#[2], OryUIParameters.backgroundColor#[3], OryUIParameters.backgroundColor#[4])
+			if (oryUIParameters.backgroundColor#[1] > -999999 or oryUIParameters.backgroundColor#[2] > -999999 or oryUIParameters.backgroundColor#[3] > -999999 or oryUIParameters.backgroundColor#[4] > -999999)
+				SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.backgroundColor#[1], oryUIParameters.backgroundColor#[2], oryUIParameters.backgroundColor#[3], oryUIParameters.backgroundColor#[4])
+				SetEditBoxBackgroundColor(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.backgroundColor#[1], oryUIParameters.backgroundColor#[2], oryUIParameters.backgroundColor#[3], oryUIParameters.backgroundColor#[4])
 			endif
-			if (OryUIParameters.depth > -999999)
-				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer, OryUIParameters.depth)
-				SetEditBoxDepth(OryUITextfieldCollection[oryUITextfieldID].editBox, OryUIParameters.depth - 1)
-				SetTextDepth(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUIParameters.depth - 2)
-				SetTextDepth(OryUITextfieldCollection[oryUITextfieldID].txtHelper, OryUIParameters.depth - 2)
-				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, OryUIParameters.depth - 2)
-				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, OryUIParameters.depth - 2)
+			if (oryUIParameters.depth > -999999)
+				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.depth)
+				SetEditBoxDepth(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.depth - 1)
+				SetTextDepth(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.depth - 2)
+				SetTextDepth(OryUITextfieldCollection[oryUITextfieldID].txtHelper, oryUIParameters.depth - 2)
+				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, oryUIParameters.depth - 2)
+				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.depth - 2)
 			endif
-			if (OryUIParameters.helperText$ <> "")
-				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtHelper, OryUIParameters.helperText$)
+			if (oryUIParameters.helperText$ <> "")
+				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtHelper, oryUIParameters.helperText$)
 			endif
-			if (OryUIParameters.helperTextColor#[1] > -999999 or OryUIParameters.helperTextColor#[2] > -999999 or OryUIParameters.helperTextColor#[3] > -999999 or OryUIParameters.helperTextColor#[4] > -999999)
-				SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtHelper, OryUIParameters.helperTextColor#[1], OryUIParameters.helperTextColor#[2], OryUIParameters.helperTextColor#[3], OryUIParameters.helperTextColor#[4])
+			if (oryUIParameters.helperTextColor#[1] > -999999 or oryUIParameters.helperTextColor#[2] > -999999 or oryUIParameters.helperTextColor#[3] > -999999 or oryUIParameters.helperTextColor#[4] > -999999)
+				SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtHelper, oryUIParameters.helperTextColor#[1], oryUIParameters.helperTextColor#[2], oryUIParameters.helperTextColor#[3], oryUIParameters.helperTextColor#[4])
 			endif
-			if (OryUIParameters.inputText$ <> "")
+			if (oryUIParameters.inputText$ <> "")
 				if (GetEditBoxHasFocus(OryUITextfieldCollection[oryUITextfieldID].editBox) = 0) // and GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) = "")
-					SetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox, OryUIParameters.inputText$)
+					SetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.inputText$)
 					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 2.4)
 					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - 2.4 - 0.3)
 				endif
 			endif
-			if (OryUIParameters.inputType$ <> "")
-				if (OryUIParameters.inputType$ = "integer" or OryUIParameters.inputType$ = "int")
+			if (oryUIParameters.inputType$ <> "")
+				if (oryUIParameters.inputType$ = "integer" or oryUIParameters.inputType$ = "int")
 					SetEditBoxInputType(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
-				elseif (OryUIParameters.inputType$ = "string" or OryUIParameters.inputType$ = "str")
+				elseif (oryUIParameters.inputType$ = "string" or oryUIParameters.inputType$ = "str")
 					SetEditBoxInputType(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
 				endif
 			endif
-			if (OryUIParameters.labelText$ <> "")
-				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUIParameters.labelText$)
+			if (oryUIParameters.labelText$ <> "")
+				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.labelText$)
 			endif
-			if (OryUIParameters.maxLength > 0)
-				OryUITextfieldCollection[oryUITextfieldID].maxLength = OryUIParameters.maxLength
+			if (oryUIParameters.maxLength > 0)
+				OryUITextfieldCollection[oryUITextfieldID].maxLength = oryUIParameters.maxLength
 				SetEditBoxMaxChars(OryUITextfieldCollection[oryUITextfieldID].editBox, OryUITextfieldCollection[oryUITextfieldID].maxLength)
 			endif
-			//if (OryUIParameters.placeholderTextColor#[1] > -999999 or OryUIParameters.placeholderTextColor#[2] > -999999 or OryUIParameters.placeholderTextColor#[3] > -999999)
-				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[1] = OryUIParameters.placeholderTextColor#[1]
-				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[2] = OryUIParameters.placeholderTextColor#[2]
-				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[3] = OryUIParameters.placeholderTextColor#[3]
-				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[4] = OryUIParameters.placeholderTextColor#[4]
+			//if (oryUIParameters.placeholderTextColor#[1] > -999999 or oryUIParameters.placeholderTextColor#[2] > -999999 or oryUIParameters.placeholderTextColor#[3] > -999999)
+				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[1] = oryUIParameters.placeholderTextColor#[1]
+				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[2] = oryUIParameters.placeholderTextColor#[2]
+				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[3] = oryUIParameters.placeholderTextColor#[3]
+				//OryUITextfieldCollection[oryUITextfieldID].placeholderTextColor#[4] = oryUIParameters.placeholderTextColor#[4]
 				//if (GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) = "")
-					//SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUIParameters.placeholderTextColor#[1], OryUIParameters.placeholderTextColor#[2], OryUIParameters.placeholderTextColor#[3], OryUIParameters.placeholderTextColor#[4])
+					//SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.placeholderTextColor#[1], oryUIParameters.placeholderTextColor#[2], oryUIParameters.placeholderTextColor#[3], oryUIParameters.placeholderTextColor#[4])
 				//endif
 			//endif
-			if (OryUIParameters.showHelperText > -999999)
-				OryUITextfieldCollection[oryUITextfieldID].showHelperText = OryUIParameters.showHelperText
+			if (oryUIParameters.showHelperText > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].showHelperText = oryUIParameters.showHelperText
 			endif
-			if (OryUIParameters.strokeColor#[1] > -999999 or OryUIParameters.strokeColor#[2] > -999999 or OryUIParameters.strokeColor#[3] > -999999)
-				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[1] = OryUIParameters.strokeColor#[1]
-				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[2] = OryUIParameters.strokeColor#[2]
-				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[3] = OryUIParameters.strokeColor#[3]
-				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[4] = OryUIParameters.strokeColor#[4]
+			if (oryUIParameters.strokeColor#[1] > -999999 or oryUIParameters.strokeColor#[2] > -999999 or oryUIParameters.strokeColor#[3] > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[1] = oryUIParameters.strokeColor#[1]
+				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[2] = oryUIParameters.strokeColor#[2]
+				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[3] = oryUIParameters.strokeColor#[3]
+				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[4] = oryUIParameters.strokeColor#[4]
 				if (GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) <> "")
-					SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUIParameters.strokeColor#[1], OryUIParameters.strokeColor#[2], OryUIParameters.strokeColor#[3], OryUIParameters.strokeColor#[4])
+					SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.strokeColor#[1], oryUIParameters.strokeColor#[2], oryUIParameters.strokeColor#[3], oryUIParameters.strokeColor#[4])
 				endif
-				SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, OryUIParameters.strokeColor#[1], OryUIParameters.strokeColor#[2], OryUIParameters.strokeColor#[3], OryUIParameters.strokeColor#[4])
+				SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, oryUIParameters.strokeColor#[1], oryUIParameters.strokeColor#[2], oryUIParameters.strokeColor#[3], oryUIParameters.strokeColor#[4])
 			endif
-			if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-				OryUITextfieldCollection[oryUITextfieldID].textColor#[1] = OryUIParameters.textColor#[1]
-				OryUITextfieldCollection[oryUITextfieldID].textColor#[2] = OryUIParameters.textColor#[2]
-				OryUITextfieldCollection[oryUITextfieldID].textColor#[3] = OryUIParameters.textColor#[3]
-				OryUITextfieldCollection[oryUITextfieldID].textColor#[4] = OryUIParameters.textColor#[4]
-				SetEditBoxTextColor(OryUITextfieldCollection[oryUITextfieldID].editBox, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3])
+			if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].textColor#[1] = oryUIParameters.textColor#[1]
+				OryUITextfieldCollection[oryUITextfieldID].textColor#[2] = oryUIParameters.textColor#[2]
+				OryUITextfieldCollection[oryUITextfieldID].textColor#[3] = oryUIParameters.textColor#[3]
+				OryUITextfieldCollection[oryUITextfieldID].textColor#[4] = oryUIParameters.textColor#[4]
+				SetEditBoxTextColor(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3])
 			endif
 		endif
 	endif
