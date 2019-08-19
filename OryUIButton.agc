@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 16/08/2019)
+foldstart // OryUIButton Component (Updated 19/08/2019)
 
 type typeOryUIButton
 	id as integer
@@ -75,7 +75,7 @@ function OryUIButtonListener(oryUIButtonID as integer)
 		endif
 	endif
 	
-	if (OryUIButtonCollection[oryUIButtonID].enabled = 0 or oryUIScrimVisible = 1)
+	if (OryUIButtonCollection[oryUIButtonID].enabled = 0 or (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) >= oryUIScrimDepth))
 		OryUIButtonCollection[oryUIButtonID].pressed = 0
 		OryUIButtonCollection[oryUIButtonID].held = 0
 		OryUIButtonCollection[oryUIButtonID].released = 0
@@ -179,130 +179,14 @@ endfunction oryUIButtonHeight#
 
 function OryUIGetButtonHeld(oryUIButtonID as integer)
 	OryUIButtonListener(oryUIButtonID)
-	remstart
-	local oryUIButtonIconSprite as integer
-	local oryUIButtonHeld as integer
-	local oryUIButtonSprite as integer
-	local oryUIButtonText as integer
-	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		if (OryUIGetSwipingVertically() = 0)
-			if (GetPointerPressed())
-				oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				OryUIButtonCollection[oryUIButtonID].held = 0
-				OryUIButtonCollection[oryUIButtonID].pressed = 0
-				if (oryUIButtonIconSprite = 1 or oryUIButtonSprite = 1 or oryUIButtonText = 1)
-					OryUIButtonCollection[oryUIButtonID].pressed = 1
-					OryUIButtonCollection[oryUIButtonID].timePressed# = timer()
-				endif
-			elseif (OryUIButtonCollection[oryUIButtonID].pressed = 1)
-				if (GetPointerState())
-					oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					if (oryUIButtonIconSprite = 1 or oryUIButtonSprite = 1 or oryUIButtonText = 1)
-						if (timer() - OryUIButtonCollection[oryUIButtonID].timePressed# >= 0.4)
-							OryUIButtonCollection[oryUIButtonID].held = 1
-						endif
-					else
-						OryUIButtonCollection[oryUIButtonID].pressed = 0
-						OryUIButtonCollection[oryUIButtonID].held = 0
-					endif
-				endif
-			endif
-		endif
-		oryUIButtonHeld = OryUIButtonCollection[oryUIButtonID].held			
-	endif
-	
-	if (oryUIScrimVisible = 1) then oryUIButtonHeld = 0
-	remend
 endfunction OryUIButtonCollection[oryUIButtonID].held
 
 function OryUIGetButtonPressed(oryUIButtonID as integer)
 	OryUIButtonListener(oryUIButtonID)
-	remstart
-	local oryUIButtonIconSprite as integer
-	local oryUIButtonPressed as integer
-	local oryUIButtonSprite as integer
-	local oryUIButtonText as integer
-	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		if (OryUIGetSwipingVertically() = 0)
-			if (GetPointerPressed())
-				oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				if (oryUIButtonIconSprite = 1 or oryUIButtonSprite = 1 or oryUIButtonText = 1)
-					OryUIButtonCollection[oryUIButtonID].pressed = 1
-				else
-					OryUIButtonCollection[oryUIButtonID].pressed = 0
-				endif
-			elseif (OryUIButtonCollection[oryUIButtonID].pressed = 1)
-				if (GetPointerState())
-					oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					if (oryUIButtonIconSprite = 1 or oryUIButtonSprite = 1 or oryUIButtonText = 1)
-						OryUIButtonCollection[oryUIButtonID].pressed = 1
-					else
-						OryUIButtonCollection[oryUIButtonID].pressed = 0
-					endif
-				endif
-			endif
-		endif
-		oryUIButtonPressed = OryUIButtonCollection[oryUIButtonID].pressed					
-	endif
-	
-	if (oryUIScrimVisible = 1) then oryUIButtonPressed = 0
-	remend
 endfunction OryUIButtonCollection[oryUIButtonID].pressed
 
 function OryUIGetButtonReleased(oryUIButtonID as integer)
 	OryUIButtonListener(oryUIButtonID)
-	remstart
-	local oryUIButtonIconSprite as integer
-	local oryUIButtonReleased as integer
-	local oryUIButtonSprite as integer
-	local oryUIButtonText as integer
-	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		if (OryUIGetSwipingVertically() = 0)
-			if (GetPointerPressed())
-				oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-				if (oryUIButtonIconSprite = 1 or oryUIButtonSprite = 1 or oryUIButtonText = 1)
-					OryUIButtonCollection[oryUIButtonID].pressed = 1
-				endif
-			else
-				if (GetPointerState())
-					oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					if (OryUIButtonCollection[oryUIButtonID].pressed)
-						if (oryUIButtonIconSprite = 0 and oryUIButtonSprite = 0 and oryUIButtonText = 0)
-							OryUIButtonCollection[oryUIButtonID].pressed = 0
-						endif
-					endif
-				endif
-				if (GetPointerReleased())
-					oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					oryUIButtonText = GetTextHitTest(OryUIButtonCollection[oryUIButtonID].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					if (OryUIButtonCollection[oryUIButtonID].pressed)
-						if (oryUIButtonIconSprite = 1 or oryUIButtonSprite = 1 or oryUIButtonText = 1)
-							oryUIButtonReleased = 1
-						else
-							oryUIButtonReleased = 0
-						endif
-					endif
-					OryUIButtonCollection[oryUIButtonID].pressed = 0
-				endif
-			endif
-		endif
-	endif
-	
-	if (oryUIScrimVisible = 1) then oryUIButtonReleased = 0
-	remend
 endfunction OryUIButtonCollection[oryUIButtonID].released
 
 function OryUIGetButtonWidth(oryUIButtonID as integer)
@@ -332,206 +216,206 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		
 		// PARAMETERS FOR SINGLE STATE
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[1] = OryUIParameters.color#[1]
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[2] = OryUIParameters.color#[2]
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[3] = OryUIParameters.color#[3]
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[4] = OryUIParameters.color#[4]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[1] = OryUIParameters.color#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[2] = OryUIParameters.color#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[3] = OryUIParameters.color#[3]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[4] = OryUIParameters.color#[4]
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[1] = oryUIParameters.color#[1]
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[2] = oryUIParameters.color#[2]
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[3] = oryUIParameters.color#[3]
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[4] = oryUIParameters.color#[4]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[1] = oryUIParameters.color#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[2] = oryUIParameters.color#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[3] = oryUIParameters.color#[3]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[4] = oryUIParameters.color#[4]
 		endif
-		if (OryUIParameters.enabled > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabled = OryUIParameters.enabled
+		if (oryUIParameters.enabled > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabled = oryUIParameters.enabled
 		endif
-		if (OryUIParameters.icon$ <> "" and OryUIParameters.iconID > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIcon$ = OryUIParameters.icon$
-			OryUIButtonCollection[oryUIButtonID].disabledIconID = OryUIParameters.iconID
-			OryUIButtonCollection[oryUIButtonID].enabledIcon$ = OryUIParameters.icon$
-			OryUIButtonCollection[oryUIButtonID].enabledIconID = OryUIParameters.iconID
-		elseif (OryUIParameters.iconID > -999999)
+		if (oryUIParameters.icon$ <> "" and oryUIParameters.iconID > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIcon$ = oryUIParameters.icon$
+			OryUIButtonCollection[oryUIButtonID].disabledIconID = oryUIParameters.iconID
+			OryUIButtonCollection[oryUIButtonID].enabledIcon$ = oryUIParameters.icon$
+			OryUIButtonCollection[oryUIButtonID].enabledIconID = oryUIParameters.iconID
+		elseif (oryUIParameters.iconID > -999999)
 			OryUIButtonCollection[oryUIButtonID].disabledIcon$ = "custom"
-			OryUIButtonCollection[oryUIButtonID].disabledIconID = OryUIParameters.iconID
+			OryUIButtonCollection[oryUIButtonID].disabledIconID = oryUIParameters.iconID
 			OryUIButtonCollection[oryUIButtonID].enabledIcon$ = "custom"
-			OryUIButtonCollection[oryUIButtonID].enabledIconID = OryUIParameters.iconID
+			OryUIButtonCollection[oryUIButtonID].enabledIconID = oryUIParameters.iconID
 		endif
-		if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[1] = OryUIParameters.iconColor#[1]
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[2] = OryUIParameters.iconColor#[2]
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[3] = OryUIParameters.iconColor#[3]
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[4] = OryUIParameters.iconColor#[4]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[1] = OryUIParameters.iconColor#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[2] = OryUIParameters.iconColor#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[3] = OryUIParameters.iconColor#[3]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[4] = OryUIParameters.iconColor#[4]
+		if (oryUIParameters.iconColor#[1] > -999999 or oryUIParameters.iconColor#[2] > -999999 or oryUIParameters.iconColor#[3] > -999999 or oryUIParameters.iconColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[1] = oryUIParameters.iconColor#[1]
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[2] = oryUIParameters.iconColor#[2]
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[3] = oryUIParameters.iconColor#[3]
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[4] = oryUIParameters.iconColor#[4]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[1] = oryUIParameters.iconColor#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[2] = oryUIParameters.iconColor#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[3] = oryUIParameters.iconColor#[3]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[4] = oryUIParameters.iconColor#[4]
 		endif
-		if (OryUIParameters.iconPlacement$ <> "")
-			OryUIButtonCollection[oryUIButtonID].disabledIconPlacement$ = OryUIParameters.iconPlacement$
-			OryUIButtonCollection[oryUIButtonID].enabledIconPlacement$ = OryUIParameters.iconPlacement$
+		if (oryUIParameters.iconPlacement$ <> "")
+			OryUIButtonCollection[oryUIButtonID].disabledIconPlacement$ = oryUIParameters.iconPlacement$
+			OryUIButtonCollection[oryUIButtonID].enabledIconPlacement$ = oryUIParameters.iconPlacement$
 		endif
-		if (OryUIParameters.iconSize#[1] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[1] = OryUIParameters.iconSize#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[1] = OryUIParameters.iconSize#[1]
+		if (oryUIParameters.iconSize#[1] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[1] = oryUIParameters.iconSize#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[1] = oryUIParameters.iconSize#[1]
 		endif
-		if (OryUIParameters.iconSize#[2] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[2] = OryUIParameters.iconSize#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[2] = OryUIParameters.iconSize#[2]
+		if (oryUIParameters.iconSize#[2] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[2] = oryUIParameters.iconSize#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[2] = oryUIParameters.iconSize#[2]
 		endif
-		if (OryUIParameters.imageID > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledImageID = OryUIParameters.imageID
-			OryUIButtonCollection[oryUIButtonID].enabledImageID = OryUIParameters.imageID
+		if (oryUIParameters.imageID > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledImageID = oryUIParameters.imageID
+			OryUIButtonCollection[oryUIButtonID].enabledImageID = oryUIParameters.imageID
 		endif
-		if (OryUIParameters.text$ <> "")
-			OryUIButtonCollection[oryUIButtonID].disabledText$ = OryUIParameters.text$
-			OryUIButtonCollection[oryUIButtonID].enabledText$ = OryUIParameters.text$
+		if (oryUIParameters.text$ <> "")
+			OryUIButtonCollection[oryUIButtonID].disabledText$ = oryUIParameters.text$
+			OryUIButtonCollection[oryUIButtonID].enabledText$ = oryUIParameters.text$
 		endif
-		if (OryUIParameters.textAlignment > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextAlignment = OryUIParameters.textAlignment
-			OryUIButtonCollection[oryUIButtonID].enabledTextAlignment = OryUIParameters.textAlignment
+		if (oryUIParameters.textAlignment > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextAlignment = oryUIParameters.textAlignment
+			OryUIButtonCollection[oryUIButtonID].enabledTextAlignment = oryUIParameters.textAlignment
 		endif
-		if (OryUIParameters.textBold > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextBold = OryUIParameters.textBold
-			OryUIButtonCollection[oryUIButtonID].enabledTextBold = OryUIParameters.textBold
+		if (oryUIParameters.textBold > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextBold = oryUIParameters.textBold
+			OryUIButtonCollection[oryUIButtonID].enabledTextBold = oryUIParameters.textBold
 		endif
-		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[1] = OryUIParameters.textColor#[1]
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[2] = OryUIParameters.textColor#[2]
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[3] = OryUIParameters.textColor#[3]
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[4] = OryUIParameters.textColor#[4]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[1] = OryUIParameters.textColor#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[2] = OryUIParameters.textColor#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[3] = OryUIParameters.textColor#[3]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[4] = OryUIParameters.textColor#[4]
+		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[1] = oryUIParameters.textColor#[1]
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[2] = oryUIParameters.textColor#[2]
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[3] = oryUIParameters.textColor#[3]
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[4] = oryUIParameters.textColor#[4]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[1] = oryUIParameters.textColor#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[2] = oryUIParameters.textColor#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[3] = oryUIParameters.textColor#[3]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[4] = oryUIParameters.textColor#[4]
 		endif
-		if (OryUIParameters.textSize# > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextSize# = OryUIParameters.textSize#
-			OryUIButtonCollection[oryUIButtonID].enabledTextSize# = OryUIParameters.textSize#
+		if (oryUIParameters.textSize# > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextSize# = oryUIParameters.textSize#
+			OryUIButtonCollection[oryUIButtonID].enabledTextSize# = oryUIParameters.textSize#
 		endif
 		
 		// PARAMETERS FOR DISABLED STATE
-		if (OryUIParameters.disabledColor#[1] > -999999 or OryUIParameters.disabledColor#[2] > -999999 or OryUIParameters.disabledColor#[3] > -999999 or OryUIParameters.disabledColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[1] = OryUIParameters.disabledColor#[1]
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[2] = OryUIParameters.disabledColor#[2]
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[3] = OryUIParameters.disabledColor#[3]
-			OryUIButtonCollection[oryUIButtonID].disabledColor#[4] = OryUIParameters.disabledColor#[4]
+		if (oryUIParameters.disabledColor#[1] > -999999 or oryUIParameters.disabledColor#[2] > -999999 or oryUIParameters.disabledColor#[3] > -999999 or oryUIParameters.disabledColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[1] = oryUIParameters.disabledColor#[1]
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[2] = oryUIParameters.disabledColor#[2]
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[3] = oryUIParameters.disabledColor#[3]
+			OryUIButtonCollection[oryUIButtonID].disabledColor#[4] = oryUIParameters.disabledColor#[4]
 		endif
-		if (OryUIParameters.disabledIconColor#[1] > -999999 or OryUIParameters.disabledIconColor#[2] > -999999 or OryUIParameters.disabledIconColor#[3] > -999999 or OryUIParameters.disabledIconColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[1] = OryUIParameters.disabledIconColor#[1]
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[2] = OryUIParameters.disabledIconColor#[2]
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[3] = OryUIParameters.disabledIconColor#[3]
-			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[4] = OryUIParameters.disabledIconColor#[4]
+		if (oryUIParameters.disabledIconColor#[1] > -999999 or oryUIParameters.disabledIconColor#[2] > -999999 or oryUIParameters.disabledIconColor#[3] > -999999 or oryUIParameters.disabledIconColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[1] = oryUIParameters.disabledIconColor#[1]
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[2] = oryUIParameters.disabledIconColor#[2]
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[3] = oryUIParameters.disabledIconColor#[3]
+			OryUIButtonCollection[oryUIButtonID].disabledIconColor#[4] = oryUIParameters.disabledIconColor#[4]
 		endif
-		if (OryUIParameters.disabledIcon$ <> "" and OryUIParameters.disabledIconID > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIcon$ = OryUIParameters.disabledIcon$
-			OryUIButtonCollection[oryUIButtonID].disabledIconID = OryUIParameters.disabledIconID
-		elseif (OryUIParameters.disabledIconID > -999999)
+		if (oryUIParameters.disabledIcon$ <> "" and oryUIParameters.disabledIconID > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIcon$ = oryUIParameters.disabledIcon$
+			OryUIButtonCollection[oryUIButtonID].disabledIconID = oryUIParameters.disabledIconID
+		elseif (oryUIParameters.disabledIconID > -999999)
 			OryUIButtonCollection[oryUIButtonID].disabledIcon$ = "custom"
-			OryUIButtonCollection[oryUIButtonID].disabledIconID = OryUIParameters.disabledIconID
+			OryUIButtonCollection[oryUIButtonID].disabledIconID = oryUIParameters.disabledIconID
 		endif
-		if (OryUIParameters.disabledIconPlacement$ <> "")
-			OryUIButtonCollection[oryUIButtonID].disabledIconPlacement$ = OryUIParameters.disabledIconPlacement$
+		if (oryUIParameters.disabledIconPlacement$ <> "")
+			OryUIButtonCollection[oryUIButtonID].disabledIconPlacement$ = oryUIParameters.disabledIconPlacement$
 		endif
-		if (OryUIParameters.disabledIconSize#[1] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[1] = OryUIParameters.disabledIconSize#[1]
+		if (oryUIParameters.disabledIconSize#[1] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[1] = oryUIParameters.disabledIconSize#[1]
 		endif
-		if (OryUIParameters.disabledIconSize#[2] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[2] = OryUIParameters.disabledIconSize#[2]
+		if (oryUIParameters.disabledIconSize#[2] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledIconSize#[2] = oryUIParameters.disabledIconSize#[2]
 		endif
-		if (OryUIParameters.disabledImageID > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledImageID = OryUIParameters.disabledImageID
+		if (oryUIParameters.disabledImageID > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledImageID = oryUIParameters.disabledImageID
 		endif
-		if (OryUIParameters.disabledText$ <> "")
-			OryUIButtonCollection[oryUIButtonID].disabledText$ = OryUIParameters.disabledText$
+		if (oryUIParameters.disabledText$ <> "")
+			OryUIButtonCollection[oryUIButtonID].disabledText$ = oryUIParameters.disabledText$
 		endif
-		if (OryUIParameters.disabledTextAlignment > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextAlignment = OryUIParameters.disabledTextAlignment
+		if (oryUIParameters.disabledTextAlignment > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextAlignment = oryUIParameters.disabledTextAlignment
 		endif
-		if (OryUIParameters.disabledTextBold > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextBold = OryUIParameters.disabledTextBold
+		if (oryUIParameters.disabledTextBold > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextBold = oryUIParameters.disabledTextBold
 		endif
-		if (OryUIParameters.disabledTextColor#[1] > -999999 or OryUIParameters.disabledTextColor#[2] > -999999 or OryUIParameters.disabledTextColor#[3] > -999999 or OryUIParameters.disabledTextColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[1] = OryUIParameters.disabledTextColor#[1]
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[2] = OryUIParameters.disabledTextColor#[2]
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[3] = OryUIParameters.disabledTextColor#[3]
-			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[4] = OryUIParameters.disabledTextColor#[4]
+		if (oryUIParameters.disabledTextColor#[1] > -999999 or oryUIParameters.disabledTextColor#[2] > -999999 or oryUIParameters.disabledTextColor#[3] > -999999 or oryUIParameters.disabledTextColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[1] = oryUIParameters.disabledTextColor#[1]
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[2] = oryUIParameters.disabledTextColor#[2]
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[3] = oryUIParameters.disabledTextColor#[3]
+			OryUIButtonCollection[oryUIButtonID].disabledTextColor#[4] = oryUIParameters.disabledTextColor#[4]
 		endif
-		if (OryUIParameters.disabledTextSize# > -999999)
-			OryUIButtonCollection[oryUIButtonID].disabledTextSize# = OryUIParameters.disabledTextSize#
+		if (oryUIParameters.disabledTextSize# > -999999)
+			OryUIButtonCollection[oryUIButtonID].disabledTextSize# = oryUIParameters.disabledTextSize#
 		endif
 		
 		// PARAMETERS FOR ENABLED STATE
-		if (OryUIParameters.enabledColor#[1] > -999999 or OryUIParameters.enabledColor#[2] > -999999 or OryUIParameters.enabledColor#[3] > -999999 or OryUIParameters.enabledColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[1] = OryUIParameters.enabledColor#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[2] = OryUIParameters.enabledColor#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[3] = OryUIParameters.enabledColor#[3]
-			OryUIButtonCollection[oryUIButtonID].enabledColor#[4] = OryUIParameters.enabledColor#[4]
+		if (oryUIParameters.enabledColor#[1] > -999999 or oryUIParameters.enabledColor#[2] > -999999 or oryUIParameters.enabledColor#[3] > -999999 or oryUIParameters.enabledColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[1] = oryUIParameters.enabledColor#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[2] = oryUIParameters.enabledColor#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[3] = oryUIParameters.enabledColor#[3]
+			OryUIButtonCollection[oryUIButtonID].enabledColor#[4] = oryUIParameters.enabledColor#[4]
 		endif
-		if (OryUIParameters.enabledIconColor#[1] > -999999 or OryUIParameters.enabledIconColor#[2] > -999999 or OryUIParameters.enabledIconColor#[3] > -999999 or OryUIParameters.enabledIconColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[1] = OryUIParameters.enabledIconColor#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[2] = OryUIParameters.enabledIconColor#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[3] = OryUIParameters.enabledIconColor#[3]
-			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[4] = OryUIParameters.enabledIconColor#[4]
+		if (oryUIParameters.enabledIconColor#[1] > -999999 or oryUIParameters.enabledIconColor#[2] > -999999 or oryUIParameters.enabledIconColor#[3] > -999999 or oryUIParameters.enabledIconColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[1] = oryUIParameters.enabledIconColor#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[2] = oryUIParameters.enabledIconColor#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[3] = oryUIParameters.enabledIconColor#[3]
+			OryUIButtonCollection[oryUIButtonID].enabledIconColor#[4] = oryUIParameters.enabledIconColor#[4]
 		endif
-		if (OryUIParameters.enabledIcon$ <> "" and OryUIParameters.enabledIconID > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledIcon$ = OryUIParameters.enabledIcon$
-			OryUIButtonCollection[oryUIButtonID].enabledIconID = OryUIParameters.enabledIconID
-		elseif (OryUIParameters.enabledIconID > -999999)
+		if (oryUIParameters.enabledIcon$ <> "" and oryUIParameters.enabledIconID > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledIcon$ = oryUIParameters.enabledIcon$
+			OryUIButtonCollection[oryUIButtonID].enabledIconID = oryUIParameters.enabledIconID
+		elseif (oryUIParameters.enabledIconID > -999999)
 			OryUIButtonCollection[oryUIButtonID].enabledIcon$ = "custom"
-			OryUIButtonCollection[oryUIButtonID].enabledIconID = OryUIParameters.enabledIconID
+			OryUIButtonCollection[oryUIButtonID].enabledIconID = oryUIParameters.enabledIconID
 		endif
-		if (OryUIParameters.enabledIconPlacement$ <> "")
-			OryUIButtonCollection[oryUIButtonID].enabledIconPlacement$ = OryUIParameters.enabledIconPlacement$
+		if (oryUIParameters.enabledIconPlacement$ <> "")
+			OryUIButtonCollection[oryUIButtonID].enabledIconPlacement$ = oryUIParameters.enabledIconPlacement$
 		endif
-		if (OryUIParameters.enabledIconSize#[1] > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[1] = OryUIParameters.enabledIconSize#[1]
+		if (oryUIParameters.enabledIconSize#[1] > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[1] = oryUIParameters.enabledIconSize#[1]
 		endif
-		if (OryUIParameters.enabledIconSize#[2] > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[2] = OryUIParameters.enabledIconSize#[2]
+		if (oryUIParameters.enabledIconSize#[2] > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledIconSize#[2] = oryUIParameters.enabledIconSize#[2]
 		endif
-		if (OryUIParameters.enabledImageID > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledImageID = OryUIParameters.enabledImageID
+		if (oryUIParameters.enabledImageID > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledImageID = oryUIParameters.enabledImageID
 		endif
-		if (OryUIParameters.enabledText$ <> "")
-			OryUIButtonCollection[oryUIButtonID].enabledText$ = OryUIParameters.enabledText$
+		if (oryUIParameters.enabledText$ <> "")
+			OryUIButtonCollection[oryUIButtonID].enabledText$ = oryUIParameters.enabledText$
 		endif
-		if (OryUIParameters.enabledTextAlignment > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledTextAlignment = OryUIParameters.enabledTextAlignment
+		if (oryUIParameters.enabledTextAlignment > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledTextAlignment = oryUIParameters.enabledTextAlignment
 		endif
-		if (OryUIParameters.enabledTextBold > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledTextBold = OryUIParameters.enabledTextBold
+		if (oryUIParameters.enabledTextBold > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledTextBold = oryUIParameters.enabledTextBold
 		endif
-		if (OryUIParameters.enabledTextColor#[1] > -999999 or OryUIParameters.enabledTextColor#[2] > -999999 or OryUIParameters.enabledTextColor#[3] > -999999 or OryUIParameters.enabledTextColor#[4] > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[1] = OryUIParameters.enabledTextColor#[1]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[2] = OryUIParameters.enabledTextColor#[2]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[3] = OryUIParameters.enabledTextColor#[3]
-			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[4] = OryUIParameters.enabledTextColor#[4]
+		if (oryUIParameters.enabledTextColor#[1] > -999999 or oryUIParameters.enabledTextColor#[2] > -999999 or oryUIParameters.enabledTextColor#[3] > -999999 or oryUIParameters.enabledTextColor#[4] > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[1] = oryUIParameters.enabledTextColor#[1]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[2] = oryUIParameters.enabledTextColor#[2]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[3] = oryUIParameters.enabledTextColor#[3]
+			OryUIButtonCollection[oryUIButtonID].enabledTextColor#[4] = oryUIParameters.enabledTextColor#[4]
 		endif
-		if (OryUIParameters.enabledTextSize# > -999999)
-			OryUIButtonCollection[oryUIButtonID].enabledTextSize# = OryUIParameters.enabledTextSize#
+		if (oryUIParameters.enabledTextSize# > -999999)
+			OryUIButtonCollection[oryUIButtonID].enabledTextSize# = oryUIParameters.enabledTextSize#
 		endif
 		
 		// IMPORTANT PARAMETERS WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.size#[1], OryUIParameters.size#[2])
-		elseif (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] = -999999)
-			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
+		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
+			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUIButtonCollection[oryUIButtonID].sprContainer))
+		elseif (oryUIParameters.size#[1] = -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer), oryUIParameters.size#[2])
 		endif
-		if (OryUIParameters.offsetCenter = 1)
+		if (oryUIParameters.offsetCenter = 1)
 			SetSpriteOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer) / 2, GetSpriteHeight(OryUIButtonCollection[oryUIButtonID].sprContainer) / 2)
 		else
-			if (OryUIParameters.offset#[1] > -999999 or OryUIParameters.offset#[2] > -999999)
-				SetSpriteOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.offset#[1], OryUIParameters.offset#[2])
+			if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
+				SetSpriteOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.offset#[1], oryUIParameters.offset#[2])
 			endif
 		endif
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer))
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteXByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer), OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer))
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, GetSpriteXByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer), oryUIParameters.position#[2])
 		endif
 		
 		// DISABLED STATE
@@ -567,15 +451,15 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 		endif
 		
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.angle# > -999999)
-			SetSpriteAngle(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.angle#)
+		if (oryUIParameters.angle# > -999999)
+			SetSpriteAngle(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.angle#)
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIParameters.depth)
-			SetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprIcon, OryUIParameters.depth - 1)
-			SetTextDepth(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIParameters.depth - 1)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.depth)
+			SetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprIcon, oryUIParameters.depth - 1)
+			SetTextDepth(OryUIButtonCollection[oryUIButtonID].txtLabel, oryUIParameters.depth - 1)
 		endif
-		if (OryUIParameters.fixToScreen = 1)
+		if (oryUIParameters.fixToScreen = 1)
 			FixSpriteToScreen(OryUIButtonCollection[oryUIButtonID].sprContainer, 1)
 		endif
 
