@@ -1,5 +1,5 @@
 
-foldstart // OryUIPagination Component (Updated 16/08/2019)
+foldstart // OryUIPagination Component (Updated 19/08/2019)
 
 type typeOryUIPagination
 	id as integer
@@ -517,164 +517,164 @@ function OryUIUpdatePagination(oryUIPaginationID as integer, oryUIComponentParam
 
 	if (GetSpriteExists(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.size#[1], OryUIParameters.size#[2])
-		elseif (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] = -999999)
-			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
-		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, GetSpriteWidth(OryUIPaginationCollection[oryUIPaginationID].sprContainer), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
+		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
+			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
+		elseif (oryUIParameters.size#[1] = -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, GetSpriteWidth(OryUIPaginationCollection[oryUIPaginationID].sprContainer), oryUIParameters.size#[2])
 		endif
-		if (OryUIParameters.offsetCenter = 1)
+		if (oryUIParameters.offsetCenter = 1)
 			SetSpriteOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, GetSpriteWidth(OryUIPaginationCollection[oryUIPaginationID].sprContainer) / 2, GetSpriteHeight(OryUIPaginationCollection[oryUIPaginationID].sprContainer) / 2)
 		else
-			if (OryUIParameters.offset#[1] > -999999 or OryUIParameters.offset#[2] > -999999)
-				SetSpriteOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.offset#[1], OryUIParameters.offset#[2])
+			if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
+				SetSpriteOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.offset#[1], oryUIParameters.offset#[2])
 			endif
 		endif
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, GetSpriteXByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer), OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, GetSpriteXByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer), oryUIParameters.position#[2])
 		endif
 
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.buttonMargin# > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].buttonMargin# = OryUIParameters.buttonMargin#
+		if (oryUIParameters.buttonMargin# > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].buttonMargin# = oryUIParameters.buttonMargin#
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999)
-			SetSpriteColor(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], GetSpriteColorAlpha(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999)
+			SetSpriteColor(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], GetSpriteColorAlpha(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
 		endif
-		if (OryUIParameters.color#[4] > -999999)
-			SetSpriteColorAlpha(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.color#[4])
+		if (oryUIParameters.color#[4] > -999999)
+			SetSpriteColorAlpha(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.depth)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.depth)
 		endif
-		if (OryUIParameters.fixToScreen = 1)
+		if (oryUIParameters.fixToScreen = 1)
 			FixSpriteToScreen(OryUIPaginationCollection[oryUIPaginationID].sprContainer, 1)
 		endif
-		if (OryUIParameters.flexButtons > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].flexButtons = OryUIParameters.flexButtons
+		if (oryUIParameters.flexButtons > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].flexButtons = oryUIParameters.flexButtons
 		endif
-		if (OryUIParameters.iconSize#[1] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].iconSize#[1] = OryUIParameters.iconSize#[1]
+		if (oryUIParameters.iconSize#[1] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].iconSize#[1] = oryUIParameters.iconSize#[1]
 		endif
-		if (OryUIParameters.iconSize#[2] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].iconSize#[2] = OryUIParameters.iconSize#[2]
+		if (oryUIParameters.iconSize#[2] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].iconSize#[2] = oryUIParameters.iconSize#[2]
 		endif
-		if (OryUIParameters.imageID > -999999)
-			SetSpriteImage(OryUIPaginationCollection[oryUIPaginationID].sprContainer, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > -999999)
+			SetSpriteImage(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.imageID)
 		endif
-		if (OryUIParameters.inactiveColor#[1] > -999999 or OryUIParameters.inactiveColor#[2] > -999999 or OryUIParameters.inactiveColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[1] = OryUIParameters.inactiveColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[2] = OryUIParameters.inactiveColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[3] = OryUIParameters.inactiveColor#[3]
+		if (oryUIParameters.inactiveColor#[1] > -999999 or oryUIParameters.inactiveColor#[2] > -999999 or oryUIParameters.inactiveColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[1] = oryUIParameters.inactiveColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[2] = oryUIParameters.inactiveColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[3] = oryUIParameters.inactiveColor#[3]
 		endif
-		if (OryUIParameters.inactiveColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[4] = OryUIParameters.inactiveColor#[4]
+		if (oryUIParameters.inactiveColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveColor#[4] = oryUIParameters.inactiveColor#[4]
 		endif
-		if (OryUIParameters.inactiveIconColor#[1] > -999999 or OryUIParameters.inactiveIconColor#[2] > -999999 or OryUIParameters.inactiveIconColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[1] = OryUIParameters.inactiveIconColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[2] = OryUIParameters.inactiveIconColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[3] = OryUIParameters.inactiveIconColor#[3]
+		if (oryUIParameters.inactiveIconColor#[1] > -999999 or oryUIParameters.inactiveIconColor#[2] > -999999 or oryUIParameters.inactiveIconColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[1] = oryUIParameters.inactiveIconColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[2] = oryUIParameters.inactiveIconColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[3] = oryUIParameters.inactiveIconColor#[3]
 		endif
-		if (OryUIParameters.inactiveIconColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[4] = OryUIParameters.inactiveIconColor#[4]
+		if (oryUIParameters.inactiveIconColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveIconColor#[4] = oryUIParameters.inactiveIconColor#[4]
 		endif
-		if (OryUIParameters.inactiveTextBold > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveTextBold = OryUIParameters.inactiveTextBold
+		if (oryUIParameters.inactiveTextBold > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveTextBold = oryUIParameters.inactiveTextBold
 		endif
-		if (OryUIParameters.inactiveTextColor#[1] > -999999 or OryUIParameters.inactiveTextColor#[2] > -999999 or OryUIParameters.inactiveTextColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[1] = OryUIParameters.inactiveTextColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[2] = OryUIParameters.inactiveTextColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[3] = OryUIParameters.inactiveTextColor#[3]
+		if (oryUIParameters.inactiveTextColor#[1] > -999999 or oryUIParameters.inactiveTextColor#[2] > -999999 or oryUIParameters.inactiveTextColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[1] = oryUIParameters.inactiveTextColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[2] = oryUIParameters.inactiveTextColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[3] = oryUIParameters.inactiveTextColor#[3]
 		endif
-		if (OryUIParameters.inactiveTextColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[4] = OryUIParameters.inactiveTextColor#[4]
+		if (oryUIParameters.inactiveTextColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveTextColor#[4] = oryUIParameters.inactiveTextColor#[4]
 		endif
-		if (OryUIParameters.inactiveTextSize# > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].inactiveTextSize# = OryUIParameters.inactiveTextSize#
+		if (oryUIParameters.inactiveTextSize# > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].inactiveTextSize# = oryUIParameters.inactiveTextSize#
 		endif
-		if (OryUIParameters.maxButtonsToDisplay > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay = OryUIParameters.maxButtonsToDisplay
+		if (oryUIParameters.maxButtonsToDisplay > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay = oryUIParameters.maxButtonsToDisplay
 			if (OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay < 5)
 				OryUIPaginationCollection[oryUIPaginationID].showSkipToEndButtons = 0
 			endif
 		endif
-		if (OryUIParameters.noOfPages > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].noOfPages = OryUIParameters.noOfPages
+		if (oryUIParameters.noOfPages > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].noOfPages = oryUIParameters.noOfPages
 			if (OryUIPaginationCollection[oryUIPaginationID].noOfPages <= OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay)
 				OryUISetPaginationButtonCount(oryUIPaginationID, OryUIPaginationCollection[oryUIPaginationID].noOfPages)
 			else
 				OryUISetPaginationButtonCount(oryUIPaginationID, OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay)
 			endif
 		endif
-		if (OryUIParameters.selectedColor#[1] > -999999 or OryUIParameters.selectedColor#[2] > -999999 or OryUIParameters.selectedColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[1] = OryUIParameters.selectedColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[2] = OryUIParameters.selectedColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[3] = OryUIParameters.selectedColor#[3]
+		if (oryUIParameters.selectedColor#[1] > -999999 or oryUIParameters.selectedColor#[2] > -999999 or oryUIParameters.selectedColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[1] = oryUIParameters.selectedColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[2] = oryUIParameters.selectedColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[3] = oryUIParameters.selectedColor#[3]
 		endif
-		if (OryUIParameters.selectedColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[4] = OryUIParameters.selectedColor#[4]
+		if (oryUIParameters.selectedColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedColor#[4] = oryUIParameters.selectedColor#[4]
 		endif
-		if (OryUIParameters.selectedIconColor#[1] > -999999 or OryUIParameters.selectedIconColor#[2] > -999999 or OryUIParameters.selectedIconColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[1] = OryUIParameters.selectedIconColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[2] = OryUIParameters.selectedIconColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[3] = OryUIParameters.selectedIconColor#[3]
+		if (oryUIParameters.selectedIconColor#[1] > -999999 or oryUIParameters.selectedIconColor#[2] > -999999 or oryUIParameters.selectedIconColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[1] = oryUIParameters.selectedIconColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[2] = oryUIParameters.selectedIconColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[3] = oryUIParameters.selectedIconColor#[3]
 		endif
-		if (OryUIParameters.selectedIconColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[4] = OryUIParameters.selectedIconColor#[4]
+		if (oryUIParameters.selectedIconColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedIconColor#[4] = oryUIParameters.selectedIconColor#[4]
 		endif
-		if (OryUIParameters.selectedTextBold > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedTextBold = OryUIParameters.selectedTextBold
+		if (oryUIParameters.selectedTextBold > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedTextBold = oryUIParameters.selectedTextBold
 		endif
-		if (OryUIParameters.selectedTextColor#[1] > -999999 or OryUIParameters.selectedTextColor#[2] > -999999 or OryUIParameters.selectedTextColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[1] = OryUIParameters.selectedTextColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[2] = OryUIParameters.selectedTextColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[3] = OryUIParameters.selectedTextColor#[3]
+		if (oryUIParameters.selectedTextColor#[1] > -999999 or oryUIParameters.selectedTextColor#[2] > -999999 or oryUIParameters.selectedTextColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[1] = oryUIParameters.selectedTextColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[2] = oryUIParameters.selectedTextColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[3] = oryUIParameters.selectedTextColor#[3]
 		endif
-		if (OryUIParameters.showSkipToEndButtons > -999999)
+		if (oryUIParameters.showSkipToEndButtons > -999999)
 			if (OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay >= 5)
-				OryUIPaginationCollection[oryUIPaginationID].showSkipToEndButtons = OryUIParameters.showSkipToEndButtons
+				OryUIPaginationCollection[oryUIPaginationID].showSkipToEndButtons = oryUIParameters.showSkipToEndButtons
 			endif
 		endif
-		if (OryUIParameters.selectedTextColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[4] = OryUIParameters.selectedTextColor#[4]
+		if (oryUIParameters.selectedTextColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedTextColor#[4] = oryUIParameters.selectedTextColor#[4]
 		endif
-		if (OryUIParameters.selectedTextSize# > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].selectedTextSize# = OryUIParameters.selectedTextSize#
+		if (oryUIParameters.selectedTextSize# > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].selectedTextSize# = oryUIParameters.selectedTextSize#
 		endif
-		if (OryUIParameters.unselectedColor#[1] > -999999 or OryUIParameters.unselectedColor#[2] > -999999 or OryUIParameters.unselectedColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[1] = OryUIParameters.unselectedColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[2] = OryUIParameters.unselectedColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[3] = OryUIParameters.unselectedColor#[3]
+		if (oryUIParameters.unselectedColor#[1] > -999999 or oryUIParameters.unselectedColor#[2] > -999999 or oryUIParameters.unselectedColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[1] = oryUIParameters.unselectedColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[2] = oryUIParameters.unselectedColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[3] = oryUIParameters.unselectedColor#[3]
 		endif
-		if (OryUIParameters.unselectedColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[4] = OryUIParameters.unselectedColor#[4]
+		if (oryUIParameters.unselectedColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[4] = oryUIParameters.unselectedColor#[4]
 		endif
-		if (OryUIParameters.unselectedIconColor#[1] > -999999 or OryUIParameters.unselectedIconColor#[2] > -999999 or OryUIParameters.unselectedIconColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[1] = OryUIParameters.unselectedIconColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[2] = OryUIParameters.unselectedIconColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[3] = OryUIParameters.unselectedIconColor#[3]
+		if (oryUIParameters.unselectedIconColor#[1] > -999999 or oryUIParameters.unselectedIconColor#[2] > -999999 or oryUIParameters.unselectedIconColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[1] = oryUIParameters.unselectedIconColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[2] = oryUIParameters.unselectedIconColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[3] = oryUIParameters.unselectedIconColor#[3]
 		endif
-		if (OryUIParameters.unselectedIconColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[4] = OryUIParameters.unselectedIconColor#[4]
+		if (oryUIParameters.unselectedIconColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[4] = oryUIParameters.unselectedIconColor#[4]
 		endif
-		if (OryUIParameters.unselectedTextBold > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedTextBold = OryUIParameters.unselectedTextBold
+		if (oryUIParameters.unselectedTextBold > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedTextBold = oryUIParameters.unselectedTextBold
 		endif
-		if (OryUIParameters.unselectedTextColor#[1] > -999999 or OryUIParameters.unselectedTextColor#[2] > -999999 or OryUIParameters.unselectedTextColor#[3] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[1] = OryUIParameters.unselectedTextColor#[1]
-			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[2] = OryUIParameters.unselectedTextColor#[2]
-			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[3] = OryUIParameters.unselectedTextColor#[3]
+		if (oryUIParameters.unselectedTextColor#[1] > -999999 or oryUIParameters.unselectedTextColor#[2] > -999999 or oryUIParameters.unselectedTextColor#[3] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[1] = oryUIParameters.unselectedTextColor#[1]
+			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[2] = oryUIParameters.unselectedTextColor#[2]
+			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[3] = oryUIParameters.unselectedTextColor#[3]
 		endif
-		if (OryUIParameters.unselectedTextColor#[4] > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[4] = OryUIParameters.unselectedTextColor#[4]
+		if (oryUIParameters.unselectedTextColor#[4] > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedTextColor#[4] = oryUIParameters.unselectedTextColor#[4]
 		endif
-		if (OryUIParameters.unselectedTextSize# > -999999)
-			OryUIPaginationCollection[oryUIPaginationID].unselectedTextSize# = OryUIParameters.unselectedTextSize#
+		if (oryUIParameters.unselectedTextSize# > -999999)
+			OryUIPaginationCollection[oryUIPaginationID].unselectedTextSize# = oryUIParameters.unselectedTextSize#
 		endif
 	endif
 	
