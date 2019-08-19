@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 16/08/2019)
+foldstart // OryUITabs Component (Updated 19/08/2019)
 
 type typeOryUITabs
 	id as integer
@@ -266,77 +266,77 @@ function OryUIUpdateTabs(oryUITabsID as integer, oryUIComponentParameters$ as st
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
 
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.size#[1] > -999999)
-			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
-			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprShadow, OryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprShadow))
+		if (oryUIParameters.size#[1] > -999999)
+			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
+			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprShadow, oryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprShadow))
 		endif
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-			OryUITabsCollection[oryUITabsID].originalPosition#[1] = OryUIParameters.position#[1]
-			OryUITabsCollection[oryUITabsID].originalPosition#[2] = OryUIParameters.position#[2]
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUITabsCollection[oryUITabsID].sprContainer))
-			OryUITabsCollection[oryUITabsID].originalPosition#[1] = OryUIParameters.position#[1]
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, GetSpriteXByOffset(OryUITabsCollection[oryUITabsID].sprContainer), OryUIParameters.position#[2])
-			OryUITabsCollection[oryUITabsID].originalPosition#[2] = OryUIParameters.position#[2]
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+			OryUITabsCollection[oryUITabsID].originalPosition#[1] = oryUIParameters.position#[1]
+			OryUITabsCollection[oryUITabsID].originalPosition#[2] = oryUIParameters.position#[2]
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUITabsCollection[oryUITabsID].sprContainer))
+			OryUITabsCollection[oryUITabsID].originalPosition#[1] = oryUIParameters.position#[1]
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, GetSpriteXByOffset(OryUITabsCollection[oryUITabsID].sprContainer), oryUIParameters.position#[2])
+			OryUITabsCollection[oryUITabsID].originalPosition#[2] = oryUIParameters.position#[2]
 		endif
 		SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprShadow, GetSpriteX(OryUITabsCollection[oryUITabsID].sprContainer), GetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer) + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.activeColor#[1] > -999999 or OryUIParameters.activeColor#[2] > -999999 or OryUIParameters.activeColor#[3] > -999999 or OryUIParameters.activeColor#[4] > -999999)
-			OryUITabsCollection[oryUITabsID].defaultActiveColor#[1] = OryUIParameters.activeColor#[1]
-			OryUITabsCollection[oryUITabsID].defaultActiveColor#[2] = OryUIParameters.activeColor#[2]
-			OryUITabsCollection[oryUITabsID].defaultActiveColor#[3] = OryUIParameters.activeColor#[3]
-			OryUITabsCollection[oryUITabsID].defaultActiveColor#[4] = OryUIParameters.activeColor#[4]
+		if (oryUIParameters.activeColor#[1] > -999999 or oryUIParameters.activeColor#[2] > -999999 or oryUIParameters.activeColor#[3] > -999999 or oryUIParameters.activeColor#[4] > -999999)
+			OryUITabsCollection[oryUITabsID].defaultActiveColor#[1] = oryUIParameters.activeColor#[1]
+			OryUITabsCollection[oryUITabsID].defaultActiveColor#[2] = oryUIParameters.activeColor#[2]
+			OryUITabsCollection[oryUITabsID].defaultActiveColor#[3] = oryUIParameters.activeColor#[3]
+			OryUITabsCollection[oryUITabsID].defaultActiveColor#[4] = oryUIParameters.activeColor#[4]
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			if (OryUIParameters.color#[1] > -999999) then OryUITabsCollection[oryUITabsID].color#[1] = OryUIParameters.color#[1]
-			if (OryUIParameters.color#[2] > -999999) then OryUITabsCollection[oryUITabsID].color#[2] = OryUIParameters.color#[2]
-			if (OryUIParameters.color#[3] > -999999) then OryUITabsCollection[oryUITabsID].color#[3] = OryUIParameters.color#[3]
-			if (OryUIParameters.color#[4] > -999999) then OryUITabsCollection[oryUITabsID].color#[4] = OryUIParameters.color#[4]
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			if (oryUIParameters.color#[1] > -999999) then OryUITabsCollection[oryUITabsID].color#[1] = oryUIParameters.color#[1]
+			if (oryUIParameters.color#[2] > -999999) then OryUITabsCollection[oryUITabsID].color#[2] = oryUIParameters.color#[2]
+			if (oryUIParameters.color#[3] > -999999) then OryUITabsCollection[oryUITabsID].color#[3] = oryUIParameters.color#[3]
+			if (oryUIParameters.color#[4] > -999999) then OryUITabsCollection[oryUITabsID].color#[4] = oryUIParameters.color#[4]
 			SetSpriteColor(OryUITabsCollection[oryUITabsID].sprContainer, OryUITabsCollection[oryUITabsID].color#[1], OryUITabsCollection[oryUITabsID].color#[2], OryUITabsCollection[oryUITabsID].color#[3], OryUITabsCollection[oryUITabsID].color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUITabsCollection[oryUITabsID].sprContainer, OryUIParameters.depth)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.depth)
 		endif
 		remstart
-		if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
-			OryUITabsCollection[oryUITabsID].defaultIconColor#[1] = OryUIParameters.iconColor#[1]
-			OryUITabsCollection[oryUITabsID].defaultIconColor#[2] = OryUIParameters.iconColor#[2]
-			OryUITabsCollection[oryUITabsID].defaultIconColor#[3] = OryUIParameters.iconColor#[3]
-			OryUITabsCollection[oryUITabsID].defaultIconColor#[4] = OryUIParameters.iconColor#[4]
+		if (oryUIParameters.iconColor#[1] > -999999 or oryUIParameters.iconColor#[2] > -999999 or oryUIParameters.iconColor#[3] > -999999 or oryUIParameters.iconColor#[4] > -999999)
+			OryUITabsCollection[oryUITabsID].defaultIconColor#[1] = oryUIParameters.iconColor#[1]
+			OryUITabsCollection[oryUITabsID].defaultIconColor#[2] = oryUIParameters.iconColor#[2]
+			OryUITabsCollection[oryUITabsID].defaultIconColor#[3] = oryUIParameters.iconColor#[3]
+			OryUITabsCollection[oryUITabsID].defaultIconColor#[4] = oryUIParameters.iconColor#[4]
 			for oryUIForI = 0 to OryUITabsCollection[oryUITabsID].buttons.length
-				SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
+				SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
 			next
 		endif
 		remend
-		if (OryUIParameters.imageID > -999999)
-			SetSpriteImage(OryUITabsCollection[oryUITabsID].sprContainer, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > -999999)
+			SetSpriteImage(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.imageID)
 		endif
-		if (OryUIParameters.inactiveColor#[1] > -999999 or OryUIParameters.inactiveColor#[2] > -999999 or OryUIParameters.inactiveColor#[3] > -999999 or OryUIParameters.inactiveColor#[4] > -999999)
-			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[1] = OryUIParameters.inactiveColor#[1]
-			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[2] = OryUIParameters.inactiveColor#[2]
-			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[3] = OryUIParameters.inactiveColor#[3]
-			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[4] = OryUIParameters.inactiveColor#[4]
+		if (oryUIParameters.inactiveColor#[1] > -999999 or oryUIParameters.inactiveColor#[2] > -999999 or oryUIParameters.inactiveColor#[3] > -999999 or oryUIParameters.inactiveColor#[4] > -999999)
+			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[1] = oryUIParameters.inactiveColor#[1]
+			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[2] = oryUIParameters.inactiveColor#[2]
+			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[3] = oryUIParameters.inactiveColor#[3]
+			OryUITabsCollection[oryUITabsID].defaultInactiveColor#[4] = oryUIParameters.inactiveColor#[4]
 		endif
-		if (OryUIParameters.minPosition#[1] >- 999999) then OryUITabsCollection[oryUITabsID].minPosition#[1] = OryUIParameters.minPosition#[1]
-		if (OryUIParameters.minPosition#[2] >- 999999) then OryUITabsCollection[oryUITabsID].minPosition#[2] = OryUIParameters.minPosition#[2]
+		if (oryUIParameters.minPosition#[1] >- 999999) then OryUITabsCollection[oryUITabsID].minPosition#[1] = oryUIParameters.minPosition#[1]
+		if (oryUIParameters.minPosition#[2] >- 999999) then OryUITabsCollection[oryUITabsID].minPosition#[2] = oryUIParameters.minPosition#[2]
 		
 		remstart
-		if (OryUIParameters.navigationIcon$ <> "") then OryUITabsCollection[oryUITabsID].icon$ = lower(OryUIParameters.navigationIcon$)
-		if (lower(OryUIParameters.navigationIcon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconAddImage)
-		if (lower(OryUIParameters.navigationIcon$) = "back") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconBackImage)
-		if (lower(OryUIParameters.navigationIcon$) = "camera") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconCameraImage)
-		if (lower(OryUIParameters.navigationIcon$) = "menu") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconMenuImage)
-		if (lower(OryUIParameters.navigationIcon$) = "profile") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconProfileImage)
-		if (lower(OryUIParameters.navigationIcon$) = "refresh") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconRefreshImage)
-		if (lower(OryUIParameters.navigationIcon$) = "save") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconSaveImage)
-		if (OryUIParameters.text$ <> "")
-			SetTextString(OryUITabsCollection[oryUITabsID].txtTitle, OryUIParameters.text$)
+		if (oryUIParameters.navigationIcon$ <> "") then OryUITabsCollection[oryUITabsID].icon$ = lower(oryUIParameters.navigationIcon$)
+		if (lower(oryUIParameters.navigationIcon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconAddImage)
+		if (lower(oryUIParameters.navigationIcon$) = "back") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconBackImage)
+		if (lower(oryUIParameters.navigationIcon$) = "camera") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconCameraImage)
+		if (lower(oryUIParameters.navigationIcon$) = "menu") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconMenuImage)
+		if (lower(oryUIParameters.navigationIcon$) = "profile") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconProfileImage)
+		if (lower(oryUIParameters.navigationIcon$) = "refresh") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconRefreshImage)
+		if (lower(oryUIParameters.navigationIcon$) = "save") then SetSpriteImage(OryUITabsCollection[oryUITabsID].sprNavigationIcon, oryUIIconSaveImage)
+		if (oryUIParameters.text$ <> "")
+			SetTextString(OryUITabsCollection[oryUITabsID].txtTitle, oryUIParameters.text$)
 		endif
 		remend
-		if (OryUIParameters.scrollable > -999999) then OryUITabsCollection[oryUITabsID].scrollable = OryUIParameters.scrollable
+		if (oryUIParameters.scrollable > -999999) then OryUITabsCollection[oryUITabsID].scrollable = oryUIParameters.scrollable
 	endif
 
 	OryUIPositionButtonsInTabs(oryUITabsID)
@@ -346,22 +346,22 @@ function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as inte
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer))
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.text$ <> "")
-			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].label$ = OryUIParameters.text$
-			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].txtLabel, upper(OryUIParameters.text$))
+		if (oryUIParameters.text$ <> "")
+			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].label$ = oryUIParameters.text$
+			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].txtLabel, upper(oryUIParameters.text$))
 		endif
 		remstart
-		if (OryUIParameters.icon$ <> "") then OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].icon$ = lower(OryUIParameters.icon$)
-		if (lower(OryUIParameters.icon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconAddImage)
-		if (lower(OryUIParameters.icon$) = "back") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconBackImage)
-		if (lower(OryUIParameters.icon$) = "camera") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconCameraImage)
-		if (lower(OryUIParameters.icon$) = "menu") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconMenuImage)
-		if (lower(OryUIParameters.icon$) = "profile") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconProfileImage)
-		if (lower(OryUIParameters.icon$) = "refresh") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconRefreshImage)
-		if (lower(OryUIParameters.icon$) = "save") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconSaveImage)
+		if (oryUIParameters.icon$ <> "") then OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].icon$ = lower(oryUIParameters.icon$)
+		if (lower(oryUIParameters.icon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconAddImage)
+		if (lower(oryUIParameters.icon$) = "back") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconBackImage)
+		if (lower(oryUIParameters.icon$) = "camera") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconCameraImage)
+		if (lower(oryUIParameters.icon$) = "menu") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconMenuImage)
+		if (lower(oryUIParameters.icon$) = "profile") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconProfileImage)
+		if (lower(oryUIParameters.icon$) = "refresh") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconRefreshImage)
+		if (lower(oryUIParameters.icon$) = "save") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconSaveImage)
 		remend
 	endif
 
