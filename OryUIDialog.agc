@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 16/08/2019)
+foldstart // OryUIDialog Component (Updated 19/08/2019)
 
 type typeOryUIDialog
 	id as integer
@@ -319,6 +319,7 @@ function OryUIShowDialog(oryUIDialogID as integer)
 	local oryUILastButtonY# as float
 	local oryUITotalCheckboxWidth# as float
 
+	oryUIScrimDepth = GetSpriteDepth(OryUIDialogCollection[oryUIDialogID].sprScrim)
 	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	oryUIDialogVisible = 1
@@ -413,102 +414,102 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].sprContainer))
 
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.size#[1], OryUIParameters.size#[2])
-		elseif (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] = -999999)
-			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].sprContainer))
-		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
+		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
+			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].sprContainer))
+		elseif (oryUIParameters.size#[1] = -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer), oryUIParameters.size#[2])
 		endif
-		if (OryUIParameters.showCheckbox > -999999)
-			OryUIDialogCollection[oryUIDialogID].showCheckbox = OryUIParameters.showCheckbox
+		if (oryUIParameters.showCheckbox > -999999)
+			OryUIDialogCollection[oryUIDialogID].showCheckbox = oryUIParameters.showCheckbox
 		endif
-		if (OryUIParameters.checkboxAlignment >- 999999)
-			OryUIDialogCollection[oryUIDialogID].checkboxAlignment = OryUIParameters.checkboxAlignment
+		if (oryUIParameters.checkboxAlignment >- 999999)
+			OryUIDialogCollection[oryUIDialogID].checkboxAlignment = oryUIParameters.checkboxAlignment
 		endif
-		if (OryUIParameters.checkboxTextBold > -999999)
-			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIParameters.checkboxTextBold)
+		if (oryUIParameters.checkboxTextBold > -999999)
+			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIParameters.checkboxTextBold)
 		endif
-		if (OryUIParameters.checkboxTextSize# > -999999)
-			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIParameters.checkboxTextSize#)
+		if (oryUIParameters.checkboxTextSize# > -999999)
+			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIParameters.checkboxTextSize#)
 		endif
-		if (OryUIParameters.checkboxText$ <> "")
-			SetTextString(OryUIDialogCollection[oryUIDialogID].txtCheckbox, OryUIParameters.checkboxText$)
+		if (oryUIParameters.checkboxText$ <> "")
+			SetTextString(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIParameters.checkboxText$)
 		endif
-		if (OryUIParameters.supportingTextBold > -999999)
-			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.supportingTextBold)
+		if (oryUIParameters.supportingTextBold > -999999)
+			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtSupportingText, oryUIParameters.supportingTextBold)
 		endif
-		if (OryUIParameters.supportingTextSize# > -999999)
-			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.supportingTextSize#)
+		if (oryUIParameters.supportingTextSize# > -999999)
+			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtSupportingText, oryUIParameters.supportingTextSize#)
 		endif
-		if (OryUIParameters.supportingText$ <> "")
-			SetTextString(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIWrapText(OryUIParameters.supportingText$, GetTextSize(OryUIDialogCollection[oryUIDialogID].txtSupportingText), GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) - oryUIDefaults.dialogLeftMargin# - oryUIDefaults.dialogRightMargin#))
+		if (oryUIParameters.supportingText$ <> "")
+			SetTextString(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIWrapText(oryUIParameters.supportingText$, GetTextSize(OryUIDialogCollection[oryUIDialogID].txtSupportingText), GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) - oryUIDefaults.dialogLeftMargin# - oryUIDefaults.dialogRightMargin#))
 		endif
-		if (OryUIParameters.titleTextBold > -999999)
-			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIParameters.titleTextBold)
+		if (oryUIParameters.titleTextBold > -999999)
+			SetTextBold(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIParameters.titleTextBold)
 		endif
-		if (OryUIParameters.titleTextSize# > -999999)
-			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIParameters.titleTextSize#)
+		if (oryUIParameters.titleTextSize# > -999999)
+			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIParameters.titleTextSize#)
 		endif
-		if (OryUIParameters.titleText$ <> "")
-			SetTextString(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIWrapText(OryUIParameters.titleText$, GetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle), GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) - oryUIDefaults.dialogLeftMargin# - oryUIDefaults.dialogRightMargin#))
+		if (oryUIParameters.titleText$ <> "")
+			SetTextString(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIWrapText(oryUIParameters.titleText$, GetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle), GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) - oryUIDefaults.dialogLeftMargin# - oryUIDefaults.dialogRightMargin#))
 		endif
-		if (OryUIParameters.autoHeight > -999999)
-			OryUIDialogCollection[oryUIDialogID].autoHeight = OryUIParameters.autoHeight
+		if (oryUIParameters.autoHeight > -999999)
+			OryUIDialogCollection[oryUIDialogID].autoHeight = oryUIParameters.autoHeight
 		endif
-		if (OryUIParameters.flexButtons > -999999)
-			OryUIDialogCollection[oryUIDialogID].flexButtons = OryUIParameters.flexButtons
+		if (oryUIParameters.flexButtons > -999999)
+			OryUIDialogCollection[oryUIDialogID].flexButtons = oryUIParameters.flexButtons
 		endif
-		//if (OryUIParameters.offsetCenter = 1)
+		//if (oryUIParameters.offsetCenter = 1)
 		//	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) / 2, GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].sprContainer) / 2)
 		//else
-		//	if (OryUIParameters.offset#[1] > -999999 or OryUIParameters.offset#[2] > -999999)
-		//		SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.offset#[1], OryUIParameters.offset#[2])
+		//	if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
+		//		SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.offset#[1], oryUIParameters.offset#[2])
 		//	endif
 		//endif
-		//if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-		//	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		//elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-		//	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.position#[1], GetSpriteYByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer))
-		//elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-		//	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteXByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer), OryUIParameters.position#[2])
+		//if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+		//	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		//elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+		//	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer))
+		//elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+		//	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, GetSpriteXByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer), oryUIParameters.position#[2])
 		//endif
 
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.checkedImageID > -999999)
-			OryUIDialogCollection[oryUIDialogID].checkedImage = OryUIParameters.checkedImageID
+		if (oryUIParameters.checkedImageID > -999999)
+			OryUIDialogCollection[oryUIDialogID].checkedImage = oryUIParameters.checkedImageID
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.decisionRequired > -999999)
-			OryUIDialogCollection[oryUIDialogID].decisionRequired = OryUIParameters.decisionRequired
+		if (oryUIParameters.decisionRequired > -999999)
+			OryUIDialogCollection[oryUIDialogID].decisionRequired = oryUIParameters.decisionRequired
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.depth)
-			SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIParameters.depth - 1)
-			SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.depth - 1)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.depth)
+			SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIParameters.depth - 1)
+			SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtSupportingText, oryUIParameters.depth - 1)
 		endif
-		if (OryUIParameters.stackButtons > -999999)
-			OryUIDialogCollection[oryUIDialogID].stackButtons = OryUIParameters.stackButtons
+		if (oryUIParameters.stackButtons > -999999)
+			OryUIDialogCollection[oryUIDialogID].stackButtons = oryUIParameters.stackButtons
 		endif
-		if (OryUIParameters.titleTextAlignment > -999999)
-			SetTextAlignment(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIParameters.titleTextAlignment)
+		if (oryUIParameters.titleTextAlignment > -999999)
+			SetTextAlignment(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIParameters.titleTextAlignment)
 		endif
-		if (OryUIParameters.titleTextColor#[1] > -999999 or OryUIParameters.titleTextColor#[2] > -999999 or OryUIParameters.titleTextColor#[3] > -999999 or OryUIParameters.titleTextColor#[4] > -999999)
-			SetTextColor(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIParameters.titleTextColor#[1], OryUIParameters.titleTextColor#[2], OryUIParameters.titleTextColor#[3], OryUIParameters.titleTextColor#[4])
+		if (oryUIParameters.titleTextColor#[1] > -999999 or oryUIParameters.titleTextColor#[2] > -999999 or oryUIParameters.titleTextColor#[3] > -999999 or oryUIParameters.titleTextColor#[4] > -999999)
+			SetTextColor(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIParameters.titleTextColor#[1], oryUIParameters.titleTextColor#[2], oryUIParameters.titleTextColor#[3], oryUIParameters.titleTextColor#[4])
 		endif
-		if (OryUIParameters.imageID > -999999)
-			SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprContainer, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > -999999)
+			SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.imageID)
 		endif
-		if (OryUIParameters.supportingTextAlignment > -999999)
-			SetTextAlignment(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.supportingTextAlignment)
+		if (oryUIParameters.supportingTextAlignment > -999999)
+			SetTextAlignment(OryUIDialogCollection[oryUIDialogID].txtSupportingText, oryUIParameters.supportingTextAlignment)
 		endif
-		if (OryUIParameters.supportingTextColor#[1] > -999999 or OryUIParameters.supportingTextColor#[2] > -999999 or OryUIParameters.supportingTextColor#[3] > -999999 or OryUIParameters.supportingTextColor#[4] > -999999)
-			SetTextColor(OryUIDialogCollection[oryUIDialogID].txtSupportingText, OryUIParameters.supportingTextColor#[1], OryUIParameters.supportingTextColor#[2], OryUIParameters.supportingTextColor#[3], OryUIParameters.supportingTextColor#[4])
+		if (oryUIParameters.supportingTextColor#[1] > -999999 or oryUIParameters.supportingTextColor#[2] > -999999 or oryUIParameters.supportingTextColor#[3] > -999999 or oryUIParameters.supportingTextColor#[4] > -999999)
+			SetTextColor(OryUIDialogCollection[oryUIDialogID].txtSupportingText, oryUIParameters.supportingTextColor#[1], oryUIParameters.supportingTextColor#[2], oryUIParameters.supportingTextColor#[3], oryUIParameters.supportingTextColor#[4])
 		endif
-		if (OryUIParameters.uncheckedImageID > -999999)
-			OryUIDialogCollection[oryUIDialogID].uncheckedImage = OryUIParameters.uncheckedImageID
+		if (oryUIParameters.uncheckedImageID > -999999)
+			OryUIDialogCollection[oryUIDialogID].uncheckedImage = oryUIParameters.uncheckedImageID
 		endif
 	endif
 endfunction
@@ -517,23 +518,23 @@ function OryUIUpdateDialogButton(oryUIDialogID as integer, oryUIButtonID as inte
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer))
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.name$ <> "")
-			OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].name$ = OryUIParameters.name$
+		if (oryUIParameters.name$ <> "")
+			OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].name$ = oryUIParameters.name$
 		endif
-		if (OryUIParameters.text$ <> "")
-			SetTextString(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, OryUIParameters.text$)
+		if (oryUIParameters.text$ <> "")
+			SetTextString(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, oryUIParameters.text$)
 		endif
-		if (OryUIParameters.textBold > -999999)
-			SetTextBold(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, OryUIParameters.textBold)
+		if (oryUIParameters.textBold > -999999)
+			SetTextBold(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, oryUIParameters.textBold)
 		endif
-		if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-			SetTextColor(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
+		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+			SetTextColor(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], oryUIParameters.textColor#[4])
 		endif
-		if (OryUIParameters.textSize# > -999999)
-			SetTextSize(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, OryUIParameters.textSize#)
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, oryUIParameters.textSize#)
 		endif
 	endif
 endfunction
