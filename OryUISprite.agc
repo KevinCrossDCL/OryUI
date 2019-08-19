@@ -1,5 +1,5 @@
 
-foldstart // OryUISprite (Updated 21/04/2019)
+foldstart // OryUISprite (Updated 19/08/2019)
 
 function OryUICreateSprite(oryUIComponentParameters$ as string)
 	local oryUISpriteID
@@ -79,50 +79,50 @@ function OryUIUpdateSprite(oryUISpriteID as integer, oryUIComponentParameters$ a
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(oryUISpriteID))
-		if (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(oryUISpriteID, OryUIParameters.size#[1], OryUIParameters.size#[2])
-		elseif (OryUIParameters.size#[1] > -999999 and OryUIParameters.size#[2] = -999999)
-			SetSpriteSize(oryUISpriteID, OryUIParameters.size#[1], GetSpriteHeight(oryUISpriteID))
-		elseif (OryUIParameters.size#[1] = -999999 and OryUIParameters.size#[2] > -999999)
-			SetSpriteSize(oryUISpriteID, GetSpriteWidth(oryUISpriteID), OryUIParameters.size#[2])
+		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(oryUISpriteID, oryUIParameters.size#[1], oryUIParameters.size#[2])
+		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
+			SetSpriteSize(oryUISpriteID, oryUIParameters.size#[1], GetSpriteHeight(oryUISpriteID))
+		elseif (oryUIParameters.size#[1] = -999999 and oryUIParameters.size#[2] > -999999)
+			SetSpriteSize(oryUISpriteID, GetSpriteWidth(oryUISpriteID), oryUIParameters.size#[2])
 		endif
-		if (OryUIParameters.angle# > -999999)
-			SetSpriteAngle(oryUISpriteID, OryUIParameters.angle#)
+		if (oryUIParameters.angle# > -999999)
+			SetSpriteAngle(oryUISpriteID, oryUIParameters.angle#)
 		endif
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999)
-			SetSpriteColor(oryUISpriteID, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], GetSpriteColorAlpha(oryUISpriteID))
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999)
+			SetSpriteColor(oryUISpriteID, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], GetSpriteColorAlpha(oryUISpriteID))
 		endif
-		if (OryUIParameters.color#[4] > -999999)
-			SetSpriteColorAlpha(oryUISpriteID, OryUIParameters.color#[4])
+		if (oryUIParameters.color#[4] > -999999)
+			SetSpriteColorAlpha(oryUISpriteID, oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(oryUISpriteID, OryUIParameters.depth)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(oryUISpriteID, oryUIParameters.depth)
 		endif
-		if (OryUIParameters.fixToScreen > -999999)
-			FixSpriteToScreen(oryUISpriteID, OryUIParameters.fixToScreen)
+		if (oryUIParameters.fixToScreen > -999999)
+			FixSpriteToScreen(oryUISpriteID, oryUIParameters.fixToScreen)
 		endif
-		if (OryUIParameters.group > -999999)
-			SetSpriteGroup(oryUISpriteID, OryUIParameters.group)
+		if (oryUIParameters.group > -999999)
+			SetSpriteGroup(oryUISpriteID, oryUIParameters.group)
 		endif
-		if (OryUIParameters.imageID > 0)
-			SetSpriteImage(oryUISpriteID, OryUIParameters.imageID)
+		if (oryUIParameters.imageID > 0)
+			SetSpriteImage(oryUISpriteID, oryUIParameters.imageID)
 		endif
-		if (OryUIParameters.offsetCenter = 1)
+		if (oryUIParameters.offsetCenter = 1)
 			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID) / 2, GetSpriteHeight(oryUISpriteID) / 2)
 		else
-			if (OryUIParameters.offset#[1] > -999999 or OryUIParameters.offset#[2] > -999999)
-				SetSpriteOffset(oryUISpriteID, OryUIParameters.offset#[1], OryUIParameters.offset#[2])
+			if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
+				SetSpriteOffset(oryUISpriteID, oryUIParameters.offset#[1], oryUIParameters.offset#[2])
 			endif
 		endif
-		if (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(oryUISpriteID, OryUIParameters.position#[1], OryUIParameters.position#[2])
-		elseif (OryUIParameters.position#[1] > -999999 and OryUIParameters.position#[2] = -999999)
-			SetSpritePositionByOffset(oryUISpriteID, OryUIParameters.position#[1], GetSpriteYByOffset(oryUISpriteID))
-		elseif (OryUIParameters.position#[1] = -999999 and OryUIParameters.position#[2] > -999999)
-			SetSpritePositionByOffset(oryUISpriteID, GetSpriteXByOffset(oryUISpriteID), OryUIParameters.position#[2])
+		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(oryUISpriteID, oryUIParameters.position#[1], oryUIParameters.position#[2])
+		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
+			SetSpritePositionByOffset(oryUISpriteID, oryUIParameters.position#[1], GetSpriteYByOffset(oryUISpriteID))
+		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
+			SetSpritePositionByOffset(oryUISpriteID, GetSpriteXByOffset(oryUISpriteID), oryUIParameters.position#[2])
 		endif
-		if (OryUIParameters.spriteShader > -999999)
-			SetSpriteShader(oryUISpriteID, OryUIParameters.spriteShader)
+		if (oryUIParameters.spriteShader > -999999)
+			SetSpriteShader(oryUISpriteID, oryUIParameters.spriteShader)
 		endif
 	endif
 endfunction
