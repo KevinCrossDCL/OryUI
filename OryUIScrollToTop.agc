@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollToTop Component (Updated 16/08/2019)
+foldstart // OryUIScrollToTop Component (Updated 19/08/2019)
 
 type typeOryUIScrollToTop
 	id as integer
@@ -161,40 +161,40 @@ function OryUIUpdateScrollToTop(oryUIScrollToTopID as integer, oryUIComponentPar
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer))
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, OryUIParameters.depth)
-			SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, OryUIParameters.depth - 1)
-			SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, OryUIParameters.depth - 1)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, oryUIParameters.depth)
+			SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, oryUIParameters.depth - 1)
+			SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, oryUIParameters.depth - 1)
 		endif
-		if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
-			SetSpriteColor(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
+		if (oryUIParameters.iconColor#[1] > -999999 or oryUIParameters.iconColor#[2] > -999999 or oryUIParameters.iconColor#[3] > -999999 or oryUIParameters.iconColor#[4] > -999999)
+			SetSpriteColor(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
 		endif
-		if (OryUIParameters.iconID > -999999) then SetSpriteImage(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, OryUIParameters.iconID)
-		if (lower(OryUIParameters.placement$) = "bottomright")
+		if (oryUIParameters.iconID > -999999) then SetSpriteImage(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, oryUIParameters.iconID)
+		if (lower(oryUIParameters.placement$) = "bottomright")
 			OryUIScrollToTopCollection[oryUIScrollToTopID].placement$ = "bottomRight"
 			SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, GetSpriteWidth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow), GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow))
 			SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, GetSpriteWidth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer), GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer))
 		endif
-		if (lower(OryUIParameters.placement$) = "bottomcenter" or lower(OryUIParameters.placement$) = "bottomcentre")
+		if (lower(oryUIParameters.placement$) = "bottomcenter" or lower(oryUIParameters.placement$) = "bottomcentre")
 			OryUIScrollToTopCollection[oryUIScrollToTopID].placement$ = "bottomCenter"
 			SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, GetSpriteWidth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow) / 2, GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow))
 			SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, GetSpriteWidth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer) / 2, GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer))
 		endif
-		if (lower(OryUIParameters.placement$) = "bottomleft")
+		if (lower(oryUIParameters.placement$) = "bottomleft")
 			OryUIScrollToTopCollection[oryUIScrollToTopID].placement$ = "bottomLeft"
 			SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 0, GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow))
 			SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, 0, GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer))
 		endif
-		if (OryUIParameters.shadow >= 0)
-			OryUIScrollToTopCollection[oryUIScrollToTopID].showShadow = OryUIParameters.shadow
-			if (OryUIParameters.shadow = 0) then SetSpriteColorAlpha(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 0)
-			if (OryUIParameters.shadow = 1) then SetSpriteColorAlpha(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 255)
+		if (oryUIParameters.shadow >= 0)
+			OryUIScrollToTopCollection[oryUIScrollToTopID].showShadow = oryUIParameters.shadow
+			if (oryUIParameters.shadow = 0) then SetSpriteColorAlpha(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 0)
+			if (oryUIParameters.shadow = 1) then SetSpriteColorAlpha(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 255)
 		endif
-		if (OryUIParameters.startY# > -999999)
-			OryUIScrollToTopCollection[oryUIScrollToTopID].startY# = OryUIParameters.startY#
+		if (oryUIParameters.startY# > -999999)
+			OryUIScrollToTopCollection[oryUIScrollToTopID].startY# = oryUIParameters.startY#
 		endif
 	endif
 endfunction
