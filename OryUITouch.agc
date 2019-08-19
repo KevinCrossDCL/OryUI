@@ -1,5 +1,5 @@
 
-foldstart // OryUITouch (Updated 26/03/2019)
+foldstart // OryUITouch (Updated 19/08/2019)
 
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)
@@ -90,7 +90,7 @@ function OryUIEndTrackingTouch()
 endfunction
 
 function OryUIGetSpritePressed()
-
+	
 endfunction OryUITouchCollection[1].firstSpriteHit
 
 function OryUIGetSpriteReleased()
