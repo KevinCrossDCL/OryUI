@@ -1,5 +1,5 @@
 
-foldstart // OryUIMenu Component (Updated 16/08/2019)
+foldstart // OryUIMenu Component (Updated 19/08/2019)
 
 type typeOryUIMenu
 	id as integer
@@ -271,6 +271,7 @@ function OryUISetMenuItemCount(oryUIMenuID as integer, oryUINewMenuItemCount as 
 endfunction
 
 function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
+	oryUIScrimDepth = GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprScrim)
 	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	OryUIMenuCollection[oryUIMenuID].visible = 1
@@ -315,26 +316,26 @@ function OryUIUpdateMenu(oryUIMenuID as integer, oryUIComponentParameters$ as st
 	if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].sprContainer))
 
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-		if (OryUIParameters.size#[1] > -999999)
-			SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprContainer, OryUIParameters.size#[1], GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer))
+		if (oryUIParameters.size#[1] > -999999)
+			SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer))
 		endif
 		
 		// THE REST OF THE PARAMETERS NEXT
-		if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+			SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
-		if (OryUIParameters.depth > -999999)
-			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprScrim, OryUIParameters.depth)
-			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprContainer, OryUIParameters.depth - 1)
+		if (oryUIParameters.depth > -999999)
+			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprScrim, oryUIParameters.depth)
+			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIParameters.depth - 1)
 		endif
-		if (OryUIParameters.scrimColor#[1] > -999999 or OryUIParameters.scrimColor#[2] > -999999 or OryUIParameters.scrimColor#[3] > -999999 or OryUIParameters.scrimColor#[4] > -999999)
-			SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprScrim, OryUIParameters.scrimColor#[1], OryUIParameters.scrimColor#[2], OryUIParameters.scrimColor#[3], OryUIParameters.scrimColor#[4])
+		if (oryUIParameters.scrimColor#[1] > -999999 or oryUIParameters.scrimColor#[2] > -999999 or oryUIParameters.scrimColor#[3] > -999999 or oryUIParameters.scrimColor#[4] > -999999)
+			SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprScrim, oryUIParameters.scrimColor#[1], oryUIParameters.scrimColor#[2], oryUIParameters.scrimColor#[3], oryUIParameters.scrimColor#[4])
 		endif
-		if (OryUIParameters.showLeftIcon > -999999)
-			OryUIMenuCollection[oryUIMenuID].showLeftIcon = OryUIParameters.showLeftIcon
+		if (oryUIParameters.showLeftIcon > -999999)
+			OryUIMenuCollection[oryUIMenuID].showLeftIcon = oryUIParameters.showLeftIcon
 		endif
-		if (OryUIParameters.showRightIcon > -999999)
-			OryUIMenuCollection[oryUIMenuID].showRightIcon = OryUIParameters.showRightIcon
+		if (oryUIParameters.showRightIcon > -999999)
+			OryUIMenuCollection[oryUIMenuID].showRightIcon = oryUIParameters.showRightIcon
 		endif
 	endif
 endfunction
@@ -349,12 +350,12 @@ function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer,
 			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
 			if (OryUIMenuCollection[oryUIMenuID].showLeftIcon = 1)
 				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, -1, 3.5)
-				if (OryUIParameters.leftIcon$ <> "" and OryUIParameters.leftIconID > -999999)
-					OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].leftIcon$ = lower(OryUIParameters.leftIcon$)
-					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, OryUIParameters.leftIconID)
-				elseif (OryUIParameters.leftIconID > -999999)
+				if (oryUIParameters.leftIcon$ <> "" and oryUIParameters.leftIconID > -999999)
+					OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].leftIcon$ = lower(oryUIParameters.leftIcon$)
+					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, oryUIParameters.leftIconID)
+				elseif (oryUIParameters.leftIconID > -999999)
 					OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].leftIcon$ = "custom"
-					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, OryUIParameters.leftIconID)
+					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, oryUIParameters.leftIconID)
 				endif
 				if (OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].leftIcon$ <> "")
 					SetSpriteColorAlpha(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, 255)
@@ -366,12 +367,12 @@ function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer,
 			endif
 			if (OryUIMenuCollection[oryUIMenuID].showRightIcon = 1)
 				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, -1, 3.5)
-				if (OryUIParameters.rightIcon$ <> "" and OryUIParameters.rightIconID > -999999)
-					OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].rightIcon$ = lower(OryUIParameters.rightIcon$)
-					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, OryUIParameters.rightIconID)
-				elseif (OryUIParameters.rightIconID > -999999)
+				if (oryUIParameters.rightIcon$ <> "" and oryUIParameters.rightIconID > -999999)
+					OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].rightIcon$ = lower(oryUIParameters.rightIcon$)
+					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, oryUIParameters.rightIconID)
+				elseif (oryUIParameters.rightIconID > -999999)
 					OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].rightIcon$ = "custom"
-					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, OryUIParameters.rightIconID)
+					SetSpriteImage(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, oryUIParameters.rightIconID)
 				endif
 				if (OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].rightIcon$ <> "")
 					SetSpriteColorAlpha(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, 255)
@@ -381,38 +382,38 @@ function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer,
 			elseif (OryUIMenuCollection[oryUIMenuID].showRightIcon = 0)
 				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, 0, 0)
 			endif
-			if (OryUIParameters.text$ <> "")
-				SetTextString(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, OryUIParameters.text$)
+			if (oryUIParameters.text$ <> "")
+				SetTextString(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, oryUIParameters.text$)
 			endif
-			if (OryUIParameters.textAlignment > -999999)
-				SetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, OryUIParameters.textAlignment)
+			if (oryUIParameters.textAlignment > -999999)
+				SetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, oryUIParameters.textAlignment)
 			endif
-			if (OryUIParameters.textBold > -999999)
-				SetTextBold(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, OryUIParameters.textBold)
+			if (oryUIParameters.textBold > -999999)
+				SetTextBold(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, oryUIParameters.textBold)
 			endif
-			if (OryUIParameters.textSize# > -999999)
-				SetTextSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, OryUIParameters.textSize#)
+			if (oryUIParameters.textSize# > -999999)
+				SetTextSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, oryUIParameters.textSize#)
 			endif
 
 			// THE REST OF THE PARAMETERS NEXT
-			if (OryUIParameters.color#[1] > -999999 or OryUIParameters.color#[2] > -999999 or OryUIParameters.color#[3] > -999999 or OryUIParameters.color#[4] > -999999)
-				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, OryUIParameters.color#[1], OryUIParameters.color#[2], OryUIParameters.color#[3], OryUIParameters.color#[4])
+			if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
+				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 			endif
-			if (OryUIParameters.iconColor#[1] > -999999 or OryUIParameters.iconColor#[2] > -999999 or OryUIParameters.iconColor#[3] > -999999 or OryUIParameters.iconColor#[4] > -999999)
-				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
-				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, OryUIParameters.iconColor#[1], OryUIParameters.iconColor#[2], OryUIParameters.iconColor#[3], OryUIParameters.iconColor#[4])
+			if (oryUIParameters.iconColor#[1] > -999999 or oryUIParameters.iconColor#[2] > -999999 or oryUIParameters.iconColor#[3] > -999999 or oryUIParameters.iconColor#[4] > -999999)
+				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
+				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
 			endif
-			if (OryUIParameters.leftIconColor#[1] > -999999 or OryUIParameters.leftIconColor#[2] > -999999 or OryUIParameters.leftIconColor#[3] > -999999 or OryUIParameters.leftIconColor#[4] > -999999)
-				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, OryUIParameters.leftIconColor#[1], OryUIParameters.leftIconColor#[2], OryUIParameters.leftIconColor#[3], OryUIParameters.leftIconColor#[4])
+			if (oryUIParameters.leftIconColor#[1] > -999999 or oryUIParameters.leftIconColor#[2] > -999999 or oryUIParameters.leftIconColor#[3] > -999999 or oryUIParameters.leftIconColor#[4] > -999999)
+				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, oryUIParameters.leftIconColor#[1], oryUIParameters.leftIconColor#[2], oryUIParameters.leftIconColor#[3], oryUIParameters.leftIconColor#[4])
 			endif
-			if (OryUIParameters.rightIconColor#[1] > -999999 or OryUIParameters.rightIconColor#[2] > -999999 or OryUIParameters.rightIconColor#[3] > -999999 or OryUIParameters.rightIconColor#[4] > -999999)
-				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, OryUIParameters.rightIconColor#[1], OryUIParameters.rightIconColor#[2], OryUIParameters.rightIconColor#[3], OryUIParameters.rightIconColor#[4])
+			if (oryUIParameters.rightIconColor#[1] > -999999 or oryUIParameters.rightIconColor#[2] > -999999 or oryUIParameters.rightIconColor#[3] > -999999 or oryUIParameters.rightIconColor#[4] > -999999)
+				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, oryUIParameters.rightIconColor#[1], oryUIParameters.rightIconColor#[2], oryUIParameters.rightIconColor#[3], oryUIParameters.rightIconColor#[4])
 			endif
-			if (OryUIParameters.name$ <> "")
-				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].name$ = OryUIParameters.name$
+			if (oryUIParameters.name$ <> "")
+				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].name$ = oryUIParameters.name$
 			endif
-			if (OryUIParameters.textColor#[1] > -999999 or OryUIParameters.textColor#[2] > -999999 or OryUIParameters.textColor#[3] > -999999 or OryUIParameters.textColor#[4] > -999999)
-				SetTextColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, OryUIParameters.textColor#[1], OryUIParameters.textColor#[2], OryUIParameters.textColor#[3], OryUIParameters.textColor#[4])
+			if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
+				SetTextColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], oryUIParameters.textColor#[4])
 			endif
 		endif
 	endif
