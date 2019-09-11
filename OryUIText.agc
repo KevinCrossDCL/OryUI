@@ -1,5 +1,5 @@
 
-foldstart // OryUIText (Updated 19/08/2019)
+foldstart // OryUIText (Updated 12/09/2019)
 
 function OryUICreateText(oryUIComponentParameters$ as string)
 	local oryUITextID
@@ -142,6 +142,7 @@ function OryUIWrapText(oryUIText$ as string, oryUISize# as float, oryUIMaxWidth#
 			oryUITmpText = CreateText(oryUIText$)
 			SetTextSize(oryUITmpText, oryUISize#)
 			SetTextPosition(oryUITmpText, -10000, -10000)
+			if (oryUISpace = 0) then exit
 		endwhile
 		if (len(oryUIText$) > 0) then oryUIFinalText$ = oryUIFinalText$ + oryUIText$
 	else
