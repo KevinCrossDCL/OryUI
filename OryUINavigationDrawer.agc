@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Component (Updated 19/08/2019)
+foldstart // OryUINavigationDrawer Component (Updated 12/09/2019)
 
 type typeOryUINavigationDrawer
 	id as integer
@@ -467,7 +467,7 @@ function OryUIShowNavigationDrawer(oryUINavigationDrawerID as integer)
 			//SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerColor#[1], oryUIDefaults.navigationDrawerColor#[2], oryUIDefaults.navigationDrawerColor#[3], oryUIDefaults.navigationDrawerColor#[4])
 			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY())
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar))
-			//SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, oryUIDefaults.navigationDrawerStatusBarColor#[1], oryUIDefaults.navigationDrawerStatusBarColor#[2], oryUIDefaults.navigationDrawerStatusBarColor#[3], oryUIDefaults.navigationDrawerStatusBarColor#[4])
+			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, oryUIDefaults.navigationDrawerStatusBarColor#[1], oryUIDefaults.navigationDrawerStatusBarColor#[2], oryUIDefaults.navigationDrawerStatusBarColor#[3], oryUIDefaults.navigationDrawerStatusBarColor#[4])
 			if (OryUINavigationDrawerCollection[oryUINavigationDrawerID].showShadow = 1)
 				SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, oryUIRightShadowImage)
 				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 1, 100)
