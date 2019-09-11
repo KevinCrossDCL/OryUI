@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Component (Updated 19/08/2019)
+foldstart // OryUIList Component (Updated 12/09/2019)
 
 type typeOryUIList
 	id as integer
@@ -225,15 +225,21 @@ endfunction
 
 function OryUISetListItemCount(oryUIListID as integer, oryUINewListItemCount as integer)
 	local oryUIOldListItemCount
-	oryUIOldListItemCount = OryUIGetListItemCount(oryUIListID) - 1
-	while (OryUIGetListItemCount(oryUIListID) - 1 > oryUINewListItemCount - 1)
-		OryUIDeleteListItem(oryUIListID, OryUIGetListItemCount(oryUIListID) - 1)
-	endwhile
-	for oryUIForI = 0 to oryUINewListItemCount - 1
-		if (oryUIForI > oryUIOldListItemCount)
-			OryUIInsertListItem(oryUIListID, -1, "")
-		endif
-	next
+	if (oryUINewListItemCount > 0)
+		oryUIOldListItemCount = OryUIGetListItemCount(oryUIListID) - 1
+		while (OryUIGetListItemCount(oryUIListID) - 1 > oryUINewListItemCount - 1)
+			OryUIDeleteListItem(oryUIListID, OryUIGetListItemCount(oryUIListID) - 1)
+		endwhile
+		for oryUIForI = 0 to oryUINewListItemCount - 1
+			if (oryUIForI > oryUIOldListItemCount)
+				OryUIInsertListItem(oryUIListID, -1, "")
+			endif
+		next
+	else
+		for oryUIForI = OryUIGetListItemCount(oryUIListID) - 1 to 0 step - 1
+			OryUIDeleteListItem(oryUIListID, oryUIForI)
+		next
+	endif
 endfunction
 
 function OryUIUpdateList(oryUIListID as integer, oryUIComponentParameters$ as string)
