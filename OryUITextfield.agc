@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 19/08/2019)
+foldstart // OryUITextfield Component (Updated 12/09/2019)
 
 type typeOryUITextfield
 	id as integer
@@ -84,7 +84,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetTextDepth(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 2)
 	SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3.4, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (GetTextTotalHeight(OryUITextfieldCollection[oryUITextfieldID].txtLabel) / 2))
 
-	OryUITextfieldCollection[oryUITextfieldID].txtHelper = CreateText("Helper Text")
+	OryUITextfieldCollection[oryUITextfieldID].txtHelper = CreateText("")
 	SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtHelper, 2.5)
 	SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtHelper, 0, 0, 0, 140)
 	SetTextAlignment(OryUITextfieldCollection[oryUITextfieldID].txtHelper, 0)
