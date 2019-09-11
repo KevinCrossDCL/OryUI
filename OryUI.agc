@@ -7,7 +7,7 @@
  * 	License	: MIT
  */
  
-// OryUI (Updated 19/08/2019)
+// OryUI (Updated 12/09/2019)
 
 foldstart
 
@@ -458,6 +458,60 @@ function OryUIAddToContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIContentHeight# + oryUIHeight#
 endfunction
 
+function OryUIConvertBoolean(oryUIBoolean$ as string)
+	local oryUIBoolean as integer
+	if (lower(oryUIBoolean$) = "true" or lower(oryUIBoolean$) = "y" or lower(oryUIBoolean$) = "yes" or oryUIBoolean$ = "1")
+		oryUIBoolean = 1
+	elseif (lower(oryUIBoolean$) = "false" or lower(oryUIBoolean$) = "n" or lower(oryUIBoolean$) = "no" or oryUIBoolean$ = "0")
+		oryUIBoolean = 0
+	endif
+endfunction oryUIBoolean
+
+function OryUIConvertColor(oryUIColor$ as string)
+	local oryUICommaCount as integer
+	local oryUIHexInt as integer[6]
+	local oryUIRGBA# as float[4] : oryUIRGBA#[1] = 255 : oryUIRGBA#[2] = 255 : oryUIRGBA#[3] = 255 : oryUIRGBA#[4] = 255
+	
+	oryUICommaCount = CountStringTokens(oryUIColor$, ",")
+	if (oryUICommaCount = 1)
+		if (FindString(oryUIColor$, "#") > 0)
+			oryUIColor$ = ReplaceString(oryUIColor$, "#", "", -1)
+			if (len(oryUIColor$) = 3)
+				for oryUIForI = 2 to 6 step 2
+					oryUIHexInt[oryUIForI - 1] = val(mid(oryUIColor$, oryUIForI / 2, 1), 16)
+					oryUIHexInt[oryUIForI] = val(mid(oryUIColor$, oryUIForI / 2, 1), 16)
+				next
+				oryUIRGBA#[1] = oryUIHexInt[1] * 16 + oryUIHexInt[2]
+				oryUIRGBA#[2] = oryUIHexInt[3] * 16 + oryUIHexInt[4]
+				oryUIRGBA#[3] = oryUIHexInt[5] * 16 + oryUIHexInt[6]
+				oryUIRGBA#[4] = 255
+			elseif (len(oryUIColor$) = 6)
+				for oryUIForI = 1 to 6
+					oryUIHexInt[oryUIForI] = val(mid(oryUIColor$, oryUIForI, 1), 16)
+				next
+				oryUIRGBA#[1] = oryUIHexInt[1] * 16 + oryUIHexInt[2]
+				oryUIRGBA#[2] = oryUIHexInt[3] * 16 + oryUIHexInt[4]
+				oryUIRGBA#[3] = oryUIHexInt[5] * 16 + oryUIHexInt[6]
+				oryUIRGBA#[4] = 255
+			endif
+		else
+			oryUIRGBA#[1] = GetColorRed(val(oryUIColor$))
+			oryUIRGBA#[2] = GetColorGreen(val(oryUIColor$))
+			oryUIRGBA#[3] = GetColorBlue(val(oryUIColor$))
+			oryUIRGBA#[4] = 255
+		endif
+	elseif (oryUICommaCount >= 3)
+		oryUIRGBA#[1] = valFloat(GetStringToken(oryUIColor$, ",", 1))
+		oryUIRGBA#[2] = valFloat(GetStringToken(oryUIColor$, ",", 2))
+		oryUIRGBA#[3] = valFloat(GetStringToken(oryUIColor$, ",", 3))
+		if (oryUICommaCount = 4)
+			oryUIRGBA#[4] = valFloat(GetStringToken(oryUIColor$, ",", 4))
+		else
+			oryUIRGBA#[4] = 255
+		endif
+	endif
+endfunction oryUIRGBA#
+
 function OryUIResetParametersType()
 	oryUIParameters.addIcon$ = ""
 	oryUIParameters.addIconID = -999999
@@ -710,80 +764,24 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIComponentParameter$, ":", 1), " "))
 		oryUIValue$ = GetStringToken(oryUIComponentParameter$, ":", 2)
 		oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
-		if (oryUIVariable$ = "activebuttoncolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.activeButtonColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.activeButtonColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.activeButtonColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.activeButtonColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "activebuttoncolorid")
-			oryUIActiveButtonColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.activeButtonColor#[1] = GetColorRed(oryUIActiveButtonColorID)
-			oryUIParameters.activeButtonColor#[2] = GetColorGreen(oryUIActiveButtonColorID)
-			oryUIParameters.activeButtonColor#[3] = GetColorBlue(oryUIActiveButtonColorID)
-			oryUIParameters.activeButtonColor#[4] = 255
-		elseif (oryUIVariable$ = "activecolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.activeColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.activeColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.activeColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.activeColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "activecolorid")
-			oryUIActiveColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.activeColor#[1] = GetColorRed(oryUIActiveColorID)
-			oryUIParameters.activeColor#[2] = GetColorGreen(oryUIActiveColorID)
-			oryUIParameters.activeColor#[3] = GetColorBlue(oryUIActiveColorID)
-			oryUIParameters.activeColor#[4] = 255
-		elseif (oryUIVariable$ = "activeiconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.activeIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.activeIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.activeIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.activeIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "activeiconcolorid")
-			oryUIActiveIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.activeIconColor#[1] = GetColorRed(oryUIActiveIconColorID)
-			oryUIParameters.activeIconColor#[2] = GetColorGreen(oryUIActiveIconColorID)
-			oryUIParameters.activeIconColor#[3] = GetColorBlue(oryUIActiveIconColorID)
-			oryUIParameters.activeIconColor#[4] = 255
+		if (oryUIVariable$ = "activebuttoncolor" or oryUIVariable$ = "activebuttoncolorid")
+			oryUIParameters.activeButtonColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "activecolor" or oryUIVariable$ = "activecolorid")
+			oryUIParameters.activeColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "activeiconcolor" or oryUIVariable$ = "activeiconcolorid")
+			oryUIParameters.activeIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "addicon")
 			oryUIParameters.addIcon$ = oryUIValue$
 			oryUIParameters.addIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "addiconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.addIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.addIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.addIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.addIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "addiconcolorid")
-			oryUIAddIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.addIconColor#[1] = GetColorRed(oryUIAddIconColorID)
-			oryUIParameters.addIconColor#[2] = GetColorGreen(oryUIAddIconColorID)
-			oryUIParameters.addIconColor#[3] = GetColorBlue(oryUIAddIconColorID)
-			oryUIParameters.addIconColor#[4] = 255
+		elseif (oryUIVariable$ = "addiconcolor" or oryUIVariable$ = "addiconcolorid")
+			oryUIParameters.addIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "addiconid")
 			oryUIParameters.addIconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "addiconsize")
 			oryUIParameters.addIconSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.addIconSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "addtofront")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.addToFront = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.addToFront = 0
-			endif
+			oryUIParameters.addToFront = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "alignment")
 			if (oryUIValue$ = "left")
 				oryUIParameters.alignment = 0
@@ -799,111 +797,39 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "attachtospriteid")
 			oryUIParameters.attachToSpriteID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "autocorrectifoutofrange")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.autoCorrectIfOutOfRange = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.autoCorrectIfOutOfRange = 0
-			endif
+			oryUIParameters.autoCorrectIfOutOfRange = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "autoheight")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.autoHeight = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.autoHeight = 0
-			endif
-		elseif (oryUIVariable$ = "backgroundcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.backgroundColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.backgroundColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.backgroundColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.backgroundColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "backgroundcolorid")
-			oryUIBackgroundColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.backgroundColor#[1] = GetColorRed(oryUIBackgroundColorID)
-			oryUIParameters.backgroundColor#[2] = GetColorGreen(oryUIBackgroundColorID)
-			oryUIParameters.backgroundColor#[3] = GetColorBlue(oryUIBackgroundColorID)
-			oryUIParameters.backgroundColor#[4] = 255
+			oryUIParameters.autoHeight = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "backgroundcolor" or oryUIVariable$ = "backgroundcolorid")
+			oryUIParameters.backgroundColor# = OryUIConvertColor(oryUIValue$)
 		elseif (OryUIVariable$ = "blockorder")
 			for oryUIForJ = 1 to CountStringTokens(oryUIValue$, ",")
 				oryUIParameters.blockOrder$.insert(GetStringToken(oryUIComponentParameters$, ",", oryUIForJ))
 			next
 		elseif (oryUIVariable$ = "bold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.bold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.bold = 0
-			endif
+			oryUIParameters.bold = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "buttonmargin")
 			oryUIParameters.buttonMargin# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "canceltext")
 			oryUIParameters.cancelText$ = oryUIValue$
-		elseif (oryUIVariable$ = "checkboxcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.checkboxColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.checkboxColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.checkboxColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.checkboxColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "checkboxcolorid")
-			oryUICheckboxColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.checkboxColor#[1] = GetColorRed(oryUICheckboxColorID)
-			oryUIParameters.checkboxColor#[2] = GetColorGreen(oryUICheckboxColorID)
-			oryUIParameters.checkboxColor#[3] = GetColorBlue(oryUICheckboxColorID)
-			oryUIParameters.checkboxColor#[4] = 255
+		elseif (oryUIVariable$ = "checkboxcolor" or oryUIVariable$ = "checkboxcolorid")
+			oryUIParameters.checkboxColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "checkboxtext")
 			oryUIParameters.checkboxText$ = oryUIValue$
 		elseif (oryUIVariable$ = "checkboxtextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.checkboxTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.checkboxTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "checkboxtextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.checkboxTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.checkboxTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.checkboxTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.checkboxTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "checkboxtextcolorid")
-			oryUICheckboxTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.checkboxTextColor#[1] = GetColorRed(oryUICheckboxTextColorID)
-			oryUIParameters.checkboxTextColor#[2] = GetColorGreen(oryUICheckboxTextColorID)
-			oryUIParameters.checkboxTextColor#[3] = GetColorBlue(oryUICheckboxTextColorID)
-			oryUIParameters.checkboxTextColor#[4] = 255
+			oryUIParameters.checkboxTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "checkboxtextcolor" or oryUIVariable$ = "checkboxtextcolorid")
+			oryUIParameters.checkboxTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "checkboxtextsize")
 			oryUIParameters.checkboxTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "checkedimageid")
 			oryUIParameters.checkedImageID = val(oryUIValue$)
-		elseif (oryUIVariable$ = "color")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.color#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.color#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.color#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.color#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "colorid")
-			oryUIColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.color#[1] = GetColorRed(oryUIColorID)
-			oryUIParameters.color#[2] = GetColorGreen(oryUIColorID)
-			oryUIParameters.color#[3] = GetColorBlue(oryUIColorID)
-			oryUIParameters.color#[4] = 255
+		elseif (oryUIVariable$ = "color" or oryUIVariable$ = "colorid")
+			oryUIParameters.color# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "decimals")
 			oryUIParameters.decimals = val(oryUIValue$)
 		elseif (oryUIVariable$ = "decisionrequired")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.decisionRequired = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.decisionRequired = 0
-			endif
+			oryUIParameters.decisionRequired = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "defaultvalue")
 			oryUIParameters.defaultValue# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "delay")
@@ -912,27 +838,13 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.depth = val(oryUIValue$)
 		elseif (oryUIVariable$ = "dialogtype")
 			oryUIParameters.dialogType$ = oryUIValue$
-		elseif (oryUIVariable$ = "disabledcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.disabledColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.disabledColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.disabledColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.disabledColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
+		elseif (oryUIVariable$ = "disabledcolor" or oryUIVariable$ = "disabledcolorid")
+			oryUIParameters.disabledColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "disabledicon")
 			oryUIParameters.disabledIcon$ = oryUIValue$
 			oryUIParameters.disabledIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "disablediconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.disabledIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.disabledIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.disabledIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.disabledIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
+		elseif (oryUIVariable$ = "disablediconcolor" or oryUIVariable$ = "disablediconcolorid")
+			oryUIParameters.disabledIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "disablediconplacement")
 			oryUIParameters.disabledIconPlacement$ = oryUIValue$
 		elseif (oryUIVariable$ = "disablediconsize")
@@ -951,26 +863,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.disabledTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "disabledtextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.disabledTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.disabledTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "disabledtextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.disabledTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.disabledTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.disabledTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.disabledTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "disabledtextcolorid")
-			oryUITextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.disabledTextColor#[1] = GetColorRed(oryUITextColorID)
-			oryUIParameters.disabledTextColor#[2] = GetColorGreen(oryUITextColorID)
-			oryUIParameters.disabledTextColor#[3] = GetColorBlue(oryUITextColorID)
-			oryUIParameters.disabledTextColor#[4] = 255
+			oryUIParameters.disabledTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "disabledtextcolor" or oryUIVariable$ = "disabledtextcolorid")
+			oryUIParameters.disabledTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "disabledtextsize")
 			oryUIParameters.disabledTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "domain")
@@ -986,32 +881,14 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "drawertype")
 			oryUIParameters.drawerType$ = oryUIValue$
 		elseif (oryUIVariable$ = "enabled")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.enabled = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.enabled = 0
-			endif
-		elseif (oryUIVariable$ = "enabledcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.enabledColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.enabledColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.enabledColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.enabledColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
+			oryUIParameters.enabled = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "enabledcolor" or oryUIVariable$ = "enabledcolorid")
+			oryUIParameters.enabledColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "enabledicon")
 			oryUIParameters.enabledIcon$ = oryUIValue$
 			oryUIParameters.enabledIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "enablediconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.enabledIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.enabledIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.enabledIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.enabledIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
+		elseif (oryUIVariable$ = "enablediconcolor" or oryUIVariable$ = "enablediconcolorid")
+			oryUIParameters.enabledIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "enablediconplacement")
 			oryUIParameters.enabledIconPlacement$ = oryUIValue$
 		elseif (oryUIVariable$ = "enablediconsize")
@@ -1030,50 +907,21 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.enabledTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "enabledtextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.enabledTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.enabledTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "enabledtextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.enabledTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.enabledTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.enabledTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.enabledTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "enabledtextcolorid")
-			oryUITextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.enabledTextColor#[1] = GetColorRed(oryUITextColorID)
-			oryUIParameters.enabledTextColor#[2] = GetColorGreen(oryUITextColorID)
-			oryUIParameters.enabledTextColor#[3] = GetColorBlue(oryUITextColorID)
-			oryUIParameters.enabledTextColor#[4] = 255
+			oryUIParameters.enabledTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "enabledtextcolor" or oryUIVariable$ = "enabledtextcolorid")
+			oryUIParameters.enabledTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "enabledtextsize")
 			oryUIParameters.enabledTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "extended")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.extended = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.extended = 0
-			endif
+			oryUIParameters.extended = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "file")
 			oryUIParameters.file$ = oryUIValue$
 		elseif (oryUIVariable$ = "fileID")
 			oryUIParameters.fileID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "fixtoscreen")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.fixToScreen = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.fixToScreen = 0
-			endif
+			oryUIParameters.fixToScreen = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "flexbuttons")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.flexButtons = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.flexButtons = 0
-			endif
+			oryUIParameters.flexButtons = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "frameshape")
 			oryUIParameters.frameShape$ = oryUIValue$
 		elseif (oryUIVariable$ = "group")
@@ -1089,26 +937,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.headerTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "headertextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.headerTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.headerTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "headertextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.headerTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.headerTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.headerTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.headerTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "headertextcolorid")
-			oryUIHeaderTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.headerTextColor#[1] = GetColorRed(oryUIHeaderTextColorID)
-			oryUIParameters.headerTextColor#[2] = GetColorGreen(oryUIHeaderTextColorID)
-			oryUIParameters.headerTextColor#[3] = GetColorBlue(oryUIHeaderTextColorID)
-			oryUIParameters.headerTextColor#[4] = 255
+			oryUIParameters.headerTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "headertextcolor" or oryUIVariable$ = "headertextcolorid")
+			oryUIParameters.headerTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "headertextsize")
 			oryUIParameters.headerTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "helpertext")
@@ -1116,46 +947,16 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "height")
 			oryUIParameters.size#[2] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "helpertextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.helperTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.helperTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "helpertextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.helperTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.helperTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.helperTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.helperTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "helpertextcolorid")
-			oryUIHelperTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.helperTextColor#[1] = GetColorRed(oryUIHelperTextColorID)
-			oryUIParameters.helperTextColor#[2] = GetColorGreen(oryUIHelperTextColorID)
-			oryUIParameters.helperTextColor#[3] = GetColorBlue(oryUIHelperTextColorID)
-			oryUIParameters.helperTextColor#[4] = 255
+			oryUIParameters.helperTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "helpertextcolor" or oryUIVariable$ = "helpertextcolorid")
+			oryUIParameters.helperTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "helpertextsize")
 			oryUIParameters.helperTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "icon")
 			oryUIParameters.icon$ = oryUIValue$
 			oryUIParameters.iconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "iconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.iconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.iconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.iconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.iconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "iconcolorid")
-			oryUIIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.iconColor#[1] = GetColorRed(oryUIIconColorID)
-			oryUIParameters.iconColor#[2] = GetColorGreen(oryUIIconColorID)
-			oryUIParameters.iconColor#[3] = GetColorBlue(oryUIIconColorID)
-			oryUIParameters.iconColor#[4] = 255
+		elseif (oryUIVariable$ = "iconcolor" or oryUIVariable$ = "iconcolorid")
+			oryUIParameters.iconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "iconid")
 			oryUIParameters.iconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "iconplacement")
@@ -1165,91 +966,22 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.iconSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "image")
 			oryUIParameters.imageID = val(oryUIValue$)
-		elseif (oryUIVariable$ = "inactivebuttoncolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.inactiveButtonColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.inactiveButtonColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.inactiveButtonColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.inactiveButtonColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "inactivebuttoncolorid")
-			oryUIInactiveButtonColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.inactiveButtonColor#[1] = GetColorRed(oryUIInactiveButtonColorID)
-			oryUIParameters.inactiveButtonColor#[2] = GetColorGreen(oryUIInactiveButtonColorID)
-			oryUIParameters.inactiveButtonColor#[3] = GetColorBlue(oryUIInactiveButtonColorID)
-			oryUIParameters.inactiveButtonColor#[4] = 255
-		elseif (oryUIVariable$ = "inactivecolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.inactiveColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.inactiveColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.inactiveColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.inactiveColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "inactivecolorid")
-			oryUIInactiveColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.inactiveColor#[1] = GetColorRed(oryUIInactiveColorID)
-			oryUIParameters.inactiveColor#[2] = GetColorGreen(oryUIInactiveColorID)
-			oryUIParameters.inactiveColor#[3] = GetColorBlue(oryUIInactiveColorID)
-			oryUIParameters.inactiveColor#[4] = 255
-		elseif (oryUIVariable$ = "inactiveiconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.inactiveIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.inactiveIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.inactiveIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.inactiveIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "inactiveiconcolorid")
-			oryUIInactiveIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.inactiveIconColor#[1] = GetColorRed(oryUIInactiveIconColorID)
-			oryUIParameters.inactiveIconColor#[2] = GetColorGreen(oryUIInactiveIconColorID)
-			oryUIParameters.inactiveIconColor#[3] = GetColorBlue(oryUIInactiveIconColorID)
-			oryUIParameters.inactiveIconColor#[4] = 255
+		elseif (oryUIVariable$ = "inactivebuttoncolor" or oryUIVariable$ = "inactivebuttoncolorid")
+			oryUIParameters.inactiveButtonColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "inactivecolor" or oryUIVariable$ = "inactivecolorid")
+			oryUIParameters.inactiveColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "inactiveiconcolor" or oryUIVariable$ = "inactiveiconcolorid")
+			oryUIParameters.inactiveIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "inactivetextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.inactiveTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.inactiveTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "inactivetextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.inactiveTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.inactiveTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.inactiveTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.inactiveTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "inactivetextcolorid")
-			oryUIInactiveTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.inactiveTextColor#[1] = GetColorRed(oryUIInactiveTextColorID)
-			oryUIParameters.inactiveTextColor#[2] = GetColorGreen(oryUIInactiveTextColorID)
-			oryUIParameters.inactiveTextColor#[3] = GetColorBlue(oryUIInactiveTextColorID)
-			oryUIParameters.inactiveTextColor#[4] = 255
+			oryUIParameters.inactiveTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "inactivetextcolor" or oryUIVariable$ = "inactivetextcolorid")
+			oryUIParameters.inactiveTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "inactivetextsize")
 			oryUIParameters.inactiveTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "index")
 			oryUIParameters.index = val(oryUIValue$)
-		elseif (oryUIVariable$ = "indicatorcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.indicatorColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.indicatorColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.indicatorColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.indicatorColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "indicatorcolorid")
-			oryUIIndicatorColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.indicatorColor#[1] = GetColorRed(oryUIIndicatorColorID)
-			oryUIParameters.indicatorColor#[2] = GetColorGreen(oryUIIndicatorColorID)
-			oryUIParameters.indicatorColor#[3] = GetColorBlue(oryUIIndicatorColorID)
-			oryUIParameters.indicatorColor#[4] = 255
+		elseif (oryUIVariable$ = "indicatorcolor" or oryUIVariable$ = "indicatorcolorid")
+			oryUIParameters.indicatorColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "inputtext")
 			oryUIParameters.inputText$ = oryUIValue$
 		elseif (oryUIVariable$ = "inputtype")
@@ -1268,96 +1000,32 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "lefticon")
 			oryUIParameters.leftIcon$ = oryUIValue$
 			oryUIParameters.leftIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "lefticoncolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.leftIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.leftIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.leftIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.leftIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "lefticoncolorid")
-			oryUILeftIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.leftIconColor#[1] = GetColorRed(oryUILeftIconColorID)
-			oryUIParameters.leftIconColor#[2] = GetColorGreen(oryUILeftIconColorID)
-			oryUIParameters.leftIconColor#[3] = GetColorBlue(oryUILeftIconColorID)
-			oryUIParameters.leftIconColor#[4] = 255
+		elseif (oryUIVariable$ = "lefticoncolor" or oryUIVariable$ = "lefticoncolorid")
+			oryUIParameters.leftIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "lefticonid")
 			oryUIParameters.leftIconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "lefttext")
 			oryUIParameters.leftText$ = oryUIValue$
 		elseif (oryUIVariable$ = "lefttextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.leftTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.leftTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "lefttextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.leftTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.leftTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.leftTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.leftTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "lefttextcolorid")
-			oryUILeftTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.leftTextColor#[1] = GetColorRed(oryUILeftTextColorID)
-			oryUIParameters.leftTextColor#[2] = GetColorGreen(oryUILeftTextColorID)
-			oryUIParameters.leftTextColor#[3] = GetColorBlue(oryUILeftTextColorID)
-			oryUIParameters.leftTextColor#[4] = 255
+			oryUIParameters.leftTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "lefttextcolor" or oryUIVariable$ = "lefttextcolorid")
+			oryUIParameters.leftTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "lefttextsize")
 			oryUIParameters.leftTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "leftline1text")
 			oryUIParameters.leftLine1Text$ = oryUIValue$
 		elseif (oryUIVariable$ = "leftline1textbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.leftLine1TextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.leftLine1TextBold = 0
-			endif
-		elseif (oryUIVariable$ = "leftline1textcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.leftLine1TextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.leftLine1TextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.leftLine1TextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.leftLine1TextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "leftline1textcolorid")
-			oryUILeftLine1TextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.leftLine1TextColor#[1] = GetColorRed(oryUILeftLine1TextColorID)
-			oryUIParameters.leftLine1TextColor#[2] = GetColorGreen(oryUILeftLine1TextColorID)
-			oryUIParameters.leftLine1TextColor#[3] = GetColorBlue(oryUILeftLine1TextColorID)
-			oryUIParameters.leftLine1TextColor#[4] = 255
+			oryUIParameters.leftLine1TextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "leftline1textcolor" or oryUIVariable$ = "leftline1textcolorid")
+			oryUIParameters.leftLine1TextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "leftline1textsize")
 			oryUIParameters.leftLine1TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "leftline2text")
 			oryUIParameters.leftLine2Text$ = oryUIValue$
 		elseif (oryUIVariable$ = "leftline2textbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.leftLine2TextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.leftLine2TextBold = 0
-			endif
-		elseif (oryUIVariable$ = "leftline2textcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.leftLine2TextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.leftLine2TextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.leftLine2TextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.leftLine2TextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "leftline2textcolorid")
-			oryUILeftLine2TextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.leftLine2TextColor#[1] = GetColorRed(oryUILeftLine2TextColorID)
-			oryUIParameters.leftLine2TextColor#[2] = GetColorGreen(oryUILeftLine2TextColorID)
-			oryUIParameters.leftLine2TextColor#[3] = GetColorBlue(oryUILeftLine2TextColorID)
-			oryUIParameters.leftLine2TextColor#[4] = 255
+			oryUIParameters.leftLine2TextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "leftline2textcolor" or oryUIVariable$ = "leftline2textcolorid")
+			oryUIParameters.leftLine2TextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "leftline2textsize")
 			oryUIParameters.leftLine2TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "leftthumbnailimage")
@@ -1380,11 +1048,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "min")
 			oryUIParameters.min# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "mini")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.mini = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.mini = 0
-			endif
+			oryUIParameters.mini = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "minposition")
 			oryUIParameters.minPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.minPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -1397,21 +1061,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "navigationicon")
 			oryUIParameters.navigationIcon$ = oryUIValue$
 			oryUIParameters.navigationIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "navigationiconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.navigationIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.navigationIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.navigationIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.navigationIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "navigationiconcolorid")
-			oryUINavigationIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.navigationIconColor#[1] = GetColorRed(oryUINavigationIconColorID)
-			oryUIParameters.navigationIconColor#[2] = GetColorGreen(oryUINavigationIconColorID)
-			oryUIParameters.navigationIconColor#[3] = GetColorBlue(oryUINavigationIconColorID)
-			oryUIParameters.navigationIconColor#[4] = 255
+		elseif (oryUIVariable$ = "navigationiconcolor" or oryUIVariable$ = "navigationiconcolorid")
+			oryUIParameters.navigationIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "navigationiconid")
 			oryUIParameters.navigationIconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "navigationname")
@@ -1441,280 +1092,91 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "righticon")
 			oryUIParameters.rightIcon$ = oryUIValue$
 			oryUIParameters.rightIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "righticoncolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.rightIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.rightIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.rightIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.rightIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "righticoncolorid")
-			oryUIRightIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.rightIconColor#[1] = GetColorRed(oryUIRightIconColorID)
-			oryUIParameters.rightIconColor#[2] = GetColorGreen(oryUIRightIconColorID)
-			oryUIParameters.rightIconColor#[3] = GetColorBlue(oryUIRightIconColorID)
-			oryUIParameters.rightIconColor#[4] = 255
+		elseif (oryUIVariable$ = "righticoncolor" or oryUIVariable$ = "righticoncolorid")
+			oryUIParameters.rightIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "righticonid")
 			oryUIParameters.rightIconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "righttext")
 			oryUIParameters.rightText$ = oryUIValue$
 		elseif (oryUIVariable$ = "righttextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.rightTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.rightTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "righttextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.rightTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.rightTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.rightTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.rightTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "righttextcolorid")
-			oryUIRightTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.rightTextColor#[1] = GetColorRed(oryUIRightTextColorID)
-			oryUIParameters.rightTextColor#[2] = GetColorGreen(oryUIRightTextColorID)
-			oryUIParameters.rightTextColor#[3] = GetColorBlue(oryUIRightTextColorID)
-			oryUIParameters.rightTextColor#[4] = 255
+			oryUIParameters.rightTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "righttextcolor" or oryUIVariable$ = "righttextcolorid")
+			oryUIParameters.rightTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "righttextsize")
 			oryUIParameters.rightTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "rightline1text")
 			oryUIParameters.rightLine1Text$ = oryUIValue$
 		elseif (oryUIVariable$ = "rightline1textbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.rightLine1TextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.rightLine1TextBold = 0
-			endif
-		elseif (oryUIVariable$ = "rightline1textcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.rightLine1TextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.rightLine1TextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.rightLine1TextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.rightLine1TextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "rightline1textcolorid")
-			oryUIRightLine1TextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.rightLine1TextColor#[1] = GetColorRed(oryUIRightLine1TextColorID)
-			oryUIParameters.rightLine1TextColor#[2] = GetColorGreen(oryUIRightLine1TextColorID)
-			oryUIParameters.rightLine1TextColor#[3] = GetColorBlue(oryUIRightLine1TextColorID)
-			oryUIParameters.rightLine1TextColor#[4] = 255
+			oryUIParameters.rightLine1TextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "rightline1textcolor" or oryUIVariable$ = "rightline1textcolorid")
+			oryUIParameters.rightLine1TextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "rightline1textsize")
 			oryUIParameters.rightLine1TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "rightline2text")
 			oryUIParameters.rightLine2Text$ = oryUIValue$
 		elseif (oryUIVariable$ = "rightline2textbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.rightLine2TextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.rightLine2TextBold = 0
-			endif
-		elseif (oryUIVariable$ = "rightline2textcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.rightLine2TextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.rightLine2TextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.rightLine2TextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.rightLine2TextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "rightline2textcolorid")
-			oryUIRightLine2TextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.rightLine2TextColor#[1] = GetColorRed(oryUIRightLine2TextColorID)
-			oryUIParameters.rightLine2TextColor#[2] = GetColorGreen(oryUIRightLine2TextColorID)
-			oryUIParameters.rightLine2TextColor#[3] = GetColorBlue(oryUIRightLine2TextColorID)
-			oryUIParameters.rightLine2TextColor#[4] = 255
+			oryUIParameters.rightLine2TextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "rightline2textcolor" or oryUIVariable$ = "rightline2textcolorid")
+			oryUIParameters.rightLine2TextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "rightline2textsize")
 			oryUIParameters.rightLine2TextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "savetext")
 			oryUIParameters.saveText$ = oryUIValue$
-		elseif (oryUIVariable$ = "scrimcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.scrimColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.scrimColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.scrimColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.scrimColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "scrimcolorid")
-			oryUIScrimColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.scrimColor#[1] = GetColorRed(oryUIScrimColorID)
-			oryUIParameters.scrimColor#[2] = GetColorGreen(oryUIScrimColorID)
-			oryUIParameters.scrimColor#[3] = GetColorBlue(oryUIScrimColorID)
-			oryUIParameters.scrimColor#[4] = 255
+		elseif (oryUIVariable$ = "scrimcolor" or oryUIVariable$ = "scrimcolorid")
+			oryUIParameters.scrimColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "script")
 			oryUIParameters.script$ = oryUIValue$
 		elseif (oryUIVariable$ = "scrollable")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.scrollable = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.scrollable = 0
-			endif
+			oryUIParameters.scrollable = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "selected")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.selected = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.selected = 0
-			endif
-		elseif (oryUIVariable$ = "selectedcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.selectedColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.selectedColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.selectedColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.selectedColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "selectedcolorid")
-			oryUISelectedColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.selectedColor#[1] = GetColorRed(oryUISelectedColorID)
-			oryUIParameters.selectedColor#[2] = GetColorGreen(oryUISelectedColorID)
-			oryUIParameters.selectedColor#[3] = GetColorBlue(oryUISelectedColorID)
-			oryUIParameters.selectedColor#[4] = 255
-		elseif (oryUIVariable$ = "selectediconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.selectedIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.selectedIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.selectedIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.selectedIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "selectediconcolorid")
-			oryUISelectedIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.selectedIconColor#[1] = GetColorRed(oryUISelectedIconColorID)
-			oryUIParameters.selectedIconColor#[2] = GetColorGreen(oryUISelectedIconColorID)
-			oryUIParameters.selectedIconColor#[3] = GetColorBlue(oryUISelectedIconColorID)
-			oryUIParameters.selectedIconColor#[4] = 255
+			oryUIParameters.selected = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "selectedcolor" or oryUIVariable$ = "selectedcolorid")
+			oryUIParameters.selectedColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "selectediconcolor" or oryUIVariable$ = "selectediconcolorid")
+			oryUIParameters.selectedIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "selectedtextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.selectedTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.selectedTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "selectedtextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.selectedTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.selectedTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.selectedTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.selectedTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "selectedtextcolorid")
-			oryUISelectedTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.selectedTextColor#[1] = GetColorRed(oryUISelectedTextColorID)
-			oryUIParameters.selectedTextColor#[2] = GetColorGreen(oryUISelectedTextColorID)
-			oryUIParameters.selectedTextColor#[3] = GetColorBlue(oryUISelectedTextColorID)
-			oryUIParameters.selectedTextColor#[4] = 255
+			oryUIParameters.selectedTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "selectedtextcolor" or oryUIVariable$ = "selectedtextcolorid")
+			oryUIParameters.selectedTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "selectedtextsize")
 			oryUIParameters.selectedTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "shadow")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.shadow = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.shadow = 0
-			endif
+			oryUIParameters.shadow = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showcheckbox")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showCheckbox = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showCheckbox = 0
-			endif
+			oryUIParameters.showCheckbox = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showhelpertext")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showHelperText = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showHelperText = 0
-			endif
+			oryUIParameters.showHelperText = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showicon")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showIcon = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showIcon = 0
-			endif
+			oryUIParameters.showIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showlefticon")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showLeftIcon = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showLeftIcon = 0
-			endif
+			oryUIParameters.showLeftIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showleftthumbnail")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showLeftThumbnail = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showLeftThumbnail = 0
-			endif
+			oryUIParameters.showLeftThumbnail = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showrighticon")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showRightIcon = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showRightIcon = 0
-			endif
+			oryUIParameters.showRightIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showrighttext")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showRightText = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showRightText = 0
-			endif
+			oryUIParameters.showRightText = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showshadow")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showShadow = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showShadow = 0
-			endif
+			oryUIParameters.showShadow = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showskiptoendbuttons")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.showSkipToEndButtons = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.showSkipToEndButtons = 0
-			endif
+			oryUIParameters.showSkipToEndButtons = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "size")
 			oryUIParameters.size#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.size#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "spriteshader")
 			oryUIParameters.spriteShader = val(oryUIValue$)
 		elseif (oryUIVariable$ = "stackbuttons")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.stackButtons = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.stackButtons = 0
-			endif
+			oryUIParameters.stackButtons = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "starty")
 			oryUIParameters.startY# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "step")
 			oryUIParameters.step# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "stickuntilcomplete")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.stickUntilComplete = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.stickUntilComplete = 0
-			endif
+			oryUIParameters.stickUntilComplete = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "string")
 			oryUIParameters.text$ = oryUIValue$
-		elseif (oryUIVariable$ = "strokecolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.strokeColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.strokeColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.strokeColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.strokeColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "strokecolorid")
-			oryUIStrokeColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.strokeColor#[1] = GetColorRed(oryUIStrokeColorID)
-			oryUIParameters.strokeColor#[2] = GetColorGreen(oryUIStrokeColorID)
-			oryUIParameters.strokeColor#[3] = GetColorBlue(oryUIStrokeColorID)
-			oryUIParameters.strokeColor#[4] = 255
+		elseif (oryUIVariable$ = "strokecolor" or oryUIVariable$ = "strokecolorid")
+			oryUIParameters.strokeColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "subtitletext")
 			oryUIParameters.subtitleText$ = oryUIValue$
 		elseif (oryUIVariable$ = "subtitletextalignment")
@@ -1726,47 +1188,16 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.subtitleTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "subtitletextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.subtitleTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.subtitleTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "subtitletextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.subtitleTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.subtitleTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.subtitleTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.subtitleTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "subtitletextcolorid")
-			oryUISubTitleTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.subtitleTextColor#[1] = GetColorRed(oryUISubtitleTextColorID)
-			oryUIParameters.subtitleTextColor#[2] = GetColorGreen(oryUISubtitleTextColorID)
-			oryUIParameters.subtitleTextColor#[3] = GetColorBlue(oryUISubtitleTextColorID)
-			oryUIParameters.subtitleTextColor#[4] = 255
+			oryUIParameters.subtitleTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "subtitletextcolor" or oryUIVariable$ = "subtitletextcolorid")
+			oryUIParameters.subtitleTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "subtitletextsize")
 			oryUIParameters.subtitleTextSize# = valFloat(oryUIValue$)
-
 		elseif (oryUIVariable$ = "subtracticon")
 			oryUIParameters.subtractIcon$ = oryUIValue$
 			oryUIParameters.subtractIconID = OryUIReturnIconID(oryUIValue$)
-		elseif (oryUIVariable$ = "subtracticoncolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.subtractIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.subtractIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.subtractIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.subtractIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "subtracticoncolorid")
-			oryUISubtractIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.subtractIconColor#[1] = GetColorRed(oryUISubtractIconColorID)
-			oryUIParameters.subtractIconColor#[2] = GetColorGreen(oryUISubtractIconColorID)
-			oryUIParameters.subtractIconColor#[3] = GetColorBlue(oryUISubtractIconColorID)
-			oryUIParameters.subtractIconColor#[4] = 255
+		elseif (oryUIVariable$ = "subtracticoncolor" or oryUIVariable$ = "subtracticoncolorid")
+			oryUIParameters.subtractIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "subtracticonid")
 			oryUIParameters.subtractIconID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "subtracticonsize")
@@ -1783,26 +1214,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.supportingTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "supportingtextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.supportingTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.supportingTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "supportingtextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.supportingTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.supportingTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.supportingTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.supportingTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "supportingtextcolorid")
-			oryUISupportingTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.supportingTextColor#[1] = GetColorRed(oryUISupportingTextColorID)
-			oryUIParameters.supportingTextColor#[2] = GetColorGreen(oryUISupportingTextColorID)
-			oryUIParameters.supportingTextColor#[3] = GetColorBlue(oryUISupportingTextColorID)
-			oryUIParameters.supportingTextColor#[4] = 255
+			oryUIParameters.supportingTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "supportingtextcolor" or oryUIVariable$ = "supportingtextcolorid")
+			oryUIParameters.supportingTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "supportingtextsize")
 			oryUIParameters.supportingTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "text")
@@ -1816,26 +1230,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.textAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "textbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.textBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.textBold = 0
-			endif
-		elseif (oryUIVariable$ = "textcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.textColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.textColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.textColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.textColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "textcolorid")
-			oryUITextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.textColor#[1] = GetColorRed(oryUITextColorID)
-			oryUIParameters.textColor#[2] = GetColorGreen(oryUITextColorID)
-			oryUIParameters.textColor#[3] = GetColorBlue(oryUITextColorID)
-			oryUIParameters.textColor#[4] = 255
+			oryUIParameters.textBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "textcolor" or oryUIVariable$ = "textcolorid")
+			oryUIParameters.textColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "textsize")
 			oryUIParameters.textSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "timeout")
@@ -1851,96 +1248,23 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.titleTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "titletextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.titleTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.titleTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "titletextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.titleTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.titleTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.titleTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.titleTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "titletextcolorid")
-			oryUITitleTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.titleTextColor#[1] = GetColorRed(oryUITitleTextColorID)
-			oryUIParameters.titleTextColor#[2] = GetColorGreen(oryUITitleTextColorID)
-			oryUIParameters.titleTextColor#[3] = GetColorBlue(oryUITitleTextColorID)
-			oryUIParameters.titleTextColor#[4] = 255
+			oryUIParameters.titleTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "titletextcolor" or oryUIVariable$ = "titletextcolorid")
+			oryUIParameters.titleTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "titletextsize")
 			oryUIParameters.titleTextSize# = valFloat(oryUIValue$)
-		elseif (oryUIVariable$ = "trackcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.trackColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.trackColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.trackColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.trackColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "trackcolorid")
-			oryUITrackColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.trackColor#[1] = GetColorRed(oryUITrackColorID)
-			oryUIParameters.trackColor#[2] = GetColorGreen(oryUITrackColorID)
-			oryUIParameters.trackColor#[3] = GetColorBlue(oryUITrackColorID)
-			oryUIParameters.trackColor#[4] = 255
+		elseif (oryUIVariable$ = "trackcolor" or oryUIVariable$ = "trackcolorid")
+			oryUIParameters.trackColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "uncheckedimageid")
 			oryUIParameters.uncheckedImageID = val(oryUIValue$)
-		elseif (oryUIVariable$ = "unselectedcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.unselectedColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.unselectedColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.unselectedColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.unselectedColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "unselectedcolorid")
-			oryUIUnselectedColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.unselectedColor#[1] = GetColorRed(oryUIUnselectedColorID)
-			oryUIParameters.unselectedColor#[2] = GetColorGreen(oryUIUnselectedColorID)
-			oryUIParameters.unselectedColor#[3] = GetColorBlue(oryUIUnselectedColorID)
-			oryUIParameters.unselectedColor#[4] = 255
-		elseif (oryUIVariable$ = "unselectediconcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.unselectedIconColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.unselectedIconColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.unselectedIconColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.unselectedIconColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "unselectediconcolorid")
-			oryUIUnselectedIconColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.unselectedIconColor#[1] = GetColorRed(oryUIUnselectedIconColorID)
-			oryUIParameters.unselectedIconColor#[2] = GetColorGreen(oryUIUnselectedIconColorID)
-			oryUIParameters.unselectedIconColor#[3] = GetColorBlue(oryUIUnselectedIconColorID)
-			oryUIParameters.unselectedIconColor#[4] = 255
+		elseif (oryUIVariable$ = "unselectedcolor" or oryUIVariable$ = "unselectedcolorid")
+			oryUIParameters.unselectedColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "unselectediconcolor" or oryUIVariable$ = "unselectediconcolorid")
+			oryUIParameters.unselectedIconColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedtextbold")
-			if (oryUIValue$ = "true" or oryUIValue$ = "1")
-				oryUIParameters.unselectedTextBold = 1
-			elseif (oryUIValue$ = "false" or oryUIValue$ = "0")
-				oryUIParameters.unselectedTextBold = 0
-			endif
-		elseif (oryUIVariable$ = "unselectedtextcolor")
-			if (CountStringTokens(oryUIValue$, ",") >= 3)
-				oryUIParameters.unselectedTextColor#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
-				oryUIParameters.unselectedTextColor#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
-				oryUIParameters.unselectedTextColor#[3] = valFloat(GetStringToken(oryUIValue$, ",", 3))
-			endif
-			if (CountStringTokens(oryUIValue$, ",") = 4)
-				oryUIParameters.unselectedTextColor#[4] = valFloat(GetStringToken(oryUIValue$, ",", 4))
-			endif
-		elseif (oryUIVariable$ = "unselectedtextcolorid")
-			oryUIUnselectedTextColorID = val(GetStringToken(oryUIValue$, ",", 1))
-			oryUIParameters.unselectedTextColor#[1] = GetColorRed(oryUIUnselectedTextColorID)
-			oryUIParameters.unselectedTextColor#[2] = GetColorGreen(oryUIUnselectedTextColorID)
-			oryUIParameters.unselectedTextColor#[3] = GetColorBlue(oryUIUnselectedTextColorID)
-			oryUIParameters.unselectedTextColor#[4] = 255
+			oryUIParameters.unselectedTextBold = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "unselectedtextcolor" or oryUIVariable$ = "unselectedtextcolorid")
+			oryUIParameters.unselectedTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "selectedtextsize")
 			oryUIParameters.unselectedTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "width")
