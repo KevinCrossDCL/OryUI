@@ -1,4 +1,38 @@
 
+BUILD 0.8a
+------------------------
+- All files
+	- All color and colorID parameters accept the same values
+	- All colorID parameters will eventually be deprecated
+	- Colors can now be given as hex colors i.e. color:#f63703
+
+- OryUI
+	- Added missing parameter 'disabledColorID'
+	- Added missing parameter 'disabledIconColorID'
+	- Added missing parameter 'enabledColorID'
+	- Added missing parameter 'enabledIconColorID'
+	
+- OryUIHTTPSQueue
+	- Added function OryUIFindNameInHTTPSQueue()
+	- Added function OryUIFindScriptInHTTPSQueue()
+	- Added function OryUIIsNameInHTTPSQueue()
+	- Added function OryUIIsScriptInHTTPSQueue()
+	- Fixed a bug where OryUIPrintHTTPSQueue() was referencing a variable that didn't exist
+
+- OryUIList
+	- Fixed a bug where setting OryUISetListItemCount() with a negative number would crash
+
+- OryUINavigationDrawer
+	- Fixed a bug where navigation drawer status bar wasn't being updated
+
+- OryUIText
+	- Fixed a bug where long texts without any spaces was causing OryUIWrapText() to get stuck in the while loop
+	
+- OryUITextfield
+	- Removed the default helper text
+
+
+
 BUILD 0.7a
 ------------------------
 - All files
