@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 19/08/2019)
+foldstart // OryUIButton Component (Updated 01/03/2020)
 
 type typeOryUIButton
 	id as integer
@@ -267,6 +267,7 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 			OryUIButtonCollection[oryUIButtonID].enabledImageID = oryUIParameters.imageID
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			OryUIButtonCollection[oryUIButtonID].disabledText$ = oryUIParameters.text$
 			OryUIButtonCollection[oryUIButtonID].enabledText$ = oryUIParameters.text$
 		endif
@@ -326,6 +327,7 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 			OryUIButtonCollection[oryUIButtonID].disabledImageID = oryUIParameters.disabledImageID
 		endif
 		if (oryUIParameters.disabledText$ <> "")
+			if (lower(oryUIParameters.disabledText$) = "null") then oryUIParameters.disabledText$ = ""
 			OryUIButtonCollection[oryUIButtonID].disabledText$ = oryUIParameters.disabledText$
 		endif
 		if (oryUIParameters.disabledTextAlignment > -999999)
@@ -377,6 +379,7 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 			OryUIButtonCollection[oryUIButtonID].enabledImageID = oryUIParameters.enabledImageID
 		endif
 		if (oryUIParameters.enabledText$ <> "")
+			if (lower(oryUIParameters.enabledText$) = "null") then oryUIParameters.enabledText$ = ""
 			OryUIButtonCollection[oryUIButtonID].enabledText$ = oryUIParameters.enabledText$
 		endif
 		if (oryUIParameters.enabledTextAlignment > -999999)
