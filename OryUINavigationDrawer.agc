@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Component (Updated 12/09/2019)
+foldstart // OryUINavigationDrawer Component (Updated 01/03/2020)
 
 type typeOryUINavigationDrawer
 	id as integer
@@ -64,7 +64,7 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].showShadow = oryUIDefaults.navigationDrawerShowShadow
 	
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim = CreateSprite(0)
-	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, 100, 100)
+	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, 100, abs(GetScreenBoundsTop() * 2) + 100)
 	SetSpriteDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, oryUIDefaults.navigationDrawerDepth)
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, oryUIDefaults.navigationDrawerScrimColor#[1], oryUIDefaults.navigationDrawerScrimColor#[2], oryUIDefaults.navigationDrawerScrimColor#[3], oryUIDefaults.navigationDrawerScrimColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, 0, 0)
@@ -123,7 +123,7 @@ function OryUIGetNavigationDrawerHeight(oryUINavigationDrawerID as integer)
 			oryUINavigationDrawerHeight# = oryUINavigationDrawerHeight# + GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUIForI].sprContainer)
 		endif
 	next
-	if (oryUINavigationDrawerHeight# < 100) then oryUINavigationDrawerHeight# = 100
+	if (oryUINavigationDrawerHeight# < abs(GetScreenBoundsTop() * 2) + 100) then oryUINavigationDrawerHeight# = abs(GetScreenBoundsTop() * 2) + 100
 endfunction oryUINavigationDrawerHeight#
 
 function OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID as integer)
@@ -294,22 +294,22 @@ function OryUIInsertNavigationDrawerListener(oryUINavigationDrawerID as integer)
 				OryUINavigationDrawerCollection[oryUINavigationDrawerID].scrimPressed = 1
 			endif
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].startTouchY# = ScreenToWorldY(GetPointerY())
-			OryUINavigationDrawerCollection[oryUINavigationDrawerID].startViewY# = GetViewOffsetY()
+			OryUINavigationDrawerCollection[oryUINavigationDrawerID].startViewY# = GetViewOffsetY() + GetScreenBoundsTop()
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].startY# = GetSpriteY(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer)
 		else
 			if (GetPointerState())
 				oryUINavigationDrawerContainerSprite = GetSpriteHitTest(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				if (oryUINavigationDrawerContainerSprite = 1)
 					OryUINavigationDrawerCollection[oryUINavigationDrawerID].scrimPressed = 0
-					//if (((lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "left" or lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "right") and GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) > 100) or (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "bottom" and GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) > 50))
-					if (((lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "left" or lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "right") and GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) > 100))
-						oryUINavigationDrawerDistanceY# = OryUINavigationDrawerCollection[oryUINavigationDrawerID].startTouchY# - GetPointerY()
+					//if (((lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "left" or lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "right") and GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) > abs(GetScreenBoundsTop() * 2) + 100) or (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "bottom" and GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) > abs(GetScreenBoundsTop() * 2) + 50))
+					if (((lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "left" or lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "right") and GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) > abs(GetScreenBoundsTop() * 2) + 100))
+						oryUINavigationDrawerDistanceY# = OryUINavigationDrawerCollection[oryUINavigationDrawerID].startTouchY# - ScreenToWorldY(GetPointerY()) + GetViewOffsetY() + GetScreenBoundsTop()
 						oryUINavigationDrawerY# = OryUINavigationDrawerCollection[oryUINavigationDrawerID].startViewY# + OryUINavigationDrawerCollection[oryUINavigationDrawerID].startY# - oryUINavigationDrawerDistanceY#
-						if (oryUINavigationDrawerY# >= GetViewOffsetY())
-							oryUINavigationDrawerY# = GetViewOffsetY()
+						if (oryUINavigationDrawerY# >= GetViewOffsetY() + GetScreenBoundsTop())
+							oryUINavigationDrawerY# = GetViewOffsetY() + GetScreenBoundsTop()
 						endif
-						if (oryUINavigationDrawerY# <= -(GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) - 100) + GetViewOffsetY())
-							oryUINavigationDrawerY# = -(GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) - 100) + GetViewOffsetY()
+						if (oryUINavigationDrawerY# <= -(GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) - abs(GetScreenBoundsTop() * 2) - 100) + GetViewOffsetY() + GetScreenBoundsTop())
+							oryUINavigationDrawerY# = -(GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) - abs(GetScreenBoundsTop() * 2) - 100) + GetViewOffsetY() + GetScreenBoundsTop()
 						endif
 						SetSpritePosition(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), oryUINavigationDrawerY#)
 						OryUIPositionItemsInNavigationDrawer(oryUINavigationDrawerID)
@@ -375,7 +375,7 @@ function OryUIPositionItemsInNavigationDrawer(oryUINavigationDrawerID as integer
 	local oryUINavigationDrawerItemY# as float
 	oryUINavigationDrawerItemY# = OryUIStatusBarHeight#
 
-	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY())
+	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop())
 
 	for oryUIForI = 0 to OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID) - 1
 		if (GetSpriteExists(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUIForI].sprContainer))
@@ -454,54 +454,54 @@ function OryUIShowNavigationDrawer(oryUINavigationDrawerID as integer)
 
 	oryUINavigationDrawerHeight# = OryUIGetNavigationDrawerHeight(oryUINavigationDrawerID)
 
-	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, GetViewOffsetX(), GetViewOffsetY())	
+	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, GetViewOffsetX(), GetViewOffsetY() + GetScreenBoundsTop())	
 	if (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerType$) = "modal")
 		if (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "left")
-			if (oryUINavigationDrawerHeight# < 100)
-				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, 100)
+			if (oryUINavigationDrawerHeight# < abs(GetScreenBoundsTop() * 2) + 100)
+				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, abs(GetScreenBoundsTop() * 2) + 100)
 			else
 				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, oryUINavigationDrawerHeight#)
 			endif
 			SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 0, 0)
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetViewOffsetX(), GetViewOffsetY())
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetViewOffsetX(), GetViewOffsetY() + GetScreenBoundsTop())
 			//SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerColor#[1], oryUIDefaults.navigationDrawerColor#[2], oryUIDefaults.navigationDrawerColor#[3], oryUIDefaults.navigationDrawerColor#[4])
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY())
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop())
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar))
 			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, oryUIDefaults.navigationDrawerStatusBarColor#[1], oryUIDefaults.navigationDrawerStatusBarColor#[2], oryUIDefaults.navigationDrawerStatusBarColor#[3], oryUIDefaults.navigationDrawerStatusBarColor#[4])
 			if (OryUINavigationDrawerCollection[oryUINavigationDrawerID].showShadow = 1)
 				SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, oryUIRightShadowImage)
 				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 1, 100)
 				SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 0, 0)
-				SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) + GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY())
+				SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer) + GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop())
 			endif
 		elseif (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "right")
-			if (oryUINavigationDrawerHeight# < 100)
-				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, 100)
+			if (oryUINavigationDrawerHeight# < abs(GetScreenBoundsTop() * 2) + 100)
+				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, abs(GetScreenBoundsTop() * 2) + 100)
 			else
 				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, oryUINavigationDrawerHeight#)
 			endif
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, oryUINavigationDrawerHeight#)
 			SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), 0)
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetViewOffsetX() + 100, GetViewOffsetY())
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, GetViewOffsetX() + 100, GetViewOffsetY() + GetScreenBoundsTop())
 			//SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerColor#[1], oryUIDefaults.navigationDrawerColor#[2], oryUIDefaults.navigationDrawerColor#[3], oryUIDefaults.navigationDrawerColor#[4])
-			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY())
+			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop())
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar))
 			//SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, oryUIDefaults.navigationDrawerStatusBarColor#[1], oryUIDefaults.navigationDrawerStatusBarColor#[2], oryUIDefaults.navigationDrawerStatusBarColor#[3], oryUIDefaults.navigationDrawerStatusBarColor#[4])
 			if (OryUINavigationDrawerCollection[oryUINavigationDrawerID].showShadow = 1)
 				SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, oryUILeftShadowImage)
 				SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 1, 100)
 				SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow), 0)
-				SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY())
+				SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop())
 			endif
 		//elseif (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$) = "bottom")
-			//if (oryUINavigationDrawerHeight# > 50)
-				//SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 100, 50)
+			//if (oryUINavigationDrawerHeight# > abs(GetScreenBoundsTop() * 2) + 50)
+				//SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 100, abs(GetScreenBoundsTop() * 2) + 50)
 				//SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 0, 0)
-				//SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 0, 50)
+				//SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 0, abs(GetScreenBoundsTop() * 2) + 50)
 				//SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, oryUITopShadowImage)
 				//SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 100, 1)
 				//SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 0, GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow))
-				//SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + 50)
+				//SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop() + 50)
 			//else
 				//SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 100, oryUINavigationDrawerHeight#)
 				//SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 0, GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer))
@@ -643,6 +643,7 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, oryUIParameters.imageID)
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.text$)
 		endif
 		if (oryUIParameters.textBold > -999999)
@@ -658,9 +659,11 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprIcon, oryUIParameters.iconColor#[1], oryUIParameters.iconColor#[2], oryUIParameters.iconColor#[3], oryUIParameters.iconColor#[4])
 		endif
 		if (oryUIParameters.name$ <> "")
+			if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].name$ = oryUIParameters.name$
 		endif
 		if (oryUIParameters.rightText$ <> "")
+			if (lower(oryUIParameters.rightText$) = "null") then oryUIParameters.rightText$ = ""
 			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, oryUIParameters.rightText$)
 		endif
 		if (oryUIParameters.rightTextBold > -999999)
@@ -673,6 +676,7 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtRightLabel, oryUIParameters.rightTextSize#)
 		endif
 		if (oryUIParameters.subtitleText$ <> "")
+			if (lower(oryUIParameters.subtitleText$) = "null") then oryUIParameters.subtitleText$ = ""
 			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtSubtitle, oryUIParameters.subtitleText$)
 		endif
 		if (oryUIParameters.subtitleTextBold > -999999)
