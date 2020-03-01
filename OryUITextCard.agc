@@ -1,5 +1,5 @@
 
-foldstart // OryUITextCard Component (Updated 19/08/2019)
+foldstart // OryUITextCard Component (Updated 01/03/2020)
 
 type typeOryUITextCard
 	id as integer
@@ -97,6 +97,7 @@ function OryUIUpdateTextCard(oryUITextCardID as integer, oryUIComponentParameter
 			SetTextSize(OryUITextCardCollection[oryUITextCardID].txtHeader, oryUIParameters.headerTextSize#)
 		endif
 		if (oryUIParameters.headerText$ <> "")
+			if (lower(oryUIParameters.headerText$) = "null") then oryUIParameters.headerText$ = ""
 			SetTextString(OryUITextCardCollection[oryUITextCardID].txtHeader, OryUIWrapText(oryUIParameters.headerText$, GetTextSize(OryUITextCardCollection[oryUITextCardID].txtHeader), GetSpriteWidth(OryUITextCardCollection[oryUITextCardID].sprContainer) - 4))
 		endif
 		if (oryUIParameters.supportingTextBold > -999999)
@@ -106,6 +107,7 @@ function OryUIUpdateTextCard(oryUITextCardID as integer, oryUIComponentParameter
 			SetTextSize(OryUITextCardCollection[oryUITextCardID].txtSupportingText, oryUIParameters.supportingTextSize#)
 		endif
 		if (oryUIParameters.supportingText$ <> "")
+			if (lower(oryUIParameters.supportingText$) = "null") then oryUIParameters.supportingText$ = ""
 			SetTextString(OryUITextCardCollection[oryUITextCardID].txtSupportingText, OryUIWrapText(oryUIParameters.supportingText$, GetTextSize(OryUITextCardCollection[oryUITextCardID].txtSupportingText), GetSpriteWidth(OryUITextCardCollection[oryUITextCardID].sprContainer) - 4))
 		endif
 		if (oryUIParameters.autoHeight > -999999)
