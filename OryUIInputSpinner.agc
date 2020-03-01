@@ -1,5 +1,5 @@
 
-foldstart // OryUIInputSpinner Component (Updated 19/08/2019)
+foldstart // OryUIInputSpinner Component (Updated 01/03/2020)
 
 type typeOryUIInputSpinner
 	id as integer
@@ -42,11 +42,17 @@ endtype
 global OryUIInputSpinnerCollection as typeOryUIInputSpinner[]
 OryUIInputSpinnerCollection.length = 1
 global OryUIInputSpinnerIDFocused as integer : OryUIInputSpinnerIDFocused = -1
+global OryUIInputSpinnerIDTextfieldFocused as integer : OryUIInputSpinnerIDTextfieldFocused = -1
 
 function OryUIAnyInputSpinnerFocused()
 	local oryUIAnyInputSpinnerFocused
 	if (OryUIInputSpinnerIDFocused >= 0) then oryUIAnyInputSpinnerFocused = 1
 endfunction oryUIAnyInputSpinnerFocused
+
+function OryUIAnyInputSpinnerTextfieldFocused()
+	local oryUIAnyInputSpinnerTextfieldFocused
+	if (OryUIInputSpinnerIDTextfieldFocused >= 0) then oryUIAnyInputSpinnerTextfieldFocused = 1
+endfunction oryUIAnyInputSpinnerTextfieldFocused
 
 function OryUICreateInputSpinner(oryUIComponentParameters$ as string)
 	local oryUIInputSpinnerID as integer
@@ -167,6 +173,24 @@ function OryUIGetInputSpinnerChangedValue(OryUIInputSpinnerID as integer)
 	endif
 endfunction oryUIInputSpinnerChangedValue
 
+function OryUIGetInputSpinnerDefaultFloat(OryUIInputSpinnerID as integer)
+	local oryUIInputSpinnerDefaultFloat# as float
+	if (oryUIInputSpinnerID <= OryUIInputSpinnerCollection.length)
+		if (GetSpriteExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+			oryUIInputSpinnerDefaultFloat# = OryUIInputSpinnerCollection[oryUIInputSpinnerID].defaultValue#
+		endif
+	endif
+endfunction oryUIInputSpinnerDefaultFloat#
+
+function OryUIGetInputSpinnerDefaultInteger(OryUIInputSpinnerID as integer)
+	local oryUIInputSpinnerDefaultInteger as integer
+	if (oryUIInputSpinnerID <= OryUIInputSpinnerCollection.length)
+		if (GetSpriteExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+			oryUIInputSpinnerDefaultInteger = val(str(OryUIInputSpinnerCollection[oryUIInputSpinnerID].defaultValue#))
+		endif
+	endif
+endfunction oryUIInputSpinnerDefaultInteger
+
 function OryUIGetInputSpinnerHasFocus(oryUIInputSpinnerID as integer)
 	local oryUIInputSpinnerHasFocus as integer
 	if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
@@ -244,8 +268,12 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 			if (GetEditBoxExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
 				if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
 					OryUIInputSpinnerIDFocused = oryUIInputSpinnerID
+					OryUIInputSpinnerIDTextfieldFocused = oryUIInputSpinnerID
 				else
-					if (OryUIInputSpinnerIDFocused = oryUIInputSpinnerID) then OryUIInputSpinnerIDFocused = -1
+					if (OryUIInputSpinnerIDFocused = oryUIInputSpinnerID)
+						OryUIInputSpinnerIDFocused = -1
+						OryUIInputSpinnerIDTextfieldFocused = -1
+					endif
 					SetEditBoxActive(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 0)
 				endif
 			endif
@@ -257,6 +285,15 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 					oryUIInputSpinnerAddButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIInputSpinnerInvisibleCoverSprite = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIInputSpinnerSubtractButton = GetSpriteHitTest(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+					if (oryUIInputSpinnerAddButton = 1 and OryUIGetSpritePressed() <> OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer and OryUIGetSpritePressed() <> OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon)
+						oryUIInputSpinnerAddButton = 0
+					endif
+					if (oryUIInputSpinnerInvisibleCoverSprite = 1 and OryUIGetSpritePressed() <> OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover)
+						oryUIInputSpinnerInvisibleCoverSprite = 0
+					endif
+					if (oryUIInputSpinnerSubtractButton = 1 and OryUIGetSpritePressed() <> OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer and OryUIGetSpritePressed() <> OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon)
+						oryUIInputSpinnerSubtractButton = 0
+					endif
 					OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 0
 					if (oryUIInputSpinnerAddButton = 1)
 						OryUIInputSpinnerCollection[oryUIInputSpinnerID].pressed = 1
@@ -460,11 +497,13 @@ function OryUIUpdateInputSpinner(oryUIInputSpinnerID as integer, oryUIComponentP
 			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveIconColor#[4] = oryUIParameters.inactiveIconColor#[4]
 		endif
 		if (oryUIParameters.inputText$ <> "")
+			if (lower(oryUIParameters.inputText$) = "null") then oryUIParameters.inputText$ = ""
 			if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox) = 0) // and GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) = "")
 				SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, oryUIParameters.inputText$)
 			endif
 		endif
 		if (oryUIParameters.inputType$ <> "")
+			if (lower(oryUIParameters.inputType$) = "null") then oryUIParameters.inputType$ = ""
 			if (oryUIParameters.inputType$ = "integer" or oryUIParameters.inputType$ = "int")
 
 			elseif (oryUIParameters.inputType$ = "decimal" or oryUIParameters.inputType$ = "float")
