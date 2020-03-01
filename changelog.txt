@@ -3,7 +3,7 @@ BUILD 0.9a
 ------------------------
 - Most files
 	- Added GetScreenBoundsTop() to most places where GetViewOffsetY() is called
-	- You can now clear any string variable without needing the space character. i.e. text: ; can now be written as text: ; or text:null;
+	- You can now clear any string variable without needing the space character. i.e. text: ; can now be written as text:; or text:null;
 
 - OryUI
 	- Added function OryUIGetLocalJSONVariable()
