@@ -1,5 +1,5 @@
 
-foldstart // OryUITooltip Component (Updated 19/08/2019)
+foldstart // OryUITooltip Component (Updated 01/03/2020)
 
 type typeOryUITooltip
 	id as integer
@@ -108,6 +108,7 @@ function OryUIUpdateTooltip(oryUITooltipID as integer, oryUIComponentParameters$
 			SetTextDepth(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.depth - 1)
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIParameters.text$)
 		endif
 		if (oryUIParameters.textAlignment > -999999)
