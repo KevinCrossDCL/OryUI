@@ -7,7 +7,7 @@
  * 	License	: MIT
  */
  
-// OryUI (Updated 12/09/2019)
+// OryUI (Updated 01/03/2020)
 
 foldstart
 
@@ -219,7 +219,12 @@ type typeOryUIDefaults
 	tooltipTextSize# as float
 endtype
 
-type typeoryUIParameters
+type typeOryUIJSONVariables
+	variable$ as string
+	value$ as string
+endtype
+
+type typeOryUIParameters
 	activeButtonColor# as float[4]
 	activeColor# as float[4]
 	activeIconColor# as float[4]
@@ -292,7 +297,7 @@ type typeoryUIParameters
 	headerTextBold as integer
 	headerTextColor# as float[4]
 	headerTextSize# as float
-	helperText$ as String
+	helperText$ as string
 	helperTextBold as integer
 	helperTextColor# as float[4]
 	helperTextSize# as float
@@ -337,6 +342,7 @@ type typeoryUIParameters
 	maxLength as integer
 	maxPosition# as float[2]
 	maxZoom# as float
+	multiline as integer
 	min# as float
 	mini as integer
 	minPosition# as float[2]
@@ -350,6 +356,7 @@ type typeoryUIParameters
 	noOfRightLines as integer
 	offset# as float[2]
 	offsetCenter as integer
+	placeholderText$ as string
 	placement$ as string
 	position# as float[2]
 	postData$ as string
@@ -383,6 +390,7 @@ type typeoryUIParameters
 	showCheckbox as integer
 	showHelperText as integer
 	showIcon as integer
+	showItemDivider as integer
 	showLeftIcon as integer
 	showLeftThumbnail as integer
 	showRightIcon as integer
@@ -431,11 +439,13 @@ type typeoryUIParameters
 	unselectedTextSize# as float
 endtype
 
+
 foldend
 
 
 foldstart
 
+global oryUIBlankLocalJSONVariable as typeOryUIJSONVariables
 global oryUIBlockScreenScrolling as integer
 global oryUIBottomBannerAdOnScreen as integer
 global oryUIContentHeight# as float 			// NOT YET USED
@@ -444,6 +454,8 @@ global oryUIContentStartY# as float				// NOT YET USED
 global oryUIContentWidth# as float				// NOT YET USED
 global oryUIDefaults as typeOryUIDefaults
 global oryUIDialogVisible as integer
+global oryUILocalJSONVariables as typeOryUIJSONVariables[]
+if (GetFileExists("OryUILocalVariables.json")) then oryUILocalJSONVariables.load("OryUILocalVariables.json")
 global oryUIParameters as typeoryUIParameters
 global oryUIScrimDepth as integer
 global oryUIScrimVisible as integer
@@ -477,40 +489,36 @@ function OryUIConvertColor(oryUIColor$ as string)
 		if (FindString(oryUIColor$, "#") > 0)
 			oryUIColor$ = ReplaceString(oryUIColor$, "#", "", -1)
 			if (len(oryUIColor$) = 3)
-				for oryUIForI = 2 to 6 step 2
-					oryUIHexInt[oryUIForI - 1] = val(mid(oryUIColor$, oryUIForI / 2, 1), 16)
-					oryUIHexInt[oryUIForI] = val(mid(oryUIColor$, oryUIForI / 2, 1), 16)
-				next
-				oryUIRGBA#[1] = oryUIHexInt[1] * 16 + oryUIHexInt[2]
-				oryUIRGBA#[2] = oryUIHexInt[3] * 16 + oryUIHexInt[4]
-				oryUIRGBA#[3] = oryUIHexInt[5] * 16 + oryUIHexInt[6]
-				oryUIRGBA#[4] = 255
+				oryUIRGBA#[1] = val(mid(oryUIColor$, 1, 1) + mid(oryUIColor$, 1, 1), 16)
+				oryUIRGBA#[2] = val(mid(oryUIColor$, 2, 1) + mid(oryUIColor$, 2, 1), 16)
+				oryUIRGBA#[3] = val(mid(oryUIColor$, 3, 1) + mid(oryUIColor$, 3, 1), 16)
 			elseif (len(oryUIColor$) = 6)
-				for oryUIForI = 1 to 6
-					oryUIHexInt[oryUIForI] = val(mid(oryUIColor$, oryUIForI, 1), 16)
-				next
-				oryUIRGBA#[1] = oryUIHexInt[1] * 16 + oryUIHexInt[2]
-				oryUIRGBA#[2] = oryUIHexInt[3] * 16 + oryUIHexInt[4]
-				oryUIRGBA#[3] = oryUIHexInt[5] * 16 + oryUIHexInt[6]
-				oryUIRGBA#[4] = 255
+				oryUIRGBA#[1] = val(mid(oryUIColor$, 1, 2), 16)
+				oryUIRGBA#[2] = val(mid(oryUIColor$, 3, 2), 16)
+				oryUIRGBA#[3] = val(mid(oryUIColor$, 5, 2), 16)
 			endif
 		else
 			oryUIRGBA#[1] = GetColorRed(val(oryUIColor$))
 			oryUIRGBA#[2] = GetColorGreen(val(oryUIColor$))
 			oryUIRGBA#[3] = GetColorBlue(val(oryUIColor$))
-			oryUIRGBA#[4] = 255
 		endif
 	elseif (oryUICommaCount >= 3)
 		oryUIRGBA#[1] = valFloat(GetStringToken(oryUIColor$, ",", 1))
 		oryUIRGBA#[2] = valFloat(GetStringToken(oryUIColor$, ",", 2))
 		oryUIRGBA#[3] = valFloat(GetStringToken(oryUIColor$, ",", 3))
-		if (oryUICommaCount = 4)
-			oryUIRGBA#[4] = valFloat(GetStringToken(oryUIColor$, ",", 4))
-		else
-			oryUIRGBA#[4] = 255
-		endif
+		if (oryUICommaCount = 4) then oryUIRGBA#[4] = valFloat(GetStringToken(oryUIColor$, ",", 4))
 	endif
 endfunction oryUIRGBA#
+
+function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
+	oryUIVariableValue$ = ""
+	for oryUIForI = 0 to oryUILocalJSONVariables.length
+		if (oryUILocalJSONVariables[oryUIForI].variable$ = "") then oryUILocalJSONVariables.remove(oryUIForI)
+		if (lower(oryUILocalJSONVariables[oryUIForI].variable$) = lower(oryUIVariable$))
+			oryUIVariableValue$ = oryUILocalJSONVariables[oryUIForI].value$
+		endif
+	next
+endfunction oryUIVariableValue$
 
 function OryUIResetParametersType()
 	oryUIParameters.addIcon$ = ""
@@ -600,6 +608,7 @@ function OryUIResetParametersType()
 	oryUIParameters.maxZoom# = -999999
 	oryUIParameters.min# = -999999
 	oryUIParameters.mini = -999999
+	oryUIParameters.multiline = -999999
 	oryUIParameters.name$ = ""
 	oryUIParameters.navigationIcon$ = ""
 	oryUIParameters.navigationIconID = -999999
@@ -608,6 +617,7 @@ function OryUIResetParametersType()
 	oryUIParameters.noOfPages = -999999
 	oryUIParameters.noOfRightLines = -999999
 	oryUIParameters.offsetCenter = -999999
+	oryUIParameters.placeholderText$ = ""
 	oryUIParameters.placement$ = ""
 	oryUIParameters.postData$ = ""
 	oryUIParameters.progressType$ = ""
@@ -630,7 +640,9 @@ function OryUIResetParametersType()
 	oryUIParameters.selectedTextSize# = -999999	
 	oryUIParameters.shadow = -999999
 	oryUIParameters.showCheckbox = -999999
+	oryUIParameters.showHelperText = -99999
 	oryUIParameters.showIcon = -999999
+	oryUIParameters.showItemDivider = -999999
 	oryUIParameters.showLeftIcon = -999999
 	oryUIParameters.showLeftThumbnail = -999999
 	oryUIParameters.showRightIcon = -999999
@@ -751,6 +763,23 @@ function OryUISetContentStartPosition(oryUIStartX# as float, oryUIStartY# as flo
 	oryUIContentStartY# = oryUIStartY#
 endfunction
 
+function OryUISetLocalJSONVariable(oryUIVariable$ as string, oryUIVariableValue$ as string)
+	oryUIIndexFound = -1
+	for oryUIForI = 0 to oryUILocalJSONVariables.length
+		if (lower(oryUILocalJSONVariables[oryUIForI].variable$) = lower(oryUIVariable$))
+			oryUIIndexFound = oryUIForI
+			oryUILocalJSONVariables[oryUIForI].value$ = oryUIVariableValue$
+		endif
+	next
+	if (oryUIIndexFound = -1)
+		oryUILocalJSONVariables.insert(oryUIBlankLocalJSONVariable)
+		oryUILocalJSONVariables[oryUILocalJSONVariables.length].variable$ = oryUIVariable$
+		oryUILocalJSONVariables[oryUILocalJSONVariables.length].value$ = oryUIVariableValue$
+	endif
+	oryUILocalJSONVariables.sort()
+	oryUILocalJSONVariables.save("OryUILocalVariables.json")
+endfunction
+
 function OryUISetParametersType(oryUIComponentParameters$ as string)
 	OryUIResetParametersType()
 	
@@ -764,6 +793,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIComponentParameter$, ":", 1), " "))
 		oryUIValue$ = GetStringToken(oryUIComponentParameter$, ":", 2)
 		oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
+		if (oryUIValue$ = "") then oryUIValue$ = "null"
 		if (oryUIVariable$ = "activebuttoncolor" or oryUIVariable$ = "activebuttoncolorid")
 			oryUIParameters.activeButtonColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "activecolor" or oryUIVariable$ = "activecolorid")
@@ -1056,6 +1086,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.minPosition#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "miny")
 			oryUIParameters.minPosition#[2] = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "multiline")
+			oryUIParameters.multiline = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "name")
 			oryUIParameters.name$ = oryUIValue$
 		elseif (oryUIVariable$ = "navigationicon")
@@ -1080,6 +1112,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 				oryUIParameters.offset#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 				oryUIParameters.offset#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 			endif
+		elseif (oryUIVariable$ = "placeholdertext")
+			oryUIParameters.placeholderText$ = oryUIValue$
 		elseif (oryUIVariable$ = "placement")
 			oryUIParameters.placement$ = oryUIValue$
 		elseif (oryUIVariable$ = "position")
@@ -1148,6 +1182,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.showHelperText = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showicon")
 			oryUIParameters.showIcon = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "showitemdivider")
+			oryUIParameters.showItemDivider = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showlefticon")
 			oryUIParameters.showLeftIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showleftthumbnail")
