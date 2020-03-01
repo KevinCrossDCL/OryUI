@@ -1,4 +1,57 @@
 
+BUILD 0.9a
+------------------------
+- Most files
+	- Added GetScreenBoundsTop() to most places where GetViewOffsetY() is called
+	- You can now clear any string variable without needing the space character. i.e. text: ; can now be written as text: ; or text:null;
+
+- OryUI
+	- Added function OryUIGetLocalJSONVariable()
+	- Added function OryUISetLocalJSONVariable()
+	
+- OryUIDialog
+	- Pressing the back button on the device will now cancel/hide the dialog
+	
+- OryUIHTTPSQueue
+	- Fixed a bug where OryUIInsertHTTPSQueueListener() was not clearing the last frame/sync request response
+	- Fixed a bug where closing a connection in OryUIInsertHTTPSQueueListener() would crash the app if using SetErrorMode(2)
+
+- OryUIInputSpinner
+	- Added function OryUIAnyInputSpinnerTexfieldFocused()
+	- Added function OryUIGetInputSpinnerDefaultFloat()
+	- Added function OryUIGetInputSpinnerDefaultInteger()
+	- Fixed a bug where input spinner was activating when other sprites were covering the input spinner buttons
+	
+- OryUIList
+	- Added parameter 'showItemDivider'
+	- Fixed a bug where noOfLeftLines and noOfRightLines was not working when included on OryUIUpdateListItem()
+	- Fixed a bug where OryUIUpdateTabsButton() would give an out of bounds error
+
+- OryUIMenu
+	- Pressing the back button on the device will now cancel/hide the menu
+
+- OryUINavigationDrawer
+	- Fixed a bug where scrolling would take longer to trigger the further the y view was offset from 0
+
+- OryUITabs
+	- Added parameter 'name'
+	- Added function OryUIGetTabsButtonReleasedName()
+	- Added function OryUISetTabsButtonSelectedByName()
+
+- OryUITextfield
+	- Added function OryUIGetTextfieldX()
+	- Added function OryUIGetTextfieldY()
+	- Disabled multiline input
+	- Fixed a bug where you had to type inputText: ; to clear it. Now you can type inputText:; without the space
+	- Removed the default label/placeholder text
+	
+- OryUITopBar
+	- Added option to set navigationIcon as null for no navigation icon
+	- Fixed a bug where you could scroll the screen when touching the top bar
+	- Fixed a bug where the status bar wasn't being positioned with OryUICreateTopBar() or OryUIUpdateTopBar()
+
+
+
 BUILD 0.8a
 ------------------------
 - All files
