@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollToTop Component (Updated 19/08/2019)
+foldstart // OryUIScrollToTop Component (Updated 01/03/2020)
 
 type typeOryUIScrollToTop
 	id as integer
@@ -34,7 +34,7 @@ function OryUICreateScrollToTop(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 255, 255, 255, 255)
 	SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, oryUIDefaults.scrollToTopDepth)
 	SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, GetSpriteWidth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow) / 2, GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow))
-	SetSpritePositionByOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, GetViewOffsetX() + 50, GetViewOffsetY() + 97.5)
+	SetSpritePositionByOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, GetViewOffsetX() + 50, GetViewOffsetY() + GetScreenBoundsTop() + 97.5)
 	//FixSpriteToScreen(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, 1)
 
 	OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer = CreateSprite(0)
@@ -43,7 +43,7 @@ function OryUICreateScrollToTop(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, oryUIDefaults.scrollToTopColor#[1], oryUIDefaults.scrollToTopColor#[2], oryUIDefaults.scrollToTopColor#[3], oryUIDefaults.scrollToTopColor#[4])
 	SetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, GetSpriteDepth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow) - 1)
 	SetSpriteOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, GetSpriteWidth(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer) / 2, GetSpriteHeight(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer))
-	SetSpritePositionByOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, GetViewOffsetX() + 50, GetViewOffsetY() + 97)
+	SetSpritePositionByOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, GetViewOffsetX() + 50, GetViewOffsetY() + GetScreenBoundsTop() + 97)
 	//FixSpriteToScreen(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, 1)
 
 	OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon = CreateSprite(0)
@@ -121,7 +121,7 @@ endfunction
 
 function OryUIInsertScrollToTopListener(oryUIScrollToTopID as integer)
 	local oryUIShowScrollToTop as integer
-	if (GetViewOffsetY() > OryUIScrollToTopCollection[oryUIScrollToTopID].startY#) then oryUIShowScrollToTop = 1
+	if (GetViewOffsetY() + GetScreenBoundsTop() > OryUIScrollToTopCollection[oryUIScrollToTopID].startY#) then oryUIShowScrollToTop = 1
 	if (oryUIScrimVisible = 1) then oryUIShowScrollToTop = 0
 	if (OryUIAnyTextfieldFocused() = 1 and (GetDeviceBaseName() = "android" or GetDeviceBaseName() = "ios")) then oryUIShowScrollToTop = 0
 	if (oryUIShowScrollToTop = 0)
@@ -150,8 +150,8 @@ function OryUIShowScrollToTop(oryUIScrollToTopID as integer)
 	if (lower(OryUIScrollToTopCollection[oryUIScrollToTopID].placement$) = "bottomleft") then oryUIScrollToTopX# = GetViewOffsetX() + 3.5
 	if (lower(OryUIScrollToTopCollection[oryUIScrollToTopID].placement$) = "bottomcenter") then oryUIScrollToTopX# = GetViewOffsetX() + 50
 	if (lower(OryUIScrollToTopCollection[oryUIScrollToTopID].placement$) = "bottomright") then oryUIScrollToTopX# = GetViewOffsetX() + 96.5
-	oryUIScrollToTopY# = GetViewOffsetY() + 97
-	if (oryUIBottomBannerAdOnScreen = 1) then oryUIScrollToTopY# = GetViewOffsetY() + 90
+	oryUIScrollToTopY# = GetViewOffsetY() + GetScreenBoundsTop() + 97
+	if (oryUIBottomBannerAdOnScreen = 1) then oryUIScrollToTopY# = GetViewOffsetY() + GetScreenBoundsTop() + 90
 	SetSpritePositionByOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprShadow, oryUIScrollToTopX#, oryUIScrollToTopY# + 0.5)
 	SetSpritePositionByOffset(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, oryUIScrollToTopX#, oryUIScrollToTopY#)
 	OryUIPinSpriteToCentreOfSprite(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, 0, 0)
