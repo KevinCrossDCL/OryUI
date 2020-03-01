@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 12/09/2019)
+foldstart // OryUITextfield Component (Updated 01/03/2020)
 
 type typeOryUITextfield
 	id as integer
@@ -67,6 +67,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetEditBoxPosition(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3, GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 2.8)
 	SetEditBoxDepth(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 1)
 	SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
+	SetEditBoxMultiLine(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
 	
 	OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator = CreateSprite(0)
 	SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, 0, 0.3)
@@ -77,7 +78,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 
 	OryUITextfieldCollection[oryUITextfieldID].tweenActivationIndicator = CreateTweenSprite(0.2)
 
-	OryUITextfieldCollection[oryUITextfieldID].txtLabel = CreateText("Placeholder")
+	OryUITextfieldCollection[oryUITextfieldID].txtLabel = CreateText("")
 	SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 3.6)
 	SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 0, 0, 0, 140)
 	SetTextAlignment(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 0)
@@ -149,6 +150,25 @@ function OryUIGetTextfieldWidth(oryUITextfieldID as integer)
 		endif
 	endif
 endfunction oryUITextfieldWidth#
+
+function OryUIGetTextfieldX(oryUITextfieldID as integer)
+	local oryUITextfieldX#
+	if (oryUITextfieldID <= OryUITextfieldCollection.length)
+		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
+			oryUITextfieldX# = GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
+		endif
+	endif
+endfunction oryUITextfieldX#
+
+function OryUIGetTextfieldY(oryUITextfieldID as integer)
+	local oryUITextfieldY#
+	if (oryUITextfieldID <= OryUITextfieldCollection.length)
+		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
+			oryUITextfieldY# = GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
+		endif
+	endif
+endfunction oryUITextfieldY#
+
 
 function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 	if (oryUIScrimVisible = 1) then exitfunction
@@ -259,6 +279,7 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.depth - 2)
 			endif
 			if (oryUIParameters.helperText$ <> "")
+				if (lower(oryUIParameters.helperText$) = "null") then oryUIParameters.helperText$ = ""
 				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtHelper, oryUIParameters.helperText$)
 			endif
 			if (oryUIParameters.helperTextColor#[1] > -999999 or oryUIParameters.helperTextColor#[2] > -999999 or oryUIParameters.helperTextColor#[3] > -999999 or oryUIParameters.helperTextColor#[4] > -999999)
@@ -266,6 +287,7 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 			endif
 			if (oryUIParameters.inputText$ <> "")
 				if (GetEditBoxHasFocus(OryUITextfieldCollection[oryUITextfieldID].editBox) = 0) // and GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) = "")
+					if (lower(oryUIParameters.inputText$) = "null") then oryUIParameters.inputText$ = ""
 					SetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.inputText$)
 					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 2.4)
 					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - 2.4 - 0.3)
@@ -279,6 +301,7 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 				endif
 			endif
 			if (oryUIParameters.labelText$ <> "")
+				if (lower(oryUIParameters.labelText$) = "null") then oryUIParameters.labelText$ = ""
 				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.labelText$)
 			endif
 			if (oryUIParameters.maxLength > 0)
