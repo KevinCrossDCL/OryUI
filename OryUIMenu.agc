@@ -1,5 +1,5 @@
 
-foldstart // OryUIMenu Component (Updated 19/08/2019)
+foldstart // OryUIMenu Component (Updated 01/03/2020)
 
 type typeOryUIMenu
 	id as integer
@@ -43,7 +43,7 @@ function OryUICreateMenu(oryUIComponentParameters$ as string)
 	OryUIMenuCollection[oryUIMenuID].visible = 0
 
 	OryUIMenuCollection[oryUIMenuID].sprScrim = CreateSprite(0)
-	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprScrim, 100, 100)
+	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprScrim, 100, abs(GetScreenBoundsTop() * 2) + 100)
 	SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprScrim, oryUIDefaults.menuDepth)
 	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprScrim, oryUIDefaults.menuScrimColor#[1], oryUIDefaults.menuScrimColor#[2], oryUIDefaults.menuScrimColor#[3], oryUIDefaults.menuScrimColor#[4])
 	SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, 0, 0)
@@ -203,6 +203,9 @@ function OryUIInsertMenuListener(oryUIMenuID as integer)
 
 	OryUIMenuCollection[oryUIMenuID].scrimReleased = -1
 	OryUIMenuCollection[oryUIMenuID].itemReleased = -1
+	if (GetRawKeyPressed(27) and OryUIMenuCollection[oryUIMenuID].visible = 1)
+		OryUIHideMenu(oryUIMenuID)
+	endif
 	if (OryUIMenuCollection[oryUIMenuID].visible = 1)
 		for oryUIForI = 0 to OryUIGetMenuItemCount(oryUIMenuID) - 1
 			OryUIUpdateMenuItem(oryUIMenuID, oryUIForI + 1, "")
@@ -275,7 +278,7 @@ function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
 	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
 	OryUIMenuCollection[oryUIMenuID].visible = 1
-	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, GetViewOffsetX(), GetViewOffsetY())
+	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, GetViewOffsetX(), GetViewOffsetY() + GetScreenBoundsTop())
 
 	oryUIMenuHeight# = OryUIGetMenuHeight(oryUIMenuID)
 	
@@ -284,8 +287,8 @@ function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
 	if (oryUIMenuX# + GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer) + (2.46 / GetDisplayAspect()) > GetViewOffsetX() + 100)
 		oryUIMenuX# = GetViewOffsetX() + 100 - (2.46 / GetDisplayAspect()) - GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer)
 	endif
-	if (oryUIMenuY# + GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer) + oryUIDefaults.menuItemHeight# > GetViewOffsetY() + 100)
-		oryUIMenuY# = GetViewOffsetY() + 100 - oryUIDefaults.menuItemHeight# - GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer)
+	if (oryUIMenuY# + GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer) + oryUIDefaults.menuItemHeight# > GetViewOffsetY() + GetScreenBoundsTop() + 100)
+		oryUIMenuY# = GetViewOffsetY() + GetScreenBoundsTop() + 100 - oryUIDefaults.menuItemHeight# - GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer)
 	endif
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIMenuX#, oryUIMenuY#)
 	
@@ -383,6 +386,7 @@ function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer,
 				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, 0, 0)
 			endif
 			if (oryUIParameters.text$ <> "")
+				if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 				SetTextString(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].txtLabel, oryUIParameters.text$)
 			endif
 			if (oryUIParameters.textAlignment > -999999)
@@ -410,6 +414,7 @@ function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer,
 				SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprRightIcon, oryUIParameters.rightIconColor#[1], oryUIParameters.rightIconColor#[2], oryUIParameters.rightIconColor#[3], oryUIParameters.rightIconColor#[4])
 			endif
 			if (oryUIParameters.name$ <> "")
+				if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
 				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].name$ = oryUIParameters.name$
 			endif
 			if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
