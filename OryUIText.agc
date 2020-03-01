@@ -1,5 +1,5 @@
 
-foldstart // OryUIText (Updated 12/09/2019)
+foldstart // OryUIText (Updated 01/03/2020)
 
 function OryUICreateText(oryUIComponentParameters$ as string)
 	local oryUITextID
@@ -107,6 +107,7 @@ function OryUIUpdateText(oryUITextID as integer, oryUIComponentParameters$ as st
 			SetTextSize(oryUITextID, oryUIParameters.size#[1])
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(oryUITextID, oryUIParameters.text$)
 		endif
 	endif
