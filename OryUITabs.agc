@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 19/08/2019)
+foldstart // OryUITabs Component (Updated 01/03/2020)
 
 type typeOryUITabs
 	id as integer
@@ -23,6 +23,7 @@ type typeOryUITabsButton
 	id as integer
 	icon$ as string
 	label$ as string
+	name$ as string
 	pressed as integer
 	sprContainer as integer
 	sprIcon as integer
@@ -108,6 +109,13 @@ function OryUIGetTabsButtonReleasedID(oryUITabsID as integer)
 	endif
 endfunction oryUITabsButtonID
 
+function OryUIGetTabsButtonReleasedName(oryUITabsID as integer)
+	local oryUITabsButtonName$ as string
+	if (OryUITabsCollection[oryUITabsID].buttonReleased > -1)
+		oryUITabsButtonName$ = OryUITabsCollection[oryUITabsID].buttons[OryUITabsCollection[oryUITabsID].buttonReleased].name$
+	endif
+endfunction oryUITabsButtonName$
+
 function OryUIGetTabsButtonReleasedText(oryUITabsID as integer)
 	local oryUITabsButtonText$ as string
 	if (OryUITabsCollection[oryUITabsID].buttonReleased > -1)
@@ -153,7 +161,7 @@ function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponen
 	
 	OryUIPositionButtonsInTabs(oryUITabsID)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabsButton(oryUITabsID, oryUITabsButtonID, oryUIComponentParameters$)
+	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabsButton(oryUITabsID, oryUITabsButtonID + 1, oryUIComponentParameters$)
 endfunction
 
 function OryUIInsertTabsListener(oryUITabsID as integer)
@@ -170,7 +178,7 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + OryUITabsCollection[oryUITabsID].minPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 		else
 			SetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer, OryUITabsCollection[oryUITabsID].originalPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + OryUITabsCollection[oryUITabsID].originalPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
+			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + GetScreenBoundsTop() + OryUITabsCollection[oryUITabsID].originalPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 		endif
 		
 		for oryUIForI = 0 to OryUITabsCollection[oryUITabsID].buttons.length
@@ -260,6 +268,14 @@ function OryUISetTabsButtonSelected(oryUITabsID as integer, oryUITabsButtonID as
 	OryUITabsCollection[oryUITabsID].selected = oryUITabsButtonID
 endfunction
 
+function OryUISetTabsButtonSelectedByName(oryUITabsID as integer, oryUITabsButtonName$ as string)
+	for oryUIForI = 0 to OryUIGetTabsButtonCount(oryUITabsID) - 1
+		if (lower(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].name$) = lower(oryUITabsButtonName$))
+			OryUITabsCollection[oryUITabsID].selected = oryUIForI + 1
+		endif
+	next
+endfunction
+
 function OryUIUpdateTabs(oryUITabsID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
@@ -345,23 +361,28 @@ endfunction
 function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
-	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer))
+	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprContainer))
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
-			SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
+			SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
+		endif
+		if (oryUIParameters.name$ <> "")
+			if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
+			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].name$ = oryUIParameters.name$
 		endif
 		if (oryUIParameters.text$ <> "")
-			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].label$ = oryUIParameters.text$
-			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].txtLabel, upper(oryUIParameters.text$))
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
+			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].label$ = oryUIParameters.text$
+			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].txtLabel, upper(oryUIParameters.text$))
 		endif
 		remstart
-		if (oryUIParameters.icon$ <> "") then OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].icon$ = lower(oryUIParameters.icon$)
-		if (lower(oryUIParameters.icon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconAddImage)
-		if (lower(oryUIParameters.icon$) = "back") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconBackImage)
-		if (lower(oryUIParameters.icon$) = "camera") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconCameraImage)
-		if (lower(oryUIParameters.icon$) = "menu") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconMenuImage)
-		if (lower(oryUIParameters.icon$) = "profile") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconProfileImage)
-		if (lower(oryUIParameters.icon$) = "refresh") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconRefreshImage)
-		if (lower(oryUIParameters.icon$) = "save") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon, oryUIIconSaveImage)
+		if (oryUIParameters.icon$ <> "") then OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].icon$ = lower(oryUIParameters.icon$)
+		if (lower(oryUIParameters.icon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconAddImage)
+		if (lower(oryUIParameters.icon$) = "back") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconBackImage)
+		if (lower(oryUIParameters.icon$) = "camera") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconCameraImage)
+		if (lower(oryUIParameters.icon$) = "menu") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconMenuImage)
+		if (lower(oryUIParameters.icon$) = "profile") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconProfileImage)
+		if (lower(oryUIParameters.icon$) = "refresh") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconRefreshImage)
+		if (lower(oryUIParameters.icon$) = "save") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconSaveImage)
 		remend
 	endif
 
