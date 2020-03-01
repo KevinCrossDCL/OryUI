@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 19/08/2019)
+foldstart // OryUIDialog Component (Updated 01/03/2020)
 
 type typeOryUIDialog
 	id as integer
@@ -57,7 +57,7 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	OryUIDialogCollection[oryUIDialogID].uncheckedImage = oryUIDefaults.dialogCheckboxUncheckedImage
 	
 	OryUIDialogCollection[oryUIDialogID].sprScrim = CreateSprite(0)
-	SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprScrim, 100, 100)
+	SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprScrim, 100, abs(GetScreenBoundsTop() * 2) + 100)
 	SetSpriteDepth(OryUIDialogCollection[oryUIDialogID].sprScrim, oryUIDefaults.dialogDepth)
 	SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprScrim, oryUIDefaults.dialogScrimColor#[1], oryUIDefaults.dialogScrimColor#[2], oryUIDefaults.dialogScrimColor#[3], oryUIDefaults.dialogScrimColor#[4])
 	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, 0, 0)
@@ -236,6 +236,9 @@ function OryUIInsertDialogListener(oryUIDialogID as integer)
 	local oryUIDialogButtonSprite as integer
 	OryUIDialogCollection[oryUIDialogID].buttonPressed = -1
 	OryUIDialogCollection[oryUIDialogID].buttonReleased = -1
+	if (GetRawKeyPressed(27) and OryUIDialogCollection[oryUIDialogID].visible = 1)
+		OryUIHideDialog(oryUIDialogID)
+	endif
 	if (OryUIDialogCollection[oryUIDialogID].visible = 1)
 		for oryUIForI = 0 to OryUIGetDialogButtonCount(oryUIDialogID) - 1
 			OryUIUpdateDialogButton(oryUIDialogID, oryUIForI + 1, "")
@@ -324,7 +327,7 @@ function OryUIShowDialog(oryUIDialogID as integer)
 	oryUIBlockScreenScrolling = 1
 	oryUIDialogVisible = 1
 	OryUIDialogCollection[oryUIDialogID].visible = 1
-	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, GetViewOffsetX(), GetViewOffsetY())
+	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, GetViewOffsetX(), GetViewOffsetY() + GetScreenBoundsTop())
 
 	OryUIDialogCollection[oryUIDialogID].checked = 0
 	SetSpriteImage(OryUIDialogCollection[oryUIDialogID].sprCheckbox, OryUIDialogCollection[oryUIDialogID].uncheckedImage)
@@ -434,6 +437,7 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIParameters.checkboxTextSize#)
 		endif
 		if (oryUIParameters.checkboxText$ <> "")
+			if (lower(oryUIParameters.checkboxText$) = "null") then oryUIParameters.checkboxText$ = ""
 			SetTextString(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIParameters.checkboxText$)
 		endif
 		if (oryUIParameters.supportingTextBold > -999999)
@@ -452,6 +456,7 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 			SetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIParameters.titleTextSize#)
 		endif
 		if (oryUIParameters.titleText$ <> "")
+			if (lower(oryUIParameters.titleText$) = "null") then oryUIParameters.titleText$ = ""
 			SetTextString(OryUIDialogCollection[oryUIDialogID].txtTitle, OryUIWrapText(oryUIParameters.titleText$, GetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle), GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer) - oryUIDefaults.dialogLeftMargin# - oryUIDefaults.dialogRightMargin#))
 		endif
 		if (oryUIParameters.autoHeight > -999999)
@@ -522,9 +527,11 @@ function OryUIUpdateDialogButton(oryUIDialogID as integer, oryUIButtonID as inte
 			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
 		if (oryUIParameters.name$ <> "")
+			if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
 			OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].name$ = oryUIParameters.name$
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].txtLabel, oryUIParameters.text$)
 		endif
 		if (oryUIParameters.textBold > -999999)
