@@ -1,6 +1,6 @@
 // This is a template file to use for future components
 
-foldstart // OryUITemplate Component (Updated 19/08/2019)
+foldstart // OryUITemplate Component (Updated 01/03/2020)
 
 type typeOryUITemplate
 	id as integer
@@ -252,8 +252,8 @@ function OryUIShowTemplate(oryUITemplateID as integer)
 	//if (oryUITemplateX# + GetSpriteWidth(OryUITemplateCollection[oryUITemplateID].sprContainer) + (2.46 / GetDisplayAspect()) > GetViewOffsetX() + 100)
 	//	oryUITemplateX# = GetViewOffsetX() + 100 - (2.46 / GetDisplayAspect()) - GetSpriteWidth(OryUITemplateCollection[oryUITemplateID].sprContainer)
 	//endif
-	//if (oryUITemplateY# + GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer) + OryUITemplateCollection[oryUITemplateID].itemSize#[2] > GetViewOffsetY() + 100)
-	//	oryUITemplateY# = GetViewOffsetY() + 100 - OryUITemplateCollection[oryUITemplateID].itemSize#[2] - GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer)
+	//if (oryUITemplateY# + GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer) + OryUITemplateCollection[oryUITemplateID].itemSize#[2] > GetViewOffsetY() + GetScreenBoundsTop() + 100)
+	//	oryUITemplateY# = GetViewOffsetY() + GetScreenBoundsTop() + 100 - OryUITemplateCollection[oryUITemplateID].itemSize#[2] - GetSpriteHeight(OryUITemplateCollection[oryUITemplateID].sprContainer)
 	//endif
 	//SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUITemplateX#, oryUITemplateY#)
 	
@@ -315,6 +315,7 @@ function OryUIUpdateTemplateItem(oryUITemplateID as integer, oryUITemplateItemID
 			SetSpriteColor(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
 		endif
 		if (oryUIParameters.name$ <> "")
+			if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
 			OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].name$ = oryUIParameters.name$
 		endif
 	endif
