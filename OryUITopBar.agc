@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 19/08/2019)
+foldstart // OryUITopBar Component (Updated 01/03/2020)
 
 type typeOryUITopBar
 	id as integer
@@ -257,7 +257,7 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 	local oryUITopBarNavigationReleased as integer
 	local oryUITopBarNavigationSprite as integer
 
-	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, GetViewOffsetX(), GetViewOffsetY())
+	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, GetViewOffsetX(), GetViewOffsetY() + GetScreenBoundsTop())
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer))
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 2.46 / GetDisplayAspect(), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + OryUIStatusBarHeight# + 2.46)
 	if (OryUITopBarCollection[oryUITopBarID].extended = 0)
@@ -280,15 +280,21 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 	elseif (GetTextAlignment(OryUITopBarCollection[oryUITopBarID].txtTitle) = 2)
 		SetTextX(OryUITopBarCollection[oryUITopBarID].txtTitle, (GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 100) - ((2.46 / GetDisplayAspect()) + GetSpriteWidth(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon) + ((2.46 * 2) / GetDisplayAspect())))
 	endif
-	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprShadow, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetViewOffsetY() + GetSpriteHeight(OryUITopBarCollection[oryUITopBarID].sprContainer))
+	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprShadow, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop() + GetSpriteHeight(OryUITopBarCollection[oryUITopBarID].sprContainer))
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)
 	
 	OryUITopBarCollection[oryUITopBarID].actionReleased = -1
 	OryUITopBarCollection[oryUITopBarID].navigationReleased = 0
 	if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon))
 		if (OryUIGetSwipingVertically() = 0)
+			oryUITopBarNavigationSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+			if (oryUITopBarNavigationSprite = 1)
+				oryUIBlockScreenScrolling = 1
+			else
+				oryUIBlockScreenScrolling = 0
+			endif
 			if (GetPointerPressed())
-				oryUITopBarNavigationSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+				oryUITopBarContainerSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				if (oryUITopBarNavigationSprite = 1)
 					OryUITopBarCollection[oryUITopBarID].navigationPressed = 1
 				endif
@@ -373,10 +379,13 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
 		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
+			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, oryUIParameters.position#[1], oryUIParameters.position#[2])
 		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
 			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, oryUIParameters.position#[1], GetSpriteYByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer))
+			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, oryUIParameters.position#[1], GetSpriteYByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer))
 		elseif (oryUIParameters.position#[1] = -999999 and oryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, GetSpriteXByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer), oryUIParameters.position#[2])
+			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, GetSpriteXByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer), oryUIParameters.position#[2])
 		endif
 		if (oryUIParameters.extended > -999999)
 			OryUITopBarCollection[oryUITopBarID].extended = oryUIParameters.extended
@@ -407,17 +416,24 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		if (oryUIParameters.imageID > -999999)
 			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprContainer, oryUIParameters.imageID)
 		endif
-		if (oryUIParameters.navigationIcon$ <> "" and oryUIParameters.navigationIconID > -999999)
+		if (oryUIParameters.navigationIcon$ = "null")
+			OryUITopBarCollection[oryUITopBarID].navigationIcon$ = ""
+			SetSpriteColorAlpha(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, 0)
+		elseif (oryUIParameters.navigationIcon$ <> "" and oryUIParameters.navigationIconID > -999999)
 			OryUITopBarCollection[oryUITopBarID].navigationIcon$ = lower(oryUIParameters.navigationIcon$)
 			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIParameters.navigationIconID)
+			SetSpriteColorAlpha(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, 255)
 		elseif (oryUIParameters.navigationIconID > -999999)
 			OryUITopBarCollection[oryUITopBarID].navigationIcon$ = "custom"
 			SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, oryUIParameters.navigationIconID)
+			SetSpriteColorAlpha(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, 255)
 		endif
 		if (oryUIParameters.navigationName$ <> "")
+			if (lower(oryUIParameters.navigationName$) = "null") then oryUIParameters.navigationName$ = ""
 			OryUITopBarCollection[oryUITopBarID].navigationName$ = lower(oryUIParameters.navigationName$)
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(OryUITopBarCollection[oryUITopBarID].txtTitle, oryUIParameters.text$)
 		endif
 		if (oryUIParameters.textAlignment > -999999)
@@ -457,6 +473,7 @@ function OryUIUpdateTopBarAction(oryUITopBarID as integer, oryUITopBarActionID a
 				SetSpriteImage(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon, oryUIParameters.iconID)
 			endif
 			if (oryUIParameters.name$ <> "")
+				if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
 				OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].name$ = lower(oryUIParameters.name$)
 			endif
 		endif
