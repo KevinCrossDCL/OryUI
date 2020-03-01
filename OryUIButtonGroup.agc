@@ -1,5 +1,5 @@
 
-foldstart // OryUIButtonGroup Component (Updated 19/08/2019)
+foldstart // OryUIButtonGroup Component (Updated 01/03/2020)
 
 type typeOryUIButtonGroup
 	id as integer
@@ -536,6 +536,7 @@ function OryUIUpdateButtonGroupItem(oryUIButtonGroupID as integer, oryUIButtonGr
 			SetSpriteColorAlpha(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].sprIcon, 255)
 		endif
 		if (oryUIParameters.name$ <> "")
+			if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
 			OryUIButtonGroupCollection[oryUIButtonGroupID].buttonNames$[oryUIButtonGroupItemID - 1] = lower(oryUIParameters.name$)
 			OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].name$ = oryUIParameters.name$
 		endif
@@ -544,6 +545,7 @@ function OryUIUpdateButtonGroupItem(oryUIButtonGroupID as integer, oryUIButtonGr
 			OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIButtonGroupItemID
 		endif
 		if (oryUIParameters.text$ <> "")
+			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].label$ = oryUIParameters.text$
 			SetTextString(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID - 1].txtLabel, oryUIParameters.text$)
 		endif
