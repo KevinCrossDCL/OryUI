@@ -1,5 +1,5 @@
 
-foldstart // OryUIInputSpinner Component (Updated 01/03/2020)
+foldstart // OryUIInputSpinner Component (Updated 28/06/2020)
 
 type typeOryUIInputSpinner
 	id as integer
@@ -10,6 +10,7 @@ type typeOryUIInputSpinner
 	changedValue as integer
 	decimals as integer
 	defaultValue# as float
+	disableKeyboardInput as integer
 	editBox as integer
 	inactiveButtonColor# as float[4]
 	inactiveIconColor# as float[4]
@@ -73,6 +74,7 @@ function OryUICreateInputSpinner(oryUIComponentParameters$ as string)
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].icon$ = "subtract"
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].icon$ = "add"
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals = 0
+	OryUIInputSpinnerCollection[oryUIInputSpinnerID].disableKeyboardInput = 0
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[1] = oryUIDefaults.inputSpinnerButtonInactiveColor#[1]
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[2] = oryUIDefaults.inputSpinnerButtonInactiveColor#[2]
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[3] = oryUIDefaults.inputSpinnerButtonInactiveColor#[3]
@@ -334,7 +336,7 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 							if (oryUIInputSpinnerAddButton = 1 and OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].pressed = 1)
 								SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(valFloat(GetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox)) + OryUIInputSpinnerCollection[oryUIInputSpinnerID].step#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
 							endif
-							if (oryUIInputSpinnerInvisibleCoverSprite = 1)
+							if (oryUIInputSpinnerInvisibleCoverSprite = 1 and OryUIInputSpinnerCollection[oryUIInputSpinnerID].disableKeyboardInput <> 1)
 								SetEditBoxActive(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 1)
 								SetEditBoxFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 1)
 							else
@@ -483,6 +485,9 @@ function OryUIUpdateInputSpinner(oryUIInputSpinnerID as integer, oryUIComponentP
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprIcon, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer) - 1)
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) - 2)
 			SetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprIcon, GetSpriteDepth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[2].sprContainer) - 1)
+		endif
+		if (oryUIParameters.disableKeyboardInput > -999999)
+			OryUIInputSpinnerCollection[oryUIInputSpinnerID].disableKeyboardInput = oryUIParameters.disableKeyboardInput
 		endif
 		if (oryUIParameters.inactiveButtonColor#[1] > -999999 or oryUIParameters.inactiveButtonColor#[2] > -999999 or oryUIParameters.inactiveButtonColor#[3] > -999999 or oryUIParameters.inactiveButtonColor#[4] > -999999)
 			OryUIInputSpinnerCollection[oryUIInputSpinnerID].inactiveButtonColor#[1] = oryUIParameters.inactiveButtonColor#[1]
