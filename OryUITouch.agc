@@ -1,5 +1,5 @@
 
-foldstart // OryUITouch (Updated 01/03/2020)
+foldstart // OryUITouch (Updated 28/06/2020)
 
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)
@@ -43,7 +43,13 @@ type typeOryUITouch
 	startZoom# as float
 	startX# as float
 	startY# as float
+	swipingDown as integer
+	swipingDistanceX# as float
+	swipingDistanceY# as float
+	swipingLeft as integer
 	swipingHorizontally as integer
+	swipingRight as integer
+	swipingUp as integer
 	swipingVertically as integer
 	touchCount as integer
 	touchTime# as float
@@ -73,7 +79,13 @@ function OryUIEndTrackingTouch()
 			OryUITouchCollection[0].previousTouchCount = 0
 			OryUITouchCollection[1].spritePressed = 0
 			OryUITouchCollection[1].spriteReleased = 0
+			OryUITouchCollection[0].swipingDistanceX# = 0
+			OryUITouchCollection[0].swipingDistanceY# = 0
+			OryUITouchCollection[0].swipingDown = 0
 			OryUITouchCollection[0].swipingHorizontally = 0
+			OryUITouchCollection[0].swipingLeft = 0
+			OryUITouchCollection[0].swipingRight = 0
+			OryUITouchCollection[0].swipingUp = 0			
 			OryUITouchCollection[0].swipingVertically = 0
 			OryUITouchCollection[0].touchCount = 0
 		endif
@@ -83,7 +95,13 @@ function OryUIEndTrackingTouch()
 			OryUITouchCollection[1].firstSpriteHit = 0
 			OryUITouchCollection[1].spritePressed = 0
 			OryUITouchCollection[1].spriteReleased = 0
+			OryUITouchCollection[0].swipingDistanceX# = 0
+			OryUITouchCollection[0].swipingDistanceY# = 0
+			OryUITouchCollection[0].swipingDown = 0
 			OryUITouchCollection[0].swipingHorizontally = 0
+			OryUITouchCollection[0].swipingLeft = 0
+			OryUITouchCollection[0].swipingRight = 0
+			OryUITouchCollection[0].swipingUp = 0			
 			OryUITouchCollection[0].swipingVertically = 0
 		endif
 	endif
@@ -108,13 +126,57 @@ function OryUIGetSpriteReleased()
 	endif
 endfunction oryUISpriteReleased
 
+function OryUIGetSpriteTouching()
+
+endfunction OryUITouchCollection[1].currentSpriteHit
+
+function OryUIGetSwipingDistanceX()
+	
+endfunction OryUITouchCollection[0].swipingDistanceX#
+
+function OryUIGetSwipingDistanceY()
+	
+endfunction OryUITouchCollection[0].swipingDistanceY#
+
+function OryUIGetSwipingDown()
+
+endfunction OryUITouchCollection[0].swipingDown
+
 function OryUIGetSwipingHorizontally()
 
 endfunction OryUITouchCollection[0].swipingHorizontally
 
+function OryUIGetSwipingLeft()
+
+endfunction OryUITouchCollection[0].swipingLeft
+
+function OryUIGetSwipingRight()
+
+endfunction OryUITouchCollection[0].swipingRight
+
+function OryUIGetSwipingUp()
+
+endfunction OryUITouchCollection[0].swipingUp
+
 function OryUIGetSwipingVertically()
 
 endfunction OryUITouchCollection[0].swipingVertically
+
+function OryUIGetTouchCurrentX()
+	
+endfunction OryUITouchCollection[OryUITouchCollection[0].touchCount].currentX#
+
+function OryUIGetTouchCurrentY()
+	
+endfunction OryUITouchCollection[OryUITouchCollection[0].touchCount].currentY#
+
+function OryUIGetTouchStartX()
+
+endfunction OryUITouchCollection[OryUITouchCollection[0].touchCount].startX#
+
+function OryUIGetTouchStartY()
+
+endfunction OryUITouchCollection[OryUITouchCollection[0].touchCount].startY#
 
 function OryUISetScreenScrollLimits(oryUIMinX# as float, oryUIMaxX# as float, oryUIMinY# as float, oryUIMaxY# as float)
 	OryUITouchCollection[0].minViewX# = oryUIMinX#
@@ -137,7 +199,7 @@ endfunction
 function OryUIStartTrackingTouch()
 	OryUITouchCollection[0].previousTouchCount = OryUITouchCollection[0].touchCount
 	OryUITouchCollection[0].touchCount = 0
-
+		
 	if (GetMultiTouchExists() = 1)
 		oryUITouchEvent = GetRawFirstTouchEvent(1)
 		while (oryUITouchEvent > 0)
@@ -187,10 +249,24 @@ function OryUIStartTrackingTouch()
 			OryUITouchCollection[0].distanceMovedY# = (OryUITouchCollection[0].startMovedY# - OryUITouchCollection[0].currentMovedY#) / OryUITouchCollection[0].currentZoom#
 
 			if (abs(OryUITouchCollection[0].distanceMovedX#) > 1)
+				OryUITouchCollection[0].swipingDistanceX# = abs(OryUITouchCollection[0].distanceMovedX#)
 				OryUITouchCollection[0].swipingHorizontally = 1
+				if (OryUITouchCollection[0].distanceMovedX# < 0)
+					OryUITouchCollection[0].swipingRight = 1
+				endif
+				if (OryUITouchCollection[0].distanceMovedX# > 0)
+					OryUITouchCollection[0].swipingLeft = 1
+				endif
 			endif
 			if (abs(OryUITouchCollection[0].distanceMovedY#) > 1)
+				OryUITouchCollection[0].swipingDistanceY# = abs(OryUITouchCollection[0].distanceMovedY#)
 				OryUITouchCollection[0].swipingVertically = 1
+				if (OryUITouchCollection[0].distanceMovedY# < 0)
+					OryUITouchCollection[0].swipingDown = 1
+				endif
+				if (OryUITouchCollection[0].distanceMovedY# > 0)
+					OryUITouchCollection[0].swipingUp = 1
+				endif
 			endif
 
 			OryUITouchCollection[0].viewX# = OryUITouchCollection[0].startViewX# + OryUITouchCollection[0].distanceMovedX#
@@ -226,7 +302,14 @@ function OryUIStartTrackingTouch()
 						//if (OryUITouchCollection[0].viewX# < contentStartX#) then OryUITouchCollection[0].viewX# = contentStartX#
 						//SetViewOffset(OryUITouchCollection[0].viewX#, GetViewOffsetY() + GetScreenBoundsTop())
 						if (abs(OryUITouchCollection[0].currentDistanceX#) > 0.5)
+							OryUITouchCollection[0].swipingDistanceX# = abs(OryUITouchCollection[0].currentDistanceX#)
 							OryUITouchCollection[0].swipingHorizontally = 1
+							if (OryUITouchCollection[0].currentDistanceX# < 0)
+								OryUITouchCollection[0].swipingRight = 1
+							endif
+							if (OryUITouchCollection[0].currentDistanceX# > 0)
+								OryUITouchCollection[0].swipingLeft = 1
+							endif
 						endif
 					//endif
 					//if (startY# > contentStartY#)
@@ -238,7 +321,15 @@ function OryUIStartTrackingTouch()
 						//if (OryUITouchCollection[0].viewY# < 0) then OryUITouchCollection[0].viewY# = 0
 						//SetViewOffset(GetViewOffsetX(), OryUITouchCollection[0].viewY#)
 						if (abs(OryUITouchCollection[0].currentDistanceY#) > 0.5)
+							OryUITouchCollection[0].swipingDistanceY# = abs(OryUITouchCollection[0].currentDistanceY#)
 							OryUITouchCollection[0].swipingVertically = 1
+							if (OryUITouchCollection[0].currentDistanceY# < 0)
+								OryUITouchCollection[0].swipingDown = 1
+							endif
+							if (OryUITouchCollection[0].currentDistanceY# > 0)
+								OryUITouchCollection[0].swipingUp = 1
+							endif
+	
 							//if (contentHeight# > 100 - contentStartY#)
 							//	UpdateSprite(sprScrollBar, "size:1," + str((100 - contentStartY#) * (100 / contentHeight#)) + ";position:" + str((screenNo * 10000) + 99) + "," + str(GetScrollBarY(contentStartY#, 100)) + ";alpha:75")
 							//endif
@@ -253,6 +344,7 @@ function OryUIStartTrackingTouch()
 			endif
 		endif
 	endif
+	
 endfunction
 
 foldend
