@@ -1,5 +1,5 @@
 
-foldstart // OryUIButtonGroup Component (Updated 01/03/2020)
+foldstart // OryUIButtonGroup Component (Updated 28/06/2020)
 
 type typeOryUIButtonGroup
 	id as integer
@@ -263,7 +263,7 @@ function OryUIInsertButtonGroupItem(oryUIButtonGroupID as integer, oryUIIndex as
 endfunction
 
 function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth)
+	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth or oryUITouchingTopBar = 1 or oryUITouchingTabs = 1)
 		OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = -1
 		OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = -1
 		exitfunction
@@ -276,17 +276,21 @@ function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
 			if (OryUIGetSwipingVertically() = 0)
 				if (GetPointerPressed())
 					oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+					oryUIButtonGroupItemIconSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIButtonGroupItemText = GetTextHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					if (oryUIButtonGroupItemSprite = 1 or oryUIButtonGroupItemText = 1)
-						OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = oryUIForI + 1
-						OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 1
+					if (GetspriteDepth(OryUIGetSpritePressed()) >= GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon))
+						if (oryUIButtonGroupItemSprite = 1 or oryUIButtonGroupItemIconSprite = 1 or oryUIButtonGroupItemText = 1)
+							OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = oryUIForI + 1
+							OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 1
+						endif
 					endif
 				else
 					if (GetPointerState())
 						oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+						oryUIButtonGroupItemIconSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIButtonGroupItemText = GetTextHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 1)
-							if (oryUIButtonGroupItemSprite = 0 and oryUIButtonGroupItemText = 0)
+							if (oryUIButtonGroupItemSprite = 0 and oryUIButtonGroupItemIconSprite = 0 and oryUIButtonGroupItemText = 0)
 								OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = -1
 								OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 0
 							endif
@@ -294,9 +298,10 @@ function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
 					endif
 					if (GetPointerReleased())
 						oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+						oryUIButtonGroupItemIconSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIButtonGroupItemText = GetTextHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 1)
-							if (oryUIButtonGroupItemSprite = 1 or oryUIButtonGroupItemText = 1)
+							if (oryUIButtonGroupItemSprite = 1 or oryUIButtonGroupItemIconSprite = 1 or oryUIButtonGroupItemText = 1)
 								OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = oryUIForI + 1
 								OryUIButtonGroupCollection[oryUIButtonGroupID].selected = oryUIForI + 1
 								OryUIButtonGroupCollection[oryUIButtonGroupID].selectedChange = 1
