@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 01/03/2020)
+foldstart // OryUIDialog Component (Updated 28/06/2020)
 
 type typeOryUIDialog
 	id as integer
@@ -483,6 +483,12 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 		// THE REST OF THE PARAMETERS NEXT
 		if (oryUIParameters.checkedImageID > -999999)
 			OryUIDialogCollection[oryUIDialogID].checkedImage = oryUIParameters.checkedImageID
+		endif
+		if (oryUIParameters.checkboxColor#[1] > -999999 or oryUIParameters.checkboxColor#[2] > -999999 or oryUIParameters.checkboxColor#[3] > -999999 or oryUIParameters.checkboxColor#[4] > -999999)
+			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprCheckbox, oryUIParameters.checkboxColor#[1], oryUIParameters.checkboxColor#[2], oryUIParameters.checkboxColor#[3], oryUIParameters.checkboxColor#[4])
+		endif
+		if (oryUIParameters.checkboxTextColor#[1] > -999999 or oryUIParameters.checkboxTextColor#[2] > -999999 or oryUIParameters.checkboxTextColor#[3] > -999999 or oryUIParameters.checkboxTextColor#[4] > -999999)
+			SetTextColor(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIParameters.checkboxTextColor#[1], oryUIParameters.checkboxTextColor#[2], oryUIParameters.checkboxTextColor#[3], oryUIParameters.checkboxTextColor#[4])
 		endif
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
 			SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.color#[1], oryUIParameters.color#[2], oryUIParameters.color#[3], oryUIParameters.color#[4])
