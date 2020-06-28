@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 01/03/2020)
+foldstart // OryUITextfield Component (Updated 28/06/2020)
 
 type typeOryUITextfield
 	id as integer
@@ -61,7 +61,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	OryUITextfieldCollection[oryUITextfieldID].editBox = CreateEditBox()
 	SetEditBoxBackgroundColor(OryUITextfieldCollection[oryUITextfieldID].editBox, 232, 232, 232, 255)
 	SetEditBoxBorderSize(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
-	SetEditBoxCursorColor(OryUITextfieldCollection[oryUITextfieldID].editBox, 0, 0, 0)
+	SetEditBoxCursorColor(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.strokeColor#[1], oryUIParameters.strokeColor#[2], oryUIParameters.strokeColor#[3])
 	SetEditBoxUseAlternateInput(OryUITextfieldCollection[oryUITextfieldID].editBox, 0)
 	SetEditBoxSize(OryUITextfieldCollection[oryUITextfieldID].editBox, 72, 4.4)
 	SetEditBoxPosition(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3, GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 2.8)
@@ -75,7 +75,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 2)
 	SetSpriteOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, 0, 0)
 	SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer), (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)) - 0.3)
-
+		
 	OryUITextfieldCollection[oryUITextfieldID].tweenActivationIndicator = CreateTweenSprite(0.2)
 
 	OryUITextfieldCollection[oryUITextfieldID].txtLabel = CreateText("")
@@ -127,7 +127,7 @@ function OryUIGetTextfieldHeight(oryUITextfieldID as integer)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			oryUITextfieldHeight# = GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
 			if (OryUITextfieldCollection[oryUITextfieldID].showHelperText = 1)
-				oryUITextfieldHeight# = oryUITextfieldHeight# + 0.5 + GetTextTotalHeight(OryUITextfieldCollection[oryUITextfieldID].txtHelper)
+				oryUITextfieldHeight# = oryUITextfieldHeight# + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.06849315068) + GetTextTotalHeight(OryUITextfieldCollection[oryUITextfieldID].txtHelper)
 			endif
 		endif
 	endif
@@ -217,20 +217,20 @@ function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 				//	SetViewOffset(GetViewOffsetX(), GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 10.63)
 				//endif
 				OryUITextfieldIDFocused = oryUITextfieldID
-				SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 2.4)
-				SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - 2.4 - 0.3)
+				SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.3287671233)
+				SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.3287671233) - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.04109589041))
 				SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUITextfieldCollection[oryUITextfieldID].strokeColor#[1], OryUITextfieldCollection[oryUITextfieldID].strokeColor#[2], OryUITextfieldCollection[oryUITextfieldID].strokeColor#[3], 255)
 				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer), GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator))
 			else
 				if (OryUITextfieldIDFocused = oryUITextfieldID) then OryUITextfieldIDFocused = -1
 				if (GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox) = "")
-					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 3.6)
-					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (3.6 / 2))
+					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.4931506849)
+					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - ((GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.4931506849) / 2))
 					SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUITextfieldCollection[oryUITextfieldID].textColor#[1], OryUITextfieldCollection[oryUITextfieldID].textColor#[2], OryUITextfieldCollection[oryUITextfieldID].textColor#[3], 140)
 					SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, 0, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator))
 				else
-					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 2.4)
-					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - 2.4 - 0.3)
+					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.3287671233)
+					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.3287671233) - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.04109589041))
 					SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, OryUITextfieldCollection[oryUITextfieldID].strokeColor#[1], OryUITextfieldCollection[oryUITextfieldID].strokeColor#[2], OryUITextfieldCollection[oryUITextfieldID].strokeColor#[3], 255)
 					SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, 0, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator))
 				endif
@@ -247,19 +247,27 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 		if (GetEditBoxExists(OryUITextfieldCollection[oryUITextfieldID].editBox))
 
 			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
-			if (oryUIParameters.size#[1] > -999999 or oryUIParameters.size#[2] > -999999)
+			if (oryUIParameters.size#[1] > -999999)
 				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 				SetEditBoxSize(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 6, GetEditBoxHeight(OryUITextfieldCollection[oryUITextfieldID].editBox))
 				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			endif
+			if (oryUIParameters.size#[2] > -999999)
+				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprContainer, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer), oryUIParameters.size#[2])
+				SetEditBoxSize(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 6, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.602739726)
+				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, 0, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.04109589041)
+				SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.4931506849)
+				SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtHelper, GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.3424657534)
+				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer), GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
+			endif
 			if (oryUIParameters.position#[1] > -999999 or oryUIParameters.position#[2] > -999999)
 				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
-				SetEditBoxPosition(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3, GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 2.8)
-				SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3.4, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (GetTextTotalHeight(OryUITextfieldCollection[oryUITextfieldID].txtLabel) / 2))
-				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer), (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)) - 0.3)
+				SetEditBoxPosition(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.4109589041), GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.3835616438))
+				SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtLabel, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.4657534247), (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - (GetTextTotalHeight(OryUITextfieldCollection[oryUITextfieldID].txtLabel) / 2))
+				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer), (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)) - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.04109589041))
 				SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.position#[1], oryUIParameters.position#[2])
 				if (OryUITextfieldCollection[oryUITextfieldID].showHelperText = 1)
-					SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtHelper, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 3.4, GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + 0.5)
+					SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtHelper, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.4657534247), GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.06849315068))
 				else
 					SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtHelper, -999999, -999999)
 				endif
@@ -290,7 +298,7 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 					if (lower(oryUIParameters.inputText$) = "null") then oryUIParameters.inputText$ = ""
 					SetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.inputText$)
 					SetTextSize(OryUITextfieldCollection[oryUITextfieldID].txtLabel, 2.4)
-					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - 2.4 - 0.3)
+					SetTextY(OryUITextfieldCollection[oryUITextfieldID].txtLabel, (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) / 2)) - 2.4 - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer) * 0.04109589041))
 				endif
 			endif
 			if (oryUIParameters.inputType$ <> "")
@@ -329,6 +337,7 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 					SetTextColor(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.strokeColor#[1], oryUIParameters.strokeColor#[2], oryUIParameters.strokeColor#[3], oryUIParameters.strokeColor#[4])
 				endif
 				SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, oryUIParameters.strokeColor#[1], oryUIParameters.strokeColor#[2], oryUIParameters.strokeColor#[3], oryUIParameters.strokeColor#[4])
+				SetEditBoxCursorColor(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.strokeColor#[1], oryUIParameters.strokeColor#[2], oryUIParameters.strokeColor#[3])
 			endif
 			if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
 				OryUITextfieldCollection[oryUITextfieldID].textColor#[1] = oryUIParameters.textColor#[1]
