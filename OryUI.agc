@@ -7,7 +7,7 @@
  * 	License	: MIT
  */
  
-// OryUI (Updated 01/03/2020)
+// OryUI (Updated 28/06/2020)
 
 foldstart
 
@@ -187,6 +187,11 @@ type typeOryUIDefaults
 	progressIndicatorTrackHeight# as float
 	progressIndicatorTrackWidth# as float
 
+	// OryUIScrollBar
+	scrollBarGripColor# as float[4]
+	scrollBarGripIconColor# as float[4]
+	scrollBarTrackColor# as float[4]
+	
 	// OryUIScrollToTop
 	scrollToTopColor# as float[4]
 	scrollToTopDepth as integer
@@ -234,9 +239,11 @@ type typeOryUIParameters
 	addIconSize# as float[2]
 	addToFront as integer
 	alignment as integer
+	alwaysVisible as integer
 	angle# as float
 	attachToSpriteID as integer
 	autoCorrectIfOutOfRange as integer
+	autoResize as integer
 	autoHeight as integer
 	backgroundColor# as float[4]
 	blockOrder$ as string[]
@@ -251,12 +258,14 @@ type typeOryUIParameters
 	checkboxTextSize# as float
 	checkedImageID as integer
 	color# as float[4]
+	contentSize# as float[2]
 	decimals as integer
 	decisionRequired as integer
 	defaultValue# as float
 	delay# as float
 	depth as integer
 	dialogType$ as string
+	direction$ as string
 	disabledColor# as float[4]
 	disabledIcon$ as string
 	disabledIconColor# as float[4]
@@ -269,7 +278,9 @@ type typeOryUIParameters
 	disabledTextBold as integer						
 	disabledTextColor# as float[4]					
 	disabledTextSize# as float
+	disableKeyboardInput as integer
 	domain$ as string					
+	draggable as integer
 	drawerLocation$ as string
 	drawerType$ as string
 	enabled as integer
@@ -284,13 +295,22 @@ type typeOryUIParameters
 	enabledTextAlignment as integer				
 	enabledTextBold as integer						
 	enabledTextColor# as float[4]					
-	enabledTextSize# as float						
+	enabledTextSize# as float
+	endY# as float		
 	extended as integer
 	file$ as string
 	fileID as integer
 	fixToscreen as integer
 	flexButtons as integer
 	frameShape$ as String
+	gripColor# as float[4]
+	gripIcon$ as string
+	gripIconColor# as float[4]
+	gripIconID as integer
+	gripIconSize# as float[2]
+	gripImageID as integer
+	gripPosition# as float[2]
+	gripSize# as float[2]
 	group as integer
 	headerText$ as string
 	headerTextAlignment as integer
@@ -317,6 +337,7 @@ type typeOryUIParameters
 	indicatorColor# as float[4]
 	inputText$ as string
 	inputType$ as string
+	invisibleGripSize# as float[2]
 	itemHeight# as float
 	itemSize# as float[2]
 	itemType$ as string
@@ -341,11 +362,14 @@ type typeOryUIParameters
 	maxButtonsToDisplay
 	maxLength as integer
 	maxPosition# as float[2]
+	maxView# as float[2]
 	maxZoom# as float
 	multiline as integer
 	min# as float
+	minGripSize# as float[2]
 	mini as integer
 	minPosition# as float[2]
+	minView# as float[2]
 	name$ as String
 	navigationIcon$ as string
 	navigationIconColor# as float[4]
@@ -378,6 +402,7 @@ type typeOryUIParameters
 	rightTextSize# as float
 	saveText$ as string
 	scrollable as integer
+	scrollType$ as string
 	scrimColor# as float[4]
 	script$ as string
 	selected as integer
@@ -388,11 +413,13 @@ type typeOryUIParameters
 	selectedTextSize# as float
 	shadow as integer
 	showCheckbox as integer
+	showGripIcon as integer
 	showHelperText as integer
 	showIcon as integer
 	showItemDivider as integer
 	showLeftIcon as integer
 	showLeftThumbnail as integer
+	showRightButton as integer
 	showRightIcon as integer
 	showRightText as integer
 	showShadow as integer
@@ -431,12 +458,17 @@ type typeOryUIParameters
 	titleTextColor# as float[4]
 	titleTextSize# as float
 	trackColor# as float[4]
+	trackPosition# as float[2]
+	trackSize# as float[2]
 	uncheckedImageID as integer
 	unselectedColor# as float[4]
 	unselectedIconColor# as float[4]
 	unselectedTextBold as integer
 	unselectedTextColor# as float[4]
 	unselectedTextSize# as float
+	wrapList as integer
+	wrapListBottomY# as float
+	wrapListTopY# as float
 endtype
 
 
@@ -460,6 +492,8 @@ global oryUIParameters as typeoryUIParameters
 global oryUIScrimDepth as integer
 global oryUIScrimVisible as integer
 global oryUIStatusBarHeight# as float : oryUIStatusBarHeight# = 3.6
+global oryUITouchingTabs as integer
+global oryUITouchingTopBar as integer
 
 foldend
 
@@ -525,10 +559,12 @@ function OryUIResetParametersType()
 	oryUIParameters.addIconID = -999999
 	oryUIParameters.addToFront = -999999
 	oryUIParameters.alignment = -999999
+	oryUIParameters.alwaysVisible = -999999
 	oryUIParameters.angle# = -999999
 	oryUIParameters.attachToSpriteID = -999999
 	oryUIParameters.autoCorrectIfOutOfRange = -999999
 	oryUIParameters.autoHeight = -999999
+	oryUIParameters.autoResize = -999999
 	oryUIParameters.blockOrder$.length = -1
 	oryUIParameters.bold = -999999
 	oryUIParameters.buttonMargin# = -999999
@@ -544,6 +580,7 @@ function OryUIResetParametersType()
 	oryUIParameters.delay# = -999999
 	oryUIParameters.depth = -999999
 	oryUIParameters.dialogType$ = ""
+	oryUIParameters.direction$ = ""
 	oryUIParameters.disabledIcon$ = ""
 	oryUIParameters.disabledIconID = -999999
 	oryUIParameters.disabledIconPlacement$ = ""
@@ -552,7 +589,9 @@ function OryUIResetParametersType()
 	oryUIParameters.disabledTextAlignment = -999999
 	oryUIParameters.disabledTextBold = -999999
 	oryUIParameters.disabledTextSize# = -999999
+	oryUIParameters.disableKeyboardInput = -999999
 	oryUIParameters.domain$ = ""
+	oryUIParameters.draggable = -999999
 	oryUIParameters.drawerLocation$ = ""
 	oryUIParameters.drawerType$ = ""
 	oryUIParameters.enabled = -999999
@@ -564,12 +603,16 @@ function OryUIResetParametersType()
 	oryUIParameters.enabledTextAlignment = -999999
 	oryUIParameters.enabledTextBold = -999999
 	oryUIParameters.enabledTextSize# = -999999
+	oryUIParameters.endY# = -999999
 	oryUIParameters.extended = -999999
 	oryUIParameters.file$ = ""
 	oryUIParameters.fileID = -999999
 	oryUIParameters.fixToscreen = -999999
 	oryUIParameters.flexButtons = -999999
 	oryUIParameters.frameShape$ = ""
+	oryUIParameters.gripIcon$ = ""
+	oryUIParameters.gripIconID = -999999
+	oryUIParameters.gripImageID = -999999
 	oryUIParameters.group = -999999
 	oryUIParameters.headerText$ = ""
 	oryUIParameters.headerTextAlignment = -999999
@@ -635,6 +678,7 @@ function OryUIResetParametersType()
 	oryUIParameters.saveText$ = ""
 	oryUIParameters.script$ = ""
 	oryUIParameters.scrollable = -999999
+	oryUIParameters.scrollType$ = ""
 	oryUIParameters.selected = -999999
 	oryUIParameters.selectedTextBold = -999999
 	oryUIParameters.selectedTextSize# = -999999	
@@ -645,6 +689,7 @@ function OryUIResetParametersType()
 	oryUIParameters.showItemDivider = -999999
 	oryUIParameters.showLeftIcon = -999999
 	oryUIParameters.showLeftThumbnail = -999999
+	oryUIParameters.showRightButton = -999999
 	oryUIParameters.showRightIcon = -999999
 	oryUIParameters.showRightText = -999999
 	oryUIParameters.showShadow = -999999
@@ -677,15 +722,26 @@ function OryUIResetParametersType()
 	oryUIParameters.uncheckedImageID = -999999
 	oryUIParameters.unselectedTextBold = -999999
 	oryUIParameters.unselectedTextSize# = -999999	
+	oryUIParameters.wrapList = -999999	
+	oryUIParameters.wrapListBottomY# = -999999	
+	oryUIParameters.wrapListTopY# = -999999	
 	for i = 1 to 4
 		if (i < 3)
 			oryUIParameters.addIconSize#[i] = -999999
+			oryUIParameters.contentSize#[i] = -999999
 			oryUIParameters.disabledIconSize#[i] = -999999
 			oryUIParameters.enabledIconSize#[i] = -999999
+			oryUIParameters.gripPosition#[i] = -999999
+			oryUIParameters.gripIconSize#[i] = -999999
+			oryUIParameters.gripSize#[i] = -999999
 			oryUIParameters.iconSize#[i] = -999999
+			oryUIParameters.invisibleGripSize#[i] = -999999
 			oryUIParameters.itemSize#[i] = -999999
 			oryUIParameters.maxPosition#[i] = -999999
+			oryUIParameters.maxView#[i] = -999999
+			oryUIParameters.minGripSize#[i] = -999999
 			oryUIParameters.minPosition#[i] = -999999
+			oryUIParameters.minView#[i] = -999999
 			oryUIParameters.offset#[i] = -999999
 			oryUIParameters.position#[i] = -999999
 			oryUIParameters.size#[i] = -999999
@@ -705,6 +761,8 @@ function OryUIResetParametersType()
 		oryUIParameters.enabledColor#[i] = -999999
 		oryUIParameters.enabledIconColor#[i] = -999999
 		oryUIParameters.enabledTextColor#[i] = -999999
+		oryUIParameters.gripColor#[i] = -999999
+		oryUIParameters.gripIconColor#[i] = -999999
 		oryUIParameters.headerTextColor#[i] = -999999
 		oryUIParameters.helperTextColor#[i] = -999999
 		oryUIParameters.iconColor#[i] = -999999
@@ -744,8 +802,12 @@ function OryUIReturnIconID(oryUIIcon$ as string)
 	oryUIIconID = -999999
 	if (lower(oryUIIcon$) = "add") then oryUIIconID = oryUIIconAddImage
 	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
+	if (lower(oryUIIcon$) = "cancel") then oryUIIconID = oryUIIconCancelImage
 	if (lower(oryUIIcon$) = "camera") then oryUIIconID = oryUIIconCameraImage
+	if (lower(oryUIIcon$) = "edit") then oryUIIconID = oryUIIconEditImage
 	if (lower(oryUIIcon$) = "menu") then oryUIIconID = oryUIIconMenuImage
+	if (lower(oryUIIcon$) = "morehorizontal" or lower(oryUIIcon$) = "morehoriz") then oryUIIconID = oryUIIconMoreHorizontalImage
+	if (lower(oryUIIcon$) = "morevertical" or lower(oryUIIcon$) = "morevert") then oryUIIconID = oryUIIconMoreVerticalImage
 	if (lower(oryUIIcon$) = "profile") then oryUIIconID = oryUIIconProfileImage
 	if (lower(oryUIIcon$) = "refresh") then oryUIIconID = oryUIIconRefreshImage
 	if (lower(oryUIIcon$) = "save") then oryUIIconID = oryUIIconSaveImage
@@ -822,6 +884,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			endif
 		elseif (oryUIVariable$ = "alpha")
 			oryUIParameters.color#[4] = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "alwaysvisible")
+			oryUIParameters.alwaysVisible = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "angle")
 			oryUIParameters.angle# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "attachtospriteid")
@@ -830,6 +894,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.autoCorrectIfOutOfRange = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "autoheight")
 			oryUIParameters.autoHeight = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "autoresize")
+			oryUIParameters.autoResize = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "backgroundcolor" or oryUIVariable$ = "backgroundcolorid")
 			oryUIParameters.backgroundColor# = OryUIConvertColor(oryUIValue$)
 		elseif (OryUIVariable$ = "blockorder")
@@ -856,6 +922,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.checkedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "color" or oryUIVariable$ = "colorid")
 			oryUIParameters.color# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "contentsize")
+			oryUIParameters.contentSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.contentSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "decimals")
 			oryUIParameters.decimals = val(oryUIValue$)
 		elseif (oryUIVariable$ = "decisionrequired")
@@ -868,6 +937,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.depth = val(oryUIValue$)
 		elseif (oryUIVariable$ = "dialogtype")
 			oryUIParameters.dialogType$ = oryUIValue$
+		elseif (oryUIVariable$ = "direction")
+			oryUIParameters.direction$ = oryUIValue$
 		elseif (oryUIVariable$ = "disabledcolor" or oryUIVariable$ = "disabledcolorid")
 			oryUIParameters.disabledColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "disabledicon")
@@ -898,8 +969,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.disabledTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "disabledtextsize")
 			oryUIParameters.disabledTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "disablekeyboardinput")
+			oryUIParameters.disableKeyboardInput = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "domain")
 			oryUIParameters.domain$ = oryUIValue$
+		elseif (oryUIVariable$ = "draggable")
+			oryUIParameters.draggable = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "drawerlocation")
 			if (oryUIValue$ = "bottom")
 				oryUIParameters.drawerLocation$ = "Bottom"
@@ -942,6 +1017,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.enabledTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "enabledtextsize")
 			oryUIParameters.enabledTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "endy")
+			oryUIParameters.endY# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "extended")
 			oryUIParameters.extended = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "file")
@@ -954,6 +1031,26 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.flexButtons = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "frameshape")
 			oryUIParameters.frameShape$ = oryUIValue$
+		elseif (oryUIVariable$ = "gripcolor" or oryUIVariable$ = "gripcolorid")
+			oryUIParameters.gripColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "gripicon")
+			oryUIParameters.gripIcon$ = oryUIValue$
+			oryUIParameters.gripIconID = OryUIReturnIconID(oryUIValue$)
+		elseif (oryUIVariable$ = "gripiconcolor" or oryUIVariable$ = "gripiconcolorid")
+			oryUIParameters.gripIconColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "gripiconid")
+			oryUIParameters.gripIconID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "gripiconsize")
+			oryUIParameters.gripIconSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.gripIconSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "gripimage")
+			oryUIParameters.gripImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "gripposition")
+			oryUIParameters.gripPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.gripPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "gripsize")
+			oryUIParameters.gripSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.gripSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "group")
 			oryUIParameters.group = val(oryUIValue$)
 		elseif (oryUIVariable$ = "headertext")
@@ -1016,6 +1113,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.inputText$ = oryUIValue$
 		elseif (oryUIVariable$ = "inputtype")
 			oryUIParameters.inputType$ = oryUIValue$
+		elseif (oryUIVariable$ = "invisiblegripsize")
+			oryUIParameters.invisibleGripSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.invisibleGripSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "itemheight")
 			oryUIParameters.itemSize#[2] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "itemsize")
@@ -1069,6 +1169,13 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "maxposition")
 			oryUIParameters.maxPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.maxPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "maxview")
+			oryUIParameters.maxView#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.maxView#[2] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+		elseif (oryUIVariable$ = "maxviewx")
+			oryUIParameters.maxView#[1] = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "maxviewy")
+			oryUIParameters.maxView#[2] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "maxx")
 			oryUIParameters.maxPosition#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "maxy")
@@ -1077,11 +1184,21 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.maxZoom# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "min")
 			oryUIParameters.min# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "mingripsize")
+			oryUIParameters.minGripSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.minGripSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "mini")
 			oryUIParameters.mini = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "minposition")
 			oryUIParameters.minPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.minPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "minview")
+			oryUIParameters.minView#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.minView#[2] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+		elseif (oryUIVariable$ = "minviewx")
+			oryUIParameters.minView#[1] = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "minviewy")
+			oryUIParameters.minView#[2] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "minx")
 			oryUIParameters.minPosition#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "miny")
@@ -1162,6 +1279,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.script$ = oryUIValue$
 		elseif (oryUIVariable$ = "scrollable")
 			oryUIParameters.scrollable = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "scrolltype")
+			oryUIParameters.scrollType$ = oryUIValue$
 		elseif (oryUIVariable$ = "selected")
 			oryUIParameters.selected = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "selectedcolor" or oryUIVariable$ = "selectedcolorid")
@@ -1178,6 +1297,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.shadow = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showcheckbox")
 			oryUIParameters.showCheckbox = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "showgripicon")
+			oryUIParameters.showGripIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showhelpertext")
 			oryUIParameters.showHelperText = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showicon")
@@ -1188,6 +1309,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.showLeftIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showleftthumbnail")
 			oryUIParameters.showLeftThumbnail = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "showrightbutton")
+			oryUIParameters.showRightButton = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showrighticon")
 			oryUIParameters.showRightIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showrighttext")
@@ -1291,6 +1414,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.titleTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "trackcolor" or oryUIVariable$ = "trackcolorid")
 			oryUIParameters.trackColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "trackposition")
+			oryUIParameters.trackPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.trackPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "tracksize")
+			oryUIParameters.trackSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.trackSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "uncheckedimageid")
 			oryUIParameters.uncheckedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedcolor" or oryUIVariable$ = "unselectedcolorid")
@@ -1305,6 +1434,12 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.unselectedTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "width")
 			oryUIParameters.size#[1] = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "wraplist")
+			oryUIParameters.wrapList = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "wraplistbottomy")
+			oryUIParameters.wrapListBottomY# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "wraplisttopy")
+			oryUIParameters.wrapListTopY# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "x")
 			oryUIParameters.position#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "y")
