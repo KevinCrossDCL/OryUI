@@ -1,4 +1,63 @@
 
+BUILD 0.10a
+------------------------
+- OryUI
+	- Added "cancel" icon
+	- Added "morehorizontal" icon
+	- Added "morevertical" icon
+	- Added global variable oryUITouchingTabs
+	- Added global variable oryUITouchingTopBar
+
+- OryUIButton
+	- No longer registers hits/taps when under a OryUITopBar or OryUITabs component
+	
+- OryUIButtonGroup
+	- No longer registers hits/taps when under a OryUITopBar or OryUITabs component
+	- No longer registers hits/taps when sprite above the OryUIButtonGroup component is touched.
+
+- oryUIDialog
+	- Added missing parameter 'checkboxTextColor'
+	- Added missing parameter 'checkboxTextColorID'
+
+- OryUIHTTPSQueue
+	- No longer deletes and creates connections after each http request. It now only closes and deletes it once the queue is empty
+	- It will now wait until a response has been received before a new http request in the queue is sent
+
+- OryUIInputSpinner
+	- Added parameter 'disableKeyboardInput'
+
+- OryUIList
+	- Added parameter 'showRightButton'
+	- Added function OryUIGetListItemRightButtonReleased
+	- Added function OryUIGetListX()
+	- Added function OryUIGetListY()
+
+- OryUIMedia
+	- Added oryUIIconCancelImage
+	- Added oryUIIconMoreHorizontalImage
+	- Added oryUIIconMoreVerticalImage
+
+- OryUIScrollBar (New Component)
+
+- OryUITextfield
+	- strokeColor now colors the cursor colour
+	- You can now set the height which will resize everything including the text size to fit
+
+- OryUITouch
+	- Added function OryUIGetSpriteTouching()
+	- Added function OryUIGetSwipingDistanceX()
+	- Added function OryUIGetSwipingDistanceY()
+	- Added function OryUIGetSwipingDown()
+	- Added function OryUIGetSwipingLeft()
+	- Added function OryUIGetSwipingRight()
+	- Added function OryUIGetSwipingUp()
+	- Added function OryUIGetTouchCurrentX()
+	- Added function OryUIGetTouchCurrentY()
+	- Added function OryUIGetTouchStartX()
+	- Added function OryUIGetTouchStartY()
+
+
+
 BUILD 0.9a
 ------------------------
 - Most files
