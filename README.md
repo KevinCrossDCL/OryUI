@@ -1,5 +1,5 @@
 # OryUI
-OryUI (v0.9a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
+OryUI (v0.10a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
 
 With it you can create the following UI components:
 
@@ -15,6 +15,7 @@ With it you can create the following UI components:
 * Navigation Drawers
 * Pagination
 * Progress Indicators
+* Scroll Bars (including Fast Scroller)
 * Scroll To Top Button
 * Sprites
 * Tabs
@@ -46,6 +47,7 @@ To include it in your project add the following line to the top of your script
 #insert "..\OryUI Framework\OryUINavigationDrawer.agc"
 #insert "..\OryUI Framework\OryUIPagination.agc"
 #insert "..\OryUI Framework\OryUIProgressIndicator.agc"
+#insert "..\OryUI Framework\OryUIScrollBar.agc"
 #insert "..\OryUI Framework\OryUIScrollToTop.agc"
 #insert "..\OryUI Framework\OryUISprite.agc"
 #insert "..\OryUI Framework\OryUITabs.agc"
