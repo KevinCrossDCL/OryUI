@@ -390,6 +390,20 @@ oryUIDefaults.progressIndicatorColor#[4] = 225
 
 foldend
 
+foldstart // Default Settings for OryUIScrollBar
+	
+// MAIN
+oryUIDefaults.scrollBarGripColor#[1] = 0
+oryUIDefaults.scrollBarGripColor#[2] = 0
+oryUIDefaults.scrollBarGripColor#[3] = 0
+oryUIDefaults.scrollBarGripColor#[4] = 150
+oryUIDefaults.scrollBarGripIconColor#[1] = 255
+oryUIDefaults.scrollBarGripIconColor#[2] = 255
+oryUIDefaults.scrollBarGripIconColor#[3] = 255
+oryUIDefaults.scrollBarGripIconColor#[4] = 255
+
+foldend
+
 foldstart // Default Settings for OryUIScrollToTop
 
 // MAIN
