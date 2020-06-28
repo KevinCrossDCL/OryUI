@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 01/03/2020)
+foldstart // OryUIButton Component (Updated 28/06/2020)
 
 type typeOryUIButton
 	id as integer
@@ -75,7 +75,7 @@ function OryUIButtonListener(oryUIButtonID as integer)
 		endif
 	endif
 	
-	if (OryUIButtonCollection[oryUIButtonID].enabled = 0 or (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) >= oryUIScrimDepth))
+	if (OryUIButtonCollection[oryUIButtonID].enabled = 0 or (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) >= oryUIScrimDepth) or oryUITouchingTopBar = 1 or oryUITouchingTabs = 1)
 		OryUIButtonCollection[oryUIButtonID].pressed = 0
 		OryUIButtonCollection[oryUIButtonID].held = 0
 		OryUIButtonCollection[oryUIButtonID].released = 0
