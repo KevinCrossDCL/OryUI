@@ -1,5 +1,5 @@
 
-foldstart // OryUIHTTPSQueue Component (Updated 01/03/2020)
+foldstart // OryUIHTTPSQueue Component (Updated 28/06/2020)
 
 type typeOryUIHTTPSQueue
 	id as integer
@@ -187,22 +187,30 @@ function OryUIInsertHTTPSQueueListener(oryUIHTTPSQueueID as integer)
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestScript$ = ""
 
 	if (timer() - OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeLastCalled# > OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].delay# or OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeLastCalled# > timer())
+		// Once the queue is empty close and delete the connection
+		if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) = 0)
+			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http > 0)
+				CloseHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				DeleteHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http = 0
+			endif
+		endif
 		if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) > 0)
 			if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = 0)
-				// If not already sent to the server, close any old connections, recreate a new one, and send the data
-				if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http > 0)
-					CloseHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
-					DeleteHTTPConnection(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http = 0)
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http = CreateHTTPConnection()
+					SetHTTPHost(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl)
+					SetHTTPTimeout(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout)
 				endif
-				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http = CreateHTTPConnection()
-				SetHTTPHost(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl)
-				SetHTTPTimeout(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout)
-				if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ <> "")
-					SendHTTPFile(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$)
-				else
-					SendHTTPRequestASync(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$)	
+				oryUIHTTPResponseCode = GetHTTPResponseReady(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
+				if (oryUIHTTPResponseCode <> 0)
+					if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$ <> "")
+						SendHTTPFile(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].file$)
+					else
+						SendHTTPRequestASync(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].script$, OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].postData$)	
+					endif
+					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = timer()
 				endif
-				OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].sentTime# = timer()
 			else
 				oryUIHTTPResponseCode = GetHTTPResponseReady(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)
 				if (oryUIHTTPResponseCode = -1)
