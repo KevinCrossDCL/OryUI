@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 28/06/2020)
+foldstart // OryUIButton Component (Updated 07/07/2020)
 
 type typeOryUIButton
 	id as integer
@@ -46,6 +46,7 @@ function OryUIButtonListener(oryUIButtonID as integer)
 	local oryUIButtonIconSprite as integer
 	local oryUIButtonSprite as integer
 	local oryUIButtonText as integer
+	
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		oryUIButtonIconSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 		oryUIButtonSprite = GetSpriteHitTest(OryUIButtonCollection[oryUIButtonID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
@@ -84,6 +85,7 @@ endfunction
 
 function OryUICreateButton(oryUIComponentParameters$ as string)
 	local oryUIButtonID as integer
+	
 	OryUIButtonCollection.length = OryUIButtonCollection.length + 1
 	oryUIButtonID = OryUIButtonCollection.length
 	OryUIButtonCollection[oryUIButtonID].id = oryUIButtonID
@@ -171,7 +173,8 @@ function OryUIEnableButton(oryUIButtonID as integer)
 endfunction
 
 function OryUIGetButtonHeight(oryUIButtonID as integer)
-	local oryUIButtonHeight#
+	local oryUIButtonHeight# as float
+	
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		oryUIButtonHeight# = GetSpriteHeight(OryUIButtonCollection[oryUIButtonID].sprContainer)
 	endif
@@ -190,21 +193,24 @@ function OryUIGetButtonReleased(oryUIButtonID as integer)
 endfunction OryUIButtonCollection[oryUIButtonID].released
 
 function OryUIGetButtonWidth(oryUIButtonID as integer)
-	local oryUIButtonWidth#
+	local oryUIButtonWidth# as float
+	
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		oryUIButtonWidth# = GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprContainer)
 	endif
 endfunction oryUIButtonWidth#
 
 function OryUIGetButtonX(oryUIButtonID as integer)
-	local oryUIButtonX#
+	local oryUIButtonX# as float
+	
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		oryUIButtonX# = GetSpriteX(OryUIButtonCollection[oryUIButtonID].sprContainer)
 	endif
 endfunction oryUIButtonX#
 
 function OryUIGetButtonY(oryUIButtonID as integer)
-	local oryUIButtonY#
+	local oryUIButtonY# as float
+	
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		oryUIButtonY# = GetSpriteY(OryUIButtonCollection[oryUIButtonID].sprContainer)
 	endif
@@ -213,6 +219,11 @@ endfunction oryUIButtonY#
 function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
+	local oryUIIconAndLabelHeight# as float
+	local oryUIIconAndLabelOffsetX# as float
+	local oryUIIconAndLabelOffsetY# as float
+	local oryUIIconAndLabelWidth# as float	
+			
 	if (GetSpriteExists(OryUIButtonCollection[oryUIButtonID].sprContainer))
 		
 		// PARAMETERS FOR SINGLE STATE
