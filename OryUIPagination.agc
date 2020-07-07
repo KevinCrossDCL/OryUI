@@ -1,5 +1,5 @@
 
-foldstart // OryUIPagination Component (Updated 19/08/2019)
+foldstart // OryUIPagination Component (Updated 07/07/2020)
 
 type typeOryUIPagination
 	id as integer
@@ -143,7 +143,8 @@ function OryUIDeletePaginationButton(oryUIPaginationID as integer, oryUIPaginati
 endfunction
 
 function OryUIGetPaginationHeight(oryUIPaginationID as integer)
-	local oryUIPaginationHeight#
+	local oryUIPaginationHeight# as float
+	
 	oryUIPaginationHeight# = 0
 	if (GetSpriteExists(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
 		oryUIPaginationHeight# = GetSpriteHeight(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
@@ -151,12 +152,14 @@ function OryUIGetPaginationHeight(oryUIPaginationID as integer)
 endfunction oryUIPaginationHeight#
 
 function OryUIGetPaginationButtonCount(oryUIPaginationID as integer)
-	local oryUIPaginationButtonCount
+	local oryUIPaginationButtonCount as integer
+	
 	oryUIPaginationButtonCount = OryUIPaginationCollection[oryUIPaginationID].buttons.length + 1
 endfunction oryUIPaginationButtonCount
 
 function OryUIGetPaginationButtonHeight(oryUIPaginationID as integer, oryUIButtonID as integer)
-	local oryUIPaginationButtonHeight#
+	local oryUIPaginationButtonHeight# as float
+	
 	oryUIPaginationButtonHeight# = 0
 	if (GetSpriteExists(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIButtonID - 1].sprContainer))
 		oryUIPaginationButtonHeight# = GetSpriteHeight(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIButtonID - 1].sprContainer)
@@ -204,7 +207,8 @@ endfunction oryUIPaginationButtonSelectedName$
 remend
 
 function OryUIGetPaginationButtonWidth(oryUIPaginationID as integer, oryUIPaginationButtonID as integer)
-	local oryUIPaginationButtonWidth#
+	local oryUIPaginationButtonWidth# as float
+	
 	if (GetSpriteExists(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID - 1].sprContainer))
 		oryUIPaginationButtonWidth# = GetSpriteWidth(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID - 1].sprContainer)
 	endif
@@ -212,16 +216,19 @@ endfunction oryUIPaginationButtonWidth#
 
 function OryUIGetPaginationChanged(oryUIPaginationID as integer)
 	local oryUIPaginationChanged as integer
+	
 	if (OryUIPaginationCollection[oryUIPaginationID].buttonReleased > 0) then oryUIPaginationChanged = 1
 endfunction oryUIPaginationChanged
 
 function OryUIGetPaginationSelectedPage(oryUIPaginationID as integer)
 	local oryUIPaginationSelectedPage as integer
+	
 	if (OryUIPaginationCollection[oryUIPaginationID].pageSelected > 0) then oryUIPaginationSelectedPage = OryUIPaginationCollection[oryUIPaginationID].pageSelected
 endfunction oryUIPaginationSelectedPage
 
 function OryUIGetPaginationWidth(oryUIPaginationID as integer)
-	local oryUIPaginationWidth#
+	local oryUIPaginationWidth# as float
+	
 	if (GetSpriteExists(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
 		oryUIPaginationWidth# = GetSpriteWidth(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 	endif
@@ -229,6 +236,7 @@ endfunction oryUIPaginationWidth#
 
 function OryUIGetPaginationX(oryUIPaginationID as integer)
 	local oryUIPaginationX# as float
+	
 	if (OryUIPaginationCollection[oryUIPaginationID].visible = 1)
 		oryUIPaginationX# = GetSpriteX(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 	endif
@@ -236,6 +244,7 @@ endfunction oryUIPaginationX#
 
 function OryUIGetPaginationY(oryUIPaginationID as integer)
 	local oryUIPaginationY# as float
+	
 	if (OryUIPaginationCollection[oryUIPaginationID].visible = 1)
 		oryUIPaginationY# = GetSpriteY(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 	endif
@@ -243,6 +252,7 @@ endfunction oryUIPaginationY#
 
 function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginationIndex as integer, oryUIComponentParameters$ as string)
 	local oryUIPaginationButtonID as integer
+	
 	if (oryUIPaginationIndex = -1)
 		OryUIPaginationCollection[oryUIPaginationID].buttons.length = OryUIPaginationCollection[oryUIPaginationID].buttons.length + 1
 		oryUIPaginationButtonID = OryUIPaginationCollection[oryUIPaginationID].buttons.length
@@ -276,6 +286,7 @@ function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginati
 endfunction
 
 function OryUIInsertPaginationListener(oryUIPaginationID as integer)
+	local oryUIForI as integer
 	local oryUIPaginationContainerSprite as integer
 	local oryUIPaginationButtonSprite as integer
 
@@ -348,9 +359,14 @@ function OryUIInsertPaginationListener(oryUIPaginationID as integer)
 endfunction
 
 function OryUIResizeAndPositionButtonsInPagination(oryUIPaginationID as integer)
+	local oryUIForI as integer
 	local oryUIPaginationButtonsWidth# as float
+	local oryUIPaginationMax as integer
+	local oryUIPaginationMin as integer
+	local oryUIPaginationNumberedPageButtons as integer
 	local oryUIPaginationNumberOfButtons as integer
 	local oryUIPaginationX# as float
+	
 	oryUIPaginationX# = GetSpriteX(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 	if (OryUIPaginationCollection[oryUIPaginationID].flexButtons = 1)
 		if (OryUIPaginationCollection[oryUIPaginationID].buttons.length + 1 > OryUIPaginationCollection[oryUIPaginationID].maxButtonsToDisplay)
@@ -495,7 +511,9 @@ function OryUIResizeAndPositionButtonsInPagination(oryUIPaginationID as integer)
 endfunction
 
 function OryUISetPaginationButtonCount(oryUIPaginationID as integer, oryUINewPaginationButtonCount as integer)
-	local oryUIOldPaginationButtonCount
+	local oryUIForI as integer
+	local oryUIOldPaginationButtonCount as integer
+	
 	oryUIOldPaginationButtonCount = OryUIGetPaginationButtonCount(oryUIPaginationID) - 1
 	while (OryUIGetPaginationButtonCount(oryUIPaginationID) - 1 > oryUINewPaginationButtonCount - 1)
 		OryUIDeletePaginationButton(oryUIPaginationID, OryUIGetPaginationButtonCount(oryUIPaginationID) - 1)
