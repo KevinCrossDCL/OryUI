@@ -7,7 +7,7 @@
  * 	License	: MIT
  */
  
-// OryUI (Updated 28/06/2020)
+// OryUI (Updated 07/07/2020)
 
 foldstart
 
