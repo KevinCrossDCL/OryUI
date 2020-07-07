@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 28/06/2020)
+foldstart // OryUIDialog Component (Updated 07/07/2020)
 
 type typeOryUIDialog
 	id as integer
@@ -42,6 +42,7 @@ OryUIDialogCollection.length = 1
 
 function OryUICreateDialog(oryUIComponentParameters$ as string)
 	local oryUIDialogID as integer
+	
 	OryUIDialogCollection.length = OryUIDialogCollection.length + 1
 	oryUIDialogID = OryUIDialogCollection.length
 	OryUIDialogCollection[oryUIDialogID].id = oryUIDialogID
@@ -121,12 +122,14 @@ function OryUIDeleteDialogButton(oryUIDialogID as integer, oryUIButtonID as inte
 endfunction
 
 function OryUIGetDialogButtonCount(oryUIDialogID as integer)
-	local oryUIDialogButtonCount
+	local oryUIDialogButtonCount as integer
+	
 	oryUIDialogButtonCount = OryUIDialogCollection[oryUIDialogID].buttons.length + 1
 endfunction oryUIDialogButtonCount
 
 function OryUIGetDialogButtonHeight(oryUIDialogID as integer, oryUIButtonID as integer)
-	local oryUIDialogButtonHeight#
+	local oryUIDialogButtonHeight# as float
+	
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer))
 		oryUIDialogButtonHeight# = GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer)
 	endif
@@ -134,12 +137,14 @@ endfunction oryUIDialogButtonHeight#
 
 function OryUIGetDialogButtonReleasedByIndex(oryUIDialogID as integer, oryUIDialogButtonIndex as integer)
 	local oryUIDialogButtonReleased as integer
+	
 	oryUIDialogButtonReleased = 0
 	if (OryUIDialogCollection[oryUIDialogID].buttonReleased = oryUIDialogButtonIndex) then oryUIDialogButtonReleased = 1
 endfunction oryUIDialogButtonReleased
 
 function OryUIGetDialogButtonReleasedByName(oryUIDialogID as integer, oryUIDialogButtonName$ as string)
 	local oryUIDialogButtonReleased as integer
+	
 	oryUIDialogButtonReleased = 0
 	if (OryUIDialogCollection[oryUIDialogID].buttonReleased > 0)
 		if (lower(OryUIDialogCollection[oryUIDialogID].buttons[OryUIDialogCollection[oryUIDialogID].buttonReleased - 1].name$) = lower(oryUIDialogButtonName$)) then oryUIDialogButtonReleased = 1
@@ -148,18 +153,21 @@ endfunction oryUIDialogButtonReleased
 
 function OryUIGetDialogButtonReleasedIndex(oryUIDialogID as integer)
 	local oryUIDialogButtonReleasedIndex as integer
+	
 	oryUIDialogButtonReleasedIndex = OryUIDialogCollection[oryUIDialogID].buttonReleased
 endfunction oryUIDialogButtonReleasedIndex
 
 function OryUIGetDialogButtonReleasedName(oryUIDialogID as integer)
 	local oryUIDialogButtonReleasedName$ as string
+	
 	if (OryUIDialogCollection[oryUIDialogID].buttonReleased > 0)
 		oryUIDialogButtonReleasedName$ = OryUIDialogCollection[oryUIDialogID].buttons[OryUIDialogCollection[oryUIDialogID].buttonReleased - 1].name$
 	endif
 endfunction oryUIDialogButtonReleasedName$
 
 function OryUIGetDialogButtonWidth(oryUIDialogID as integer, oryUIButtonID as integer)
-	local oryUIDialogButtonWidth#
+	local oryUIDialogButtonWidth# as float
+	
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer))
 		oryUIDialogButtonWidth# = GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer)
 	endif
@@ -170,14 +178,16 @@ function OryUIGetDialogChecked(oryUIDialogID as integer)
 endfunction OryUIDialogCollection[oryUIDialogID].checked
 
 function OryUIGetDialogHeight(oryUIDialogID as integer)
-	local oryUIDialogHeight#
+	local oryUIDialogHeight# as float
+	
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].sprContainer))
 		oryUIDialogHeight# = GetSpriteHeight(OryUIDialogCollection[oryUIDialogID].sprContainer)
 	endif
 endfunction oryUIDialogHeight#
 
 function OryUIGetDialogWidth(oryUIDialogID as integer)
-	local oryUIDialogWidth#
+	local oryUIDialogWidth# as float
+	
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].sprContainer))
 		oryUIDialogWidth# = GetSpriteWidth(OryUIDialogCollection[oryUIDialogID].sprContainer)
 	endif
@@ -188,6 +198,8 @@ function OryUIGetDialogVisible(oryUIDialogID as integer)
 endfunction oryUIDialogVisible
 
 function OryUIHideDialog(oryUIDialogID as integer)
+	local oryUIForI as integer
+	
 	oryUIScrimVisible = 0
 	oryUIBlockScreenScrolling = 0
 	oryUIDialogVisible = 0
@@ -208,6 +220,7 @@ endfunction
 
 function OryUIInsertDialogButton(oryUIDialogID as integer, oryUIIndex as integer, oryUIComponentParameters$ as string)
 	local oryUIDialogButtonID as integer
+	
 	if (oryUIIndex = -1)
 		OryUIDialogCollection[oryUIDialogID].buttons.length = OryUIDialogCollection[oryUIDialogID].buttons.length + 1
 		oryUIDialogButtonID = OryUIDialogCollection[oryUIDialogID].buttons.length
@@ -234,6 +247,12 @@ endfunction
 
 function OryUIInsertDialogListener(oryUIDialogID as integer)
 	local oryUIDialogButtonSprite as integer
+	local oryUIDialogCheckboxSprite as integer
+	local oryUIDialogCheckboxText as integer
+	local oryUIDialogContainerSprite as integer
+	local oryUIDialogScrimSprite as integer
+	local oryUIForI as integer
+	
 	OryUIDialogCollection[oryUIDialogID].buttonPressed = -1
 	OryUIDialogCollection[oryUIDialogID].buttonReleased = -1
 	if (GetRawKeyPressed(27) and OryUIDialogCollection[oryUIDialogID].visible = 1)
@@ -303,7 +322,9 @@ function OryUIInsertDialogListener(oryUIDialogID as integer)
 endfunction
 
 function OryUISetDialogButtonCount(oryUIDialogID as integer, oryUINewDialogButtonCount as integer)
-	local oryUIOldDialogButtonCount
+	local oryUIForI as integer
+	local oryUIOldDialogButtonCount as integer
+	
 	oryUIOldDialogButtonCount = OryUIGetDialogButtonCount(oryUIDialogID) - 1
 	while (OryUIGetDialogButtonCount(oryUIDialogID) - 1 > oryUINewDialogButtonCount - 1)
 		OryUIDeleteDialogButton(oryUIDialogID, OryUIGetDialogButtonCount(oryUIDialogID) - 1)
@@ -318,6 +339,7 @@ endfunction
 function OryUIShowDialog(oryUIDialogID as integer)
 	local oryUIButtonWidth# as float
 	local oryUICheckboxHeight# as float
+	local oryUIForI as integer
 	local oryUILastButtonX# as float
 	local oryUILastButtonY# as float
 	local oryUITotalCheckboxWidth# as float
