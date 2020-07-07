@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 28/06/2020)
+foldstart // OryUITextfield Component (Updated 07/07/2020)
 
 type typeOryUITextfield
 	id as integer
@@ -31,9 +31,9 @@ OryUITextfieldCollection.length = 1
 global OryUITextfieldIDFocused as integer : OryUITextfieldIDFocused = -1
 
 function OryUIAnyTextfieldFocused()
-	local oryUIAnyTextfieldFocused
-	if (OryUITextfieldIDFocused >= 0) then oryUIAnyTextfieldFocused = 1
-endfunction oryUIAnyTextfieldFocused
+	local oryUIIsAnyTextfieldFocused as integer
+	if (OryUITextfieldIDFocused >= 0) then oryUIIsAnyTextfieldFocused = 1
+endfunction oryUIIsAnyTextfieldFocused
 
 function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	local oryUITextfieldID as integer
@@ -122,7 +122,7 @@ function OryUIGetTextfieldHasFocus(oryUITextfieldID as integer)
 endfunction oryUITextfieldHasFocus
 
 function OryUIGetTextfieldHeight(oryUITextfieldID as integer)
-	local oryUITextfieldHeight#
+	local oryUITextfieldHeight# as float
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			oryUITextfieldHeight# = GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
@@ -134,7 +134,7 @@ function OryUIGetTextfieldHeight(oryUITextfieldID as integer)
 endfunction oryUITextfieldHeight#
 
 function OryUIGetTextfieldString(oryUITextfieldID as integer)
-	local oryUITextfieldString$
+	local oryUITextfieldString$ as string
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			oryUITextfieldString$ = GetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox)
@@ -143,7 +143,7 @@ function OryUIGetTextfieldString(oryUITextfieldID as integer)
 endfunction oryUITextfieldString$
 
 function OryUIGetTextfieldWidth(oryUITextfieldID as integer)
-	local oryUITextfieldWidth#
+	local oryUITextfieldWidth# as float
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			oryUITextfieldWidth# = GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
@@ -152,7 +152,7 @@ function OryUIGetTextfieldWidth(oryUITextfieldID as integer)
 endfunction oryUITextfieldWidth#
 
 function OryUIGetTextfieldX(oryUITextfieldID as integer)
-	local oryUITextfieldX#
+	local oryUITextfieldX# as float
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			oryUITextfieldX# = GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
@@ -161,7 +161,7 @@ function OryUIGetTextfieldX(oryUITextfieldID as integer)
 endfunction oryUITextfieldX#
 
 function OryUIGetTextfieldY(oryUITextfieldID as integer)
-	local oryUITextfieldY#
+	local oryUITextfieldY# as float
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 			oryUITextfieldY# = GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
@@ -172,6 +172,8 @@ endfunction oryUITextfieldY#
 
 function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 	if (oryUIScrimVisible = 1) then exitfunction
+	
+	local oryUITextfieldIvisibleCoverSprite as integer
 	
 	//local oryUITextfieldSprite as integer
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
