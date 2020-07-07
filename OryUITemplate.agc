@@ -1,6 +1,6 @@
 // This is a template file to use for future components
 
-foldstart // OryUITemplate Component (Updated 01/03/2020)
+foldstart // OryUITemplate Component (Updated 07/07/2020)
 
 type typeOryUITemplate
 	id as integer
@@ -70,7 +70,8 @@ function OryUIDeleteTemplateItem(oryUITemplateID as integer, oryUITemplateItemID
 endfunction
 
 function OryUIGetTemplateHeight(oryUITemplateID as integer)
-	local oryUITemplateHeight#
+	local oryUITemplateHeight# as float
+
 	oryUITemplateHeight# = 0
 	for oryUIForI = 0 to OryUIGetTemplateItemCount(oryUITemplateID) - 1
 		if (GetSpriteExists(OryUITemplateCollection[oryUITemplateID].items[oryUIForI].sprContainer))
@@ -80,7 +81,8 @@ function OryUIGetTemplateHeight(oryUITemplateID as integer)
 endfunction oryUITemplateHeight#
 
 function OryUIGetTemplateItemCount(oryUITemplateID as integer)
-	local oryUITemplateItemCount
+	local oryUITemplateItemCount as integer
+	
 	oryUITemplateItemCount = OryUITemplateCollection[oryUITemplateID].items.length + 1
 endfunction oryUITemplateItemCount
 
