@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Component (Updated 28/06/2020)
+foldstart // OryUIList Component (Updated 07/07/2020)
 
 type typeOryUIList
 	id as integer
@@ -94,9 +94,10 @@ function OryUIDeleteListItem(oryUIListID as integer, oryUIListItemID as integer)
 endfunction
 
 function OryUIGetListHeight(oryUIListID as integer)
-	local oryUIListEndY#
-	local oryUIListHeight#
-	local oryUIListStartY#
+	local oryUIForI as integer
+	local oryUIListEndY# as float
+	local oryUIListHeight# as float
+	local oryUIListStartY# as float
 	oryUIListStartY# = GetSpriteY(OryUIListCollection[oryUIListID].sprContainer)
 	for oryUIForI = OryUIGetListItemCount(oryUIListID) - 1 to 0 step -1
 		if (GetSpriteExists(OryUIListCollection[oryUIListID].sprItemContainer[oryUIForI]))
@@ -108,18 +109,8 @@ function OryUIGetListHeight(oryUIListID as integer)
 	if (oryUIListHeight# < 0) then oryUIListHeight# = 0
 endfunction oryUIListHeight#
 
-function OryUIGetListX(oryUIListID as integer)
-	local oryUIListX#
-	oryUIListX# = GetSpriteX(OryUIListCollection[oryUIListID].sprContainer)
-endfunction oryUIListX#
-
-function OryUIGetListY(oryUIListID as integer)
-	local oryUIListY#
-	oryUIListY# = GetSpriteY(OryUIListCollection[oryUIListID].sprContainer)
-endfunction oryUIListY#
-
 function OryUIGetListItemCount(oryUIListID as integer)
-	local oryUIListItemCount
+	local oryUIListItemCount as integer
 	oryUIListItemCount = OryUIListCollection[oryUIListID].itemID.length + 1
 endfunction oryUIListItemCount
 
@@ -138,7 +129,19 @@ function OryUIGetListItemRightIconReleasedType(oryUIListID as integer)
 	endif
 endfunction oryUIListItemRightIconType$
 
+function OryUIGetListX(oryUIListID as integer)
+	local oryUIListX# as float
+	oryUIListX# = GetSpriteX(OryUIListCollection[oryUIListID].sprContainer)
+endfunction oryUIListX#
+
+function OryUIGetListY(oryUIListID as integer)
+	local oryUIListY# as float
+	oryUIListY# = GetSpriteY(OryUIListCollection[oryUIListID].sprContainer)
+endfunction oryUIListY#
+
 function OryUIInsertListItem(oryUIListID as integer, oryUIListIndex as integer, oryUIComponentParameters$ as string)
+	local oryUIListItemID as integer
+	
 	if (oryUIListIndex = -1)
 		OryUIListCollection[oryUIListID].btnRight.length = OryUIListCollection[oryUIListID].btnRight.length + 1
 		OryUIListCollection[oryUIListID].itemID.length = OryUIListCollection[oryUIListID].itemID.length + 1
@@ -228,6 +231,7 @@ endfunction
 function OryUIInsertListListener(oryUIListID as integer)
 	if (oryUIScrimVisible = 1) then exitfunction
 
+	local oryUIForI as integer
 	local oryUIListItemRightIconReleased as integer
 	local oryUIListItemRightIconSprite as integer
 
@@ -276,7 +280,9 @@ function OryUIInsertListListener(oryUIListID as integer)
 endfunction
 
 function OryUISetListItemCount(oryUIListID as integer, oryUINewListItemCount as integer)
-	local oryUIOldListItemCount
+	local oryUIForI as integer
+	local oryUIOldListItemCount as integer
+	
 	if (oryUINewListItemCount > 0)
 		oryUIOldListItemCount = OryUIGetListItemCount(oryUIListID) - 1
 		while (OryUIGetListItemCount(oryUIListID) - 1 > oryUINewListItemCount - 1)
