@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Component (Updated 01/03/2020)
+foldstart // OryUINavigationDrawer Component (Updated 07/07/2020)
 
 type typeOryUINavigationDrawer
 	id as integer
@@ -116,7 +116,8 @@ function OryUIDeleteNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 endfunction
 
 function OryUIGetNavigationDrawerHeight(oryUINavigationDrawerID as integer)
-	local oryUINavigationDrawerHeight#
+	local oryUIForI as integer
+	local oryUINavigationDrawerHeight# as float
 	oryUINavigationDrawerHeight# = OryUIStatusBarHeight#
 	for oryUIForI = 0 to OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID) - 1
 		if (GetSpriteExists(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUIForI].sprContainer))
@@ -127,7 +128,7 @@ function OryUIGetNavigationDrawerHeight(oryUINavigationDrawerID as integer)
 endfunction oryUINavigationDrawerHeight#
 
 function OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID as integer)
-	local oryUINavigationDrawerItemCount
+	local oryUINavigationDrawerItemCount as integer
 	oryUINavigationDrawerItemCount = OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length + 1
 endfunction oryUINavigationDrawerItemCount
 
@@ -176,6 +177,7 @@ function OryUIGetNavigationDrawerY(oryUINavigationDrawerID as integer)
 endfunction oryUINavigationDrawerY#
 
 function OryUIHideNavigationDrawer(oryUINavigationDrawerID as integer)
+	local oryUIForI as integer
 	oryUIScrimVisible = 0
 	oryUIBlockScreenScrolling = 0
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].visible = 0
@@ -278,6 +280,7 @@ function OryUIInsertNavigationDrawerListener(oryUINavigationDrawerID as integer)
 		exitfunction
 	endif
 
+	local oryUIForI as integer
 	local oryUINavigationDrawerContainerSprite as integer
 	local oryUINavigationDrawerDistanceY# as float
 	local oryUINavigationDrawerItemSprite as integer
@@ -371,8 +374,10 @@ function OryUIInsertNavigationDrawerListener(oryUINavigationDrawerID as integer)
 endfunction
 
 function OryUIPositionItemsInNavigationDrawer(oryUINavigationDrawerID as integer)
+	local oryUIForI as integer
 	local oryUINavigationDrawerItemHeight# as float
 	local oryUINavigationDrawerItemY# as float
+	
 	oryUINavigationDrawerItemY# = OryUIStatusBarHeight#
 
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, GetSpriteX(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), GetViewOffsetY() + GetScreenBoundsTop())
@@ -420,7 +425,9 @@ function OryUIPositionItemsInNavigationDrawer(oryUINavigationDrawerID as integer
 endfunction
 
 function OryUISetNavigationDrawerItemCount(oryUINavigationDrawerID as integer, oryUINewNavigationDrawerItemCount as integer)
-	local oryUIOldNavigationDrawerItemCount
+	local oryUIForI as integer
+	local oryUIOldNavigationDrawerItemCount as integer
+	
 	oryUIOldNavigationDrawerItemCount = OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID) - 1
 	while (OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID) - 1 > oryUINewNavigationDrawerItemCount - 1)
 		OryUIDeleteNavigationDrawerItem(oryUINavigationDrawerID, OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID) - 1)
@@ -438,6 +445,8 @@ function OryUISetNavigationDrawerItemSelectedByIndex(oryUINavigationDrawerID as 
 endfunction
 
 function OryUISetNavigationDrawerItemSelectedByName(oryUINavigationDrawerID as integer, oryUIItemName$ as string)
+	local oryUIForI as integer
+	
 	for oryUIForI = 0 to OryUIGetNavigationDrawerItemCount(oryUINavigationDrawerID) - 1
 		if (lower(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUIForI].name$) = lower(oryUIItemName$))
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].selected = oryUIForI + 1
@@ -447,6 +456,8 @@ function OryUISetNavigationDrawerItemSelectedByName(oryUINavigationDrawerID as i
 endfunction
 
 function OryUIShowNavigationDrawer(oryUINavigationDrawerID as integer)
+	local oryUINavigationDrawerHeight# as float
+	
 	oryUIScrimDepth = GetSpriteDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim)
 	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
