@@ -1,5 +1,5 @@
 
-foldstart // OryUIMenu Component (Updated 01/03/2020)
+foldstart // OryUIMenu Component (Updated 07/07/2020)
 
 type typeOryUIMenu
 	id as integer
@@ -76,7 +76,8 @@ function OryUIDeleteMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer)
 endfunction
 
 function OryUIGetMenuHeight(oryUIMenuID as integer)
-	local oryUIMenuHeight#
+	local oryUIForI as integer
+	local oryUIMenuHeight# as float
 	oryUIMenuHeight# = 0
 	for oryUIForI = 0 to OryUIGetMenuItemCount(oryUIMenuID) - 1
 		if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
@@ -86,7 +87,7 @@ function OryUIGetMenuHeight(oryUIMenuID as integer)
 endfunction oryUIMenuHeight#
 
 function OryUIGetMenuItemCount(oryUIMenuID as integer)
-	local oryUIMenuItemCount
+	local oryUIMenuItemCount as integer
 	oryUIMenuItemCount = OryUIMenuCollection[oryUIMenuID].items.length + 1
 endfunction oryUIMenuItemCount
 
@@ -135,6 +136,7 @@ function OryUIGetMenuY(oryUIMenuID as integer)
 endfunction oryUIMenuY#
 
 function OryUIHideMenu(oryUIMenuID as integer)
+	local oryUIForI as integer
 	oryUIScrimVisible = 0
 	oryUIBlockScreenScrolling = 0
 	OryUIMenuCollection[oryUIMenuID].visible = 0
@@ -198,6 +200,8 @@ function OryUIInsertMenuListener(oryUIMenuID as integer)
 		exitfunction
 	endif
 
+	local oryUIForI as integer
+	local oryUIMenuContainerSprite as integer
 	local oryUIMenuScrimSprite as integer
 	local oryUIMenuItemSprite as integer
 
@@ -261,7 +265,9 @@ function OryUIInsertMenuListener(oryUIMenuID as integer)
 endfunction
 
 function OryUISetMenuItemCount(oryUIMenuID as integer, oryUINewMenuItemCount as integer)
-	local oryUIOldMenuItemCount
+	local oryUIForI as integer
+	local oryUIOldMenuItemCount as integer
+	
 	oryUIOldMenuItemCount = OryUIGetMenuItemCount(oryUIMenuID) - 1
 	while (OryUIGetMenuItemCount(oryUIMenuID) - 1 > oryUINewMenuItemCount - 1)
 		OryUIDeleteMenuItem(oryUIMenuID, OryUIGetMenuItemCount(oryUIMenuID) - 1)
@@ -274,6 +280,9 @@ function OryUISetMenuItemCount(oryUIMenuID as integer, oryUINewMenuItemCount as 
 endfunction
 
 function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
+	local oryUIForI as integer
+	local oryUIMenuHeight# as float
+	
 	oryUIScrimDepth = GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprScrim)
 	oryUIScrimVisible = 1
 	oryUIBlockScreenScrolling = 1
