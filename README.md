@@ -1,5 +1,5 @@
 # OryUI
-OryUI (v0.10a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
+OryUI (v0.11a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
 
 With it you can create the following UI components:
 
@@ -28,6 +28,8 @@ With it you can create the following UI components:
 OryUI at the moment is set to work with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps so it's not a high priority for me). This is an important fact to consider because a button 30% wide and 5% high will look much smaller if you're not using percentages because it will actually be sized as 30px wide and 5px high. Another example is the Edit Avatar screen which fills the screen when using percentages, but looks silly on pixel based positioning and sizing because it only fills 100x100 pixels of the screen.
 
 It's in an early stage of development so you may only want to play around with it and not put it in a live app (although I am). How components are called and displayed may change slightly. All effort would be taken to make sure future changes made will not break old code in your app.
+
+OryUI works with programs that use #option_explicit.
 
 ## Installation
 To include it in your project add the following line to the top of your script
