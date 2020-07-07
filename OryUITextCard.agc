@@ -1,5 +1,5 @@
 
-foldstart // OryUITextCard Component (Updated 01/03/2020)
+foldstart // OryUITextCard Component (Updated 07/07/2020)
 
 type typeOryUITextCard
 	id as integer
@@ -50,28 +50,28 @@ function OryUIDeleteTextCard(oryUITextCardID as integer)
 endfunction
 
 function OryUIGetTextCardHeight(oryUITextCardID as integer)
-	local oryUITextCardHeight#
+	local oryUITextCardHeight# as float
 	if (GetSpriteExists(OryUITextCardCollection[oryUITextCardID].sprContainer))
 		oryUITextCardHeight# = GetSpriteHeight(OryUITextCardCollection[oryUITextCardID].sprContainer)
 	endif
 endfunction oryUITextCardHeight#
 
 function OryUIGetTextCardWidth(oryUITextCardID as integer)
-	local oryUITextCardWidth#
+	local oryUITextCardWidth# as float
 	if (GetSpriteExists(OryUITextCardCollection[oryUITextCardID].sprContainer))
 		oryUITextCardWidth# = GetSpriteWidth(OryUITextCardCollection[oryUITextCardID].sprContainer)
 	endif
 endfunction oryUITextCardWidth#
 
 function OryUIGetTextCardX(oryUITextCardID as integer)
-	local oryUITextCardX#
+	local oryUITextCardX# as float
 	if (GetSpriteExists(OryUITextCardCollection[oryUITextCardID].sprContainer))
 		oryUITextCardX# = GetSpriteX(OryUITextCardCollection[oryUITextCardID].sprContainer)
 	endif
 endfunction oryUITextCardX#
 
 function OryUIGetTextCardY(oryUITextCardID as integer)
-	local oryUITextCardY#
+	local oryUITextCardY# as float
 	if (GetSpriteExists(OryUITextCardCollection[oryUITextCardID].sprContainer))
 		oryUITextCardY# = GetSpriteY(OryUITextCardCollection[oryUITextCardID].sprContainer)
 	endif
