@@ -1,8 +1,8 @@
 
-foldstart // OryUIText (Updated 01/03/2020)
+foldstart // OryUIText (Updated 07/07/2020)
 
 function OryUICreateText(oryUIComponentParameters$ as string)
-	local oryUITextID
+	local oryUITextID as integer
 	oryUITextID = CreateText("")
 	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateText(oryUITextID, oryUIComponentParameters$)
@@ -115,10 +115,12 @@ endfunction
 
 function OryUIWrapText(oryUIText$ as string, oryUISize# as float, oryUIMaxWidth# as float)
 	local oryUIFinalText$ as string
+	local oryUIForI as integer
 	local oryUILength as integer
 	local oryUISpace as integer
 	local oryUITmpText as integer
 	local oryUITmpText2 as integer
+	
 	oryUITmpText = CreateText(oryUIText$)
 	SetTextSize(oryUITmpText, oryUISize#)
 	SetTextPosition(oryUITmpText, -10000, -10000)
