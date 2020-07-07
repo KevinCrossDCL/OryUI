@@ -195,7 +195,7 @@ type typeOryUIDefaults
 	// OryUIScrollToTop
 	scrollToTopColor# as float[4]
 	scrollToTopDepth as integer
-	scrollToTopHeight# as integer
+	scrollToTopHeight# as float
 	scrollToTopIconColor# as float[4]
 	scrollToTopIconHeight# as float
 	scrollToTopIconImage as integer
@@ -506,6 +506,7 @@ endfunction
 
 function OryUIConvertBoolean(oryUIBoolean$ as string)
 	local oryUIBoolean as integer
+	
 	if (lower(oryUIBoolean$) = "true" or lower(oryUIBoolean$) = "y" or lower(oryUIBoolean$) = "yes" or oryUIBoolean$ = "1")
 		oryUIBoolean = 1
 	elseif (lower(oryUIBoolean$) = "false" or lower(oryUIBoolean$) = "n" or lower(oryUIBoolean$) = "no" or oryUIBoolean$ = "0")
@@ -545,7 +546,9 @@ function OryUIConvertColor(oryUIColor$ as string)
 endfunction oryUIRGBA#
 
 function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
-	oryUIVariableValue$ = ""
+	local oryUIForI as integer
+	local oryUIVariableValue$ as string
+	
 	for oryUIForI = 0 to oryUILocalJSONVariables.length
 		if (oryUILocalJSONVariables[oryUIForI].variable$ = "") then oryUILocalJSONVariables.remove(oryUIForI)
 		if (lower(oryUILocalJSONVariables[oryUIForI].variable$) = lower(oryUIVariable$))
@@ -555,6 +558,8 @@ function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
 endfunction oryUIVariableValue$
 
 function OryUIResetParametersType()
+	local oryUIForI as integer
+	
 	oryUIParameters.addIcon$ = ""
 	oryUIParameters.addIconID = -999999
 	oryUIParameters.addToFront = -999999
@@ -725,80 +730,81 @@ function OryUIResetParametersType()
 	oryUIParameters.wrapList = -999999	
 	oryUIParameters.wrapListBottomY# = -999999	
 	oryUIParameters.wrapListTopY# = -999999	
-	for i = 1 to 4
-		if (i < 3)
-			oryUIParameters.addIconSize#[i] = -999999
-			oryUIParameters.contentSize#[i] = -999999
-			oryUIParameters.disabledIconSize#[i] = -999999
-			oryUIParameters.enabledIconSize#[i] = -999999
-			oryUIParameters.gripPosition#[i] = -999999
-			oryUIParameters.gripIconSize#[i] = -999999
-			oryUIParameters.gripSize#[i] = -999999
-			oryUIParameters.iconSize#[i] = -999999
-			oryUIParameters.invisibleGripSize#[i] = -999999
-			oryUIParameters.itemSize#[i] = -999999
-			oryUIParameters.maxPosition#[i] = -999999
-			oryUIParameters.maxView#[i] = -999999
-			oryUIParameters.minGripSize#[i] = -999999
-			oryUIParameters.minPosition#[i] = -999999
-			oryUIParameters.minView#[i] = -999999
-			oryUIParameters.offset#[i] = -999999
-			oryUIParameters.position#[i] = -999999
-			oryUIParameters.size#[i] = -999999
-			oryUIParameters.subtractIconSize#[i] = -999999
+	for oryUIForI = 1 to 4
+		if (oryUIForI < 3)
+			oryUIParameters.addIconSize#[oryUIForI] = -999999
+			oryUIParameters.contentSize#[oryUIForI] = -999999
+			oryUIParameters.disabledIconSize#[oryUIForI] = -999999
+			oryUIParameters.enabledIconSize#[oryUIForI] = -999999
+			oryUIParameters.gripPosition#[oryUIForI] = -999999
+			oryUIParameters.gripIconSize#[oryUIForI] = -999999
+			oryUIParameters.gripSize#[oryUIForI] = -999999
+			oryUIParameters.iconSize#[oryUIForI] = -999999
+			oryUIParameters.invisibleGripSize#[oryUIForI] = -999999
+			oryUIParameters.itemSize#[oryUIForI] = -999999
+			oryUIParameters.maxPosition#[oryUIForI] = -999999
+			oryUIParameters.maxView#[oryUIForI] = -999999
+			oryUIParameters.minGripSize#[oryUIForI] = -999999
+			oryUIParameters.minPosition#[oryUIForI] = -999999
+			oryUIParameters.minView#[oryUIForI] = -999999
+			oryUIParameters.offset#[oryUIForI] = -999999
+			oryUIParameters.position#[oryUIForI] = -999999
+			oryUIParameters.size#[oryUIForI] = -999999
+			oryUIParameters.subtractIconSize#[oryUIForI] = -999999
 		endif
-		oryUIParameters.activeButtonColor#[i] = -999999
-		oryUIParameters.activeColor#[i] = -999999
-		oryUIParameters.activeIconColor#[i] = -999999
-		oryUIParameters.addIconColor#[i] = -999999
-		oryUIParameters.backgroundColor#[i] = -999999
-		oryUIParameters.checkboxColor#[i] = -999999
-		oryUIParameters.checkboxTextColor#[i] = -999999
-		oryUIParameters.color#[i] = -999999
-		oryUIParameters.disabledColor#[i] = -999999
-		oryUIParameters.disabledIconColor#[i] = -999999
-		oryUIParameters.disabledTextColor#[i] = -999999
-		oryUIParameters.enabledColor#[i] = -999999
-		oryUIParameters.enabledIconColor#[i] = -999999
-		oryUIParameters.enabledTextColor#[i] = -999999
-		oryUIParameters.gripColor#[i] = -999999
-		oryUIParameters.gripIconColor#[i] = -999999
-		oryUIParameters.headerTextColor#[i] = -999999
-		oryUIParameters.helperTextColor#[i] = -999999
-		oryUIParameters.iconColor#[i] = -999999
-		oryUIParameters.inactiveButtonColor#[i] = -999999
-		oryUIParameters.inactiveColor#[i] = -999999
-		oryUIParameters.inactiveIconColor#[i] = -999999
-		oryUIParameters.inactiveTextColor#[i] = -999999
-		oryUIParameters.indicatorColor#[i] = -999999
-		oryUIParameters.leftIconColor#[i] = -999999
-		oryUIParameters.leftLine1TextColor#[i] = -999999
-		oryUIParameters.leftLine2TextColor#[i] = -999999
-		oryUIParameters.leftTextColor#[i] = -999999
-		oryUIParameters.navigationIconColor#[i] = -999999
-		oryUIParameters.rightIconColor#[i] = -999999
-		oryUIParameters.rightLine1TextColor#[i] = -999999
-		oryUIParameters.rightLine2TextColor#[i] = -999999
-		oryUIParameters.rightTextColor#[i] = -999999
-		oryUIParameters.scrimColor#[i] = -999999
-		oryUIParameters.selectedColor#[i] = -999999
-		oryUIParameters.selectedIconColor#[i] = -999999
-		oryUIParameters.selectedTextColor#[i] = -999999
-		oryUIParameters.strokeColor#[i] = -999999
-		oryUIParameters.subtitleTextColor#[i] = -999999
-		oryUIParameters.subtractIconColor#[i] = -999999
-		oryUIParameters.supportingTextColor#[i] = -999999
-		oryUIParameters.textColor#[i] = -999999
-		oryUIParameters.titleTextColor#[i] = -999999
-		oryUIParameters.trackColor#[i] = -999999
-		oryUIParameters.unselectedColor#[i] = -999999
-		oryUIParameters.unselectedIconColor#[i] = -999999
-		oryUIParameters.unselectedTextColor#[i] = -999999
+		oryUIParameters.activeButtonColor#[oryUIForI] = -999999
+		oryUIParameters.activeColor#[oryUIForI] = -999999
+		oryUIParameters.activeIconColor#[oryUIForI] = -999999
+		oryUIParameters.addIconColor#[oryUIForI] = -999999
+		oryUIParameters.backgroundColor#[oryUIForI] = -999999
+		oryUIParameters.checkboxColor#[oryUIForI] = -999999
+		oryUIParameters.checkboxTextColor#[oryUIForI] = -999999
+		oryUIParameters.color#[oryUIForI] = -999999
+		oryUIParameters.disabledColor#[oryUIForI] = -999999
+		oryUIParameters.disabledIconColor#[oryUIForI] = -999999
+		oryUIParameters.disabledTextColor#[oryUIForI] = -999999
+		oryUIParameters.enabledColor#[oryUIForI] = -999999
+		oryUIParameters.enabledIconColor#[oryUIForI] = -999999
+		oryUIParameters.enabledTextColor#[oryUIForI] = -999999
+		oryUIParameters.gripColor#[oryUIForI] = -999999
+		oryUIParameters.gripIconColor#[oryUIForI] = -999999
+		oryUIParameters.headerTextColor#[oryUIForI] = -999999
+		oryUIParameters.helperTextColor#[oryUIForI] = -999999
+		oryUIParameters.iconColor#[oryUIForI] = -999999
+		oryUIParameters.inactiveButtonColor#[oryUIForI] = -999999
+		oryUIParameters.inactiveColor#[oryUIForI] = -999999
+		oryUIParameters.inactiveIconColor#[oryUIForI] = -999999
+		oryUIParameters.inactiveTextColor#[oryUIForI] = -999999
+		oryUIParameters.indicatorColor#[oryUIForI] = -999999
+		oryUIParameters.leftIconColor#[oryUIForI] = -999999
+		oryUIParameters.leftLine1TextColor#[oryUIForI] = -999999
+		oryUIParameters.leftLine2TextColor#[oryUIForI] = -999999
+		oryUIParameters.leftTextColor#[oryUIForI] = -999999
+		oryUIParameters.navigationIconColor#[oryUIForI] = -999999
+		oryUIParameters.rightIconColor#[oryUIForI] = -999999
+		oryUIParameters.rightLine1TextColor#[oryUIForI] = -999999
+		oryUIParameters.rightLine2TextColor#[oryUIForI] = -999999
+		oryUIParameters.rightTextColor#[oryUIForI] = -999999
+		oryUIParameters.scrimColor#[oryUIForI] = -999999
+		oryUIParameters.selectedColor#[oryUIForI] = -999999
+		oryUIParameters.selectedIconColor#[oryUIForI] = -999999
+		oryUIParameters.selectedTextColor#[oryUIForI] = -999999
+		oryUIParameters.strokeColor#[oryUIForI] = -999999
+		oryUIParameters.subtitleTextColor#[oryUIForI] = -999999
+		oryUIParameters.subtractIconColor#[oryUIForI] = -999999
+		oryUIParameters.supportingTextColor#[oryUIForI] = -999999
+		oryUIParameters.textColor#[oryUIForI] = -999999
+		oryUIParameters.titleTextColor#[oryUIForI] = -999999
+		oryUIParameters.trackColor#[oryUIForI] = -999999
+		oryUIParameters.unselectedColor#[oryUIForI] = -999999
+		oryUIParameters.unselectedIconColor#[oryUIForI] = -999999
+		oryUIParameters.unselectedTextColor#[oryUIForI] = -999999
 	next
 endfunction
 
 function OryUIReturnIconID(oryUIIcon$ as string)
 	local oryUIIconID as integer
+	
 	oryUIIconID = -999999
 	if (lower(oryUIIcon$) = "add") then oryUIIconID = oryUIIconAddImage
 	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
@@ -826,6 +832,9 @@ function OryUISetContentStartPosition(oryUIStartX# as float, oryUIStartY# as flo
 endfunction
 
 function OryUISetLocalJSONVariable(oryUIVariable$ as string, oryUIVariableValue$ as string)
+	local oryUIForI as integer
+	local oryUIIndexFound as integer
+	
 	oryUIIndexFound = -1
 	for oryUIForI = 0 to oryUILocalJSONVariables.length
 		if (lower(oryUILocalJSONVariables[oryUIForI].variable$) = lower(oryUIVariable$))
@@ -845,11 +854,12 @@ endfunction
 function OryUISetParametersType(oryUIComponentParameters$ as string)
 	OryUIResetParametersType()
 	
+	local oryUIComponentParameter$ as string
 	local oryUIForI as integer
 	local oryUIForJ as integer
-	local oryUIComponentParameter$ as string
 	local oryUIValue$ as string
 	local oryUIVariable$ as string
+	
 	for oryUIForI = 1 to CountStringTokens(oryUIComponentParameters$, ";")
 		oryUIComponentParameter$ = GetStringToken(oryUIComponentParameters$, ";", oryUIForI)
 		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIComponentParameter$, ":", 1), " "))
