@@ -1,5 +1,5 @@
 
-foldstart // OryUIEditAvatarScreen (Updated 01/03/2020)
+foldstart // OryUIEditAvatarScreen (Updated 07/07/2020)
 
 type typeOryUIEditAvatarScreen
 	id as integer
@@ -205,13 +205,19 @@ endfunction OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].saveButtonR
 
 function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 	if (oryUIScrimVisible = 1) then exitfunction
-
+	
+	local oryUIEditAvatarCancelButtonContainerSprite as integer
+	local oryUIEditAvatarCancelButtonLabelText as integer
+	local oryUIEditAvatarHeight# as float
+	local oryUIEditAvatarRotateButtonContainerSprite as integer
+	local oryUIEditAvatarRotateButtonIconSprite as integer
+	local oryUIEditAvatarSaveButtonContainerSprite as integer
+	local oryUIEditAvatarSaveButtonLabelText as integer
+	local oryUIEditAvatarWidth# as float
 	local oryUIMaxPanX# as float
 	local oryUIMaxPanY# as float
 	local oryUIMinPanX# as float
 	local oryUIMinPanY# as float
-	local oryUIEditAvatarHeight# as float
-	local oryUIEditAvatarWidth# as float
 
 	if (GetViewOffsetX() >= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# - 100 and GetViewOffsetX() <= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 100 and GetViewOffsetY() + GetScreenBoundsTop() >= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# - 100 and GetViewOffsetY() + GetScreenBoundsTop() <= OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 100)
 		SetSpritePositionByOffset(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# + 50, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY# + 50)
