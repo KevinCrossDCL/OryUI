@@ -1,8 +1,8 @@
 
-foldstart // OryUISprite (Updated 19/08/2019)
+foldstart // OryUISprite (Updated 07/07/2020)
 
 function OryUICreateSprite(oryUIComponentParameters$ as string)
-	local oryUISpriteID
+	local oryUISpriteID as integer
 	oryUISpriteID = CreateSprite(0)
 	SetSpriteOffset(oryUISpriteID, 0, 0)
 	
