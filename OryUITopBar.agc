@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 01/03/2020)
+foldstart // OryUITopBar Component (Updated 07/07/2020)
 
 type typeOryUITopBar
 	id as integer
@@ -101,11 +101,12 @@ function OryUIDeleteTopBarAction(oryUITopBarID as integer, oryUIActionID as inte
 endfunction
 
 function OryUIGetTopBarActionCount(oryUITopBarID as integer)
-	local oryUITopBarActionCount
+	local oryUITopBarActionCount as integer
 	oryUITopBarActionCount = OryUITopBarCollection[oryUITopBarID].actions.length + 1
 endfunction oryUITopBarActionCount
 
 function OryUIGetTopBarActionHeightByIcon(oryUITopBarID as integer, oryUIActionIcon$ as string)
+	local oryUIForI as integer
 	local oryUITopBarActionHeight# as float
 	for oryUIForI = 0 to OryUIGetTopBarActionCount(oryUITopBarID) - 1
 		if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUIForI].sprIcon))
@@ -145,6 +146,7 @@ function OryUIGetTopBarActionReleasedName(oryUITopBarID as integer)
 endfunction oryUITopBarActionName$
 
 function OryUIGetTopBarActionWidthByIcon(oryUITopBarID as integer, oryUIActionIcon$ as string)
+	local oryUIForI as integer
 	local oryUITopBarActionWidth# as float
 	for oryUIForI = 0 to OryUIGetTopBarActionCount(oryUITopBarID) - 1
 		if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUIForI].sprIcon))
@@ -163,6 +165,7 @@ function OryUIGetTopBarActionWidthByID(oryUITopBarID as integer, oryUIActionID a
 endfunction oryUITopBarActionWidth#
 
 function OryUIGetTopBarActionXByIcon(oryUITopBarID as integer, oryUIActionIcon$ as string)
+	local oryUIForI as integer
 	local oryUITopBarActionX# as float
 	for oryUIForI = 0 to OryUIGetTopBarActionCount(oryUITopBarID) - 1
 		if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUIForI].sprIcon))
@@ -174,6 +177,7 @@ function OryUIGetTopBarActionXByIcon(oryUITopBarID as integer, oryUIActionIcon$ 
 endfunction oryUITopBarActionX#
 
 function OryUIGetTopBarActionYByIcon(oryUITopBarID as integer, oryUIActionIcon$ as string)
+	local oryUIForI as integer
 	local oryUITopBarActionY# as float
 	for oryUIForI = 0 to OryUIGetTopBarActionCount(oryUITopBarID) - 1
 		if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUIForI].sprIcon))
@@ -199,7 +203,7 @@ function OryUIGetTopBarActionYByID(oryUITopBarID as integer, oryUIActionID as in
 endfunction oryUITopBarActionY#
 
 function OryUIGetTopBarHeight(oryUITopBarID as integer)
-	local oryUITopBarHeight#
+	local oryUITopBarHeight# as float
 	if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].sprContainer))
 		oryUITopBarHeight# = GetSpriteHeight(OryUITopBarCollection[oryUITopBarID].sprContainer)
 	endif
@@ -252,8 +256,10 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 		exitfunction
 	endif
 	
+	local oryUIForI as integer
 	local oryUITopBarActionReleased as integer
 	local oryUITopBarActionSprite as integer
+	local oryUITopBarContainerSprite as integer
 	local oryUITopBarNavigationReleased as integer
 	local oryUITopBarNavigationSprite as integer
 
@@ -287,19 +293,30 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 	OryUITopBarCollection[oryUITopBarID].navigationReleased = 0
 	if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon))
 		if (OryUIGetSwipingVertically() = 0)
-			oryUITopBarNavigationSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-			if (oryUITopBarNavigationSprite = 1)
-				oryUIBlockScreenScrolling = 1
-			else
-				oryUIBlockScreenScrolling = 0
-			endif
+			oryUITopBarContainerSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 			if (GetPointerPressed())
-				oryUITopBarContainerSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+				if (oryUITopBarContainerSprite = 1)
+					oryUITouchingTopBar = 1
+					oryUIBlockScreenScrolling = 1
+				else
+					oryUITouchingTopBar = 0
+					oryUIBlockScreenScrolling = 0
+				endif
+			
+				oryUITopBarNavigationSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				if (oryUITopBarNavigationSprite = 1)
 					OryUITopBarCollection[oryUITopBarID].navigationPressed = 1
 				endif
 			else
 				if (GetPointerState())
+					if (oryUITopBarContainerSprite = 1)
+						oryUITouchingTopBar = 1
+						oryUIBlockScreenScrolling = 1
+					else
+						oryUITouchingTopBar = 0
+						oryUIBlockScreenScrolling = 0
+					endif
+				
 					oryUITopBarNavigationSprite = GetSpriteHitTest(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					if (OryUITopBarCollection[oryUITopBarID].navigationPressed)
 						if (oryUITopBarNavigationSprite = 0)
@@ -315,6 +332,8 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 						endif
 					endif
 					OryUITopBarCollection[oryUITopBarID].navigationPressed = 0
+					oryUITouchingTopBar = 0
+					oryUIBlockScreenScrolling = 0
 				endif
 			endif
 		endif
@@ -352,6 +371,8 @@ function OryUIInsertTopBarListener(oryUITopBarID as integer)
 endfunction
 
 function OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID as integer)
+	local oryUIForI as integer
+	
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 2.46 / GetDisplayAspect(), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + OryUIStatusBarHeight# + 2.46)
 	for oryUIForI = OryUITopBarCollection[oryUITopBarID].actions.length to 0 step -1
 		SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].actions[oryUIForI].sprIcon, (GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 100) - (2.46 / GetDisplayAspect()) - ((6.66 + GetSpriteWidth(OryUITopBarCollection[oryUITopBarID].actions[oryUIForI].sprIcon)) * (OryUITopBarCollection[oryUITopBarID].actions.length - oryUIForI)), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + OryUIStatusBarHeight# + 2.46)
@@ -359,7 +380,9 @@ function OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID as integer)
 endfunction
 
 function OryUISetTopBarActionCount(oryUITopBarID as integer, oryUINewTopBarActionCount as integer)
-	local oryUIOldTopBarActionCount
+	local oryUIForI as integer
+	local oryUIOldTopBarActionCount as integer
+	
 	oryUIOldTopBarActionCount = OryUIGetTopBarActionCount(oryUITopBarID) - 1
 	while (OryUIGetTopBarActionCount(oryUITopBarID) - 1 > oryUINewTopBarActionCount - 1)
 		OryUIDeleteTopBarAction(oryUITopBarID, OryUIGetTopBarActionCount(oryUITopBarID) - 1)
@@ -374,6 +397,8 @@ endfunction
 function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
+	local oryUIForI as integer
+	
 	if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].sprContainer))
 
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
