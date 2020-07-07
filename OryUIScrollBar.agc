@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollBar Component (Updated 28/06/2020)
+foldstart // OryUIScrollBar Component (Updated 07/07/2020)
 
 type typeOryUIScrollBar
 	id as integer
@@ -148,7 +148,7 @@ function OryUIDeleteScrollBar(oryUIScrollBarID as integer)
 endfunction
 
 function OryUIGetScrollBarGripHeight(oryUIScrollBarID as integer)
-	local oryUIScrollBarGripHeight#
+	local oryUIScrollBarGripHeight# as float
 	if (GetSpriteExists(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip))
 		oryUIScrollBarGripHeight# = GetSpriteHeight(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip)
 	endif
@@ -159,7 +159,7 @@ function OryUIGetScrollBarGripVisible(oryUIScrollBarID as integer)
 endfunction OryUIScrollBarCollection[oryUIScrollBarID].gripVisible
 
 function OryUIGetScrollBarGripWidth(oryUIScrollBarID as integer)
-	local oryUIScrollBarGripWidth#
+	local oryUIScrollBarGripWidth# as float
 	if (GetSpriteExists(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip))
 		oryUIScrollBarGripWidth# = GetSpriteWidth(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip)
 	endif
@@ -244,6 +244,7 @@ function OryUIInsertScrollBarListener(oryUIScrollBarID as integer)
 
 	local oryUIScrollBarGripSprite as integer
 	local oryUIScrollBarGripIconSprite as integer
+	local oryUIScrollBarInvisibleGripSprite as integer
 	
 	if (GetSpriteExists(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip))
 		if (OryUIScrollBarCollection[oryUIScrollBarID].direction$ = "horizontal" and OryUIScrollBarCollection[oryUIScrollBarID].contentSize#[1] < OryUIScrollBarCollection[oryUIScrollBarID].windowSize#[1])
@@ -462,7 +463,6 @@ function OryUIShowScrollBar(oryUIScrollBarID as integer)
 endfunction
 
 function OryUIUpdateScrollBar(oryUIScrollBarID as integer, oryUIComponentParameters$ as string)
-	local oryUIResizeScrollBar as integer
 	OryUISetParametersType(oryUIComponentParameters$)
 
 	if (GetSpriteExists(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip))
