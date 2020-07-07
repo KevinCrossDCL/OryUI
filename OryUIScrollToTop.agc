@@ -1,10 +1,11 @@
 
-foldstart // OryUIScrollToTop Component (Updated 01/03/2020)
+foldstart // OryUIScrollToTop Component (Updated 07/07/2020)
 
 type typeOryUIScrollToTop
 	id as integer
 	placement$ as string
 	pressed as integer
+	released as integer
 	showShadow as integer
 	sprContainer as integer
 	sprIcon as integer
@@ -120,11 +121,11 @@ function OryUIHideScrollToTop(oryUIScrollToTopID as integer)
 endfunction
 
 function OryUIInsertScrollToTopListener(oryUIScrollToTopID as integer)
-	local oryUIShowScrollToTop as integer
-	if (GetViewOffsetY() + GetScreenBoundsTop() > OryUIScrollToTopCollection[oryUIScrollToTopID].startY#) then oryUIShowScrollToTop = 1
-	if (oryUIScrimVisible = 1) then oryUIShowScrollToTop = 0
-	if (OryUIAnyTextfieldFocused() = 1 and (GetDeviceBaseName() = "android" or GetDeviceBaseName() = "ios")) then oryUIShowScrollToTop = 0
-	if (oryUIShowScrollToTop = 0)
+	local oryUIShowScrollToTopButton as integer
+	if (GetViewOffsetY() + GetScreenBoundsTop() > OryUIScrollToTopCollection[oryUIScrollToTopID].startY#) then oryUIShowScrollToTopButton = 1
+	if (oryUIScrimVisible = 1) then oryUIShowScrollToTopButton = 0
+	if (OryUIAnyTextfieldFocused() = 1 and (GetDeviceBaseName() = "android" or GetDeviceBaseName() = "ios")) then oryUIShowScrollToTopButton = 0
+	if (oryUIShowScrollToTopButton = 0)
 		if (OryUIGetScrollToTopVisible(oryUIScrollToTopID) = 1)
 			OryUIHideScrollToTop(oryUIScrollToTopID)
 		endif
@@ -146,6 +147,9 @@ function OryUISetScrollToTopStartY(oryUIScrollToTopID as integer, oryUIScrollToT
 endfunction
 
 function OryUIShowScrollToTop(oryUIScrollToTopID as integer)
+	local oryUIScrollToTopX# as float
+	local oryUIScrollToTopY# as float
+	
 	OryUIScrollToTopCollection[oryUIScrollToTopID].visible = 1
 	if (lower(OryUIScrollToTopCollection[oryUIScrollToTopID].placement$) = "bottomleft") then oryUIScrollToTopX# = GetViewOffsetX() + 3.5
 	if (lower(OryUIScrollToTopCollection[oryUIScrollToTopID].placement$) = "bottomcenter") then oryUIScrollToTopX# = GetViewOffsetX() + 50
