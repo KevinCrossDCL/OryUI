@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 01/03/2020)
+foldstart // OryUITabs Component (Updated 07/07/2020)
 
 type typeOryUITabs
 	id as integer
@@ -91,7 +91,7 @@ function OryUIDeleteTabsButton(oryUITabsID as integer, oryUIButtonID as integer)
 endfunction
 
 function OryUIGetTabsButtonCount(oryUITabsID as integer)
-	local oryUITabsButtonCount
+	local oryUITabsButtonCount as integer
 	oryUITabsButtonCount = OryUITabsCollection[oryUITabsID].buttons.length + 1
 endfunction oryUITabsButtonCount
 
@@ -124,7 +124,7 @@ function OryUIGetTabsButtonReleasedText(oryUITabsID as integer)
 endfunction oryUITabsButtonText$
 
 function OryUIGetTabsHeight(oryUITabsID as integer)
-	local oryUITabsHeight#
+	local oryUITabsHeight# as float
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
 		oryUITabsHeight# = GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer)
 	endif
@@ -167,8 +167,10 @@ endfunction
 function OryUIInsertTabsListener(oryUITabsID as integer)
 	if (oryUIScrimVisible = 1) then exitfunction
 	
+	local oryUIForI as integer
 	local oryUITabsButtonReleased as integer
 	local oryUITabsButtonSprite as integer
+	local oryUITabsSprite as integer
 
 	OryUITabsCollection[oryUITabsID].buttonReleased = -1
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
@@ -192,13 +194,24 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 					SetTextColor(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].txtLabel, OryUITabsCollection[oryUITabsID].defaultInactiveColor#[1], OryUITabsCollection[oryUITabsID].defaultInactiveColor#[2], OryUITabsCollection[oryUITabsID].defaultInactiveColor#[3], 128)
 				endif
 				if (OryUIGetSwipingVertically() = 0)
+					oryUITabsSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					if (GetPointerPressed())
+						if (oryUITabsSprite = 1)
+							oryUITouchingTabs = 1
+						else
+							oryUITouchingTabs = 0
+						endif
 						oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (oryUITabsButtonSprite = 1)
 							OryUITabsCollection[oryUITabsID].buttons[oryUIForI].pressed = 1
 						endif
 					else
 						if (GetPointerState())
+							if (oryUITabsSprite = 1)
+								oryUITouchingTabs = 1
+							else
+								oryUITouchingTabs = 0
+							endif
 							oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUITabsCollection[oryUITabsID].buttons[oryUIForI].pressed)
 								if (oryUITabsButtonSprite = 0)
@@ -206,7 +219,7 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 								endif
 							endif
 						endif
-						if (GetPointerReleased())
+						if (GetPointerReleased())						
 							oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUITabsCollection[oryUITabsID].buttons[oryUIForI].pressed)
 								if (oryUITabsButtonSprite = 1)
@@ -215,6 +228,7 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 								endif
 							endif
 							OryUITabsCollection[oryUITabsID].buttons[oryUIForI].pressed = 0
+							oryUITouchingTabs = 0
 						endif
 					endif
 				endif
@@ -226,9 +240,11 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 endfunction
 
 function OryUIPositionButtonsInTabs(oryUITabsID as integer)
+	local oryUIForI as integer
 	local oryUITabsOffsetX# as float
 	local oryUITabsWidth# as float
 	local oryUITabsX# as float
+	
 	for oryUIForI = 0 to OryUITabsCollection[oryUITabsID].buttons.length
 		if (OryUITabsCollection[oryUITabsID].scrollable = 0)
 			SetSpriteSize(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, GetSpriteWidth(OryUITabsCollection[oryUITabsID].sprContainer) / OryUIGetTabsButtonCount(oryUITabsID), GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
@@ -252,7 +268,9 @@ function OryUIPositionButtonsInTabs(oryUITabsID as integer)
 endfunction
 
 function OryUISetTabsButtonCount(oryUITabsID as integer, oryUINewTabsButtonCount as integer)
-	local oryUIOldTabsButtonCount
+	local oryUIForI as integer
+	local oryUIOldTabsButtonCount as integer
+	
 	oryUIOldTabsButtonCount = OryUIGetTabsButtonCount(oryUITabsID) - 1
 	while (OryUIGetTabsButtonCount(oryUITabsID) - 1 > oryUINewTabsButtonCount - 1)
 		OryUIDeleteTabsButton(oryUITabsID, OryUIGetTabsButtonCount(oryUITabsID) - 1)
@@ -269,6 +287,8 @@ function OryUISetTabsButtonSelected(oryUITabsID as integer, oryUITabsButtonID as
 endfunction
 
 function OryUISetTabsButtonSelectedByName(oryUITabsID as integer, oryUITabsButtonName$ as string)
+	local oryUIForI as integer
+	
 	for oryUIForI = 0 to OryUIGetTabsButtonCount(oryUITabsID) - 1
 		if (lower(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].name$) = lower(oryUITabsButtonName$))
 			OryUITabsCollection[oryUITabsID].selected = oryUIForI + 1
