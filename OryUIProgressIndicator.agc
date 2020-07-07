@@ -1,5 +1,5 @@
 
-foldstart // OryUIProgressIndicator Component (Updated 19/08/2019)
+foldstart // OryUIProgressIndicator Component (Updated 07/07/2020)
 
 type typeOryUIProgressIndicator
 	id as integer
@@ -63,7 +63,7 @@ function OryUIDeleteProgressIndicator(oryUIProgressIndicatorID as integer)
 endfunction
 
 function OryUIGetProgressIndicatorHeight(oryUIProgressIndicatorID as integer)
-	local oryUIProgressIndicatorHeight#
+	local oryUIProgressIndicatorHeight# as float
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		oryUIProgressIndicatorHeight# = GetSpriteHeight(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack)
 	endif
@@ -74,21 +74,21 @@ function OryUIGetProgressIndicatorPercentage(oryUIProgressIndicatorID as integer
 endfunction OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].percentage#
 
 function OryUIGetProgressIndicatorWidth(oryUIProgressIndicatorID as integer)
-	local oryUIProgressIndicatorWidth#
+	local oryUIProgressIndicatorWidth# as float
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		oryUIProgressIndicatorWidth# = GetSpriteWidth(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack)
 	endif
 endfunction oryUIProgressIndicatorWidth#
 
 function OryUIGetProgressIndicatorX(oryUIProgressIndicatorID as integer)
-	local oryUIProgressIndicatorX#
+	local oryUIProgressIndicatorX# as float
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		oryUIProgressIndicatorX# = GetSpriteX(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack)
 	endif
 endfunction oryUIProgressIndicatorX#
 
 function OryUIGetProgressIndicatorY(oryUIProgressIndicatorID as integer)
-	local oryUIProgressIndicatorY#
+	local oryUIProgressIndicatorY# as float
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		oryUIProgressIndicatorY# = GetSpriteY(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack)
 	endif
@@ -106,6 +106,8 @@ endfunction
 function OryUIUpdateProgressIndicator(oryUIProgressIndicatorID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
 
+	local oryUIForI as integer
+	
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		
 		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
