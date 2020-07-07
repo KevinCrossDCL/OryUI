@@ -1,5 +1,5 @@
 
-foldstart // OryUITouch (Updated 28/06/2020)
+foldstart // OryUITouch (Updated 07/07/2020)
 
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)
@@ -197,6 +197,8 @@ endfunction
 // The GetRawTouch code in the below function is based on @baxslash's PinchZoom function he shared on the AGK forum
 // https://forum.thegamecreators.com/thread/205033
 function OryUIStartTrackingTouch()
+	local oryUITouchEvent as integer
+	
 	OryUITouchCollection[0].previousTouchCount = OryUITouchCollection[0].touchCount
 	OryUITouchCollection[0].touchCount = 0
 		
