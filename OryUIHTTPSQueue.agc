@@ -1,5 +1,5 @@
 
-foldstart // OryUIHTTPSQueue Component (Updated 28/06/2020)
+foldstart // OryUIHTTPSQueue Component (Updated 07/07/2020)
 
 type typeOryUIHTTPSQueue
 	id as integer
@@ -42,6 +42,9 @@ function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentPa
 	if (oryUIParameters.script$ = "") then exitfunction
 	
 	local oryUIFoundInIndex as integer
+	local oryUIForI as integer
+	local oryUIHTTPSQueueItemID as integer
+	
 	oryUIFoundInIndex = -1
 	// Check to see if the item already exists in the queue before adding
 	if (oryUIParameters.name$ <> "" and oryUIParameters.script$ <> "")
@@ -110,7 +113,7 @@ function OryUIClearHTTPSQueue(oryUIHTTPSQueueID as integer)
 endfunction
 
 function OryUICreateHTTPSQueue(oryUIComponentParameters$ as string)
-	local oryUIHTTPSQueueID
+	local oryUIHTTPSQueueID as integer
 	OryUIHTTPSQueueCollection.length = OryUIHTTPSQueueCollection.length + 1
 	oryUIHTTPSQueueID = OryUIHTTPSQueueCollection.length
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].id = oryUIHTTPSQueueID
@@ -132,6 +135,7 @@ function OryUIDeleteHTTPSQueue(oryUIHTTPSQueueID as integer)
 endfunction
 
 function OryUIFindNameInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSName$ as string)
+	local oryUIForI as integer
 	local oryUIIndexNameFound as integer
 	for oryUIForI = 0 to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1
 		if (lower(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].name$) = lower(oryUIHTTPSName$))
@@ -142,6 +146,7 @@ function OryUIFindNameInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSName$
 endfunction oryUIIndexNameFound
 
 function OryUIFindScriptInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSScript$ as string)
+	local oryUIForI as integer
 	local oryUIIndexScriptFound as integer
 	for oryUIForI = 0 to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1
 		if (lower(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].script$) = lower(oryUIHTTPSScript$))
@@ -156,7 +161,7 @@ function OryUIGetHTTPSQueueFailedCount(oryUIHTTPSQueueID as integer)
 endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount
 
 function OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID as integer)
-	local oryUIHTTPSQueueItemCount
+	local oryUIHTTPSQueueItemCount as integer
 	oryUIHTTPSQueueItemCount = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length + 1
 endfunction oryUIHTTPSQueueItemCount
 
@@ -179,6 +184,8 @@ endfunction OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestScript$
 function OryUIInsertHTTPSQueueListener(oryUIHTTPSQueueID as integer)
 	// To stop the app from crashing exit the function if domain is empty
 	if (OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].domain$ = "") then exitfunction
+	
+	local oryUIHTTPResponseCode as integer
 	
 	// Clear the response gathered on the last frame/sync
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestName$ = ""
@@ -238,7 +245,9 @@ function OryUIInsertHTTPSQueueListener(oryUIHTTPSQueueID as integer)
 endfunction
 
 function OryUIIsNameInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSName$ as string)
+	local oryUIForI as integer
 	local oryUINameIsInQueue as integer
+	
 	for oryUIForI = 0 to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1
 		if (lower(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].name$) = lower(oryUIHTTPSName$))
 			oryUINameIsInQueue = 1
@@ -248,7 +257,9 @@ function OryUIIsNameInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSName$ a
 endfunction oryUINameIsInQueue
 
 function OryUIIsScriptInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSScript$ as string)
+	local oryUIForI as integer
 	local oryUIScriptIsInQueue as integer
+	
 	for oryUIForI = 0 to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1
 		if (lower(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].script$) = lower(oryUIHTTPSScript$))
 			oryUIScriptIsInQueue = 1
@@ -258,6 +269,8 @@ function OryUIIsScriptInHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIHTTPSScrip
 endfunction oryUIScriptIsInQueue
 
 function OryUIMoveItemsBackInHTTPSQueue(oryUIHTTPSQueueID as integer, OryUIIndex as integer)
+	local oryUIForI as integer
+	
 	for oryUIForI = OryUIIndex to 1 step -1
 		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].failedCount = 0
 		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].file$ = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI - 1].file$
@@ -270,6 +283,8 @@ function OryUIMoveItemsBackInHTTPSQueue(oryUIHTTPSQueueID as integer, OryUIIndex
 endfunction
 
 function OryUIMoveItemsForwardsInHTTPSQueue(oryUIHTTPSQueueID as integer, OryUIIndex as integer)
+	local oryUIForI as integer
+	
 	if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) > 1)
 		for oryUIForI = oryUIIndex to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 2
 			OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].failedCount = 0
@@ -285,6 +300,7 @@ endfunction
 
 function OryUIMoveItemToEndOfHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIIndex as integer)
 	local oryUIHTTPSQueueFile$ as string
+	local oryUIHTTPSQueueItemID as integer
 	local oryUIHTTPSQueueName$ as string
 	local oryUIHTTPSQueuePostData$ as string
 	local oryUIHTTPSQueueScript$ as string
@@ -312,6 +328,8 @@ function OryUIMoveItemToEndOfHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIIndex
 endfunction
 
 function OryUIPrintHTTPSQueue(oryUIHTTPSQueueID as integer)
+	local oryUIForI as integer
+	
 	print("connectionID: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http))
 	print("failedCount: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount))
 	print("responseCode: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode))	
