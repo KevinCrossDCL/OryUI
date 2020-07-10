@@ -1,4 +1,10 @@
-
+BUILD 0.11a
+------------------------
+- All files
+	- OryUI has been updated to work with #option_explicit
+	
+	
+	
 BUILD 0.10a
 ------------------------
 - OryUI
