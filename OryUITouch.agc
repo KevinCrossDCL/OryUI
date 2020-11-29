@@ -112,7 +112,7 @@ function OryUIGetSpritePressed()
 endfunction OryUITouchCollection[1].firstSpriteHit
 
 function OryUIGetSpriteReleased()
-	local oryUISpriteReleased as integer
+	local oryUISpriteReleased as integer : oryUISpriteReleased = 0
 	if (OryUITouchCollection[1].firstSpriteHit = OryUITouchCollection[1].currentSpriteHit)
 		if (GetMultiTouchExists() = 1)
 			if (GetRawTouchCount(1) = 0)

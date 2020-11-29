@@ -40,7 +40,7 @@ function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentPa
 	if (lower(oryUIParameters.script$) = "null") then oryUIParameters.script$ = ""
 	
 	if (oryUIParameters.script$ = "") then exitfunction
-	
+
 	local oryUIFoundInIndex as integer
 	local oryUIForI as integer
 	local oryUIHTTPSQueueItemID as integer
@@ -334,6 +334,7 @@ function OryUIPrintHTTPSQueue(oryUIHTTPSQueueID as integer)
 	print("failedCount: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount))
 	print("responseCode: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponseCode))	
 	if (OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) > 0)
+		print("HTTPS Queue Count: " + str(OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID)))
 		for oryUIForI = 0 to OryUIGetHTTPSQueueItemCount(oryUIHTTPSQueueID) - 1
 			print("---------- Slot " + str(oryUIForI) + " ----------")
 			print("failedCount: " + str(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[oryUIForI].failedCount))

@@ -122,6 +122,7 @@ function OryUICreatePagination(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIDefaults.paginationColor#[1], oryUIDefaults.paginationColor#[2], oryUIDefaults.paginationColor#[3], oryUIDefaults.paginationColor#[4])
 	SetSpriteOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 
 	if (oryUIComponentParameters$ <> "") then OryUIUpdatePagination(oryUIPaginationID, oryUIComponentParameters$)
 endfunction oryUIPaginationID
@@ -265,6 +266,7 @@ function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginati
 	SetSpriteColor(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer, OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[1], OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[2], OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[3], OryUIPaginationCollection[oryUIPaginationID].unselectedColor#[4])
 	SetSpriteOffset(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer)
 
 	OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].icon$ = ""
 	OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon = CreateSprite(0)
@@ -272,6 +274,7 @@ function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginati
 	SetSpriteColor(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon, OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[1], OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[2], OryUIPaginationCollection[oryUIPaginationID].unselectedIconColor#[3], 0)
 	SetSpriteDepth(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon, GetSpriteDepth(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer) - 1)
 	SetSpriteOffset(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon, GetSpriteWidth(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon) / 2, GetSpriteHeight(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon) / 2)
+	SetSpritePhysicsOff(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon)
 	OryUIPinSpriteToCentreOfSprite(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprIcon, OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer, 0, 0)
 
 	OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].txtLabel = CreateText("")

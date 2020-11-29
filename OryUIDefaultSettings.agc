@@ -186,6 +186,13 @@ oryUIDefaults.menuItemTextColor#[3] = 0
 oryUIDefaults.menuItemTextColor#[4] = 255
 oryUIDefaults.menuItemTextPadding# = 2
 oryUIDefaults.menuItemTextSize# = 3
+
+// DIVIDER
+oryUIDefaults.menuDividerColor#[1] = 230
+oryUIDefaults.menuDividerColor#[2] = 230
+oryUIDefaults.menuDividerColor#[3] = 230
+oryUIDefaults.menuDividerColor#[4] = 255
+oryUIDefaults.menuDividerHeight# = 0.1
 	
 foldend
 
@@ -352,6 +359,58 @@ oryUIDefaults.paginationUnselectedTextColor#[3] = 180
 oryUIDefaults.paginationUnselectedTextColor#[4] = 255
 oryUIDefaults.paginationUnselectedTextSize# = 3
 
+foldend
+
+foldstart // Default Settings for OryUIDialog
+
+// MAIN
+oryUIDefaults.pickerBottomMargin# = 1
+oryUIDefaults.pickerColor#[1] = 255
+oryUIDefaults.pickerColor#[2] = 255
+oryUIDefaults.pickerColor#[3] = 255
+oryUIDefaults.pickerColor#[4] = 255
+oryUIDefaults.pickerDepth = 3
+oryUIDefaults.pickerFlexButtons = 0
+oryUIDefaults.pickerHeight# = 20
+oryUIDefaults.pickerLeftMargin# = 5
+oryUIDefaults.pickerRightMargin# = 5
+oryUIDefaults.pickerScrimColor#[1] = 0
+oryUIDefaults.pickerScrimColor#[2] = 0
+oryUIDefaults.pickerScrimColor#[3] = 0
+oryUIDefaults.pickerScrimColor#[4] = 66
+oryUIDefaults.pickerSpacingBetweenSupportingTextAndButtons# = 2.5
+oryUIDefaults.pickerSpacingBetweenTitleAndSupportingText# = 1
+oryUIDefaults.pickerStackButtons = 0
+oryUIDefaults.pickerSupportingTextAlignment = 0
+oryUIDefaults.pickerSupportingTextColor#[1] = 0
+oryUIDefaults.pickerSupportingTextColor#[2] = 0
+oryUIDefaults.pickerSupportingTextColor#[3] = 0
+oryUIDefaults.pickerSupportingTextColor#[4] = 200
+oryUIDefaults.pickerSupportingTextSize# = 2.5
+oryUIDefaults.pickerTitleTextAlignment = 0
+oryUIDefaults.pickerTitleTextColor#[1] = 0
+oryUIDefaults.pickerTitleTextColor#[2] = 0
+oryUIDefaults.pickerTitleTextColor#[3] = 0
+oryUIDefaults.pickerTitleTextColor#[4] = 255
+oryUIDefaults.pickerTitleTextSize# = 3.4
+oryUIDefaults.pickerTopMargin# = 1.5
+oryUIDefaults.pickerWidth# = 78
+
+// BUTTONS
+oryUIDefaults.pickerButtonColor#[1] = 255
+oryUIDefaults.pickerButtonColor#[2] = 255
+oryUIDefaults.pickerButtonColor#[3] = 255
+oryUIDefaults.pickerButtonColor#[4] = 255
+oryUIDefaults.pickerButtonHeight# = 5
+oryUIDefaults.pickerButtonTextBold = 1
+oryUIDefaults.pickerButtonTextColor#[1] = 87
+oryUIDefaults.pickerButtonTextColor#[2] = 7
+oryUIDefaults.pickerButtonTextColor#[3] = 235
+oryUIDefaults.pickerButtonTextColor#[4] = 255
+oryUIDefaults.pickerButtonTextSize# = 2.7
+oryUIDefaults.pickerButtonXSpacing# = 2
+oryUIDefaults.pickerButtonYSpacing# = 1
+	
 foldend
 
 foldstart // Default Settings for OryUIProgressIndicator

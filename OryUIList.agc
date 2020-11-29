@@ -59,6 +59,7 @@ function OryUICreateList(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIListCollection[oryUIListID].sprContainer, 204, 204, 204, 255)
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIListCollection[oryUIListID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUIListCollection[oryUIListID].sprContainer)
 
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateList(oryUIListID, oryUIComponentParameters$)
 endfunction oryUIListID
@@ -172,7 +173,8 @@ function OryUIInsertListItem(oryUIListID as integer, oryUIListIndex as integer, 
 	SetSpriteColor(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], 255, 255, 255, 255)
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], 0, 0)
 	SetSpritePositionByOffset(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID], GetSpriteXByOffset(OryUIListCollection[oryUIListID].sprContainer), GetSpriteYByOffset(OryUIListCollection[oryUIListID].sprContainer) + 0.1 + (oryUIListItemID * OryUIListCollection[oryUIListID].itemSize#[2]))
-
+	SetSpritePhysicsOff(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID])
+	
 	OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID] = CreateText("Left Line 1")
 	SetTextSize(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], 3)
 	SetTextColor(OryUIListCollection[oryUIListID].txtItemLeftLine1[oryUIListItemID], 0, 0, 0, 255)
@@ -202,27 +204,31 @@ function OryUIInsertListItem(oryUIListID as integer, oryUIListIndex as integer, 
 	SetSpriteDepth(OryUIListCollection[oryUIListID].sprItemDivider[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 	SetSpriteColor(OryUIListCollection[oryUIListID].sprItemDivider[oryUIListItemID], 204, 204, 204, 255)
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprItemDivider[oryUIListItemID], 0, 0.05)
+	SetSpritePhysicsOff(OryUIListCollection[oryUIListID].sprItemDivider[oryUIListItemID])
 
 	OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID] = CreateSprite(0)
 	SetSpriteSize(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID], -1, 4)
 	SetSpriteDepth(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 	SetSpriteColor(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID], 255, 255, 255, 255)
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID], GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID]) / 2, GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID]) / 2)
-
+	SetSpritePhysicsOff(OryUIListCollection[oryUIListID].sprItemLeftThumbnail[oryUIListItemID])
+	
 	OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID] = CreateSprite(0)
 	SetSpriteSize(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], -1, 3)
 	SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], oryUIIconDeleteImage)
 	SetSpriteDepth(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 	SetSpriteColor(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], 0, 0, 0, 255)
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID]) / 2, GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID]) / 2)
-
+	SetSpritePhysicsOff(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID])
+	
 	OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID] = CreateSprite(0)
 	SetSpriteSize(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], -1, 3)
 	SetSpriteImage(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], oryUIIconDeleteImage)
 	SetSpriteDepth(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1)
 	SetSpriteColor(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], 0, 0, 0, 255)
 	SetSpriteOffset(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID], GetSpriteWidth(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID]) / 2, GetSpriteHeight(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID]) / 2)
-
+	SetSpritePhysicsOff(OryUIListCollection[oryUIListID].sprItemRightIcon[oryUIListItemID])
+	
 	OryUIListCollection[oryUIListID].btnRight[oryUIListItemID] = OryUICreateButton("text:Button;size:10,3;depth:" + str(GetSpriteDepth(OryUIListCollection[oryUIListID].sprItemContainer[oryUIListItemID]) - 1))
 
 	OryUIUpdateListItem(oryUIListID, oryUIListItemID, oryUIComponentParameters$)

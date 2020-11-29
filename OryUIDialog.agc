@@ -63,6 +63,7 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprScrim, oryUIDefaults.dialogScrimColor#[1], oryUIDefaults.dialogScrimColor#[2], oryUIDefaults.dialogScrimColor#[3], oryUIDefaults.dialogScrimColor#[4])
 	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, 0, 0)
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprScrim, -999999, -999999)
+	SetSpritePhysicsOff(OryUIDialogCollection[oryUIDialogID].sprScrim)
 	
 	OryUIDialogCollection[oryUIDialogID].sprContainer = CreateSprite(0)
 	SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIDefaults.dialogWidth#, oryUIDefaults.dialogHeight#)
@@ -70,7 +71,8 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIDefaults.dialogColor#[1], oryUIDefaults.dialogColor#[2], oryUIDefaults.dialogColor#[3], oryUIDefaults.dialogColor#[4])
 	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprContainer, -999999, -999999)
-
+	SetSpritePhysicsOff(OryUIDialogCollection[oryUIDialogID].sprContainer)
+	
 	OryUIDialogCollection[oryUIDialogID].txtTitle = CreateText("")
 	SetTextSize(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIDefaults.dialogTitleTextSize#)
 	SetTextColor(OryUIDialogCollection[oryUIDialogID].txtTitle, oryUIDefaults.dialogTitleTextColor#[1], oryUIDefaults.dialogTitleTextColor#[2], oryUIDefaults.dialogTitleTextColor#[3], oryUIDefaults.dialogTitleTextColor#[4])
@@ -92,7 +94,8 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIDialogCollection[oryUIDialogID].sprCheckbox, oryUIDefaults.dialogCheckboxColor#[1], oryUIDefaults.dialogCheckboxColor#[2], oryUIDefaults.dialogCheckboxColor#[3], oryUIDefaults.dialogCheckboxColor#[4])
 	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, 0, 0)
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].sprCheckbox, -999999, -999999)
-
+	SetSpritePhysicsOff(OryUIDialogCollection[oryUIDialogID].sprCheckbox)
+	
 	OryUIDialogCollection[oryUIDialogID].txtCheckbox = CreateText("")
 	SetTextSize(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIDefaults.dialogCheckboxTextSize#)
 	SetTextColor(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIDefaults.dialogCheckboxTextColor#[1], oryUIDefaults.dialogCheckboxTextColor#[2], oryUIDefaults.dialogCheckboxTextColor#[3], oryUIDefaults.dialogCheckboxTextColor#[4])
@@ -233,7 +236,8 @@ function OryUIInsertDialogButton(oryUIDialogID as integer, oryUIIndex as integer
 	SetSpriteColor(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].sprContainer, oryUIDefaults.dialogButtonColor#[1], oryUIDefaults.dialogButtonColor#[2], oryUIDefaults.dialogButtonColor#[3], oryUIDefaults.dialogButtonColor#[4])
 	SetSpriteOffset(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].sprContainer, -999999, -999999)
-
+	SetSpritePhysicsOff(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].sprContainer)
+	
 	OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].txtLabel = CreateText("Button")
 	SetTextSize(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].txtLabel, oryUIDefaults.dialogButtonTextSize#)
 	SetTextBold(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].txtLabel, oryUIDefaults.dialogButtonTextBold)

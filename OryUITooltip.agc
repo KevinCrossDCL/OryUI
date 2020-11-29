@@ -46,6 +46,7 @@ function OryUICreateTooltip(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITooltipCollection[oryUITooltipID].sprContainer, oryUIDefaults.tooltipColor#[1], oryUIDefaults.tooltipColor#[2], oryUIDefaults.tooltipColor#[3], oryUIDefaults.tooltipColor#[4])
 	SetSpriteOffset(OryUITooltipCollection[oryUITooltipID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITooltipCollection[oryUITooltipID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUITooltipCollection[oryUITooltipID].sprContainer)
 
 	OryUITooltipCollection[oryUITooltipID].txtLabel = CreateText("")
 	SetTextSize(OryUITooltipCollection[oryUITooltipID].txtLabel, oryUIDefaults.tooltipTextSize#)

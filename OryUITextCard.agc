@@ -25,6 +25,7 @@ function OryUICreateTextCard(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITextCardCollection[oryUITextCardID].sprContainer, 255, 255, 255, 255)
 	SetSpriteOffset(OryUITextCardCollection[oryUITextCardID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITextCardCollection[oryUITextCardID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUITextCardCollection[oryUITextCardID].sprContainer)
 	
 	OryUITextCardCollection[oryUITextCardID].txtHeader = CreateText("")
 	SetTextSize(OryUITextCardCollection[oryUITextCardID].txtHeader, 3.4)

@@ -1,11 +1,27 @@
-BUILD 0.11a
+
+VERSION 0.12a
+------------------------
+- All files
+	- Added SetSpritePhysicsOff() on all sprites
+
+- OryUIButtonGroup
+	- DeleteButtonGroup function was not deleting all buttons in the group
+
+- OryUITextfield
+	- Added function OryUIGetTextfieldTrailingIconPressed()
+	- Added function OryUIGetTextfieldTrailingIconReleased()
+	- Added function OryUISetTextfieldValue()
+	
+			
+		
+VERSION 0.11a
 ------------------------
 - All files
 	- OryUI has been updated to work with #option_explicit
 	
 	
 	
-BUILD 0.10a
+VERSION 0.10a
 ------------------------
 - OryUI
 	- Added "cancel" icon
@@ -34,7 +50,7 @@ BUILD 0.10a
 
 - OryUIList
 	- Added parameter 'showRightButton'
-	- Added function OryUIGetListItemRightButtonReleased
+	- Added function OryUIGetListItemRightButtonReleased()
 	- Added function OryUIGetListX()
 	- Added function OryUIGetListY()
 
@@ -64,7 +80,7 @@ BUILD 0.10a
 
 
 
-BUILD 0.9a
+VERSION 0.9a
 ------------------------
 - Most files
 	- Added GetScreenBoundsTop() to most places where GetViewOffsetY() is called
@@ -117,7 +133,7 @@ BUILD 0.9a
 
 
 
-BUILD 0.8a
+VERSION 0.8a
 ------------------------
 - All files
 	- All color and colorID parameters accept the same values
@@ -151,7 +167,7 @@ BUILD 0.8a
 
 
 
-BUILD 0.7a
+VERSION 0.7a
 ------------------------
 - All files
 	- Changed OryUIParameters to oryUIParameters to fit chosen coding convention
@@ -178,7 +194,7 @@ BUILD 0.7a
 
 
 
-BUILD 0.6a
+VERSION 0.6a
 ------------------------
 - OryUIButton
 	- Added function OryUIDisableButton()
@@ -284,7 +300,7 @@ BUILD 0.6a
 
 
 
-BUILD 0.5a
+VERSION 0.5a
 ------------------------
 - OryUITopBar
 	- Added function OryUIGetTopBarActionReleasedName()
@@ -293,7 +309,7 @@ BUILD 0.5a
 
 	
 
-BUILD 0.4a
+VERSION 0.4a
 ------------------------
 - OryUIButton
 	- Fixed parameter 'textAlignment'
@@ -357,7 +373,7 @@ BUILD 0.4a
 
 
 
-BUILD 0.3a
+VERSION 0.3a
 ------------------------
 - OryUI
 	- Added function OryUIDisableScreenScrolling()
@@ -462,7 +478,7 @@ BUILD 0.3a
 
 
 	
-BUILD 0.2a
+VERSION 0.2a
 ------------------------
 - OryUI
 	- Added global variable OryUIStatusBarHeight#

@@ -88,13 +88,14 @@ function OryUICreateButtonGroup(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, 255, 255, 255, 255)
 	SetSpriteOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer, 0, 0)
-
+	SetSpritePhysicsOff(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer)
+	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateButtonGroup(oryUIButtonGroupID, oryUIComponentParameters$)
 endfunction oryUIButtonGroupID
 
 function OryUIDeleteButtonGroup(oryUIButtonGroupID as integer)
 	DeleteSprite(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer)
-	while (OryUIButtonGroupCollection[oryUIButtonGroupID].buttons.length > 0)
+	while (OryUIButtonGroupCollection[oryUIButtonGroupID].buttons.length >= 0)
 		OryUIDeleteButtonGroupItem(oryUIButtonGroupID, 0)
 	endwhile
 endfunction
@@ -250,7 +251,8 @@ function OryUIInsertButtonGroupItem(oryUIButtonGroupID as integer, oryUIIndex as
 	SetSpriteColor(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer, OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[1], OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[2], OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[3], OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedColor#[4])
 	SetSpriteOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer, GetSpriteX(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer), GetSpriteY(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
-
+	SetSpritePhysicsOff(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer)
+	
 	OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].icon$ = ""
 	OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon = CreateSprite(0)
 	SetSpriteSize(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon, -1, 3) //2.87
@@ -258,6 +260,7 @@ function OryUIInsertButtonGroupItem(oryUIButtonGroupID as integer, oryUIIndex as
 	SetSpriteColor(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon, OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedIconColor#[1], OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedIconColor#[2], OryUIButtonGroupCollection[oryUIButtonGroupID].unselectedIconColor#[3], 0)
 	SetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon, GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer) - 1)
 	SetSpriteOffset(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon, GetSpriteWidth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon) / 2, GetSpriteHeight(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon) / 2)
+	SetSpritePhysicsOff(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon)
 	OryUIPinSpriteToCentreOfSprite(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprIcon, OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].sprContainer, 0, 0)
 
 	OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIButtonGroupItemID].txtLabel = CreateText("")
@@ -292,10 +295,12 @@ function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
 					oryUIButtonGroupItemSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIButtonGroupItemIconSprite = GetSpriteHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUIButtonGroupItemText = GetTextHitTest(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].txtLabel, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-					if (GetspriteDepth(OryUIGetSpritePressed()) >= GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon))
-						if (oryUIButtonGroupItemSprite = 1 or oryUIButtonGroupItemIconSprite = 1 or oryUIButtonGroupItemText = 1)
-							OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = oryUIForI + 1
-							OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 1
+					if (OryUIGetSpritePressed() > 0)
+						if (GetspriteDepth(OryUIGetSpritePressed()) >= GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].sprIcon))
+							if (oryUIButtonGroupItemSprite = 1 or oryUIButtonGroupItemIconSprite = 1 or oryUIButtonGroupItemText = 1)
+								OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = oryUIForI + 1
+								OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[oryUIForI].pressed = 1
+							endif
 						endif
 					endif
 				else

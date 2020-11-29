@@ -51,6 +51,7 @@ function OryUICreateTemplate(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIDefaults.templateColor#[1], oryUIDefaults.templateColor#[2], oryUIDefaults.templateColor#[3], oryUIDefaults.templateColor#[4])
 	SetSpriteOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUITemplateCollection[oryUITemplateID].sprContainer)
 
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateTemplate(oryUITemplateID, oryUIComponentParameters$)
 endfunction oryUITemplateID
@@ -155,6 +156,7 @@ function OryUIInsertTemplateItem(oryUITemplateID as integer, oryUITemplateIndex 
 	SetSpriteColor(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, OryUITemplateCollection[oryUITemplateID].itemColor#[1], OryUITemplateCollection[oryUITemplateID].itemColor#[2], OryUITemplateCollection[oryUITemplateID].itemColor#[3], OryUITemplateCollection[oryUITemplateID].itemColor#[4])
 	SetSpriteOffset(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer)
 
 	OryUIUpdateTemplateItem(oryUITemplateID, oryUITemplateItemID + 1, oryUIComponentParameters$)
 endfunction

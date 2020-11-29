@@ -57,6 +57,7 @@ function OryUICreateTabs(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITabsCollection[oryUITabsID].sprContainer, 52, 73, 94, 255)
 	SetSpriteOffset(OryUITabsCollection[oryUITabsID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUITabsCollection[oryUITabsID].sprContainer)
 
 	OryUITabsCollection[oryUITabsID].sprActiveIndicator = CreateSprite(0)
 	SetSpriteSize(OryUITabsCollection[oryUITabsID].sprActiveIndicator, 100, 0.4)
@@ -64,6 +65,7 @@ function OryUICreateTabs(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITabsCollection[oryUITabsID].sprActiveIndicator, 255, 255, 255, 255)
 	SetSpriteOffset(OryUITabsCollection[oryUITabsID].sprActiveIndicator, 0, 0)
 	SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprActiveIndicator, -999999, -999999)
+	SetSpritePhysicsOff(OryUITabsCollection[oryUITabsID].sprActiveIndicator)
 
 	OryUITabsCollection[oryUITabsID].sprShadow = CreateSprite(0)
 	SetSpriteSize(OryUITabsCollection[oryUITabsID].sprShadow, 100, 1)
@@ -71,7 +73,8 @@ function OryUICreateTabs(oryUIComponentParameters$ as string)
 	SetSpriteImage(OryUITabsCollection[oryUITabsID].sprShadow, oryUITopBarShadowImage)
 	SetSpriteOffset(OryUITabsCollection[oryUITabsID].sprShadow, 0, 0)
 	SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprShadow, GetSpriteX(OryUITabsCollection[oryUITabsID].sprContainer), GetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer) + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
-
+	SetSpritePhysicsOff(OryUITabsCollection[oryUITabsID].sprShadow)
+	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabs(oryUITabsID, oryUIComponentParameters$)
 endfunction oryUITabsID
 
@@ -143,6 +146,7 @@ function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponen
 	SetSpriteDepth(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, GetSpriteDepth(OryUITabsCollection[oryUITabsID].sprContainer) - 1)
 	SetSpriteColor(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, OryUITabsCollection[oryUITabsID].color#[1], OryUITabsCollection[oryUITabsID].color#[2], OryUITabsCollection[oryUITabsID].color#[3], OryUITabsCollection[oryUITabsID].color#[4])
 	SetSpriteOffset(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprContainer)
 
 	remstart
 	OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID].sprIcon = CreateSprite(0)

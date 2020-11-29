@@ -132,6 +132,7 @@ function OryUICreateButton(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIButtonCollection[oryUIButtonID].sprContainer, OryUIButtonCollection[oryUIButtonID].enabledColor#[1], OryUIButtonCollection[oryUIButtonID].enabledColor#[2], OryUIButtonCollection[oryUIButtonID].enabledColor#[3], OryUIButtonCollection[oryUIButtonID].enabledColor#[4])
 	SetSpriteOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUIButtonCollection[oryUIButtonID].sprContainer)
 	
 	OryUIButtonCollection[oryUIButtonID].enabledIcon$ = ""
 	OryUIButtonCollection[oryUIButtonID].icon$ = ""
@@ -140,6 +141,7 @@ function OryUICreateButton(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIButtonCollection[oryUIButtonID].sprIcon, OryUIButtonCollection[oryUIButtonID].enabledIconColor#[1], OryUIButtonCollection[oryUIButtonID].enabledIconColor#[2], OryUIButtonCollection[oryUIButtonID].enabledIconColor#[3], OryUIButtonCollection[oryUIButtonID].enabledIconColor#[4])
 	SetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprIcon, GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) - 1)
 	SetSpriteOffset(OryUIButtonCollection[oryUIButtonID].sprIcon, GetSpriteWidth(OryUIButtonCollection[oryUIButtonID].sprIcon) / 2, GetSpriteHeight(OryUIButtonCollection[oryUIButtonID].sprIcon) / 2)
+	SetSpritePhysicsOff(OryUIButtonCollection[oryUIButtonID].sprIcon)
 	OryUIPinSpriteToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].sprIcon, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
 
 	OryUIButtonCollection[oryUIButtonID].txtLabel = CreateText("")

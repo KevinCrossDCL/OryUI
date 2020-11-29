@@ -90,6 +90,8 @@ type typeOryUIDefaults
 	// OryUIMenu
 	menuColor# as float[4]
 	menuDepth as integer
+	menuDividerColor# as float[4]
+	menuDividerHeight# as float
 	menuItemHeight# as float
 	menuItemLeftIconColor# as float[4]
 	menuItemLeftIconHeight# as float
@@ -178,6 +180,35 @@ type typeOryUIDefaults
 	paginationUnselectedTextColor# as float[4]
 	paginationUnselectedTextSize# as float
 	paginationWidth# as float
+	
+	// OryUIPicker
+	pickerAutoHeight as integer
+	pickerBottomMargin# as float
+	pickerButtonColor# as float[4]
+	pickerButtonHeight# as float
+	pickerButtonTextBold as integer
+	pickerButtonTextColor# as float[4]
+	pickerButtonTextSize# as float
+	pickerButtonXSpacing# as float
+	pickerButtonYSpacing# as float
+	pickerColor# as float[4]
+	pickerDepth as integer
+	pickerFlexButtons as integer
+	pickerHeight# as float
+	pickerLeftMargin# as float
+	pickerRightMargin# as float
+	pickerScrimColor# as float[4]
+	pickerSpacingBetweenSupportingTextAndButtons# as float
+	pickerSpacingBetweenTitleAndSupportingText# as float
+	pickerStackButtons as integer
+	pickerSupportingTextAlignment as integer
+	pickerSupportingTextColor# as float[4]
+	pickerSupportingTextSize# as float
+	pickerTitleTextAlignment as integer
+	pickerTitleTextColor# as float[4]
+	pickerTitleTextSize# as float
+	pickerTopMargin# as float
+	pickerWidth# as float
 	
 	// OryUIProgressIndicator
 	progressIndicatorAnimationFPS as integer
@@ -342,6 +373,8 @@ type typeOryUIParameters
 	itemSize# as float[2]
 	itemType$ as string
 	labelText$ as string
+	leadingIcon$ as string
+	leadingIconID as integer
 	leftIcon$ as string
 	leftIconID as integer
 	leftIconColor# as float[4]
@@ -417,6 +450,7 @@ type typeOryUIParameters
 	showHelperText as integer
 	showIcon as integer
 	showItemDivider as integer
+	showLeadingIcon as integer
 	showLeftIcon as integer
 	showLeftThumbnail as integer
 	showRightButton as integer
@@ -424,6 +458,7 @@ type typeOryUIParameters
 	showRightText as integer
 	showShadow as integer
 	showSkipToEndButtons as integer
+	showTrailingIcon as integer
 	size# as float[2]
 	spriteShader as integer
 	ssl as integer
@@ -460,6 +495,8 @@ type typeOryUIParameters
 	trackColor# as float[4]
 	trackPosition# as float[2]
 	trackSize# as float[2]
+	trailingIcon$ as string
+	trailingIconID as integer
 	uncheckedImageID as integer
 	unselectedColor# as float[4]
 	unselectedIconColor# as float[4]
@@ -489,6 +526,7 @@ global oryUIDialogVisible as integer
 global oryUILocalJSONVariables as typeOryUIJSONVariables[]
 if (GetFileExists("OryUILocalVariables.json")) then oryUILocalJSONVariables.load("OryUILocalVariables.json")
 global oryUIParameters as typeoryUIParameters
+global oryUIPickerVisible as integer
 global oryUIScrimDepth as integer
 global oryUIScrimVisible as integer
 global oryUIStatusBarHeight# as float : oryUIStatusBarHeight# = 3.6
@@ -638,6 +676,8 @@ function OryUIResetParametersType()
 	oryUIParameters.itemHeight# = -999999
 	oryUIParameters.itemType$ = ""
 	oryUIParameters.labelText$ = ""
+	oryUIParameters.leadingIcon$ = ""
+	oryUIParameters.leadingIconID = -999999
 	oryUIParameters.leftIcon$ = ""
 	oryUIParameters.leftIconID = -999999
 	oryUIParameters.leftLine1Text$ = ""
@@ -692,6 +732,7 @@ function OryUIResetParametersType()
 	oryUIParameters.showHelperText = -99999
 	oryUIParameters.showIcon = -999999
 	oryUIParameters.showItemDivider = -999999
+	oryUIParameters.showLeadingIcon = -999999
 	oryUIParameters.showLeftIcon = -999999
 	oryUIParameters.showLeftThumbnail = -999999
 	oryUIParameters.showRightButton = -999999
@@ -699,6 +740,7 @@ function OryUIResetParametersType()
 	oryUIParameters.showRightText = -999999
 	oryUIParameters.showShadow = -999999
 	oryUIParameters.showSkipToEndButtons = -999999
+	oryUIParameters.showTrailingIcon = -999999
 	oryUIParameters.spriteShader = -999999
 	oryUIParameters.ssl = -999999
 	oryUIParameters.stackButtons = -999999
@@ -724,6 +766,8 @@ function OryUIResetParametersType()
 	oryUIParameters.titleTextAlignment = -999999
 	oryUIParameters.titleTextBold = -999999
 	oryUIParameters.titleTextSize# = -999999
+	oryUIParameters.trailingIcon$ = ""
+	oryUIParameters.trailingIconID = -999999
 	oryUIParameters.uncheckedImageID = -999999
 	oryUIParameters.unselectedTextBold = -999999
 	oryUIParameters.unselectedTextSize# = -999999	
@@ -1137,6 +1181,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.itemSize#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "labeltext")
 			oryUIParameters.labelText$ = oryUIValue$
+		elseif (oryUIVariable$ = "leadingicon")
+			oryUIParameters.leadingIcon$ = oryUIValue$
+			oryUIParameters.leadingIconID = OryUIReturnIconID(oryUIValue$)
 		elseif (oryUIVariable$ = "lefticon")
 			oryUIParameters.leftIcon$ = oryUIValue$
 			oryUIParameters.leftIconID = OryUIReturnIconID(oryUIValue$)
@@ -1315,6 +1362,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.showIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showitemdivider")
 			oryUIParameters.showItemDivider = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "showleadingicon")
+			oryUIParameters.showLeadingIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showlefticon")
 			oryUIParameters.showLeftIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showleftthumbnail")
@@ -1329,6 +1378,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.showShadow = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "showskiptoendbuttons")
 			oryUIParameters.showSkipToEndButtons = OryUIConvertBoolean(oryUIValue$)
+		elseif (oryUIVariable$ = "showtrailingicon")
+			oryUIParameters.showTrailingIcon = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "size")
 			oryUIParameters.size#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.size#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -1430,6 +1481,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 		elseif (oryUIVariable$ = "tracksize")
 			oryUIParameters.trackSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.trackSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "trailingicon")
+			oryUIParameters.trailingIcon$ = oryUIValue$
+			oryUIParameters.trailingIconID = OryUIReturnIconID(oryUIValue$)
 		elseif (oryUIVariable$ = "uncheckedimageid")
 			oryUIParameters.uncheckedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedcolor" or oryUIVariable$ = "unselectedcolorid")
@@ -1440,7 +1494,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.unselectedTextBold = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedtextcolor" or oryUIVariable$ = "unselectedtextcolorid")
 			oryUIParameters.unselectedTextColor# = OryUIConvertColor(oryUIValue$)
-		elseif (oryUIVariable$ = "selectedtextsize")
+		elseif (oryUIVariable$ = "unselectedtextsize")
 			oryUIParameters.unselectedTextSize# = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "width")
 			oryUIParameters.size#[1] = valFloat(oryUIValue$)

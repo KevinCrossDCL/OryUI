@@ -62,7 +62,7 @@ To include it in your project add the following line to the top of your script
 #insert "..\OryUI Framework\OryUIDefaultSettings.agc"
 ```
 
-You will also need to copy the OryUIMedia folder into your media folder as a subfolder i.e. media\OryUIMedia.
+You will also need to copy the OryUIMedia folder from this repository media folder into your media folder as a subfolder i.e. media\OryUIMedia.
 
 The above insert lines are based on the files being placed in your project folder. You will need to change the insert paths if you place the files somewhere else.
 

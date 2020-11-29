@@ -46,6 +46,7 @@ function OryUICreateProgressIndicator(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack, oryUIDefaults.progressIndicatorTrackColor#[1], oryUIDefaults.progressIndicatorTrackColor#[2], oryUIDefaults.progressIndicatorTrackColor#[3], oryUIDefaults.progressIndicatorTrackColor#[4])
 	SetSpriteOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack, 0, 0)
 	SetSpritePositionByOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack, 0, 0)
+	SetSpritePhysicsOff(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack)
 
 	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator = CreateSprite(0)
 	SetSpriteSize(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, oryUIDefaults.progressIndicatorTrackHeight#)
@@ -53,6 +54,7 @@ function OryUICreateProgressIndicator(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, oryUIDefaults.progressIndicatorColor#[1], oryUIDefaults.progressIndicatorColor#[2], oryUIDefaults.progressIndicatorColor#[3], oryUIDefaults.progressIndicatorColor#[4])
 	SetSpriteOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, 0)
 	SetSpritePositionByOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, 0)
+	SetSpritePhysicsOff(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator)
 	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateProgressIndicator(oryUIProgressIndicatorID, oryUIComponentParameters$)
 endfunction oryUIProgressIndicatorID

@@ -5,6 +5,7 @@ function OryUICreateSprite(oryUIComponentParameters$ as string)
 	local oryUISpriteID as integer
 	oryUISpriteID = CreateSprite(0)
 	SetSpriteOffset(oryUISpriteID, 0, 0)
+	SetSpritePhysicsOff(oryUISpriteID)
 	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateSprite(oryUISpriteID, oryUIComponentParameters$)
 endfunction oryUISpriteID

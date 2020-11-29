@@ -17,12 +17,15 @@ endtype
 
 type typeOryUIMenuItem
 	id as integer
+//~	checked as integer
+//~	itemType$ as string
 	leftIcon$ as string
 	name$ as string
 	pressed as integer
 	released as integer
 	rightIcon$ as string
 	sprContainer as integer
+//~	sprDivider as integer
 	sprLeftIcon as integer
 	sprRightIcon as integer
 	txtLabel as integer
@@ -48,6 +51,7 @@ function OryUICreateMenu(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprScrim, oryUIDefaults.menuScrimColor#[1], oryUIDefaults.menuScrimColor#[2], oryUIDefaults.menuScrimColor#[3], oryUIDefaults.menuScrimColor#[4])
 	SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, 0, 0)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, -999999, -999999)
+	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].sprScrim)
 	
 	OryUIMenuCollection[oryUIMenuID].sprContainer = CreateSprite(0)
 	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIDefaults.menuWidth#, 0)
@@ -55,6 +59,7 @@ function OryUICreateMenu(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIDefaults.menuColor#[1], oryUIDefaults.menuColor#[2], oryUIDefaults.menuColor#[3], oryUIDefaults.menuColor#[4])
 	SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].sprContainer)
 	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateMenu(oryUIMenuID, oryUIComponentParameters$)
 endfunction oryUIMenuID
@@ -69,6 +74,7 @@ endfunction
 
 function OryUIDeleteMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer)
 	DeleteSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer)
+//~	DeleteSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider)
 	DeleteSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon)
 	DeleteSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon)
 	DeleteText(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].txtLabel)
@@ -81,7 +87,12 @@ function OryUIGetMenuHeight(oryUIMenuID as integer)
 	oryUIMenuHeight# = 0
 	for oryUIForI = 0 to OryUIGetMenuItemCount(oryUIMenuID) - 1
 		if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
-			oryUIMenuHeight# = oryUIMenuHeight# + GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer)
+//~			if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "divider")
+//~				oryUIMenuHeight# = oryUIMenuHeight# + GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprDivider)
+//~			endif
+//~			if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "option" or OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "toggle")
+				oryUIMenuHeight# = oryUIMenuHeight# + GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer)
+//~			endif
 		endif
 	next
 endfunction oryUIMenuHeight#
@@ -145,6 +156,7 @@ function OryUIHideMenu(oryUIMenuID as integer)
 	for oryUIForI = 0 to OryUIGetMenuItemCount(oryUIMenuID) - 1
 		if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
 			SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, -999999, -999999)
+//~			SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprDivider, -999999, -999999)
 			SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon, -999999, -999999)
 			SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon, -999999, -999999)
 			SetTextPosition(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, -999999, -999999)
@@ -160,19 +172,32 @@ function OryUIInsertMenuItem(oryUIMenuID as integer, oryUIMenuIndex as integer, 
 		OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].id = oryUIMenuItemID + 1
 	endif
 
+//~	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].itemType$ = "option"
+//~	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].checked = 0
+	
 	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer = CreateSprite(0)
 	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIDefaults.menuItemHeight#)
 	SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprContainer) - 1)
 	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer, oryUIDefaults.menuColor#[1], oryUIDefaults.menuColor#[2], oryUIDefaults.menuColor#[3], oryUIDefaults.menuColor#[4])
 	SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer)
 
+//~	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider = CreateSprite(0)
+//~	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer) * 0.9, oryUIDefaults.menuDividerHeight#)
+//~	SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer) - 1)
+//~	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider, oryUIDefaults.menuDividerColor#[1], oryUIDefaults.menuDividerColor#[2], oryUIDefaults.menuDividerColor#[3], oryUIDefaults.menuDividerColor#[4])
+//~	//SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider, 0, 0)
+//~	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider, -999999, -999999)
+//~	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprDivider)
+	
 	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon = CreateSprite(0)
 	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon, -1, oryUIDefaults.menuItemLeftIconHeight#)
 	SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer) - 1)
 	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon, oryUIDefaults.menuItemLeftIconColor#[1], oryUIDefaults.menuItemLeftIconColor#[2], oryUIDefaults.menuItemLeftIconColor#[3], oryUIDefaults.menuItemLeftIconColor#[4])
 	SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon) / 2, GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon) / 2)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon, -999999, -999999)
+	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprLeftIcon)
 
 	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon = CreateSprite(0)
 	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon, -1, oryUIDefaults.menuItemRightIconHeight#)
@@ -180,6 +205,7 @@ function OryUIInsertMenuItem(oryUIMenuID as integer, oryUIMenuIndex as integer, 
 	SetSpriteColor(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon, oryUIDefaults.menuItemRightIconColor#[1], oryUIDefaults.menuItemRightIconColor#[2], oryUIDefaults.menuItemRightIconColor#[3], oryUIDefaults.menuItemRightIconColor#[4])
 	SetSpriteOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon) / 2, GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon) / 2)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon, -999999, -999999)
+	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprRightIcon)
 
 	OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].txtLabel = CreateText("Menu Item")
 	SetTextSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].txtLabel, oryUIDefaults.menuItemTextSize#)
@@ -219,12 +245,12 @@ function OryUIInsertMenuListener(oryUIMenuID as integer)
 						oryUIMenuScrimSprite = GetSpriteHitTest(OryUIMenuCollection[oryUIMenuID].sprScrim, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIMenuContainerSprite = GetSpriteHitTest(OryUIMenuCollection[oryUIMenuID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUIMenuItemSprite = GetSpriteHitTest(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-						if (oryUIMenuScrimSprite = 1 and oryUIMenuContainerSprite = 0)
-							OryUIMenuCollection[oryUIMenuID].scrimPressed = 1
-							OryUIHideMenu(oryUIMenuID)
-						elseif (oryUIMenuItemSprite = 1)
+						if (oryUIMenuItemSprite = 1)
 							OryUIMenuCollection[oryUIMenuID].items[oryUIForI].pressed = 1
 							OryUIMenuCollection[oryUIMenuID].itemPressed = oryUIForI + 1
+						elseif (oryUIMenuScrimSprite = 1 and oryUIMenuContainerSprite = 0)
+							OryUIMenuCollection[oryUIMenuID].scrimPressed = 1
+							OryUIHideMenu(oryUIMenuID)
 						endif
 					else
 						if (GetPointerState())
@@ -246,13 +272,22 @@ function OryUIInsertMenuListener(oryUIMenuID as integer)
 							oryUIMenuContainerSprite = GetSpriteHitTest(OryUIMenuCollection[oryUIMenuID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							oryUIMenuItemSprite = GetSpriteHitTest(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].pressed)
-								if (oryUIMenuScrimSprite = 1 and oryUIMenuContainerSprite = 0)
-									OryUIMenuCollection[oryUIMenuID].scrimPressed = 1
-								elseif (oryUIMenuItemSprite = 1)
+								if (oryUIMenuItemSprite = 1) // and (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "option" or OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "toggle"))
 									OryUIMenuCollection[oryUIMenuID].items[oryUIForI].released = 1
 									OryUIMenuCollection[oryUIMenuID].itemReleased = oryUIForI + 1
+									OryUIHideMenu(oryUIMenuID)
+//~									if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "option") then OryUIHideMenu(oryUIMenuID)
+//~									if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "toggle")
+//~										if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].checked = 0)
+//~											OryUIMenuCollection[oryUIMenuID].items[oryUIForI].checked = 1
+//~										else
+//~											OryUIMenuCollection[oryUIMenuID].items[oryUIForI].checked = 0
+//~										endif
+//~									endif
+								elseif (oryUIMenuScrimSprite = 1 and oryUIMenuContainerSprite = 0)
+									OryUIMenuCollection[oryUIMenuID].scrimPressed = 1
+									OryUIHideMenu(oryUIMenuID)
 								endif
-								OryUIHideMenu(oryUIMenuID)
 							endif
 							OryUIMenuCollection[oryUIMenuID].items[oryUIForI].pressed = 0
 							OryUIMenuCollection[oryUIMenuID].itemPressed = 0
@@ -282,6 +317,7 @@ endfunction
 function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
 	local oryUIForI as integer
 	local oryUIMenuHeight# as float
+	local oryUIMenuItemsHeight# as float
 	
 	oryUIScrimDepth = GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprScrim)
 	oryUIScrimVisible = 1
@@ -290,7 +326,7 @@ function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprScrim, GetViewOffsetX(), GetViewOffsetY() + GetScreenBoundsTop())
 
 	oryUIMenuHeight# = OryUIGetMenuHeight(oryUIMenuID)
-	
+
 	SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIMenuHeight#)
 
 	if (oryUIMenuX# + GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer) + (2.46 / GetDisplayAspect()) > GetViewOffsetX() + 100)
@@ -301,23 +337,42 @@ function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
 	endif
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIMenuX#, oryUIMenuY#)
 	
+	oryUIMenuItemsHeight# = 0
+	
 	for oryUIForI = 0 to OryUIGetMenuItemCount(oryUIMenuID) - 1
 		if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
-			SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
-			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprContainer) - 1)
-			SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIMenuX#, oryUIMenuY# + (oryUIForI * oryUIDefaults.menuItemHeight#))
-			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
-			OryUIPinSpriteToCentreLeftOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIDefaults.menuItemLeftIconLeftPadding# + (GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon) / 2), 0)
-			SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
-			OryUIPinSpriteToCentreRightOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, -(oryUIDefaults.menuItemRightIconRightPadding# + (GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon) / 2)), 0)
-			SetTextDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
-			if (GetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel) = 0)
-				OryUIPinTextToCentreLeftOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIDefaults.menuItemLeftIconLeftPadding# + GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon) + oryUIDefaults.menuItemTextPadding#, 0)
-			elseif (GetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel) = 1)
-				OryUIPinTextToCentreOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, 0, 0)
-			elseif (GetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel) = 2)
-				OryUIPinTextToCentreRightOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, -(oryUIDefaults.menuItemRightIconRightPadding# + GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon) + oryUIDefaults.menuItemTextPadding#), 0)
-			endif
+			SetSpritePosition(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, -999999, -999999)
+//~			SetSpritePosition(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprDivider, -999999, -999999)
+			SetSpritePosition(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon, -999999, -999999)
+			SetSpritePosition(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon, -999999, -999999)
+			SetTextPosition(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, -999999, -999999)
+//~			if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "divider")
+//~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIDefaults.menuDividerHeight#)
+//~				SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprContainer) - 1)
+//~				SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIMenuX#, oryUIMenuY# + oryUIMenuItemsHeight#)
+//~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprDivider, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer) * 0.9, GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
+//~				SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprDivider, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
+//~				OryUIPinSpriteToCentreOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprDivider, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, 0, 0)
+//~				oryUIMenuItemsHeight# = oryUIMenuItemsHeight# + oryUIDefaults.menuDividerHeight#
+//~			endif
+//~			if (OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "option" or OryUIMenuCollection[oryUIMenuID].items[oryUIForI].itemType$ = "toggle")
+				//SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer))
+				SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].sprContainer) - 1)
+				SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIMenuX#, oryUIMenuY# + oryUIMenuItemsHeight#)
+				SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
+				OryUIPinSpriteToCentreLeftOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIDefaults.menuItemLeftIconLeftPadding# + (GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon) / 2), 0)
+				SetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
+				OryUIPinSpriteToCentreRightOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, -(oryUIDefaults.menuItemRightIconRightPadding# + (GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon) / 2)), 0)
+				SetTextDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer) - 1)
+				if (GetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel) = 0)
+					OryUIPinTextToCentreLeftOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, oryUIDefaults.menuItemLeftIconLeftPadding# + GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprLeftIcon) + oryUIDefaults.menuItemTextPadding#, 0)
+				elseif (GetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel) = 1)
+					OryUIPinTextToCentreOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, 0, 0)
+				elseif (GetTextAlignment(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel) = 2)
+					OryUIPinTextToCentreRightOfSprite(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].txtLabel, OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer, -(oryUIDefaults.menuItemRightIconRightPadding# + GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprRightIcon) + oryUIDefaults.menuItemTextPadding#), 0)
+				endif
+				oryUIMenuItemsHeight# = oryUIMenuItemsHeight# + GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].items[oryUIForI].sprContainer)
+//~			endif
 		endif
 	next
 endfunction
@@ -357,9 +412,22 @@ function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer,
 
 	if (oryUIMenuItemID - 1 <= OryUIMenuCollection[oryUIMenuID].items.length)
 		if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer))
-			SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteXByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer), GetSpriteYByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer) + 0.1 + ((oryUIMenuItemID - 1) * oryUIDefaults.menuItemHeight#))
+			//SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteXByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer), GetSpriteYByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer) + 0.1 + ((oryUIMenuItemID - 1) * oryUIDefaults.menuItemHeight#))
 
 			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+//~			if (lower(oryUIParameters.itemType$) = "divider")
+//~				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].itemType$ = "divider"
+//~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIDefaults.menuDividerHeight#)
+//~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprDivider, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer) * 0.9, oryUIDefaults.menuDividerHeight#)
+//~			endif
+//~			if (lower(oryUIParameters.itemType$) = "option")
+//~				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].itemType$ = "option"
+//~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIDefaults.menuItemHeight#)
+//~			endif
+//~			if (lower(oryUIParameters.itemType$) = "toggle")
+//~				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].itemType$ = "toggle"
+//~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIDefaults.menuItemHeight#)
+//~			endif
 			if (OryUIMenuCollection[oryUIMenuID].showLeftIcon = 1)
 				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprLeftIcon, -1, 3.5)
 				if (oryUIParameters.leftIcon$ <> "" and oryUIParameters.leftIconID > -999999)

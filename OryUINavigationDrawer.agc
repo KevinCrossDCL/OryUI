@@ -69,6 +69,7 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, oryUIDefaults.navigationDrawerScrimColor#[1], oryUIDefaults.navigationDrawerScrimColor#[2], oryUIDefaults.navigationDrawerScrimColor#[3], oryUIDefaults.navigationDrawerScrimColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerWidth#, OryUIStatusBarHeight#)
@@ -76,6 +77,7 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIDefaults.navigationDrawerColor#[1], oryUIDefaults.navigationDrawerColor#[2], oryUIDefaults.navigationDrawerColor#[3], oryUIDefaults.navigationDrawerColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, oryUIDefaults.navigationDrawerWidth#, OryUIStatusBarHeight#)
@@ -83,6 +85,7 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, oryUIDefaults.navigationDrawerStatusBarColor#[1], oryUIDefaults.navigationDrawerStatusBarColor#[2], oryUIDefaults.navigationDrawerStatusBarColor#[3], oryUIDefaults.navigationDrawerStatusBarColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 1, OryUIStatusBarHeight#)
@@ -90,6 +93,7 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	SetSpriteImage(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, oryUIRightShadowImage)
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow)
 
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateNavigationDrawer(oryUINavigationDrawerID, oryUIComponentParameters$)
 endfunction oryUINavigationDrawerID
@@ -216,6 +220,7 @@ function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprContainer, oryUIDefaults.navigationDrawerOptionColor#[1], oryUIDefaults.navigationDrawerOptionColor#[2], oryUIDefaults.navigationDrawerOptionColor#[3], oryUIDefaults.navigationDrawerOptionColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprContainer, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprContainer)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), oryUIDefaults.navigationDrawerOptionHeight#)
@@ -223,6 +228,7 @@ function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay, oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[1], oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[2], oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[3], oryUIDefaults.navigationDrawerOptionActiveOverlayColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay) / 2, GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay) / 2)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprActiveOverlay)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprDivider = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprDivider, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), oryUIDefaults.navigationDrawerDividerHeight#)
@@ -230,6 +236,7 @@ function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprDivider, oryUIDefaults.navigationDrawerDividerColor#[1], oryUIDefaults.navigationDrawerDividerColor#[2], oryUIDefaults.navigationDrawerDividerColor#[3], oryUIDefaults.navigationDrawerDividerColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprDivider, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprDivider, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprDivider)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon, -1, oryUIDefaults.navigationDrawerOptionIconHeight#)
@@ -237,6 +244,7 @@ function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon, oryUIDefaults.navigationDrawerOptionIconColor#[1], oryUIDefaults.navigationDrawerOptionIconColor#[2], oryUIDefaults.navigationDrawerOptionIconColor#[3], oryUIDefaults.navigationDrawerOptionIconColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon) / 2, GetSpriteHeight(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon) / 2)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprIcon)
 
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprHeaderTextScrim = CreateSprite(0)
 	SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprHeaderTextScrim, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer), oryUIDefaults.navigationDrawerHeaderTextScrimHeight#)
@@ -244,6 +252,7 @@ function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 	SetSpriteColor(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprHeaderTextScrim, oryUIDefaults.navigationDrawerHeaderTextScrimColor#[1], oryUIDefaults.navigationDrawerHeaderTextScrimColor#[2], oryUIDefaults.navigationDrawerHeaderTextScrimColor#[3], oryUIDefaults.navigationDrawerHeaderTextScrimColor#[4])
 	SetSpriteOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprHeaderTextScrim, 0, 0)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprHeaderTextScrim, -999999, -999999)
+	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprHeaderTextScrim)
 	
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].txtLabel = CreateText(" ")
 	SetTextSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].txtLabel, oryUIDefaults.navigationDrawerOptionTextSize#)

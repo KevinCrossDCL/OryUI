@@ -50,6 +50,7 @@ function OryUICreateTopBar(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITopBarCollection[oryUITopBarID].sprContainer, 52, 73, 94, 255)
 	SetSpriteOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUITopBarCollection[oryUITopBarID].sprContainer)
 
 	OryUITopBarCollection[oryUITopBarID].sprStatusBar = CreateSprite(0)
 	SetSpriteSize(OryUITopBarCollection[oryUITopBarID].sprStatusBar, 100, OryUIStatusBarHeight#)
@@ -57,14 +58,16 @@ function OryUICreateTopBar(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITopBarCollection[oryUITopBarID].sprStatusBar, 0, 0, 0, 66)
 	SetSpriteOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, 0, 0)
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer))
-
+	SetSpritePhysicsOff(OryUITopBarCollection[oryUITopBarID].sprStatusBar)
+	
 	OryUITopBarCollection[oryUITopBarID].sprNavigationIcon = CreateSprite(0)
 	SetSpriteSize(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, -1, 3.69)
 	SetSpriteDepth(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, GetSpriteDepth(OryUITopBarCollection[oryUITopBarID].sprContainer) - 1)
 	SetSpriteColor(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, 255, 255, 255, 255)
 	SetSpriteOffset(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, 0, 0)
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer) + 2.46 / GetDisplayAspect(), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + OryUIStatusBarHeight# + 2.46)
-
+	SetSpritePhysicsOff(OryUITopBarCollection[oryUITopBarID].sprNavigationIcon)
+	
 	OryUITopBarCollection[oryUITopBarID].txtTitle = CreateText(" ")
 	SetTextSize(OryUITopBarCollection[oryUITopBarID].txtTitle, 3.5)
 	SetTextBold(OryUITopBarCollection[oryUITopBarID].txtTitle, 1)
@@ -79,7 +82,8 @@ function OryUICreateTopBar(oryUIComponentParameters$ as string)
 	SetSpriteImage(OryUITopBarCollection[oryUITopBarID].sprShadow, oryUITopBarShadowImage)
 	SetSpriteOffset(OryUITopBarCollection[oryUITopBarID].sprShadow, 0, 0)
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprShadow, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + GetSpriteHeight(OryUITopBarCollection[oryUITopBarID].sprContainer))
-
+	SetSpritePhysicsOff(OryUITopBarCollection[oryUITopBarID].sprShadow)
+	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateTopBar(oryUITopBarID, oryUIComponentParameters$)
 endfunction oryUITopBarID
 
@@ -243,6 +247,7 @@ function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComp
 	SetSpriteDepth(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, GetSpriteDepth(OryUITopBarCollection[oryUITopBarID].sprContainer) - 1)
 	SetSpriteColor(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, OryUITopBarCollection[oryUITopBarID].defaultIconColor#[1], OryUITopBarCollection[oryUITopBarID].defaultIconColor#[2], OryUITopBarCollection[oryUITopBarID].defaultIconColor#[3], OryUITopBarCollection[oryUITopBarID].defaultIconColor#[4])
 	SetSpriteOffset(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon, GetSpriteWidth(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon), 0)
+	SetSpritePhysicsOff(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID].sprIcon)
 	
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)
 	

@@ -6,9 +6,14 @@ type typeOryUITextfield
 	editBox as integer
 	inputType$ as string
 	labelText$ as string
+	leadingIconPressed as integer
+	leadingIconReleased as integer
+	leadingIconType$ as string
 	maxLength as integer
 	pressed as integer
 	showHelperText as integer
+	showLeadingIcon as integer
+	showTrailingIcon as integer
 	sprActivationIndicator as integer
 	sprContainer as integer
 	sprInvisibleCover as integer
@@ -18,6 +23,9 @@ type typeOryUITextfield
 	textColor# as float[4]
 	textfieldType$ as string
 	textInput$ as string
+	trailingIconPressed as integer
+	trailingIconReleased as integer
+	trailingIconType$ as string
 	tweenActivationIndicator as integer
 	tweenEditBox as integer
 	tweenLabel as integer
@@ -47,6 +55,8 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	OryUITextfieldCollection[oryUITextfieldID].textColor#[3] = 0
 	OryUITextfieldCollection[oryUITextfieldID].textColor#[4] = 255
 	OryUITextfieldCollection[oryUITextfieldID].showHelperText = 0
+	OryUITextfieldCollection[oryUITextfieldID].showLeadingIcon = 0
+	OryUITextfieldCollection[oryUITextfieldID].showTrailingIcon = 0
 	OryUITextfieldCollection[oryUITextfieldID].strokeColor#[1] = 101
 	OryUITextfieldCollection[oryUITextfieldID].strokeColor#[2] = 28
 	OryUITextfieldCollection[oryUITextfieldID].strokeColor#[3] = 228
@@ -57,6 +67,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprContainer, 232, 232, 232, 255)
 	SetSpriteOffset(OryUITextfieldCollection[oryUITextfieldID].sprContainer, 0, 0)
 	SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprContainer, 0, 0)
+	SetSpritePhysicsOff(OryUITextfieldCollection[oryUITextfieldID].sprContainer)
 
 	OryUITextfieldCollection[oryUITextfieldID].editBox = CreateEditBox()
 	SetEditBoxBackgroundColor(OryUITextfieldCollection[oryUITextfieldID].editBox, 232, 232, 232, 255)
@@ -75,6 +86,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 2)
 	SetSpriteOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, 0, 0)
 	SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, GetSpriteX(OryUITextfieldCollection[oryUITextfieldID].sprContainer), (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) + GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer)) - 0.3)
+	SetSpritePhysicsOff(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator)
 		
 	OryUITextfieldCollection[oryUITextfieldID].tweenActivationIndicator = CreateTweenSprite(0.2)
 
@@ -100,6 +112,15 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, GetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 2)
 	SetSpriteOffset(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, 0, 0)
 	SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, 0, 0)
+	SetSpritePhysicsOff(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover)
+	
+	OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon = CreateSprite(0)
+	SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, -1, 3.6) // 5.8 without label
+	SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, 0, 0, 0, 255)
+	SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, GetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 2)
+	SetSpriteOffset(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, 0, 0)
+	SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, 0, 0)
+	SetSpritePhysicsOff(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon)
 	
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateTextfield(oryUITextfieldID, oryUIComponentParameters$)
 endfunction oryUITextfieldID
@@ -111,6 +132,7 @@ function OryUIDeleteTextfield(oryUITextfieldID as integer)
 		DeleteSprite(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator)
 		DeleteText(OryUITextfieldCollection[oryUITextfieldID].txtLabel)
 		DeleteSprite(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover)
+		DeleteSprite(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon)
 	endif
 endfunction
 
@@ -142,6 +164,14 @@ function OryUIGetTextfieldString(oryUITextfieldID as integer)
 	endif
 endfunction oryUITextfieldString$
 
+function OryUIGetTextfieldTrailingIconPressed(oryUITextfieldID as integer)
+
+endfunction OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed
+
+function OryUIGetTextfieldTrailingIconReleased(oryUITextfieldID as integer)
+	
+endfunction OryUITextfieldCollection[oryUITextfieldID].trailingIconReleased
+
 function OryUIGetTextfieldWidth(oryUITextfieldID as integer)
 	local oryUITextfieldWidth# as float
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
@@ -169,18 +199,26 @@ function OryUIGetTextfieldY(oryUITextfieldID as integer)
 	endif
 endfunction oryUITextfieldY#
 
-
 function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 	if (oryUIScrimVisible = 1) then exitfunction
 	
 	local oryUITextfieldIvisibleCoverSprite as integer
+	local oryUITextfieldTrailingIconSprite as integer
+	
+	OryUITextfieldCollection[oryUITextfieldID].trailingIconReleased = 0
 	
 	//local oryUITextfieldSprite as integer
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetSpriteExists(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover))
 			if (GetPointerPressed())
 				if (OryUIGetSwipingVertically() = 0)
+					oryUITextfieldTrailingIconSprite = GetSpriteHitTest(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					oryUITextfieldIvisibleCoverSprite = GetSpriteHitTest(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
+					if (oryUITextfieldTrailingIconSprite = 1)
+						OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 1
+					else
+						OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 0
+					endif
 					if (oryUITextfieldIvisibleCoverSprite = 1)
 						OryUITextfieldCollection[oryUITextfieldID].pressed = 1
 					else
@@ -188,17 +226,23 @@ function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 					endif
 				else
 					OryUITextfieldCollection[oryUITextfieldID].pressed = 0
+					OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 0
 				endif
-			elseif (OryUITextfieldCollection[oryUITextfieldID].pressed = 1)
+			elseif (OryUITextfieldCollection[oryUITextfieldID].pressed = 1 or OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 1)
 				if (GetPointerState())
 					if (OryUIGetSwipingVertically())
 						OryUITextfieldCollection[oryUITextfieldID].pressed = 0
+						OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 0
 					endif
 				endif
 				if (GetPointerReleased())
 					if (OryUIGetSwipingVertically() = 0)
+						oryUITextfieldTrailingIconSprite = GetSpriteHitTest(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						oryUITextfieldIvisibleCoverSprite = GetSpriteHitTest(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
-						if (OryUITextfieldCollection[oryUITextfieldID].pressed = 1)
+						if (OryUITextfieldCollection[oryUITextfieldID].pressed = 1 or OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 1)
+							if (oryUITextfieldTrailingIconSprite = 1)
+								OryUITextfieldCollection[oryUITextfieldID].trailingIconReleased = 1
+							endif
 							if (oryUITextfieldIvisibleCoverSprite = 1)
 								SetEditBoxActive(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
 								SetEditBoxFocus(OryUITextfieldCollection[oryUITextfieldID].editBox, 1)
@@ -209,11 +253,11 @@ function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 						endif
 					endif
 					OryUITextfieldCollection[oryUITextfieldID].pressed = 0
+					OryUITextfieldCollection[oryUITextfieldID].trailingIconPressed = 0
 				endif
-				
 			endif
 		endif
-		if (GetEditBoxExists(OryUITextfieldCollection[oryUITextfieldID].editBox))
+		if (GetEditBoxExists(OryUITextfieldCollection[oryUITextfieldID].editBox))		
 			if (GetEditBoxHasFocus(OryUITextfieldCollection[oryUITextfieldID].editBox))
 				//if (GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 10.63 > 0)
 				//	SetViewOffset(GetViewOffsetX(), GetSpriteY(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 10.63)
@@ -241,6 +285,10 @@ function OryUIInsertTextfieldListener(oryUITextfieldID as integer)
 		endif
 	endif
 endfunction	
+
+function OryUISetTextfieldString(oryUITextfieldID as integer, oryUITextfieldString$ as string)
+	SetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUITextfieldString$)
+endfunction
 
 function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParameters$ as string)
 	OryUISetParametersType(oryUIComponentParameters$)
@@ -273,6 +321,11 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 				else
 					SetTextPosition(OryUITextfieldCollection[oryUITextfieldID].txtHelper, -999999, -999999)
 				endif
+				if (OryUITextfieldCollection[oryUITextfieldID].showTrailingIcon = 1)
+					SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, oryUIParameters.position#[1] + GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover) - GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon), oryUIParameters.position#[2] + (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover) / 2) - (GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon) / 2))
+				else
+					SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, -999999, -999999)
+				endif
 			endif
 
 			// THE REST OF THE PARAMETERS NEXT
@@ -287,6 +340,7 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 				SetTextDepth(OryUITextfieldCollection[oryUITextfieldID].txtHelper, oryUIParameters.depth - 2)
 				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprActivationIndicator, oryUIParameters.depth - 2)
 				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprInvisibleCover, oryUIParameters.depth - 2)
+				SetSpriteDepth(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, oryUIParameters.depth - 2)
 			endif
 			if (oryUIParameters.helperText$ <> "")
 				if (lower(oryUIParameters.helperText$) = "null") then oryUIParameters.helperText$ = ""
@@ -314,6 +368,11 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 				if (lower(oryUIParameters.labelText$) = "null") then oryUIParameters.labelText$ = ""
 				SetTextString(OryUITextfieldCollection[oryUITextfieldID].txtLabel, oryUIParameters.labelText$)
 			endif
+			if (oryUIParameters.leadingIconID > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].leadingIconType$ = "custom"
+				SetSpriteImage(OryUITextfieldCollection[oryUITextfieldID].sprLeadingIcon, oryUIParameters.leadingIconID)
+			endif
+			if (oryUIParameters.leadingIcon$ <> "") then OryUITextfieldCollection[oryUITextfieldID].leadingIconType$ = oryUIParameters.leadingIcon$
 			if (oryUIParameters.maxLength > 0)
 				OryUITextfieldCollection[oryUITextfieldID].maxLength = oryUIParameters.maxLength
 				SetEditBoxMaxChars(OryUITextfieldCollection[oryUITextfieldID].editBox, OryUITextfieldCollection[oryUITextfieldID].maxLength)
@@ -329,6 +388,12 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 			//endif
 			if (oryUIParameters.showHelperText > -999999)
 				OryUITextfieldCollection[oryUITextfieldID].showHelperText = oryUIParameters.showHelperText
+			endif
+			if (oryUIParameters.showLeadingIcon > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].showLeadingIcon = oryUIParameters.showLeadingIcon
+			endif
+			if (oryUIParameters.showTrailingIcon > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].showTrailingIcon = oryUIParameters.showTrailingIcon
 			endif
 			if (oryUIParameters.strokeColor#[1] > -999999 or oryUIParameters.strokeColor#[2] > -999999 or oryUIParameters.strokeColor#[3] > -999999)
 				OryUITextfieldCollection[oryUITextfieldID].strokeColor#[1] = oryUIParameters.strokeColor#[1]
@@ -347,7 +412,13 @@ function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParamet
 				OryUITextfieldCollection[oryUITextfieldID].textColor#[3] = oryUIParameters.textColor#[3]
 				OryUITextfieldCollection[oryUITextfieldID].textColor#[4] = oryUIParameters.textColor#[4]
 				SetEditBoxTextColor(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3])
+				SetSpriteColor(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], 200)
 			endif
+			if (oryUIParameters.trailingIconID > -999999)
+				OryUITextfieldCollection[oryUITextfieldID].trailingIconType$ = "custom"
+				SetSpriteImage(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, oryUIParameters.trailingIconID)
+			endif
+			if (oryUIParameters.trailingIcon$ <> "") then OryUITextfieldCollection[oryUITextfieldID].trailingIconType$ = oryUIParameters.trailingIcon$
 		endif
 	endif
 endfunction
