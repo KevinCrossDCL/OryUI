@@ -10,7 +10,7 @@ VERSION 0.12a
 - OryUITextfield
 	- Added function OryUIGetTextfieldTrailingIconPressed()
 	- Added function OryUIGetTextfieldTrailingIconReleased()
-	- Added function OryUISetTextfieldValue()
+	- Added function OryUISetTextfieldString()
 	
 			
 		
