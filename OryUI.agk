@@ -78,13 +78,6 @@ FILE_27=OryUITooltip.agc;-1
 FILE_28=OryUITopBar.agc;-1
 FILE_29=OryUITouch.agc;-1
 
-[files]
-FILE_NAME_0=0;changelog.txt;0;0
-FILE_NAME_1=0;main.agc;0;1
-FILE_NAME_2=0;OryUIButtonGroup.agc;55;2
-FILE_NAME_3=0;OryUIHTTPSQueue.agc;112;3
-FILE_NAME_4=0;OryUITextfield.agc;0;4
-
 [project]
 description=
 

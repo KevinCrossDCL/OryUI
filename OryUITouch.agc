@@ -4,6 +4,17 @@ foldstart // OryUITouch (Updated 07/07/2020)
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)
 
+type typeOryUIVec2
+	x	as float
+	y	as float
+endtype
+
+type typeOryUIInertia
+	amount as typeOryUIVec2
+	average as typeOryUIVec2[]
+	friction# as float
+endtype
+
 type typeOryUITouch
 	currentDistance# as float
 	currentDistanceX# as float
@@ -19,6 +30,7 @@ type typeOryUITouch
 	distanceMovedX# as float
 	distanceMovedY# as float
 	firstSpriteHit as integer
+	inertia as typeOryUIInertia
 	maxViewX# as float
 	maxViewY# as float
 	maxViewZoom# as float
@@ -58,13 +70,27 @@ type typeOryUITouch
 	viewZoom# as float
 endtype
 
+#constant ORYUI_SCROLL_INITIALIZE 	1
+#constant ORYUI_SCROLL_STEP			2
+#constant ORYUI_SCROLL_INERTIA		3
+#constant ORYUI_SCROLL_DAMP			0.1
+#constant ORYUI_SCROLL_SAMPLES		4
+
 global OryUITouchCollection as typeOryUITouch[10]
 global oryUITouchCount as integer
 OryUISetScreenZoomLimits(1, 1)
 OryUISetScreenScrollLimits(0, 0, 0, 0)
 
+function OryUIDisableFlickScroll()
+	oryUIBlockFlickScroll = 1
+endfunction
+
 function OryUIDisableScreenScrolling()
 	oryUIBlockScreenScrolling = 1
+endfunction
+
+function OryUIEnableFlickScroll()
+	oryUIBlockFlickScroll = 0
 endfunction
 
 function OryUIEnableScreenScrolling()
@@ -194,6 +220,75 @@ function OryUISetSpriteToPan(oryUISpriteToPan as integer)
 	OryUITouchCollection[0].spriteToPan = oryUISpriteToPan
 endfunction
 
+// The OryUISetViewOffset inertia code in the below function was written by @BlinkOk
+function OryUISetViewOffset(oryUIMode as integer)
+	local oryUIForI as integer
+	select oryUIMode
+		case ORYUI_SCROLL_INITIALIZE
+			SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)	
+			OryUITouchCollection[0].inertia.amount.x = 0
+			OryUITouchCollection[0].inertia.amount.y = 0
+		endcase
+		case ORYUI_SCROLL_STEP
+			OryUITouchCollection[0].inertia.amount.x = OryUITouchCollection[0].viewX# - GetViewOffsetX()
+			OryUITouchCollection[0].inertia.amount.y = OryUITouchCollection[0].viewY# - GetViewOffsetY()				
+			SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)	
+			OryUITouchCollection[0].inertia.average.insert(OryUITouchCollection[0].inertia.amount)
+			if (OryUITouchCollection[0].inertia.average.length > ORYUI_SCROLL_SAMPLES)
+				OryUITouchCollection[0].inertia.average.remove(0)
+			endif
+		endcase
+		case ORYUI_SCROLL_INERTIA
+			if (oryUIBlockFlickScroll = 0 and abs(OryUITouchCollection[0].inertia.amount.x) + abs(OryUITouchCollection[0].inertia.amount.y) > 0)
+				if (OryUITouchCollection[0].inertia.average.length > -1)
+					OryUITouchCollection[0].inertia.amount.x = 0
+					OryUITouchCollection[0].inertia.amount.y = 0					
+					for oryUIForI = 0 to OryUITouchCollection[0].inertia.average.length 
+						OryUITouchCollection[0].inertia.amount.x = OryUITouchCollection[0].inertia.amount.x + OryUITouchCollection[0].inertia.average[oryUIForI].x												
+						OryUITouchCollection[0].inertia.amount.y = OryUITouchCollection[0].inertia.amount.y + OryUITouchCollection[0].inertia.average[oryUIForI].y
+					next
+					OryUITouchCollection[0].inertia.amount.x = OryUITouchCollection[0].inertia.amount.x / (OryUITouchCollection[0].inertia.average.length + 1)
+					OryUITouchCollection[0].inertia.amount.y = OryUITouchCollection[0].inertia.amount.y / (OryUITouchCollection[0].inertia.average.length + 1)					
+					OryUITouchCollection[0].inertia.average.length = -1
+					OryUITouchCollection[0].inertia.friction# = OryUILerp(0.8, 0.95, OryUIMinFloat(ScreenFPS(), oryUIMaxSyncRate#) / oryUIMaxSyncRate#)
+				endif
+				
+				OryUITouchCollection[0].viewX# = OryUITouchCollection[0].viewX# + OryUITouchCollection[0].inertia.amount.x
+				OryUITouchCollection[0].viewY# = OryUITouchCollection[0].viewY# + OryUITouchCollection[0].inertia.amount.y				
+
+			    if (OryUITouchCollection[0].viewX# < OryUITouchCollection[0].minViewX#)
+			    	OryUITouchCollection[0].viewX# = OryUITouchCollection[0].minViewX#
+			    	OryUITouchCollection[0].inertia.amount.x = 0
+			    endif
+			    if (OryUITouchCollection[0].viewX# > OryUITouchCollection[0].maxViewX#)
+			    	OryUITouchCollection[0].viewX# = OryUITouchCollection[0].maxViewX#
+			    	OryUITouchCollection[0].inertia.amount.x = 0
+			    endif
+			    if (OryUITouchCollection[0].viewY# < OryUITouchCollection[0].minViewY#)
+			    	OryUITouchCollection[0].viewY# = OryUITouchCollection[0].minViewY#
+			    	OryUITouchCollection[0].inertia.amount.y = 0
+			    endif
+			    if (OryUITouchCollection[0].viewY# > OryUITouchCollection[0].maxViewY#)
+			    	OryUITouchCollection[0].viewY# = OryUITouchCollection[0].maxViewY#
+			    	OryUITouchCollection[0].inertia.amount.y = 0
+			    endif			    
+			    
+				SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
+				
+				OryUITouchCollection[0].inertia.amount.x = OryUITouchCollection[0].inertia.amount.x * OryUITouchCollection[0].inertia.friction#
+				OryUITouchCollection[0].inertia.amount.y = OryUITouchCollection[0].inertia.amount.y * OryUITouchCollection[0].inertia.friction#
+				
+				if (abs(OryUITouchCollection[0].inertia.amount.x) < ORYUI_SCROLL_DAMP)
+					OryUITouchCollection[0].inertia.amount.x = 0
+				endif
+				if (abs(OryUITouchCollection[0].inertia.amount.y) < ORYUI_SCROLL_DAMP)
+					OryUITouchCollection[0].inertia.amount.y = 0
+				endif
+			endif
+		endcase
+	endselect
+endfunction
+
 // The GetRawTouch code in the below function is based on @baxslash's PinchZoom function he shared on the AGK forum
 // https://forum.thegamecreators.com/thread/205033
 function OryUIStartTrackingTouch()
@@ -277,7 +372,10 @@ function OryUIStartTrackingTouch()
 			OryUITouchCollection[0].viewY# = OryUITouchCollection[0].startViewY# + OryUITouchCollection[0].distanceMovedY#
 			if (OryUITouchCollection[0].viewY# < OryUITouchCollection[0].minViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].minViewY#
 			if (OryUITouchCollection[0].viewY# > OryUITouchCollection[0].maxViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].maxViewY#
-			if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
+			if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then OryUISetViewOffset(ORYUI_SCROLL_STEP)
+		endif
+		if (GetRawTouchCount(1) = 0)
+			OryUISetViewOffset(ORYUI_SCROLL_INERTIA)
 		endif
 	else
 		if (GetPointerPressed())
@@ -341,12 +439,11 @@ function OryUIStartTrackingTouch()
 					if (OryUITouchCollection[0].viewX# > OryUITouchCollection[0].maxViewX#) then OryUITouchCollection[0].viewX# = OryUITouchCollection[0].maxViewX#
 					if (OryUITouchCollection[0].viewY# < OryUITouchCollection[0].minViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].minViewY#
 					if (OryUITouchCollection[0].viewY# > OryUITouchCollection[0].maxViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].maxViewY#
-					if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)
+					if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then OryUISetViewOffset(ORYUI_SCROLL_STEP)
 				endif
 			endif
 		endif
 	endif
-	
 endfunction
 
 foldend

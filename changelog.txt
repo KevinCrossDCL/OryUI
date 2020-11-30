@@ -1,4 +1,20 @@
 
+VERSION 0.13a
+------------------------
+- OryUI
+	- Added function OryUIMaxFloat()
+	- Added function OryUIMaxInt()
+	- Added function OryUIMinFloat()
+	- Added function OryUIMinInt()
+	- Added function OryUISetSnycRate()
+
+- OryUITouch
+	- Added flick to scroll/inertia scrolling. Enabled by default - Credit: @BlinkOk
+	- Added function OryUIDisableFlickScroll()
+	- Added function OryUIEnableFlickScroll()
+
+
+
 VERSION 0.12a
 ------------------------
 - All files

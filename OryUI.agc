@@ -515,6 +515,7 @@ foldend
 foldstart
 
 global oryUIBlankLocalJSONVariable as typeOryUIJSONVariables
+global oryUIBlockFlickScroll as integer
 global oryUIBlockScreenScrolling as integer
 global oryUIBottomBannerAdOnScreen as integer
 global oryUIContentHeight# as float 			// NOT YET USED
@@ -529,6 +530,7 @@ global oryUIParameters as typeoryUIParameters
 global oryUIPickerVisible as integer
 global oryUIScrimDepth as integer
 global oryUIScrimVisible as integer
+global oryUIMaxSyncRate# as integer : oryUIMaxSyncRate# = 60.0
 global oryUIStatusBarHeight# as float : oryUIStatusBarHeight# = 3.6
 global oryUITouchingTabs as integer
 global oryUITouchingTopBar as integer
@@ -594,6 +596,48 @@ function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
 		endif
 	next
 endfunction oryUIVariableValue$
+
+function OryUILerp(oryUIMin# as float, oryUIMax# as float, oryUIF# as float)
+	local oryUIResult# as float
+	oryUIResult# = oryUIMin# + oryUIF# * (oryUIMax# - oryUIMin#)
+	print(oryUIF#)
+endfunction oryUIResult#
+
+function OryUIMaxFloat(oryUIA# as float, oryUIB# as float)
+	local oryUIMaxValue# as float
+	if (oryUIA# >= oryUIB#)
+		oryUIMaxValue# = oryUIA#
+	else
+		oryUIMaxValue# = oryUIB#
+	endif
+endfunction oryUIMaxValue#
+
+function OryUIMaxInt(oryUIA as integer, oryUIB as integer)
+	local oryUIMaxValue as integer
+	if (oryUIA >= oryUIB)
+		oryUIMaxValue = oryUIA
+	else
+		oryUIMaxValue = oryUIB
+	endif
+endfunction oryUIMaxValue
+
+function OryUIMinFloat(oryUIA# as float, oryUIB# as float)
+	local oryUIMinValue# as float
+	if (oryUIA# <= oryUIB#)
+		oryUIMinValue# = oryUIA#
+	else
+		oryUIMinValue# = oryUIB#
+	endif
+endfunction oryUIMinValue#
+
+function OryUIMinInt(oryUIA as integer, oryUIB as integer)
+	local oryUIMinValue as integer
+	if (oryUIA <= oryUIB)
+		oryUIMinValue = oryUIA
+	else
+		oryUIMinValue = oryUIB
+	endif
+endfunction oryUIMinValue
 
 function OryUIResetParametersType()
 	local oryUIForI as integer
@@ -1510,6 +1554,11 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.position#[2] = valFloat(oryUIValue$)
 		endif
 	next	
+endfunction
+
+function OryUISetSnycRate(oryUISyncRate# as float, oryUIMode as integer)
+	SetSyncRate(oryUISyncRate#, oryUIMode)
+	oryUIMaxSyncRate# = oryUISyncRate#
 endfunction
 
 foldend

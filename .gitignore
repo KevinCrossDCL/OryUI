@@ -1,4 +1,12 @@
+# Built application files
+*.apk
+*.app
+*.ipa
+
+# Mac OS files
 .DS_Store
 
+# OryUI Files
+OriginalOryUI*
 OryUICard.agc
 OryUIPicker.agc
