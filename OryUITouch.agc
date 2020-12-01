@@ -41,6 +41,8 @@ type typeOryUITouch
 	panVerticallyAllowed as integer
 	pinchToZoomAllowed as integer
 	previousTouchCount as integer
+	scrollingHorizontally as integer
+	scrollingVertically as integer
 	spritePressed as integer
 	spriteReleased as integer
 	spriteToPan as integer
@@ -103,6 +105,8 @@ function OryUIEndTrackingTouch()
 			OryUITouchCollection[1].currentSpriteHit = 0
 			OryUITouchCollection[1].firstSpriteHit = 0
 			OryUITouchCollection[0].previousTouchCount = 0
+			OryUITouchCollection[0].scrollingHorizontally = 0
+			OryUITouchCollection[0].scrollingVertically = 0
 			OryUITouchCollection[1].spritePressed = 0
 			OryUITouchCollection[1].spriteReleased = 0
 			OryUITouchCollection[0].swipingDistanceX# = 0
@@ -119,6 +123,8 @@ function OryUIEndTrackingTouch()
 		if (GetPointerReleased())
 			OryUITouchCollection[1].currentSpriteHit = 0
 			OryUITouchCollection[1].firstSpriteHit = 0
+			OryUITouchCollection[0].scrollingHorizontally = 0
+			OryUITouchCollection[0].scrollingVertically = 0
 			OryUITouchCollection[1].spritePressed = 0
 			OryUITouchCollection[1].spriteReleased = 0
 			OryUITouchCollection[0].swipingDistanceX# = 0
@@ -132,6 +138,14 @@ function OryUIEndTrackingTouch()
 		endif
 	endif
 endfunction
+
+function OryUIGetScrollingHorizontally()
+
+endfunction OryUITouchCollection[0].scrollingHorizontally
+
+function OryUIGetScrollingVertically()
+
+endfunction OryUITouchCollection[0].scrollingVertically
 
 function OryUIGetSpritePressed()
 	
@@ -240,6 +254,17 @@ function OryUISetViewOffset(oryUIMode as integer)
 		endcase
 		case ORYUI_SCROLL_INERTIA
 			if (oryUIBlockFlickScroll = 0 and abs(OryUITouchCollection[0].inertia.amount.x) + abs(OryUITouchCollection[0].inertia.amount.y) > 0)
+				if (abs(OryUITouchCollection[0].inertia.amount.x) > 0)
+					OryUITouchCollection[0].scrollingHorizontally = 1
+				else
+					OryUITouchCollection[0].scrollingHorizontally = 0
+				endif
+				if (abs(OryUITouchCollection[0].inertia.amount.y) > 0)
+					OryUITouchCollection[0].scrollingVertically = 1
+				else
+					OryUITouchCollection[0].scrollingVertically = 0
+				endif
+				if (abs(OryUITouchCollection[0].inertia.amount.x) > 0) then OryUITouchCollection[0].scrollingHorizontally = 1
 				if (OryUITouchCollection[0].inertia.average.length > -1)
 					OryUITouchCollection[0].inertia.amount.x = 0
 					OryUITouchCollection[0].inertia.amount.y = 0					

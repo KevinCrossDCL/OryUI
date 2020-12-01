@@ -600,7 +600,6 @@ endfunction oryUIVariableValue$
 function OryUILerp(oryUIMin# as float, oryUIMax# as float, oryUIF# as float)
 	local oryUIResult# as float
 	oryUIResult# = oryUIMin# + oryUIF# * (oryUIMax# - oryUIMin#)
-	print(oryUIF#)
 endfunction oryUIResult#
 
 function OryUIMaxFloat(oryUIA# as float, oryUIB# as float)
@@ -1556,7 +1555,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 	next	
 endfunction
 
-function OryUISetSnycRate(oryUISyncRate# as float, oryUIMode as integer)
+function OryUISetSyncRate(oryUISyncRate# as float, oryUIMode as integer)
 	SetSyncRate(oryUISyncRate#, oryUIMode)
 	oryUIMaxSyncRate# = oryUISyncRate#
 endfunction
