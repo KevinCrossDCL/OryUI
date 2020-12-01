@@ -366,6 +366,12 @@ function OryUIInsertScrollBarListener(oryUIScrollBarID as integer)
 						OryUIPositionScrollBar(oryUIScrollBarID)
 					endif
 				endif
+				if (oryUIBlockFlickScroll = 0 and OryUIScrollBarCollection[oryUIScrollBarID].direction$ = "horizontal" and OryUIGetScrollingHorizontally())
+					OryUIPositionScrollBar(oryUIScrollBarID)
+				endif
+				if (oryUIBlockFlickScroll = 0 and OryUIScrollBarCollection[oryUIScrollBarID].direction$ = "vertical" and OryUIGetScrollingVertically())
+					OryUIPositionScrollBar(oryUIScrollBarID)
+				endif
 				if (GetPointerReleased())
 					//OryUIScrollBarCollection[oryUIScrollBarID].dragging = 0
 				endif	
