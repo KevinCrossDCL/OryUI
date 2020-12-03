@@ -23,6 +23,8 @@ function OryUICreateScrollToTop(oryUIComponentParameters$ as string)
 	oryUIScrollToTopID = OryUIScrollToTopCollection.length
 	OryUIScrollToTopCollection[oryUIScrollToTopID].id = oryUIScrollToTopID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIScrollToTopID, "ScrollToTop"))
+
 	// DEFAULT SETTINGS
 	OryUIScrollToTopCollection[oryUIScrollToTopID].placement$ = oryUIDefaults.scrollToTopPlacement$
 	OryUIScrollToTopCollection[oryUIScrollToTopID].showShadow = oryUIDefaults.scrollToTopShowShadow

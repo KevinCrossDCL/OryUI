@@ -40,6 +40,8 @@ function OryUICreateMenu(oryUIComponentParameters$ as string)
 	oryUIMenuID = OryUIMenuCollection.length
 	OryUIMenuCollection[oryUIMenuID].id = oryUIMenuID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIMenuID, "Menu"))
+
 	// DEFAULT SETTINGS
 	OryUIMenuCollection[oryUIMenuID].showLeftIcon = oryUIDefaults.menuShowLeftIcon
 	OryUIMenuCollection[oryUIMenuID].showRightIcon = oryUIDefaults.menuShowRightIcon
@@ -67,7 +69,7 @@ endfunction oryUIMenuID
 function OryUIDeleteMenu(oryUIMenuID as integer)
 	DeleteSprite(OryUIMenuCollection[oryUIMenuID].sprScrim)
 	DeleteSprite(OryUIMenuCollection[oryUIMenuID].sprContainer)
-	while (OryUIMenuCollection[oryUIMenuID].items.length > 0)
+	while (OryUIMenuCollection[oryUIMenuID].items.length >= 0)
 		OryUIDeleteMenuItem(oryUIMenuID, 0)
 	endwhile
 endfunction

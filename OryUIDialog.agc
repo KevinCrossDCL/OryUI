@@ -47,6 +47,8 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	oryUIDialogID = OryUIDialogCollection.length
 	OryUIDialogCollection[oryUIDialogID].id = oryUIDialogID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIDialogID, "Dialog"))
+
 	// DEFAULT SETTINGS
 	OryUIDialogCollection[oryUIDialogID].autoHeight = oryUIDefaults.dialogAutoHeight
 	OryUIDialogCollection[oryUIDialogID].checkboxAlignment = oryUIDefaults.dialogCheckboxAlignment
@@ -113,7 +115,7 @@ function OryUIDeleteDialog(oryUIDialogID as integer)
 	DeleteText(OryUIDialogCollection[oryUIDialogID].txtTitle)
 	DeleteText(OryUIDialogCollection[oryUIDialogID].txtSupportingText)
 	DeleteText(OryUIDialogCollection[oryUIDialogID].txtCheckbox)
-	while (OryUIDialogCollection[oryUIDialogID].buttons.length > 0)
+	while (OryUIDialogCollection[oryUIDialogID].buttons.length >= 0)
 		OryUIDeleteDialogButton(oryUIDialogID, 0)
 	endwhile
 endfunction

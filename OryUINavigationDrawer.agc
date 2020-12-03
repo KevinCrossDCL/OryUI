@@ -56,6 +56,8 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	oryUINavigationDrawerID = OryUINavigationDrawerCollection.length
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].id = oryUINavigationDrawerID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUINavigationDrawerID, "NavigationDrawer"))
+
 	// DEFAULTS
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$ = oryUIDefaults.navigationDrawerLocation$
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerType$ = oryUIDefaults.navigationDrawerType$
@@ -103,7 +105,7 @@ function OryUIDeleteNavigationDrawer(oryUINavigationDrawerID as integer)
 	DeleteSprite(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim)
 	DeleteSprite(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow)
 	DeleteSprite(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar)
-	while (OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length > 0)
+	while (OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length >= 0)
 		OryUIDeleteNavigationDrawerItem(oryUINavigationDrawerID, 0)
 	endwhile
 endfunction

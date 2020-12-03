@@ -37,6 +37,8 @@ function OryUICreateTooltip(oryUIComponentParameters$ as string)
 	oryUITooltipID = OryUITooltipCollection.length
 	OryUITooltipCollection[oryUITooltipID].id = oryUITooltipID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITooltipID, "Tooltip"))
+
 	// DEFAULT SETTINGS
 	OryUITooltipCollection[oryUITooltipID].visible = 0
 

@@ -49,6 +49,8 @@ function OryUICreateButtonGroup(oryUIComponentParameters$ as string)
 	oryUIButtonGroupID = OryUIButtonGroupCollection.length
 	OryUIButtonGroupCollection[oryUIButtonGroupID].id = oryUIButtonGroupID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIButtonGroupID, "ButtonGroup"))
+
 	// DEFAULT SETTINGS
 	OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = -1
 	OryUIButtonGroupCollection[oryUIButtonGroupID].iconPlacement$ = "Left"

@@ -4,6 +4,9 @@ foldstart // OryUISprite (Updated 07/07/2020)
 function OryUICreateSprite(oryUIComponentParameters$ as string)
 	local oryUISpriteID as integer
 	oryUISpriteID = CreateSprite(0)
+
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUISpriteID, "Sprite"))
+
 	SetSpriteOffset(oryUISpriteID, 0, 0)
 	SetSpritePhysicsOff(oryUISpriteID)
 	

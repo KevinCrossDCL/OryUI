@@ -39,6 +39,8 @@ function OryUICreateTabs(oryUIComponentParameters$ as string)
 	oryUITabsID = OryUITabsCollection.length
 	OryUITabsCollection[oryUITabsID].id = oryUITabsID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITabsID, "Tabs"))
+
 	// DEFAULT SETTINGS
 	OryUITabsCollection[oryUITabsID].defaultActiveColor#[1] = 255
 	OryUITabsCollection[oryUITabsID].defaultActiveColor#[2] = 255
@@ -82,12 +84,13 @@ function OryUIDeleteTabs(oryUITabsID as integer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].sprActiveIndicator)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].sprContainer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].sprShadow)
-	while (OryUITabsCollection[oryUITabsID].buttons.length > 0)
+	while (OryUITabsCollection[oryUITabsID].buttons.length >= 0)
 		OryUIDeleteTabsButton(oryUITabsID, 0)
 	endwhile
 endfunction
 
 function OryUIDeleteTabsButton(oryUITabsID as integer, oryUIButtonID as integer)
+	DeleteSprite(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].sprContainer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].sprIcon)
 	DeleteText(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].txtLabel)
 	OryUITabsCollection[oryUITabsID].buttons.remove(oryUIButtonID)

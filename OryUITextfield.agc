@@ -49,6 +49,8 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	oryUITextfieldID = OryUITextfieldCollection.length
 	OryUITextfieldCollection[oryUITextfieldID].id = oryUITextfieldID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITextfieldID, "Textfield"))
+
 	// DEFAULT SETTINGS
 	OryUITextfieldCollection[oryUITextfieldID].textColor#[1] = 0
 	OryUITextfieldCollection[oryUITextfieldID].textColor#[2] = 0

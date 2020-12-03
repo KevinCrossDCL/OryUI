@@ -34,6 +34,8 @@ function OryUICreateTemplate(oryUIComponentParameters$ as string)
 	oryUITemplateID = OryUITemplateCollection.length
 	OryUITemplateCollection[oryUITemplateID].id = oryUITemplateID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITemplateID, "Template"))
+
 	// DEFAULT SETTINGS
 	OryUITemplateCollection[oryUITemplateID].itemColor#[1] = oryUIDefaults.templateItemColor#[1]
 	OryUITemplateCollection[oryUITemplateID].itemColor#[2] = oryUIDefaults.templateItemColor#[2]
@@ -60,7 +62,7 @@ function OryUIDeleteTemplate(oryUITemplateID as integer)
 	if (oryUITemplateID <= OryUITemplateCollection.length)
 		DeleteSprite(OryUITemplateCollection[oryUITemplateID].sprContainer)
 	endif
-	while (OryUITemplateCollection[oryUITemplateID].items.length > 0)
+	while (OryUITemplateCollection[oryUITemplateID].items.length >= 0)
 		OryUIDeleteTemplateItem(oryUITemplateID, 0)
 	endwhile
 endfunction

@@ -74,6 +74,8 @@ function OryUICreateScrollBar(oryUIComponentParameters$ as string)
 	oryUIScrollBarID = OryUIScrollBarCollection.length
 	OryUIScrollBarCollection[oryUIScrollBarID].id = oryUIScrollBarID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIScrollBarID, "ScrollBar"))
+
 	// DEFAULT SETTINGS
 	OryUIScrollBarCollection[oryUIScrollBarID].alwaysVisible = 0
 	OryUIScrollBarCollection[oryUIScrollBarID].autoResize = 1

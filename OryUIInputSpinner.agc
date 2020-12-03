@@ -61,6 +61,8 @@ function OryUICreateInputSpinner(oryUIComponentParameters$ as string)
 	oryUIInputSpinnerID = OryUIInputSpinnerCollection.length
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].id = oryUIInputSpinnerID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIInputSpinnerID, "InputSpinner"))
+
 	// DEFAULT SETTINGS
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[1] = oryUIDefaults.inputSpinnerButtonActiveColor#[1]
 	OryUIInputSpinnerCollection[oryUIInputSpinnerID].activeButtonColor#[2] = oryUIDefaults.inputSpinnerButtonActiveColor#[2]

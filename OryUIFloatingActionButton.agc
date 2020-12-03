@@ -24,6 +24,8 @@ function OryUICreateFloatingActionButton(oryUIComponentParameters$ as string)
 	oryUIFloatingActionButtonID = OryUIFloatingActionButtonCollection.length
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].id = oryUIFloatingActionButtonID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIFloatingActionButtonID, "FloatingActionButton"))
+
 	// DEFAULT SETTINGS
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = 0
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"

@@ -41,6 +41,8 @@ function OryUICreateList(oryUIComponentParameters$ as string)
 	oryUIListID = OryUIListCollection.length
 	OryUIListCollection[oryUIListID].id = oryUIListID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIListID, "List"))
+
 	// DEFAULT SETTINGS
 	OryUIListCollection[oryUIListID].itemSize#[1] = 100
 	OryUIListCollection[oryUIListID].itemSize#[2] = 7
@@ -66,7 +68,7 @@ endfunction oryUIListID
 
 function OryUIDeleteList(oryUIListID as integer)
 	DeleteSprite(OryUIListCollection[oryUIListID].sprContainer)
-	while (OryUIListCollection[oryUIListID].itemID.length > 0)
+	while (OryUIListCollection[oryUIListID].itemID.length >= 0)
 		OryUIDeleteListItem(oryUIListID, 0)
 	endwhile
 endfunction

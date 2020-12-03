@@ -57,6 +57,8 @@ function OryUICreatePagination(oryUIComponentParameters$ as string)
 	oryUIPaginationID = OryUIPaginationCollection.length
 	OryUIPaginationCollection[oryUIPaginationID].id = oryUIPaginationID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIPaginationID, "Pagination"))
+
 	// DEFAULT SETTINGS
 	OryUIPaginationCollection[oryUIPaginationID].buttonMargin# = oryUIDefaults.paginationButtonMargin#
 	OryUIPaginationCollection[oryUIPaginationID].buttonPressed = -1
@@ -131,7 +133,7 @@ function OryUIDeletePagination(oryUIPaginationID as integer)
 	if (oryUIPaginationID <= OryUIPaginationCollection.length)
 		DeleteSprite(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 	endif
-	while (OryUIPaginationCollection[oryUIPaginationID].buttons.length > 0)
+	while (OryUIPaginationCollection[oryUIPaginationID].buttons.length >= 0)
 		OryUIDeletePaginationButton(oryUIPaginationID, 0)
 	endwhile
 endfunction

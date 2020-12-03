@@ -89,6 +89,8 @@ function OryUICreateButton(oryUIComponentParameters$ as string)
 	OryUIButtonCollection.length = OryUIButtonCollection.length + 1
 	oryUIButtonID = OryUIButtonCollection.length
 	OryUIButtonCollection[oryUIButtonID].id = oryUIButtonID
+
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIButtonID, "Button"))
 	
 	// DEFAULT SETTINGS
 	OryUIButtonCollection[oryUIButtonID].disabledColor#[1] = oryUIDefaults.buttonDisabledColor#[1]

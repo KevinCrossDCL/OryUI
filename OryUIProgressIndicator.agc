@@ -38,6 +38,8 @@ function OryUICreateProgressIndicator(oryUIComponentParameters$ as string)
 	oryUIProgressIndicatorID = OryUIProgressIndicatorCollection.length
 	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].id = oryUIProgressIndicatorID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIProgressIndicatorID, "ProgressIndicator"))
+
 	// DEFAULT SETTINGS
 	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].progressType$ = "Determinate"
 	

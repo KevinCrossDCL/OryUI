@@ -49,6 +49,8 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	oryUIEditAvatarScreenID = OryUIEditAvatarScreenCollection.length
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].id = oryUIEditAvatarScreenID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIEditAvatarScreenID, "EditAvatarScreen"))
+
 	// DEFAULT SETTINGS
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].frameShape$ = "Square"
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].maxZoom# = 4

@@ -5,6 +5,8 @@ function OryUICreateText(oryUIComponentParameters$ as string)
 	local oryUITextID as integer
 	oryUITextID = CreateText("")
 	
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITextID, "Text"))
+
 	if (oryUIComponentParameters$ <> "") then OryUIUpdateText(oryUITextID, oryUIComponentParameters$)
 endfunction oryUITextID
 

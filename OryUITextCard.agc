@@ -18,6 +18,8 @@ function OryUICreateTextCard(oryUIComponentParameters$ as string)
 	oryUITextCardID = OryUITextCardCollection.length
 	OryUITextCardCollection[oryUITextCardID].id = oryUITextCardID
 	
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITextCardID, "TextCard"))
+
 	OryUITextCardCollection[oryUITextCardID].autoHeight = 0
 	
 	OryUITextCardCollection[oryUITextCardID].sprContainer = CreateSprite(0)

@@ -11,6 +11,17 @@
 
 foldstart
 
+function OryUIAddCreatedComponent(oryUIID as integer, oryUIType$ as string)
+	local oryUIT as typeOryUICreatedComponents
+    oryUIT.type$ = oryUIType$
+    oryUIT.id = oryUIID
+endfunction oryUIT
+
+type typeOryUICreatedComponents
+	id as integer
+	type$ as string
+endtype
+
 type typeOryUIDefaults
 
 	// OryUIButton
@@ -508,7 +519,6 @@ type typeOryUIParameters
 	wrapListTopY# as float
 endtype
 
-
 foldend
 
 
@@ -522,12 +532,14 @@ global oryUIContentHeight# as float 			// NOT YET USED
 global oryUIContentStartX# as float				// NOT YET USED
 global oryUIContentStartY# as float				// NOT YET USED
 global oryUIContentWidth# as float				// NOT YET USED
+global oryUICreatedComponents as typeOryUICreatedComponents[]
 global oryUIDefaults as typeOryUIDefaults
 global oryUIDialogVisible as integer
 global oryUILocalJSONVariables as typeOryUIJSONVariables[]
 if (GetFileExists("OryUILocalVariables.json")) then oryUILocalJSONVariables.load("OryUILocalVariables.json")
 global oryUIParameters as typeoryUIParameters
 global oryUIPickerVisible as integer
+global OryUIScreenActive as integer
 global oryUIScrimDepth as integer
 global oryUIScrimVisible as integer
 global oryUIMaxSyncRate# as integer : oryUIMaxSyncRate# = 60.0
@@ -585,6 +597,76 @@ function OryUIConvertColor(oryUIColor$ as string)
 	endif
 endfunction oryUIRGBA#
 
+function OryUIDeleteScreen()
+	local oryUIForI as integer
+	OryUISync()
+	for oryUIForI = 0 to oryUICreatedComponents.length
+		select oryUICreatedComponents[oryUIForI].type$
+			case "Button"
+				OryUIDeleteButton(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "ButtonGroup"
+				OryUIDeleteButtonGroup(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Dialog"
+				OryUIDeleteDialog(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "EditAvatarScreen"
+				OryUIDeleteEditAvatarScreen(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "FloatingActionButton"
+				OryUIDeleteFloatingActionButton(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "InputSpinner"
+				OryUIDeleteInputSpinner(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "List"
+				OryUIDeleteList(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Menu"
+				OryUIDeleteMenu(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "NavigationDrawer"
+				OryUIDeleteNavigationDrawer(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Pagination"
+				OryUIDeletePagination(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "ProgressIndicator"
+				OryUIDeleteProgressIndicator(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "ScrollBar"
+				OryUIDeleteScrollBar(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "ScrollToTop"
+				OryUIDeleteScrollToTop(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Sprite"
+				DeleteSprite(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Tabs"
+				OryUIDeleteTabs(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Text"
+				DeleteText(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "TextCard"
+				OryUIDeleteTextCard(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Textfield"
+				OryUIDeleteTextfield(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "Tooltip"
+				OryUIDeleteTooltip(oryUICreatedComponents[oryUIForI].id)
+			endcase
+			case "TopBar"
+				OryUIDeleteTopBar(oryUICreatedComponents[oryUIForI].id)
+			endcase
+		endselect
+	next
+	oryUICreatedComponents.length = -1
+endfunction
+
 function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
 	local oryUIForI as integer
 	local oryUIVariableValue$ as string
@@ -596,6 +678,16 @@ function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
 		endif
 	next
 endfunction oryUIVariableValue$
+
+function OryUIGetScreenActive()
+
+endfunction OryUIScreenActive
+
+function OryUIGotoScreen(oryUIScreenNumber as integer)
+	OryUIScreenActive = oryUIScreenNumber
+	OryUIDeleteScreen()
+	gosub OryUIMainDoLoop
+endfunction
 
 function OryUILerp(oryUIMin# as float, oryUIMax# as float, oryUIF# as float)
 	local oryUIResult# as float
@@ -908,6 +1000,10 @@ function OryUIReturnIconID(oryUIIcon$ as string)
 	if (lower(oryUIIcon$) = "share") then oryUIIconID = oryUIIconShareImage
 	if (lower(oryUIIcon$) = "subtract") then oryUIIconID = oryUIIconSubtractImage
 endfunction oryUIIconID
+
+function OryUISetActiveScreen(oryUIScreenNumber as integer)
+	OryUIScreenActive = oryUIScreenNumber
+endfunction
 
 function OryUISetContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIHeight#
@@ -1558,6 +1654,13 @@ endfunction
 function OryUISetSyncRate(oryUISyncRate# as float, oryUIMode as integer)
 	SetSyncRate(oryUISyncRate#, oryUIMode)
 	oryUIMaxSyncRate# = oryUISyncRate#
+endfunction
+
+function OryUISync()
+	OryUIEndTrackingTouch()
+	UpdateAllTweens(GetFrameTime())
+	Sync()
+	OryUIStartTrackingTouch()
 endfunction
 
 foldend

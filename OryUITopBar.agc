@@ -38,6 +38,8 @@ function OryUICreateTopBar(oryUIComponentParameters$ as string)
 	oryUITopBarID = OryUITopBarCollection.length
 	OryUITopBarCollection[oryUITopBarID].id = oryUITopBarID
 
+	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITopBarID, "TopBar"))
+
 	// DEFAULT SETTINGS
 	OryUITopBarCollection[oryUITopBarID].defaultIconColor#[1] = 255
 	OryUITopBarCollection[oryUITopBarID].defaultIconColor#[2] = 255
@@ -93,7 +95,7 @@ function OryUIDeleteTopBar(oryUITopBarID as integer)
 	DeleteSprite(OryUITopBarCollection[oryUITopBarID].sprShadow)
 	DeleteSprite(OryUITopBarCollection[oryUITopBarID].sprStatusBar)
 	DeleteText(OryUITopBarCollection[oryUITopBarID].txtTitle)
-	while (OryUITopBarCollection[oryUITopBarID].actions.length > 0)
+	while (OryUITopBarCollection[oryUITopBarID].actions.length >= 0)
 		OryUIDeleteTopBarAction(oryUITopBarID, 0)
 	endwhile
 endfunction
@@ -460,7 +462,7 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		endif
 		if (oryUIParameters.navigationName$ <> "")
 			if (lower(oryUIParameters.navigationName$) = "null") then oryUIParameters.navigationName$ = ""
-			OryUITopBarCollection[oryUITopBarID].navigationName$ = lower(oryUIParameters.navigationName$)
+			OryUITopBarCollection[oryUITopBarID].navigationName$ = oryUIParameters.navigationName$
 		endif
 		if (oryUIParameters.text$ <> "")
 			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
