@@ -606,6 +606,7 @@ function OryUICreateWidget(oryUIWidgetParameters$)
 	local oryUIVariable$ as string
 	local oryUIWidget as integer
 	local oryUIWidgetEnd as integer
+	local oryUIWidgetParameter$ as string
 	local oryUIWidgetStart as integer
 
 	oryUIWidgetStart = FindString(oryUIWidgetParameters$, "widget:", 1, 1)
