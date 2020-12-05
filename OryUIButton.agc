@@ -1,5 +1,5 @@
 
-foldstart // OryUIButton Component (Updated 07/07/2020)
+foldstart // OryUIButton Widget (Updated 07/07/2020)
 
 type typeOryUIButton
 	id as integer
@@ -83,14 +83,14 @@ function OryUIButtonListener(oryUIButtonID as integer)
 	endif
 endfunction
 
-function OryUICreateButton(oryUIComponentParameters$ as string)
+function OryUICreateButton(oryUIWidgetParameters$ as string)
 	local oryUIButtonID as integer
 	
 	OryUIButtonCollection.length = OryUIButtonCollection.length + 1
 	oryUIButtonID = OryUIButtonCollection.length
 	OryUIButtonCollection[oryUIButtonID].id = oryUIButtonID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIButtonID, "Button"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIButtonID, "Button"))
 	
 	// DEFAULT SETTINGS
 	OryUIButtonCollection[oryUIButtonID].disabledColor#[1] = oryUIDefaults.buttonDisabledColor#[1]
@@ -153,7 +153,7 @@ function OryUICreateButton(oryUIComponentParameters$ as string)
 	SetTextDepth(OryUIButtonCollection[oryUIButtonID].txtLabel, GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) - 1)
 	OryUIPinTextToCentreOfSprite(OryUIButtonCollection[oryUIButtonID].txtLabel, OryUIButtonCollection[oryUIButtonID].sprContainer, 0, 0)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateButton(oryUIButtonID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateButton(oryUIButtonID, oryUIWidgetParameters$)
 endfunction oryUIButtonID
 
 function OryUIDeleteButton(oryUIButtonID as integer)
@@ -220,8 +220,8 @@ function OryUIGetButtonY(oryUIButtonID as integer)
 	endif
 endfunction oryUIButtonY#
 
-function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateButton(oryUIButtonID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	local oryUIIconAndLabelHeight# as float
 	local oryUIIconAndLabelOffsetX# as float
@@ -413,7 +413,7 @@ function OryUIUpdateButton(oryUIButtonID as integer, oryUIComponentParameters$ a
 			OryUIButtonCollection[oryUIButtonID].enabledTextSize# = oryUIParameters.enabledTextSize#
 		endif
 		
-		// IMPORTANT PARAMETERS WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUIButtonCollection[oryUIButtonID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
 		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)

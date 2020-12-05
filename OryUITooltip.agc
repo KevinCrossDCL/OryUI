@@ -1,5 +1,5 @@
 
-foldstart // OryUITooltip Component (Updated 01/03/2020)
+foldstart // OryUITooltip Widget (Updated 01/03/2020)
 
 type typeOryUITooltip
 	id as integer
@@ -31,13 +31,13 @@ function OryUIAnimateTooltip(oryUITooltipID as integer)
 	endif
 endfunction
 
-function OryUICreateTooltip(oryUIComponentParameters$ as string)
+function OryUICreateTooltip(oryUIWidgetParameters$ as string)
 	local oryUITooltipID as integer
 	OryUITooltipCollection.length = OryUITooltipCollection.length + 1
 	oryUITooltipID = OryUITooltipCollection.length
 	OryUITooltipCollection[oryUITooltipID].id = oryUITooltipID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITooltipID, "Tooltip"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITooltipID, "Tooltip"))
 
 	// DEFAULT SETTINGS
 	OryUITooltipCollection[oryUITooltipID].visible = 0
@@ -58,7 +58,7 @@ function OryUICreateTooltip(oryUIComponentParameters$ as string)
 	SetTextDepth(OryUITooltipCollection[oryUITooltipID].txtLabel, GetSpriteDepth(OryUITooltipCollection[oryUITooltipID].sprContainer) - 1)
 	SetTextPosition(OryUITooltipCollection[oryUITooltipID].txtLabel, -999999, -999999)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTooltip(oryUITooltipID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTooltip(oryUITooltipID, oryUIWidgetParameters$)
 endfunction oryUITooltipID
 
 function OryUIDeleteTooltip(oryUITooltipID as integer)
@@ -98,8 +98,8 @@ function OryUIShowTooltip(oryUITooltipID as integer, oryUITooltipX#, oryUIToolti
 	OryUITooltipCollection[oryUITooltipID].timeVisible# = Timer()
 endfunction
 
-function OryUIUpdateTooltip(oryUITooltipID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTooltip(oryUITooltipID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITooltipCollection[oryUITooltipID].sprContainer))
 		// THE REST OF THE PARAMETERS NEXT

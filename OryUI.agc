@@ -11,13 +11,13 @@
 
 foldstart
 
-function OryUIAddCreatedComponent(oryUIID as integer, oryUIType$ as string)
-	local oryUIT as typeOryUICreatedComponents
+function OryUIAddCreatedWidget(oryUIID as integer, oryUIType$ as string)
+	local oryUIT as typeOryUICreatedWidgets
     oryUIT.type$ = oryUIType$
     oryUIT.id = oryUIID
 endfunction oryUIT
 
-type typeOryUICreatedComponents
+type typeOryUICreatedWidgets
 	id as integer
 	type$ as string
 endtype
@@ -532,7 +532,7 @@ global oryUIContentHeight# as float 			// NOT YET USED
 global oryUIContentStartX# as float				// NOT YET USED
 global oryUIContentStartY# as float				// NOT YET USED
 global oryUIContentWidth# as float				// NOT YET USED
-global oryUICreatedComponents as typeOryUICreatedComponents[]
+global oryUICreatedWidgets as typeOryUICreatedWidgets[]
 global oryUIDefaults as typeOryUIDefaults
 global oryUIDialogVisible as integer
 global oryUILocalJSONVariables as typeOryUIJSONVariables[]
@@ -597,74 +597,79 @@ function OryUIConvertColor(oryUIColor$ as string)
 	endif
 endfunction oryUIRGBA#
 
-function OryUIDeleteScreen()
+function OryUICreateWidget(oryUIWidgetParameters$)
+	local oryUIWidget as integer
+
+endfunction oryUIWidget
+
+function OryUIDeleteAllWidgets()
 	local oryUIForI as integer
 	OryUISync()
-	for oryUIForI = 0 to oryUICreatedComponents.length
-		select oryUICreatedComponents[oryUIForI].type$
+	for oryUIForI = 0 to oryUICreatedWidgets.length
+		select oryUICreatedWidgets[oryUIForI].type$
 			case "Button"
-				OryUIDeleteButton(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteButton(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "ButtonGroup"
-				OryUIDeleteButtonGroup(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteButtonGroup(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Dialog"
-				OryUIDeleteDialog(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteDialog(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "EditAvatarScreen"
-				OryUIDeleteEditAvatarScreen(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteEditAvatarScreen(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "FloatingActionButton"
-				OryUIDeleteFloatingActionButton(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteFloatingActionButton(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "InputSpinner"
-				OryUIDeleteInputSpinner(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteInputSpinner(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "List"
-				OryUIDeleteList(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteList(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Menu"
-				OryUIDeleteMenu(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteMenu(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "NavigationDrawer"
-				OryUIDeleteNavigationDrawer(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteNavigationDrawer(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Pagination"
-				OryUIDeletePagination(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeletePagination(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "ProgressIndicator"
-				OryUIDeleteProgressIndicator(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteProgressIndicator(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "ScrollBar"
-				OryUIDeleteScrollBar(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteScrollBar(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "ScrollToTop"
-				OryUIDeleteScrollToTop(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteScrollToTop(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Sprite"
-				DeleteSprite(oryUICreatedComponents[oryUIForI].id)
+				DeleteSprite(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Tabs"
-				OryUIDeleteTabs(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteTabs(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Text"
-				DeleteText(oryUICreatedComponents[oryUIForI].id)
+				DeleteText(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "TextCard"
-				OryUIDeleteTextCard(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteTextCard(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Textfield"
-				OryUIDeleteTextfield(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteTextfield(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Tooltip"
-				OryUIDeleteTooltip(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteTooltip(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "TopBar"
-				OryUIDeleteTopBar(oryUICreatedComponents[oryUIForI].id)
+				OryUIDeleteTopBar(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 		endselect
 	next
-	oryUICreatedComponents.length = -1
+	oryUICreatedWidgets.length = -1
 endfunction
 
 function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
@@ -678,16 +683,6 @@ function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
 		endif
 	next
 endfunction oryUIVariableValue$
-
-function OryUIGetScreenActive()
-
-endfunction OryUIScreenActive
-
-function OryUIGotoScreen(oryUIScreenNumber as integer)
-	OryUIScreenActive = oryUIScreenNumber
-	OryUIDeleteScreen()
-	gosub OryUIMainDoLoop
-endfunction
 
 function OryUILerp(oryUIMin# as float, oryUIMax# as float, oryUIF# as float)
 	local oryUIResult# as float
@@ -1001,10 +996,6 @@ function OryUIReturnIconID(oryUIIcon$ as string)
 	if (lower(oryUIIcon$) = "subtract") then oryUIIconID = oryUIIconSubtractImage
 endfunction oryUIIconID
 
-function OryUISetActiveScreen(oryUIScreenNumber as integer)
-	OryUIScreenActive = oryUIScreenNumber
-endfunction
-
 function OryUISetContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIHeight#
 endfunction
@@ -1034,20 +1025,21 @@ function OryUISetLocalJSONVariable(oryUIVariable$ as string, oryUIVariableValue$
 	oryUILocalJSONVariables.save("OryUILocalVariables.json")
 endfunction
 
-function OryUISetParametersType(oryUIComponentParameters$ as string)
+function OryUISetParametersType(oryUIWidgetParameters$ as string)
 	OryUIResetParametersType()
 	
-	local oryUIComponentParameter$ as string
+	local oryUIWidgetParameter$ as string
 	local oryUIForI as integer
 	local oryUIForJ as integer
 	local oryUIValue$ as string
 	local oryUIVariable$ as string
 	
-	for oryUIForI = 1 to CountStringTokens(oryUIComponentParameters$, ";")
-		oryUIComponentParameter$ = GetStringToken(oryUIComponentParameters$, ";", oryUIForI)
-		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIComponentParameter$, ":", 1), " "))
-		oryUIValue$ = GetStringToken(oryUIComponentParameter$, ":", 2)
+	for oryUIForI = 1 to CountStringTokens(oryUIWidgetParameters$, ";")
+		oryUIWidgetParameter$ = GetStringToken(oryUIWidgetParameters$, ";", oryUIForI)
+		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIWidgetParameter$, ":", 1), " "))
+		oryUIValue$ = GetStringToken(oryUIWidgetParameter$, ":", 2)
 		oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
+		oryUIValue$ = ReplaceString(oryUIValue$, "[semicolon]", ";", -1)
 		if (oryUIValue$ = "") then oryUIValue$ = "null"
 		if (oryUIVariable$ = "activebuttoncolor" or oryUIVariable$ = "activebuttoncolorid")
 			oryUIParameters.activeButtonColor# = OryUIConvertColor(oryUIValue$)
@@ -1093,7 +1085,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.backgroundColor# = OryUIConvertColor(oryUIValue$)
 		elseif (OryUIVariable$ = "blockorder")
 			for oryUIForJ = 1 to CountStringTokens(oryUIValue$, ",")
-				oryUIParameters.blockOrder$.insert(GetStringToken(oryUIComponentParameters$, ",", oryUIForJ))
+				oryUIParameters.blockOrder$.insert(GetStringToken(oryUIWidgetParameters$, ",", oryUIForJ))
 			next
 		elseif (oryUIVariable$ = "bold")
 			oryUIParameters.bold = OryUIConvertBoolean(oryUIValue$)

@@ -1,5 +1,5 @@
 
-foldstart // OryUIHTTPSQueue Component (Updated 07/07/2020)
+foldstart // OryUIHTTPSQueue Widget (Updated 07/07/2020)
 
 type typeOryUIHTTPSQueue
 	id as integer
@@ -31,8 +31,8 @@ endtype
 global OryUIHTTPSQueueCollection as typeOryUIHTTPSQueue[]
 OryUIHTTPSQueueCollection.length = 1
 
-function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIAddItemToHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 	
 	if (lower(oryUIParameters.file$) = "null") then oryUIParameters.file$ = ""
 	if (lower(oryUIParameters.name$) = "null") then oryUIParameters.name$ = ""
@@ -112,7 +112,7 @@ function OryUIClearHTTPSQueue(oryUIHTTPSQueueID as integer)
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items.length = -1
 endfunction
 
-function OryUICreateHTTPSQueue(oryUIComponentParameters$ as string)
+function OryUICreateHTTPSQueue(oryUIWidgetParameters$ as string)
 	local oryUIHTTPSQueueID as integer
 	OryUIHTTPSQueueCollection.length = OryUIHTTPSQueueCollection.length + 1
 	oryUIHTTPSQueueID = OryUIHTTPSQueueCollection.length
@@ -123,7 +123,7 @@ function OryUICreateHTTPSQueue(oryUIComponentParameters$ as string)
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].ssl = 1
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].timeout = 10000
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateHTTPSQueue(oryUIHTTPSQueueID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateHTTPSQueue(oryUIHTTPSQueueID, oryUIWidgetParameters$)
 endfunction oryUIHTTPSQueueID
 
 function OryUIDeleteHTTPSQueue(oryUIHTTPSQueueID as integer)
@@ -359,8 +359,8 @@ function OryUIResetHTTPSQueueFailedCount(oryUIHTTPSQueueID as integer)
 	OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount = 0
 endfunction
 
-function OryUIUpdateHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateHTTPSQueue(oryUIHTTPSQueueID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (oryUIParameters.delay# > -999999)
 		OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].delay# = oryUIParameters.delay#

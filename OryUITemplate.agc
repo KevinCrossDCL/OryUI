@@ -1,6 +1,6 @@
-// This is a template file to use for future components
+// This is a template file to use for future widgets
 
-foldstart // OryUITemplate Component (Updated 07/07/2020)
+foldstart // OryUITemplate Widget (Updated 07/07/2020)
 
 type typeOryUITemplate
 	id as integer
@@ -28,13 +28,13 @@ endtype
 global OryUITemplateCollection as typeOryUITemplate[]
 OryUITemplateCollection.length = 1
 
-function OryUICreateTemplate(oryUIComponentParameters$ as string)
+function OryUICreateTemplate(oryUIWidgetParameters$ as string)
 	local oryUITemplateID as integer
 	OryUITemplateCollection.length = OryUITemplateCollection.length + 1
 	oryUITemplateID = OryUITemplateCollection.length
 	OryUITemplateCollection[oryUITemplateID].id = oryUITemplateID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITemplateID, "Template"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITemplateID, "Template"))
 
 	// DEFAULT SETTINGS
 	OryUITemplateCollection[oryUITemplateID].itemColor#[1] = oryUIDefaults.templateItemColor#[1]
@@ -55,7 +55,7 @@ function OryUICreateTemplate(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].sprContainer, 0, 0)
 	SetSpritePhysicsOff(OryUITemplateCollection[oryUITemplateID].sprContainer)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTemplate(oryUITemplateID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTemplate(oryUITemplateID, oryUIWidgetParameters$)
 endfunction oryUITemplateID
 
 function OryUIDeleteTemplate(oryUITemplateID as integer)
@@ -144,7 +144,7 @@ function OryUIHideTemplate(oryUITemplateID as integer)
 	next
 endfunction
 
-function OryUIInsertTemplateItem(oryUITemplateID as integer, oryUITemplateIndex as integer, oryUIComponentParameters$ as string)
+function OryUIInsertTemplateItem(oryUITemplateID as integer, oryUITemplateIndex as integer, oryUIWidgetParameters$ as string)
 	local oryUITemplateItemID as integer
 	if (oryUITemplateIndex = -1)
 		OryUITemplateCollection[oryUITemplateID].items.length = OryUITemplateCollection[oryUITemplateID].items.length + 1
@@ -160,7 +160,7 @@ function OryUIInsertTemplateItem(oryUITemplateID as integer, oryUITemplateIndex 
 	SetSpritePositionByOffset(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer, -999999, -999999)
 	SetSpritePhysicsOff(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID].sprContainer)
 
-	OryUIUpdateTemplateItem(oryUITemplateID, oryUITemplateItemID + 1, oryUIComponentParameters$)
+	OryUIUpdateTemplateItem(oryUITemplateID, oryUITemplateItemID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertTemplateListener(oryUITemplateID as integer)
@@ -270,11 +270,11 @@ function OryUIShowTemplate(oryUITemplateID as integer)
 	next
 endfunction
 
-function OryUIUpdateTemplate(oryUITemplateID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTemplate(oryUITemplateID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITemplateCollection[oryUITemplateID].sprContainer))
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUITemplateCollection[oryUITemplateID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
 		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
@@ -313,8 +313,8 @@ function OryUIUpdateTemplate(oryUITemplateID as integer, oryUIComponentParameter
 	endif
 endfunction
 
-function OryUIUpdateTemplateItem(oryUITemplateID as integer, oryUITemplateItemID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTemplateItem(oryUITemplateID as integer, oryUITemplateItemID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITemplateCollection[oryUITemplateID].items[oryUITemplateItemID - 1].sprContainer))
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)

@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollToTop Component (Updated 07/07/2020)
+foldstart // OryUIScrollToTop Widget (Updated 07/07/2020)
 
 type typeOryUIScrollToTop
 	id as integer
@@ -17,13 +17,13 @@ endtype
 global OryUIScrollToTopCollection as typeOryUIScrollToTop[]
 OryUIScrollToTopCollection.length = 1
 
-function OryUICreateScrollToTop(oryUIComponentParameters$ as string)
+function OryUICreateScrollToTop(oryUIWidgetParameters$ as string)
 	local oryUIScrollToTopID as integer
 	OryUIScrollToTopCollection.length = OryUIScrollToTopCollection.length + 1
 	oryUIScrollToTopID = OryUIScrollToTopCollection.length
 	OryUIScrollToTopCollection[oryUIScrollToTopID].id = oryUIScrollToTopID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIScrollToTopID, "ScrollToTop"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIScrollToTopID, "ScrollToTop"))
 
 	// DEFAULT SETTINGS
 	OryUIScrollToTopCollection[oryUIScrollToTopID].placement$ = oryUIDefaults.scrollToTopPlacement$
@@ -61,7 +61,7 @@ function OryUICreateScrollToTop(oryUIComponentParameters$ as string)
 	OryUIPinSpriteToCentreOfSprite(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, 0, 0)
 	//FixSpriteToScreen(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, 1)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateScrollToTop(oryUIScrollToTopID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateScrollToTop(oryUIScrollToTopID, oryUIWidgetParameters$)
 	OryUIHideScrollToTop(oryUIScrollToTopID)
 endfunction oryUIScrollToTopID
 
@@ -166,8 +166,8 @@ function OryUIShowScrollToTop(oryUIScrollToTopID as integer)
 	OryUIPinSpriteToCentreOfSprite(OryUIScrollToTopCollection[oryUIScrollToTopID].sprIcon, OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer, 0, 0)
 endfunction
 
-function OryUIUpdateScrollToTop(oryUIScrollToTopID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateScrollToTop(oryUIScrollToTopID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIScrollToTopCollection[oryUIScrollToTopID].sprContainer))
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)

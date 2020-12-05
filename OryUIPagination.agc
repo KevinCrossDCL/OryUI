@@ -1,5 +1,5 @@
 
-foldstart // OryUIPagination Component (Updated 07/07/2020)
+foldstart // OryUIPagination Widget (Updated 07/07/2020)
 
 type typeOryUIPagination
 	id as integer
@@ -51,13 +51,13 @@ endtype
 global OryUIPaginationCollection as typeOryUIPagination[]
 OryUIPaginationCollection.length = 1
 
-function OryUICreatePagination(oryUIComponentParameters$ as string)
+function OryUICreatePagination(oryUIWidgetParameters$ as string)
 	local oryUIPaginationID as integer
 	OryUIPaginationCollection.length = OryUIPaginationCollection.length + 1
 	oryUIPaginationID = OryUIPaginationCollection.length
 	OryUIPaginationCollection[oryUIPaginationID].id = oryUIPaginationID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIPaginationID, "Pagination"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIPaginationID, "Pagination"))
 
 	// DEFAULT SETTINGS
 	OryUIPaginationCollection[oryUIPaginationID].buttonMargin# = oryUIDefaults.paginationButtonMargin#
@@ -126,7 +126,7 @@ function OryUICreatePagination(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUIPaginationCollection[oryUIPaginationID].sprContainer, 0, 0)
 	SetSpritePhysicsOff(OryUIPaginationCollection[oryUIPaginationID].sprContainer)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdatePagination(oryUIPaginationID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdatePagination(oryUIPaginationID, oryUIWidgetParameters$)
 endfunction oryUIPaginationID
 
 function OryUIDeletePagination(oryUIPaginationID as integer)
@@ -253,7 +253,7 @@ function OryUIGetPaginationY(oryUIPaginationID as integer)
 	endif
 endfunction oryUIPaginationY#
 
-function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginationIndex as integer, oryUIComponentParameters$ as string)
+function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginationIndex as integer, oryUIWidgetParameters$ as string)
 	local oryUIPaginationButtonID as integer
 	
 	if (oryUIPaginationIndex = -1)
@@ -287,7 +287,7 @@ function OryUIInsertPaginationButton(oryUIPaginationID as integer, oryUIPaginati
 	SetTextDepth(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].txtLabel, GetSpriteDepth(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer) - 1)
 	OryUIPinTextToCentreOfSprite(OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].txtLabel, OryUIPaginationCollection[oryUIPaginationID].buttons[oryUIPaginationButtonID].sprContainer, 0, 0)
 
-	//OryUIUpdatePaginationButton(oryUIPaginationID, oryUIPaginationButtonID + 1, oryUIComponentParameters$)
+	//OryUIUpdatePaginationButton(oryUIPaginationID, oryUIPaginationButtonID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertPaginationListener(oryUIPaginationID as integer)
@@ -535,11 +535,11 @@ function OryUISetPaginationSelectedPage(oryUIPaginationID as integer, oryUINewPa
 	OryUIResizeAndPositionButtonsInPagination(oryUIPaginationID)
 endfunction
 
-function OryUIUpdatePagination(oryUIPaginationID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdatePagination(oryUIPaginationID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIPaginationCollection[oryUIPaginationID].sprContainer))
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUIPaginationCollection[oryUIPaginationID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
 		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)

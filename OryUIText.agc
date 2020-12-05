@@ -1,13 +1,13 @@
 
 foldstart // OryUIText (Updated 07/07/2020)
 
-function OryUICreateText(oryUIComponentParameters$ as string)
+function OryUICreateText(oryUIWidgetParameters$ as string)
 	local oryUITextID as integer
 	oryUITextID = CreateText("")
 	
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITextID, "Text"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITextID, "Text"))
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateText(oryUITextID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateText(oryUITextID, oryUIWidgetParameters$)
 endfunction oryUITextID
 
 function OryUIPinTextToBottomCentreOfSprite(oryUITextA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
@@ -73,8 +73,8 @@ function OryUIPinTextToTopRightOfSprite(oryUITextA as integer, oryUISpriteB as i
 	endif
 endfunction
 
-function OryUIUpdateText(oryUITextID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateText(oryUITextID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetTextExists(oryUITextID))
 		if (oryUIParameters.alignment > -999999)

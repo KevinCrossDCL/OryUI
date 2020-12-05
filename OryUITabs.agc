@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 07/07/2020)
+foldstart // OryUITabs Widget (Updated 07/07/2020)
 
 type typeOryUITabs
 	id as integer
@@ -33,13 +33,13 @@ endtype
 global OryUITabsCollection as typeOryUITabs[]
 OryUITabsCollection.length = 1
 
-function OryUICreateTabs(oryUIComponentParameters$ as string)
+function OryUICreateTabs(oryUIWidgetParameters$ as string)
 	local oryUITabsID as integer
 	OryUITabsCollection.length = OryUITabsCollection.length + 1
 	oryUITabsID = OryUITabsCollection.length
 	OryUITabsCollection[oryUITabsID].id = oryUITabsID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUITabsID, "Tabs"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITabsID, "Tabs"))
 
 	// DEFAULT SETTINGS
 	OryUITabsCollection[oryUITabsID].defaultActiveColor#[1] = 255
@@ -77,7 +77,7 @@ function OryUICreateTabs(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprShadow, GetSpriteX(OryUITabsCollection[oryUITabsID].sprContainer), GetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer) + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 	SetSpritePhysicsOff(OryUITabsCollection[oryUITabsID].sprShadow)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabs(oryUITabsID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTabs(oryUITabsID, oryUIWidgetParameters$)
 endfunction oryUITabsID
 
 function OryUIDeleteTabs(oryUITabsID as integer)
@@ -136,7 +136,7 @@ function OryUIGetTabsHeight(oryUITabsID as integer)
 	endif
 endfunction oryUITabsHeight#
 
-function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponentParameters$ as string)
+function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIWidgetParameters$ as string)
 	local oryUITabsButtonID as integer
 	if (oryUIIndex = -1)
 		OryUITabsCollection[oryUITabsID].buttons.length = OryUITabsCollection[oryUITabsID].buttons.length + 1
@@ -168,7 +168,7 @@ function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponen
 	
 	OryUIPositionButtonsInTabs(oryUITabsID)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabsButton(oryUITabsID, oryUITabsButtonID + 1, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTabsButton(oryUITabsID, oryUITabsButtonID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertTabsListener(oryUITabsID as integer)
@@ -303,12 +303,12 @@ function OryUISetTabsButtonSelectedByName(oryUITabsID as integer, oryUITabsButto
 	next
 endfunction
 
-function OryUIUpdateTabs(oryUITabsID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTabs(oryUITabsID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
 
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999)
 			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprShadow, oryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprShadow))
@@ -385,8 +385,8 @@ function OryUIUpdateTabs(oryUITabsID as integer, oryUIComponentParameters$ as st
 	OryUIPositionButtonsInTabs(oryUITabsID)
 endfunction
 
-function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprContainer))
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)

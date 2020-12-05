@@ -1,13 +1,14 @@
 VARSION 0.14a
 ------------------------
 - All files
-	- Added each component when created to a list of created components
+	- Changed all references to components to widgets
+	- Added each widget when created to a list of created widgets
 
 - OryUI
-	- Added function OryUIDeleteScreen()
-	- Added function OryUIGetScreenActive()
-	- Added function OryUISetActiveScreen() <- Maybe delete this one.
 	- Added function OryUISync()
+
+- OryUIButton
+	- Fixed a bug where pressed flag wasn't resetting when button was released
 
 - OryUIDialog
 	- Fixed a bug where OryUIDeleteDialog() was deleting all but one button

@@ -1,5 +1,5 @@
 
-foldstart // OryUIMenu Component (Updated 07/07/2020)
+foldstart // OryUIMenu Widget (Updated 07/07/2020)
 
 type typeOryUIMenu
 	id as integer
@@ -34,13 +34,13 @@ endtype
 global OryUIMenuCollection as typeOryUIMenu[]
 OryUIMenuCollection.length = 1
 
-function OryUICreateMenu(oryUIComponentParameters$ as string)
+function OryUICreateMenu(oryUIWidgetParameters$ as string)
 	local oryUIMenuID as integer
 	OryUIMenuCollection.length = OryUIMenuCollection.length + 1
 	oryUIMenuID = OryUIMenuCollection.length
 	OryUIMenuCollection[oryUIMenuID].id = oryUIMenuID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIMenuID, "Menu"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIMenuID, "Menu"))
 
 	// DEFAULT SETTINGS
 	OryUIMenuCollection[oryUIMenuID].showLeftIcon = oryUIDefaults.menuShowLeftIcon
@@ -63,7 +63,7 @@ function OryUICreateMenu(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer, -999999, -999999)
 	SetSpritePhysicsOff(OryUIMenuCollection[oryUIMenuID].sprContainer)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateMenu(oryUIMenuID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateMenu(oryUIMenuID, oryUIWidgetParameters$)
 endfunction oryUIMenuID
 
 function OryUIDeleteMenu(oryUIMenuID as integer)
@@ -166,7 +166,7 @@ function OryUIHideMenu(oryUIMenuID as integer)
 	next
 endfunction
 
-function OryUIInsertMenuItem(oryUIMenuID as integer, oryUIMenuIndex as integer, oryUIComponentParameters$ as string)
+function OryUIInsertMenuItem(oryUIMenuID as integer, oryUIMenuIndex as integer, oryUIWidgetParameters$ as string)
 	local oryUIMenuItemID as integer
 	if (oryUIMenuIndex = -1)
 		OryUIMenuCollection[oryUIMenuID].items.length = OryUIMenuCollection[oryUIMenuID].items.length + 1
@@ -217,7 +217,7 @@ function OryUIInsertMenuItem(oryUIMenuID as integer, oryUIMenuIndex as integer, 
 	SetTextDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].txtLabel, GetSpriteDepth(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].sprContainer) - 1)
 	SetTextPosition(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID].txtLabel, -999999, -999999)
 
-	OryUIUpdateMenuItem(oryUIMenuID, oryUIMenuItemID + 1, oryUIComponentParameters$)
+	OryUIUpdateMenuItem(oryUIMenuID, oryUIMenuItemID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertMenuListener(oryUIMenuID as integer)
@@ -379,12 +379,12 @@ function OryUIShowMenu(oryUIMenuID as integer, oryUIMenuX#, oryUIMenuY#)
 	next
 endfunction
 
-function OryUIUpdateMenu(oryUIMenuID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateMenu(oryUIMenuID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].sprContainer))
 
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999)
 			SetSpriteSize(OryUIMenuCollection[oryUIMenuID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUIMenuCollection[oryUIMenuID].sprContainer))
 		endif
@@ -409,14 +409,14 @@ function OryUIUpdateMenu(oryUIMenuID as integer, oryUIComponentParameters$ as st
 	endif
 endfunction
 
-function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateMenuItem(oryUIMenuID as integer, oryUIMenuItemID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (oryUIMenuItemID - 1 <= OryUIMenuCollection[oryUIMenuID].items.length)
 		if (GetSpriteExists(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer))
 			//SetSpritePositionByOffset(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteXByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer), GetSpriteYByOffset(OryUIMenuCollection[oryUIMenuID].sprContainer) + 0.1 + ((oryUIMenuItemID - 1) * oryUIDefaults.menuItemHeight#))
 
-			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 //~			if (lower(oryUIParameters.itemType$) = "divider")
 //~				OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].itemType$ = "divider"
 //~				SetSpriteSize(OryUIMenuCollection[oryUIMenuID].items[oryUIMenuItemID - 1].sprContainer, GetSpriteWidth(OryUIMenuCollection[oryUIMenuID].sprContainer), oryUIDefaults.menuDividerHeight#)

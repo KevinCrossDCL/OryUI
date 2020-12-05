@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Component (Updated 07/07/2020)
+foldstart // OryUIDialog Widget (Updated 07/07/2020)
 
 type typeOryUIDialog
 	id as integer
@@ -40,14 +40,14 @@ endtype
 global OryUIDialogCollection as typeOryUIDialog[]
 OryUIDialogCollection.length = 1
 
-function OryUICreateDialog(oryUIComponentParameters$ as string)
+function OryUICreateDialog(oryUIWidgetParameters$ as string)
 	local oryUIDialogID as integer
 	
 	OryUIDialogCollection.length = OryUIDialogCollection.length + 1
 	oryUIDialogID = OryUIDialogCollection.length
 	OryUIDialogCollection[oryUIDialogID].id = oryUIDialogID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIDialogID, "Dialog"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIDialogID, "Dialog"))
 
 	// DEFAULT SETTINGS
 	OryUIDialogCollection[oryUIDialogID].autoHeight = oryUIDefaults.dialogAutoHeight
@@ -105,7 +105,7 @@ function OryUICreateDialog(oryUIComponentParameters$ as string)
 	SetTextDepth(OryUIDialogCollection[oryUIDialogID].txtCheckbox, oryUIDefaults.dialogDepth - 2)
 	SetTextPosition(OryUIDialogCollection[oryUIDialogID].txtCheckbox, -999999, -999999)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateDialog(oryUIDialogID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateDialog(oryUIDialogID, oryUIWidgetParameters$)
 endfunction oryUIDialogID
 
 function OryUIDeleteDialog(oryUIDialogID as integer)
@@ -223,7 +223,7 @@ function OryUIHideDialog(oryUIDialogID as integer)
 	next
 endfunction
 
-function OryUIInsertDialogButton(oryUIDialogID as integer, oryUIIndex as integer, oryUIComponentParameters$ as string)
+function OryUIInsertDialogButton(oryUIDialogID as integer, oryUIIndex as integer, oryUIWidgetParameters$ as string)
 	local oryUIDialogButtonID as integer
 	
 	if (oryUIIndex = -1)
@@ -248,7 +248,7 @@ function OryUIInsertDialogButton(oryUIDialogID as integer, oryUIIndex as integer
 	SetTextDepth(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].txtLabel, GetSpriteDepth(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].sprContainer) - 1)
 	SetTextPosition(OryUIDialogCollection[oryUIDialogID].buttons[oryUIDialogButtonID].txtLabel, -999999, -999999)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateDialogButton(oryUIDialogID, oryUIDialogButtonID + 1, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateDialogButton(oryUIDialogID, oryUIDialogButtonID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertDialogListener(oryUIDialogID as integer)
@@ -439,12 +439,12 @@ function OryUIShowDialog(oryUIDialogID as integer)
 	endif
 endfunction
 
-function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateDialog(oryUIDialogID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].sprContainer))
 
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)
 			SetSpriteSize(OryUIDialogCollection[oryUIDialogID].sprContainer, oryUIParameters.size#[1], oryUIParameters.size#[2])
 		elseif (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] = -999999)
@@ -553,8 +553,8 @@ function OryUIUpdateDialog(oryUIDialogID as integer, oryUIComponentParameters$ a
 	endif
 endfunction
 
-function OryUIUpdateDialogButton(oryUIDialogID as integer, oryUIButtonID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateDialogButton(oryUIDialogID as integer, oryUIButtonID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIDialogCollection[oryUIDialogID].buttons[oryUIButtonID - 1].sprContainer))
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)

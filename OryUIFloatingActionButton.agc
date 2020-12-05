@@ -1,5 +1,5 @@
 
-foldstart // OryUIFloatingActionButton Component (Updated 19/08/2019)
+foldstart // OryUIFloatingActionButton Widget (Updated 19/08/2019)
 
 type typeOryUIFloatingActionButton
 	id as integer
@@ -18,13 +18,13 @@ endtype
 global OryUIFloatingActionButtonCollection as typeOryUIFloatingActionButton[]
 OryUIFloatingActionButtonCollection.length = 1
 
-function OryUICreateFloatingActionButton(oryUIComponentParameters$ as string)
+function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	local oryUIFloatingActionButtonID as integer
 	OryUIFloatingActionButtonCollection.length = OryUIFloatingActionButtonCollection.length + 1
 	oryUIFloatingActionButtonID = OryUIFloatingActionButtonCollection.length
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].id = oryUIFloatingActionButtonID
 
-	oryUICreatedComponents.insert(OryUIAddCreatedComponent(oryUIFloatingActionButtonID, "FloatingActionButton"))
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIFloatingActionButtonID, "FloatingActionButton"))
 
 	// DEFAULT SETTINGS
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = 0
@@ -61,7 +61,7 @@ function OryUICreateFloatingActionButton(oryUIComponentParameters$ as string)
 	OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 	FixSpriteToScreen(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, 1)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID, oryUIWidgetParameters$)
 endfunction oryUIFloatingActionButtonID
 
 function OryUIDeleteFloatingActionButton(oryUIFloatingActionButtonID as integer)
@@ -188,8 +188,8 @@ function OryUIShowFloatingActionButton(oryUIFloatingActionButtonID as integer)
 	OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 endfunction
 
-function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
 		if (oryUIParameters.attachToSpriteID > 0) then OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].attachToSpriteID = oryUIParameters.attachToSpriteID
