@@ -10,6 +10,8 @@ function HomeScreen()
 			
 	// Manage Screen
 	do
+		PrintDebug()
+		
 		OryUIInsertTopBarListener(topBar)
 		if (OryUIGetTopBarNavigationReleasedName(topBar) = "Menu")
 			OryUIShowNavigationDrawer(mainMenu)

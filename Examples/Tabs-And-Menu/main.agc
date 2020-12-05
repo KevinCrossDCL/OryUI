@@ -47,7 +47,7 @@ Sync()
 
 OryUISetSyncRate(30, 0)
 
-global playButtonImage as integer : playButtonImage = LoadImage("PlayButton.png")
+global debugMode as integer : debugMode = 1
 global screen as integer
 global tabSelected as integer[100]
 screen = constHomeScreen
@@ -62,3 +62,10 @@ do
 		endcase
 	endselect
 loop
+
+function PrintDebug()
+	if (debugMode = 1)
+		print("")
+		print(ScreenFPS())
+	endif
+endfunction
