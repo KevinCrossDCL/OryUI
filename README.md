@@ -70,7 +70,7 @@ A copy of AGK2 is required to use OryUI. For more information on AGK2 check out:
 
 ## Example Main.agc
 ```
-// Add the above OryUI #insert lines here along with the usual Set functions that get included in a new .agc file i.e.: SetSyncRate(30, 0)
+// Add the above OryUI #insert lines here along with the usual Set functions that get included in a new .agc file i.e.: SetScissor(0, 0, 0, 0)
 
 #constant constHomeScreen 1
 #constant constAboutScreen 2
