@@ -1,14 +1,14 @@
 # OryUI
 OryUI (v0.14a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
 
-With it you can create the following UI components:
+With it you can create the following UI widgets:
 
 * Buttons
 * Button Groups (Radio buttons)
 * Dialogs
 * Edit Avatar Screen
 * Floating Action Buttons
-* HTTPS Queueing System (not a UI component)
+* HTTPS Queueing System (not a UI widget)
 * Input Spinners
 * Lists (1 or 2 line lists with left and right text, and thumbnail/icon images if required)
 * Menus (Drop down / pop up type menus)
@@ -27,7 +27,7 @@ With it you can create the following UI components:
 
 OryUI at the moment is set to work with percentage based positioning and sizing. The aim is to eventually have it work just as well with pixel based positioning and sizing (although I don't work with pixel based apps so it's not a high priority for me). This is an important fact to consider because a button 30% wide and 5% high will look much smaller if you're not using percentages because it will actually be sized as 30px wide and 5px high. Another example is the Edit Avatar screen which fills the screen when using percentages, but looks silly on pixel based positioning and sizing because it only fills 100x100 pixels of the screen.
 
-How components are called and displayed may change slightly. All effort would be taken to make sure future changes made will not break old code in your app.
+How widgets are called and displayed may change slightly. All effort would be taken to make sure future changes made will not break old code in your app.
 
 OryUI will work with your programs if you use #option_explicit.
 
@@ -70,17 +70,21 @@ A copy of AGK2 is required to use OryUI. For more information on AGK2 check out:
 
 ## Example Main.agc
 ```
-// Add the above OryUI #insert lines here
-
-OryUISetSyncRate(60, 0)
+// Add the above OryUI #insert lines here along with the usual Set functions that get included in a new .agc file i.e.: SetSyncRate(30, 0)
 
 #constant constHomeScreen 1
 #constant constAboutScreen 2
 
-OryUISetActiveScreen(constHomeScreen)
+#insert "HomeScreen.agc"
+#insert "AboutScreen.agc"
+
+OryUISetSyncRate(30, 0)
+
+global screen as integer
+screen = constHomeScreen
 
 do
-	select OryUIGetScreenActive()
+	select screen
 		case constHomeScreen
 			HomeScreen()
 		endcase
@@ -90,34 +94,38 @@ do
 	endselect
 loop
 
-#include "HomeScreen.agc"
-#include "AboutScreen.agc"
 ```
 
 ## Example Screen File i.e. HomeScreen.agc
 ```
 function HomeScreen()
 	// Initiate Screen
-	topBar as integer : topBar = OryUICreateTopBar("text:Home;depth:10")
-	button as integer : button = OryUICreateButton("text:About;offset:center;position:50,25;depth:20")
-	contentHeight# as float : contentHeight# = 200.0
+	contentHeight# as float
 
+	topBar as integer : topBar = OryUICreateTopBar("text:Home;depth:10")
+	contentHeight# = contentHeight# + OryUIGetTopBarHeight(topBar)
+	
+	button as integer : button = OryUICreateButton("text:About;offset:center;position:50,25;depth:20")
+	contentHeight# = contentHeight# + OryUIGetButtonHeight(button)
+	
 	// Manage Screen
 	do
 		OryUIInsertTopBarListener(topBar)
 		if (OryUIGetButtonReleased(button))
-			OryUISetActiveScreen(constAboutScreen)
-			exit
+			screen = constAboutScreen
 		endif
 		
+		// Change Screen?
+		if (screen <> constHomeScreen) then exit
+
 		// Scroll Limits
 		OryUISetScreenScrollLimits(0, 0, 0, contentHeight#)
 		
 		OryUISync()
 	loop
 	
-	// Delete all OryUI created components
-	OryUIDeleteScreen()
+	// Delete all OryUI created widgets
+	OryUIDeleteAllWidgets()
 endfunction
 ```
 
