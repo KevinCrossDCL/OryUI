@@ -5,6 +5,7 @@ VARSION 0.14a
 	- Added each widget when created to a list of created widgets
 
 - OryUI
+	- Added function OryUICreateWidget()
 	- Added function OryUISync()
 
 - OryUIButton

@@ -514,6 +514,7 @@ type typeOryUIParameters
 	unselectedTextBold as integer
 	unselectedTextColor# as float[4]
 	unselectedTextSize# as float
+	widget$ as string
 	wrapList as integer
 	wrapListBottomY# as float
 	wrapListTopY# as float
@@ -598,8 +599,93 @@ function OryUIConvertColor(oryUIColor$ as string)
 endfunction oryUIRGBA#
 
 function OryUICreateWidget(oryUIWidgetParameters$)
-	local oryUIWidget as integer
+	OryUIResetParametersType()
 
+	local oryUIForI as integer
+	local oryUIValue$ as string
+	local oryUIVariable$ as string
+	local oryUIWidget as integer
+	local oryUIWidgetEnd as integer
+	local oryUIWidgetStart as integer
+
+	oryUIWidgetStart = FindString(oryUIWidgetParameters$, "widget:", 1, 1)
+	oryUIWidgetEnd = FindString(oryUIWidgetParameters$, ";", 1, oryUIWidgetStart)
+	oryUIWidgetParameter$ = Mid(oryUIWidgetParameters$, oryUIWidgetStart, oryUIWidgetEnd - oryUIWidgetStart)
+	oryUIVariable$ = lower(TrimString(GetStringToken(oryUIWidgetParameter$, ":", 1), " "))
+	oryUIValue$ = GetStringToken(oryUIWidgetParameter$, ":", 2)
+	oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
+	oryUIValue$ = ReplaceString(oryUIValue$, "[semicolon]", ";", -1)
+
+	if (oryUIValue$ = "") then oryUIValue$ = "null"
+	if (oryUIVariable$ = "widget")
+		oryUIParameters.widget$ = lower(oryUIValue$)
+	endif
+	
+	select oryUIParameters.widget$
+		case "button"
+			oryUIWidget = OryUICreateButton(oryUIWidgetParameters$)
+		endcase
+		case "buttongroup"
+			oryUIWidget = OryUICreateButtonGroup(oryUIWidgetParameters$)
+		endcase
+		case "dialog"
+			oryUIWidget = OryUICreateDialog(oryUIWidgetParameters$)
+		endcase
+		case "editavatarscreen"
+			oryUIWidget = OryUICreateEditAvatarScreen(oryUIWidgetParameters$)
+		endcase
+		case "floatingactionbutton"
+			oryUIWidget = OryUICreateFloatingActionButton(oryUIWidgetParameters$)
+		endcase
+		case "httpsqueue"
+			oryUIWidget = OryUICreateHTTPSQueue(oryUIWidgetParameters$)
+		endcase
+		case "inputspinner"
+			oryUIWidget = OryUICreateInputSpinner(oryUIWidgetParameters$)
+		endcase
+		case "list"
+			oryUIWidget = OryUICreateList(oryUIWidgetParameters$)
+		endcase
+		case "menu"
+			oryUIWidget = OryUICreateMenu(oryUIWidgetParameters$)
+		endcase
+		case "navigationdrawer"
+			oryUIWidget = OryUICreateNavigationDrawer(oryUIWidgetParameters$)
+		endcase
+		case "pagination"
+			oryUIWidget = OryUICreatePagination(oryUIWidgetParameters$)
+		endcase
+		case "progressindicator"
+			oryUIWidget = OryUICreateProgressIndicator(oryUIWidgetParameters$)
+		endcase
+		case "scrollbar"
+			oryUIWidget = OryUICreateScrollBar(oryUIWidgetParameters$)
+		endcase
+		case "scrolltotop"
+			oryUIWidget = OryUICreateScrollToTop(oryUIWidgetParameters$)
+		endcase
+		case "sprite"
+			oryUIWidget = OryUICreateSprite(oryUIWidgetParameters$)
+		endcase
+		case "tabs"
+			oryUIWidget = OryUICreateTabs(oryUIWidgetParameters$)
+		endcase
+		case "text"
+			oryUIWidget = OryUICreateText(oryUIWidgetParameters$)
+		endcase
+		case "textcard"
+			oryUIWidget = OryUICreateTextCard(oryUIWidgetParameters$)
+		endcase
+		case "textfield"
+			oryUIWidget = OryUICreateTextfield(oryUIWidgetParameters$)
+		endcase
+		case "tooltip"
+			oryUIWidget = OryUICreateTooltip(oryUIWidgetParameters$)
+		endcase
+		case "topbar"
+			oryUIWidget = OryUICreateTopBar(oryUIWidgetParameters$)
+		endcase
+	endselect
 endfunction oryUIWidget
 
 function OryUIDeleteAllWidgets()
@@ -900,7 +986,8 @@ function OryUIResetParametersType()
 	oryUIParameters.trailingIconID = -999999
 	oryUIParameters.uncheckedImageID = -999999
 	oryUIParameters.unselectedTextBold = -999999
-	oryUIParameters.unselectedTextSize# = -999999	
+	oryUIParameters.unselectedTextSize# = -999999
+	oryUIParameters.widget$ = ""
 	oryUIParameters.wrapList = -999999	
 	oryUIParameters.wrapListBottomY# = -999999	
 	oryUIParameters.wrapListTopY# = -999999	
@@ -1627,6 +1714,8 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 			oryUIParameters.unselectedTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedtextsize")
 			oryUIParameters.unselectedTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "widget")
+			oryUIParameters.widget$ = lower(oryUIValue$)
 		elseif (oryUIVariable$ = "width")
 			oryUIParameters.size#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "wraplist")
