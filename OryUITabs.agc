@@ -181,14 +181,8 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 
 	OryUITabsCollection[oryUITabsID].buttonReleased = -1
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
-		SetSpriteX(OryUITabsCollection[oryUITabsID].sprContainer, OryUITabsCollection[oryUITabsID].minPosition#[1])
-		if (GetViewOffsetY() > OryUITabsCollection[oryUITabsID].originalPosition#[2] - OryUITabsCollection[oryUITabsID].minPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer, GetViewOffsetY() + OryUITabsCollection[oryUITabsID].minPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + OryUITabsCollection[oryUITabsID].minPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
-		else
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer, OryUITabsCollection[oryUITabsID].originalPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + GetScreenBoundsTop() + OryUITabsCollection[oryUITabsID].originalPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
-		endif
+		SetSpritePosition(OryUITabsCollection[oryUITabsID].sprContainer, GetViewOffsetX() + (OryUITabsCollection[oryUITabsID].minPosition#[1] - OryUITabsCollection[oryUITabsID].originalPosition#[1]), GetViewOffsetY() + OryUITabsCollection[oryUITabsID].originalPosition#[2])
+		SetSpritePosition(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetX() + (OryUITabsCollection[oryUITabsID].minPosition#[1] - OryUITabsCollection[oryUITabsID].originalPosition#[1]), GetViewOffsetY() + OryUITabsCollection[oryUITabsID].originalPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 		
 		for oryUIForI = 0 to OryUITabsCollection[oryUITabsID].buttons.length
 			if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer))
@@ -200,13 +194,15 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 				else
 					SetTextColor(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].txtLabel, OryUITabsCollection[oryUITabsID].defaultInactiveColor#[1], OryUITabsCollection[oryUITabsID].defaultInactiveColor#[2], OryUITabsCollection[oryUITabsID].defaultInactiveColor#[3], 128)
 				endif
-				if (OryUIGetSwipingVertically() = 0)
+				if (OryUIGetSwipingHorizontally() = 0 and OryUIGetSwipingVertically() = 0)
 					oryUITabsSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					if (GetPointerPressed())
 						if (oryUITabsSprite = 1)
 							oryUITouchingTabs = 1
+							oryUIBlockScreenScrolling = 1
 						else
 							oryUITouchingTabs = 0
+							oryUIBlockScreenScrolling = 0
 						endif
 						oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (oryUITabsButtonSprite = 1)
@@ -216,8 +212,10 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 						if (GetPointerState())
 							if (oryUITabsSprite = 1)
 								oryUITouchingTabs = 1
+								oryUIBlockScreenScrolling = 1
 							else
 								oryUITouchingTabs = 0
+								oryUIBlockScreenScrolling = 0
 							endif
 							oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUITabsCollection[oryUITabsID].buttons[oryUIForI].pressed)

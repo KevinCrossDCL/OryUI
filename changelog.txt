@@ -10,6 +10,7 @@ VARSION 0.14a
 
 - OryUIButton
 	- Fixed a bug where pressed flag wasn't resetting when button was released
+	- Fixed a bug where code at end of the button listener was not checking if button existed
 
 - OryUIDialog
 	- Fixed a bug where OryUIDeleteDialog() was deleting all but one button
@@ -29,6 +30,7 @@ VARSION 0.14a
 - OryUITabs
 	- Fixed a bug where OryUIDeleteTabs() was deleting all but one tab
 	- Fixed a bug where OryUIDeleteTabsButton() was not deleting the container sprite
+	- Fixed a bug where you could scroll the screen when touching the tabs
 
 - OryUITopBar
 	- Fixed a bug where OryUIDeleteTopBar() was deleting all but on action button

@@ -74,12 +74,12 @@ function OryUIButtonListener(oryUIButtonID as integer)
 				endif
 			endif
 		endif
-	endif
-	
-	if (OryUIButtonCollection[oryUIButtonID].enabled = 0 or (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) >= oryUIScrimDepth) or oryUITouchingTopBar = 1 or oryUITouchingTabs = 1)
-		OryUIButtonCollection[oryUIButtonID].pressed = 0
-		OryUIButtonCollection[oryUIButtonID].held = 0
-		OryUIButtonCollection[oryUIButtonID].released = 0
+
+		if (OryUIButtonCollection[oryUIButtonID].enabled = 0 or (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonCollection[oryUIButtonID].sprContainer) >= oryUIScrimDepth) or oryUITouchingTopBar = 1 or oryUITouchingTabs = 1)
+			OryUIButtonCollection[oryUIButtonID].pressed = 0
+			OryUIButtonCollection[oryUIButtonID].held = 0
+			OryUIButtonCollection[oryUIButtonID].released = 0
+		endif
 	endif
 endfunction
 

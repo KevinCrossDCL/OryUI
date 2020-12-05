@@ -99,13 +99,15 @@ loop
 ## Example Screen File i.e. HomeScreen.agc
 ```
 function HomeScreen()
+	SetViewOffset(0, 0)
+
 	// Initiate Screen
 	contentHeight# as float
 
 	topBar as integer : topBar = OryUICreateTopBar("text:Home;depth:10")
-	contentHeight# = contentHeight# + OryUIGetTopBarHeight(topBar)
+	contentHeight# = contentHeight# + OryUIGetTopBarHeight(topBar) + 2
 	
-	button as integer : button = OryUICreateButton("text:About;offset:center;position:50,25;depth:20")
+	button as integer : button = OryUICreateButton("text:About;offset:center;position:50," + str(contentHeight#) + ";depth:20")
 	contentHeight# = contentHeight# + OryUIGetButtonHeight(button)
 	
 	// Manage Screen
