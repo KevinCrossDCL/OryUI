@@ -7,7 +7,7 @@
 .DS_Store
 
 # OryUI Files
-Examples/*
+Examples/Kitchen-Sink
 OriginalOryUI*
 OryUICard.agc
 OryUIPicker.agc
