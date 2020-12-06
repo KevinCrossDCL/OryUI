@@ -1,0 +1,38 @@
+buttonGroup as integer[20]
+
+buttonGroup[1] = OryUICreateButtonGroup("size:70,5;offset:35,0;position:50,10")
+OryUIInsertButtonGroupItem(buttonGroup[1], -1, "name:Yes;text:Yes")
+OryUIInsertButtonGroupItem(buttonGroup[1], -1, "name:No;text:No")
+OryUIInsertButtonGroupItem(buttonGroup[1], -1, "name:Maybe;text:Maybe")
+OryUISetButtonGroupItemSelectedByIndex(buttonGroup[1], 2)
+
+centerAlignImage as integer : centerAlignImage = LoadImage("Icon-Center-Align.png")
+justifyAlignImage as integer : justifyAlignImage = LoadImage("Icon-Justify-Align.png")
+leftAlignImage as integer : leftAlignImage = LoadImage("Icon-Left-Align.png")
+rightAlignImage as integer : rightAlignImage = LoadImage("Icon-Right-Align.png")
+buttonGroup[2] = OryUICreateButtonGroup("size:60,5;offset:30,0;position:50,20;selectedColor:100,100,100;selectedIconColor:0,0,0;unselectedColor:220,220,220;unselectedIconColor:0,0,0")
+OryUIInsertButtonGroupItem(buttonGroup[2], -1, "name:LeftAlign;text:;iconID:" + str(leftAlignImage))
+OryUIInsertButtonGroupItem(buttonGroup[2], -1, "name:CentreAlign;text:;iconID:" + str(centerAlignImage))
+OryUIInsertButtonGroupItem(buttonGroup[2], -1, "name:RightAlign;text:;iconID:" + str(rightAlignImage))
+OryUIInsertButtonGroupItem(buttonGroup[2], -1, "name:JustifyAlign;text:;iconID:" + str(justifyAlignImage))
+OryUISetButtonGroupItemSelectedByIndex(buttonGroup[2], 1)
+
+greenFlagImage as integer : greenFlagImage = LoadImage("FlagGreen.png")
+redFlagImage as integer : redFlagImage = LoadImage("FlagRed.png")
+yellowFlagImage as integer : yellowFlagImage = LoadImage("FlagYellow.png")
+buttonGroup[3] = OryUICreateButtonGroup("size:90,5;offset:45,0;position:50,30")
+OryUIInsertButtonGroupItem(buttonGroup[3], -1, "name:RedFlag;text:Red;iconID:" + str(redFlagImage))
+OryUIInsertButtonGroupItem(buttonGroup[3], -1, "name:YellowFlag;text:Yellow;iconID:" + str(yellowFlagImage))
+OryUIInsertButtonGroupItem(buttonGroup[3], -1, "name:GreenFlag;text:Green;iconID:" + str(greenFlagImage))
+OryUISetButtonGroupItemSelectedByIndex(buttonGroup[3], 3)
+
+do
+	for i = 1 to 3
+		OryUIInsertButtonGroupListener(buttonGroup[i])
+		if (OryUIGetButtonGroupItemReleasedName(buttonGroup[i]) <> "")
+			print("Button '" + OryUIGetButtonGroupItemReleasedName(buttonGroup[i]) + "' Released")
+		endif
+	next
+	
+	OryUISync()
+loop

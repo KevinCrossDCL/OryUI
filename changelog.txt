@@ -14,6 +14,9 @@ VARSION 0.14a
 	- Fixed a bug where pressed flag wasn't resetting when button was released
 	- Fixed a bug where code at end of the button listener was not checking if button existed
 
+- OryUIDefaultSettings
+	- Increased the default size for ScrollToTop icon to 3 because the Material-UI icon is smaller than the original
+
 - OryUIDialog
 	- Fixed a bug where OryUIDeleteDialog() was deleting all but one button
 

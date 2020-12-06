@@ -7,8 +7,6 @@
 .DS_Store
 
 # OryUI Files
-bytecode.byc
-Examples/Kitchen-Sink
 OriginalOryUI*
 OryUICard.agc
 OryUIPicker.agc

@@ -29,6 +29,8 @@ OryUI at the moment is set to work with percentage based positioning and sizing.
 
 How widgets are called and displayed may change slightly. All effort would be taken to make sure future changes made will not break old code in your app.
 
+This repository includes an examples folder with a couple of AGK projects, including a kitchen sink demo which will eventually showcase most of the OryUI widgets. At the moment the kitchen sink only contains examples of a few widgets. More will be added over time.
+
 OryUI will work with your programs if you use #option_explicit.
 
 ## Installation
@@ -67,6 +69,8 @@ You will also need to copy the OryUIMedia folder from this repository media fold
 The above insert lines are based on the files being placed in your project folder. You will need to change the insert paths if you place the files somewhere else.
 
 A copy of AGK2 is required to use OryUI. For more information on AGK2 check out: https://www.appgamekit.com
+
+For best results run your OryUI designed app on a mobile device via AGK Broadcast, or compile as APK/IPA and install the app on your device. You may experience flickering/bouncing when running the app in AGK Studio on your computer, at least on Mac OS. The flickering/bouncing doesn't happen on the device. Hopefully someone will find the reason for this bug and offer a solution in the future.
 
 ## Example Main.agc
 ```

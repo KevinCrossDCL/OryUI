@@ -1,0 +1,85 @@
+button as integer[20]
+disableDialog4 as integer
+dialog as integer[20]
+txtLabel as integer[20]
+
+dialogBackgroundImage = LoadImage("DialogBackground.png")
+for i = 1 to 8
+	button[i] = OryUICreateButton("size:30,5;text:Reveal;offset:15,0;position:50," + str(i * 10))
+	// Typically your app would only need one dialog per screen, but because each one in this demo is styled differently I have created a seperate one for each use.
+	dialog[i] = OryUICreateDialog("autoHeight:true")
+next
+
+do
+	for i = 1 to 8
+		OryUIInsertDialogListener(dialog[i])
+	next
+	
+	if (OryUIGetButtonReleased(button[1]))
+		OryUIUpdateDialog(dialog[1], "titleText:Simple 'Ok' Dialog;supportingText:Pressing Ok will close this dialog" + chr(10) + chr(10) + "Pressing anywhere on the screen will also close this dialog.;showCheckbox:false;stackButtons:false;flexButtons:false;decisionRequired:false")
+		OryUISetDialogButtonCount(dialog[1], 1)
+		OryUIUpdateDialogButton(dialog[1], 1, "name:Ok;text:Ok")	
+		OryUIShowDialog(dialog[1])
+	endif
+		
+	if (OryUIGetButtonReleased(button[2]))
+		OryUIUpdateDialog(dialog[2], "titleText:Simple 'Ok' Dialog;supportingText:Pressing Ok will close this dialog" + chr(10) + chr(10) + "Pressing anywhere on the screen will NOT close this dialog.;showCheckbox:false;stackButtons:false;flexButtons:false;decisionRequired:true")
+		OryUISetDialogButtonCount(dialog[2], 1)
+		OryUIUpdateDialogButton(dialog[2], 1, "name:Ok;text:Ok")	
+		OryUIShowDialog(dialog[2])
+	endif
+		
+	if (OryUIGetButtonReleased(button[3]))
+		OryUIUpdateDialog(dialog[3], "titleText:Confirm dialog?;supportingText:Are you sure you want to do this?;showCheckbox:false;stackButtons:false;flexButtons:false;decisionRequired:true")
+		OryUISetDialogButtonCount(dialog[3], 2)
+		OryUIUpdateDialogButton(dialog[3], 1, "name:Yes;text:Yes")
+		OryUIUpdateDialogButton(dialog[3], 2, "name:Cancel;text:Cancel")	
+		OryUIShowDialog(dialog[3])
+	endif
+		
+	if (OryUIGetButtonReleased(button[4]))
+		if (disableDialog4 = 0)
+			OryUIUpdateDialog(dialog[4], "titleText:Dialog with checkbox;supportingText:Ticking the checkbox will stop the dialog from being shown again." + chr(10) + chr(10) + "It will show again the next time this screen is created." + chr(10) + chr(10) + "If you want to hide it for good you will need to save the data/variable.;showCheckbox:true;checkBoxText:Do not show again;checkBoxChecked:true;stackButtons:false;flexButtons:false;decisionRequired:true")
+			OryUIUpdateDialogButton(dialog[4], 1, "name:Ok;text:Ok")
+			OryUIShowDialog(dialog[4])
+		endif
+	endif
+	if (OryUIGetDialogButtonReleasedName(dialog[4]) <> "" and OryUIGetDialogChecked(dialog[4]))
+		disableDialog4 = 1
+	endif
+		
+	if (OryUIGetButtonReleased(button[5]))
+		OryUIUpdateDialog(dialog[5], "titleText:Stacked buttons;supportingText:Choose an account;showCheckbox:false;stackButtons:true;flexButtons:true;decisionRequired:true")
+		OryUISetDialogButtonCount(dialog[5], 4)
+		OryUIUpdateDialogButton(dialog[5], 1, "name:AccountOne;text:Account One")
+		OryUIUpdateDialogButton(dialog[5], 2, "name:AccountTwo;text:Account Two")	
+		OryUIUpdateDialogButton(dialog[5], 3, "name:AccountThree;text:Account Three")	
+		OryUIUpdateDialogButton(dialog[5], 4, "name:Cancel;text:Cancel")	
+		OryUIShowDialog(dialog[5])
+	endif
+		
+	if (OryUIGetButtonReleased(button[6]))
+		OryUIUpdateDialog(dialog[6], "titleText:Flex width buttons;supportingText:Buttons on the same row with widths auto set to fill the full width of the dialog;showCheckbox:false;stackButtons:false;flexButtons:true;decisionRequired:true")
+		OryUISetDialogButtonCount(dialog[6], 3)
+		OryUIUpdateDialogButton(dialog[6], 1, "name:Button 1;text:Button 1")
+		OryUIUpdateDialogButton(dialog[6], 2, "name:Button 2;text:Button 2")	
+		OryUIUpdateDialogButton(dialog[6], 3, "name:Button 3;text:Button 3")
+		OryUIShowDialog(dialog[6])
+	endif
+		
+	if (OryUIGetButtonReleased(button[7]))
+		OryUIUpdateDialog(dialog[7], "color:#d2e9fc;titleText:Styled dialog;titleTextColor:#1976d2;supportingText:Dialog text, background, and buttons can all be styled/coloured;supportingTextColor:#1976d2;showCheckbox:false;stackButtons:false;flexButtons:false;decisionRequired:true")
+		OryUISetDialogButtonCount(dialog[7], 1)
+		OryUIUpdateDialogButton(dialog[7], 1, "name:Ok;text:Ok;color:#d2e9fc;textColor:#1976d2")
+		OryUIShowDialog(dialog[7])
+	endif
+		
+	if (OryUIGetButtonReleased(button[8]))
+		OryUIUpdateDialog(dialog[8], "image:" + str(dialogBackgroundImage) + ";titleText:Background image dialog;titleTextColor:#ffffff;supportingText:Dialogs can be given a background image to fit in style with your app/game." + chr(10) + chr(10) + "Background images may appear distorted due to the size of the dialog and its content;supportingTextColor:#ffffff;showCheckbox:false;stackButtons:false;flexButtons:true;decisionRequired:true")
+		OryUISetDialogButtonCount(dialog[8], 1)
+		OryUIUpdateDialogButton(dialog[8], 1, "name:Ok;text:Ok;color:#000000;alpha:50;textColor:#ffffff")
+		OryUIShowDialog(dialog[8])
+	endif
+	
+	OryUISync()
+loop
