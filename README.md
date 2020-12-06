@@ -138,6 +138,10 @@ endfunction
 ## Documentation
 I've started on some documentation which can be found here in the Wiki section: https://github.com/KevinCrossDCL/OryUI/wiki
 
+## Contributing
+
+Please check out the [How to contribute to OryUI guide](https://github.com/KevinCrossDCL/OryUI/blob/master/CONTRIBUTING.md) for guidelines about how to proceed.
+
 ## Screenshots
 <img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090809_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090816_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090825_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090918_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-091158_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-091215_ChastiKey.jpg" height=400>
 
@@ -151,3 +155,5 @@ This is the first framework I've attempted to create so any feedback, suggestion
 
 ## License
 The OryUI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+The OryUI framework uses some icons from the Material-UI icons set. [Material-UI icons](https://material.io/resources/icons/?style=baseline)

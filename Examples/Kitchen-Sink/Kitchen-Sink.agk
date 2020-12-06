@@ -74,18 +74,18 @@ FILE_22=TooltipScreen.agc;-1
 FILE_23=TopBarScreen.agc;-1
 
 [files]
-FILE_NAME_0=0;AboutScreen.agc;2;0
-FILE_NAME_1=0;ButtonGroupScreen.agc;113;1
-FILE_NAME_2=0;ButtonScreen.agc;108;2
-FILE_NAME_3=0;DialogScreen.agc;1;3
+FILE_NAME_0=0;AboutScreen.agc;3;0
+FILE_NAME_1=0;ButtonGroupScreen.agc;81;1
+FILE_NAME_2=0;ButtonScreen.agc;78;2
+FILE_NAME_3=0;DialogScreen.agc;135;3
 FILE_NAME_4=0;EditAvatarScreen.agc;1;4
 FILE_NAME_5=0;FloatingActionButtonScreen.agc;1;5
-FILE_NAME_6=0;HomeScreen.agc;13;6
+FILE_NAME_6=1;HomeScreen.agc;65;6
 FILE_NAME_7=0;HTTPSQueueScreen.agc;0;7
 FILE_NAME_8=0;InputSpinnerScreen.agc;4;8
 FILE_NAME_9=0;ListScreen.agc;1;9
-FILE_NAME_10=0;main.agc;108;10
-FILE_NAME_11=1;MainMenu.agc;39;11
+FILE_NAME_10=0;main.agc;87;10
+FILE_NAME_11=0;MainMenu.agc;39;11
 FILE_NAME_12=0;MenuScreen.agc;0;12
 FILE_NAME_13=0;PaginationScreen.agc;1;13
 FILE_NAME_14=0;ProgressIndicatorScreen.agc;1;14
@@ -97,7 +97,7 @@ FILE_NAME_19=0;TextCardScreen.agc;1;19
 FILE_NAME_20=0;TextfieldScreen.agc;1;20
 FILE_NAME_21=0;TextScreen.agc;1;21
 FILE_NAME_22=0;TooltipScreen.agc;1;22
-FILE_NAME_23=0;TopBarScreen.agc;1;23
+FILE_NAME_23=0;TopBarScreen.agc;4;23
 
 [watchvariables]
 
