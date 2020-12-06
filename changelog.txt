@@ -5,8 +5,10 @@ VARSION 0.14a
 	- Added each widget when created to a list of created widgets
 
 - OryUI
+    - Added "copy" icon
 	- Added function OryUICreateWidget()
 	- Added function OryUISync()
+	- Replaced icons with Material-UI icons (https://github.com/google/material-design-icons)
 
 - OryUIButton
 	- Fixed a bug where pressed flag wasn't resetting when button was released

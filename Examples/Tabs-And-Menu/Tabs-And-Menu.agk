@@ -54,10 +54,10 @@ FILE_2=MainMenu.agc;-1
 FILE_3=TabsScreen.agc;-1
 
 [files]
-FILE_NAME_0=0;HomeScreen.agc;20;0
-FILE_NAME_1=0;main.agc;92;1
+FILE_NAME_0=0;HomeScreen.agc;13;0
+FILE_NAME_1=1;main.agc;12;1
 FILE_NAME_2=0;MainMenu.agc;16;2
-FILE_NAME_3=0;TabsScreen.agc;0;3
+FILE_NAME_3=0;TabsScreen.agc;41;3
 
 [watchvariables]
 

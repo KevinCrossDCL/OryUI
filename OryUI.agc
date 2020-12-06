@@ -1072,6 +1072,7 @@ function OryUIReturnIconID(oryUIIcon$ as string)
 	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
 	if (lower(oryUIIcon$) = "cancel") then oryUIIconID = oryUIIconCancelImage
 	if (lower(oryUIIcon$) = "camera") then oryUIIconID = oryUIIconCameraImage
+	if (lower(oryUIIcon$) = "copy") then oryUIIconID = oryUIIconCopyImage
 	if (lower(oryUIIcon$) = "edit") then oryUIIconID = oryUIIconEditImage
 	if (lower(oryUIIcon$) = "menu") then oryUIIconID = oryUIIconMenuImage
 	if (lower(oryUIIcon$) = "morehorizontal" or lower(oryUIIcon$) = "morehoriz") then oryUIIconID = oryUIIconMoreHorizontalImage
