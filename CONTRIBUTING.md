@@ -30,6 +30,6 @@ Thank you for showing an interest and taking the time to contribute!
 
 Icons added for a new/existing widget should, if possible, be taken from [Material-UI icons](https://material.io/resources/icons/?style=baseline).
 
-For consistency please take the icon from their repository from the relevant 48dp/2x folders and convert them to white images i.e.: material-design-icons/png/<group>/<name>/materialicons/48dp/2x/*.png.
+For consistency please take the icon from their repository from the relevant 48dp/2x folders and convert them to white images i.e.: material-design-icons/png/_**group**_/_**name**_/materialicons/48dp/2x/*.png.
 
 New icons should be named Icon-*.png and placed in the media/OryUIMedia folder. The LoadImage() call needs to be added to OryUIMedia.agc file and a line of code for it added to the OryUIReturnIconID() function in OryUI.agc.
