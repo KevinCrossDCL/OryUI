@@ -51,6 +51,13 @@ function HomeScreen()
 		endif
 		ProcessMainMenu()
 		
+		if (OryUIGetButtonReleased(buttonOryUIURL))
+			OpenBrowser("https://github.com/KevinCrossDCL/OryUI")
+		endif
+		if (OryUIGetButtonReleased(buttonAGKURL))
+			OpenBrowser("https://appgamekit.com")
+		endif
+		
 		// Change Screen?
 		if (screen <> constHomeScreen) then exit
 		
