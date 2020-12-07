@@ -1115,20 +1115,11 @@ function OryUIReturnIconID(oryUIIcon$ as string)
 	local oryUIMaterialIconIndex as integer
 
 	oryUIIconID = -999999
-	if (lower(oryUIIcon$) = "add") then oryUIIconID = oryUIIconAddImage
 	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
-	if (lower(oryUIIcon$) = "cancel") then oryUIIconID = oryUIIconCancelImage
-	if (lower(oryUIIcon$) = "camera") then oryUIIconID = oryUIIconCameraImage
-	if (lower(oryUIIcon$) = "copy") then oryUIIconID = oryUIIconCopyImage
-	if (lower(oryUIIcon$) = "edit") then oryUIIconID = oryUIIconEditImage
-	if (lower(oryUIIcon$) = "menu") then oryUIIconID = oryUIIconMenuImage
 	if (lower(oryUIIcon$) = "morehorizontal" or lower(oryUIIcon$) = "morehoriz") then oryUIIconID = oryUIIconMoreHorizontalImage
 	if (lower(oryUIIcon$) = "morevertical" or lower(oryUIIcon$) = "morevert") then oryUIIconID = oryUIIconMoreVerticalImage
 	if (lower(oryUIIcon$) = "profile") then oryUIIconID = oryUIIconProfileImage
-	if (lower(oryUIIcon$) = "refresh") then oryUIIconID = oryUIIconRefreshImage
-	if (lower(oryUIIcon$) = "save") then oryUIIconID = oryUIIconSaveImage
 	if (lower(oryUIIcon$) = "scrolltotop") then oryUIIconID = oryUIIconScrollToTopImage
-	if (lower(oryUIIcon$) = "share") then oryUIIconID = oryUIIconShareImage
 	if (lower(oryUIIcon$) = "subtract") then oryUIIconID = oryUIIconSubtractImage
 	oryUIMaterialIconIndex = oryUIMaterialIcon.find(lower(oryUIIcon$))
 	if (oryUIMaterialIconIndex >= 0) then oryUIIconID = oryUIMaterialIcon[oryUIMaterialIconIndex].imageID

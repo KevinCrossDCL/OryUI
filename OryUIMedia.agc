@@ -11,7 +11,6 @@ global oryUIIconAddImage as integer : oryUIIconAddImage = LoadImage("OryUIMedia/
 global oryUIIconBackImage as integer : oryUIIconBackImage = LoadImage("OryUIMedia/Icon-Back.png")
 global oryUIIconCancelImage as integer : oryUIIconCancelImage = LoadImage("OryUIMedia/Icon-Cancel.png")
 global oryUIIconCameraImage as integer : oryUIIconCameraImage = LoadImage("OryUIMedia/Icon-Camera.png")
-global oryUIIconCopyImage as integer : oryUIIconCopyImage = LoadImage("OryUIMedia/Icon-Copy.png")
 global oryUIIconDeleteImage as integer : oryUIIconDeleteImage = LoadImage("OryUIMedia/Icon-Delete.png")
 global oryUIIconEditImage as integer : oryUIIconEditImage = LoadImage("OryUIMedia/Icon-Edit.png")
 global oryUIIconMenuImage as integer : oryUIIconMenuImage = LoadImage("OryUIMedia/Icon-Menu.png")
