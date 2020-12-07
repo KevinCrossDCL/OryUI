@@ -45,20 +45,21 @@ Sync()
 #constant constEditAvatarScreen 5
 #constant constFloatingActionButtonScreen 6
 #constant constHTTPSQueueScreen 7
-#constant constInputSpinnerScreen 8
-#constant constListScreen 9
-#constant constMenuScreen 10
-#constant constPaginationScreen 11
-#constant constProgressIndicatorScreen 12
-#constant constScrollBarScreen 13
-#constant constScrollToTopScreen 14
-#constant constSpriteScreen 15
-#constant constTabsScreen 16
-#constant constTextScreen 17
-#constant constTextCardScreen 18
-#constant constTooltipScreen 19
-#constant constTopBarScreen 20
-#constant constAboutScreen 21
+#constant constIconsScreen 8
+#constant constInputSpinnerScreen 9
+#constant constListScreen 10
+#constant constMenuScreen 11
+#constant constPaginationScreen 12
+#constant constProgressIndicatorScreen 13
+#constant constScrollBarScreen 14
+#constant constScrollToTopScreen 15
+#constant constSpriteScreen 16
+#constant constTabsScreen 17
+#constant constTextScreen 18
+#constant constTextCardScreen 19
+#constant constTooltipScreen 20
+#constant constTopBarScreen 21
+#constant constAboutScreen 22
 
 #insert "MainMenu.agc"
 #insert "HomeScreen.agc"
@@ -68,6 +69,7 @@ Sync()
 #insert "EditAvatarScreen.agc"
 #insert "FloatingActionButtonScreen.agc"
 #insert "HTTPSQueueScreen.agc"
+#insert "IconsScreen.agc"
 #insert "InputSpinnerScreen.agc"
 #insert "ListScreen.agc"
 #insert "MenuScreen.agc"
@@ -112,6 +114,9 @@ do
 		endcase
 		case constHTTPSQueueScreen
 			HTTPSQueueScreen()
+		endcase
+		case constIconsScreen
+			IconsScreen()
 		endcase
 		case constInputSpinnerScreen
 			InputSpinnerScreen()

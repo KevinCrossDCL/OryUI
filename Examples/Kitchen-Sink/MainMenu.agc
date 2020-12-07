@@ -3,11 +3,13 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 4)
+	OryUISetNavigationDrawerItemCount(mainMenu, 5)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:Home;itemType:option;text:Home;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:Icons;itemType:option;text:Icons;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIButton;itemType:option;text:OryUIButton;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
@@ -56,6 +58,9 @@ function ProcessMainMenu()
 	OryUIInsertNavigationDrawerListener(mainMenu)
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "Home"))
 		screen = constHomeScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "Icons"))
+		screen = constIconsScreen
 	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIButton"))
 		tabSelected[screen] = 1
