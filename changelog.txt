@@ -14,6 +14,10 @@ VARSION 0.14a
 	- Fixed a bug where pressed flag wasn't resetting when button was released
 	- Fixed a bug where code at end of the button listener was not checking if button existed
 
+- OryUIButtonGroup
+	- Fixed a bug where referencing a button group that did not exist in the released by name function would eventually crash the app
+	- Fixed a bug where referencing a button group that did not exist in the listener function would eventually crash the app
+
 - OryUIDefaultSettings
 	- Increased the default size for ScrollToTop icon to 3 because the Material icon is smaller than the original
 
@@ -33,11 +37,13 @@ VARSION 0.14a
 	- Fixed a bug where OryUIDeletePagination() was deleting all but one button
 
 - OryUITabs
+	- Added missing parameter 'textSize'
 	- Fixed a bug where OryUIDeleteTabs() was deleting all but one tab
 	- Fixed a bug where OryUIDeleteTabsButton() was not deleting the container sprite
 	- Fixed a bug where you could scroll the screen when touching the tabs
 
 - OryUITopBar
+	- Added missing parameter 'textSize'
 	- Fixed a bug where OryUIDeleteTopBar() was deleting all but on action button
 	- Removed automatic case changing that was being applied to navigationName
 

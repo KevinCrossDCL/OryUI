@@ -90,7 +90,7 @@ function ButtonScreenPreviewTab()
 			tabSelected[thisScreen] = OryUIGetTabsButtonReleasedID(tabs)
 		endif
 		
-		for i = 1 to 20
+		for i = 1 to 7
 			if (OryUIGetButtonReleased(button[i]))
 				OryUIUpdateTooltip(tooltip, "text:Button " + str(i) + " Released")
 				OryUIShowTooltip(tooltip, GetViewOffsetX() + 50, GetViewOffsetY() + 90)

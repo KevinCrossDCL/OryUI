@@ -484,6 +484,9 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIWidgetParameters$ as s
 		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
 			SetTextColor(OryUITopBarCollection[oryUITopBarID].txtTitle, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], oryUIParameters.textColor#[4])
 		endif
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUITopBarCollection[oryUITopBarID].txtTitle, oryUIParameters.textSize#)
+		endif
 	endif
 
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)

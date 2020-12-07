@@ -10,6 +10,7 @@ SetSyncRate(30, 0)
 SetDisplayAspect(-1)
 SetWindowSize(390, 844, 0)
 UseNewDefaultFonts(1)
+SetImmersiveMode(1) // Recommended to stop floating action buttons, and scroll to tops from sitting underneath the screen controls placed by the OS.
 Sync()
 
 #insert "..\..\..\OryUI\OryUI.agc"
@@ -110,7 +111,7 @@ do
 			EditAvatarScreen()
 		endcase
 		case constFloatingActionButtonScreen
-			FloatingActionButtonScreen()
+			FloatingActionButtonScreen(tabSelected[screen])
 		endcase
 		case constHTTPSQueueScreen
 			HTTPSQueueScreen()
@@ -125,7 +126,7 @@ do
 			ListScreen()
 		endcase
 		case constMenuScreen
-			MenuScreen()
+			MenuScreen(tabSelected[screen])
 		endcase
 		case constPaginationScreen
 			PaginationScreen()

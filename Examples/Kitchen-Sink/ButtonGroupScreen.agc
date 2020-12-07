@@ -93,7 +93,7 @@ function ButtonGroupScreenPreviewTab()
 			tabSelected[thisScreen] = OryUIGetTabsButtonReleasedID(tabs)
 		endif
 		
-		for i = 1 to 20
+		for i = 1 to 3
 			OryUIInsertButtonGroupListener(buttonGroup[i])
 			if (OryUIGetButtonGroupItemReleasedName(buttonGroup[i]) <> "")
 				OryUIUpdateTooltip(tooltip, "text:Button '" + OryUIGetButtonGroupItemReleasedName(buttonGroup[i]) + "' Released")

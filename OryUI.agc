@@ -427,6 +427,7 @@ type typeOryUIParameters
 	offsetCenter as integer
 	placeholderText$ as string
 	placement$ as string
+	placementOffset# as float[2]
 	position# as float[2]
 	postData$ as string
 	progressType$ as string
@@ -1056,6 +1057,7 @@ function OryUIResetParametersType()
 			oryUIParameters.minPosition#[oryUIForI] = -999999
 			oryUIParameters.minView#[oryUIForI] = -999999
 			oryUIParameters.offset#[oryUIForI] = -999999
+			oryUIParameters.placementOffset#[oryUIForI] = -999999
 			oryUIParameters.position#[oryUIForI] = -999999
 			oryUIParameters.size#[oryUIForI] = -999999
 			oryUIParameters.subtractIconSize#[oryUIForI] = -999999
@@ -1550,6 +1552,9 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 			oryUIParameters.placeholderText$ = oryUIValue$
 		elseif (oryUIVariable$ = "placement")
 			oryUIParameters.placement$ = oryUIValue$
+		elseif (oryUIVariable$ = "placementoffset")
+			oryUIParameters.placementOffset#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.placementOffset#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "position")
 			oryUIParameters.position#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.position#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))

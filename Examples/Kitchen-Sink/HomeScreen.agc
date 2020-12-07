@@ -23,7 +23,10 @@ function HomeScreen()
 	contentHeight# = contentHeight# + OryUIGetTextCardHeight(textCard[2]) + 2
 	
 	textCard[3] = OryUICreateTextCard("width:94;headerText:About this app;supportingText:This app is built with the OryUI framework and shows examples of some of the available widgets. At the moment only a few examples have been added, but more will be added overtime.;position:3," + str(contentHeight#) + ";autoHeight:true;depth:20")
-	contentHeight# = contentHeight# + OryUIGetTextCardHeight(textCard[3]) + 50
+	contentHeight# = contentHeight# + OryUIGetTextCardHeight(textCard[3]) + 2
+	
+	textCard[4] = OryUICreateTextCard("width:94;headerText:Code preview tabs;supportingText:Each widget screen has a tab to preview the code. The code shown on these screens are a cut down and basic version to show how to create and customise the widgets. They do not contain code for building and managing the rest of the screen, i.e. the top bar, tabs, scroll limits, and memory clean up etc." + chr(10) + chr(10) + "You can view the full source behind each screen on GitHub (link above).;position:3," + str(contentHeight#) + ";autoHeight:true;depth:20")
+	contentHeight# = contentHeight# + OryUIGetTextCardHeight(textCard[4]) + 50
 	
 	startScrollBarY# as float : startScrollBarY# = OryUIGetTopBarHeight(topBar) + 1
 	trackBarHeight# as float : trackBarHeight# = 100 - startScrollBarY# - 1

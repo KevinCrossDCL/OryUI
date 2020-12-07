@@ -134,61 +134,73 @@ endfunction oryUIButtonGroupItemHeight#
 function OryUIGetButtonGroupItemPressedByIndex(oryUIButtonGroupID as integer, oryUIItemID as integer)
 	local oryUIButtonGroupItemPressed as integer
 
-	if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed > -1)
-		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = oryUIItemID)
-			oryUIButtonGroupItemPressed = 1
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed > -1)
+			if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = oryUIItemID)
+				oryUIButtonGroupItemPressed = 1
+			endif
 		endif
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemPressed = 0
 	endif
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemPressed = 0
 endfunction oryUIButtonGroupItemPressed
 
 function OryUIGetButtonGroupItemPressedByName(oryUIButtonGroupID as integer, oryUIItemName$ as string)
 	local oryUIButtonGroupItemPressed as integer
 
-	if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed > -1)
-		if (lower(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed - 1].name$) = lower(oryUIItemName$))
-			oryUIButtonGroupItemPressed = 1
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed > -1)
+			if (lower(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed - 1].name$) = lower(oryUIItemName$))
+				oryUIButtonGroupItemPressed = 1
+			endif
 		endif
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemPressed = 0
 	endif
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemPressed = 0
 endfunction oryUIButtonGroupItemPressed
 	
 function OryUIGetButtonGroupItemReleasedByIndex(oryUIButtonGroupID as integer, oryUIItemID as integer)
 	local oryUIButtonGroupItemReleased as integer
 
-	if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
-		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = oryUIItemID)
-			oryUIButtonGroupItemReleased = 1
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
+			if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = oryUIItemID)
+				oryUIButtonGroupItemReleased = 1
+			endif
 		endif
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleased = 0
 	endif
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleased = 0
 endfunction oryUIButtonGroupItemReleased
 
 function OryUIGetButtonGroupItemReleasedByName(oryUIButtonGroupID as integer, oryUIItemName$ as string)
 	local oryUIButtonGroupItemReleased as integer
 
-	if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
-		if (lower(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased - 1].name$) = lower(oryUIItemName$))
-			oryUIButtonGroupItemReleased = 1
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
+			if (lower(OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased - 1].name$) = lower(oryUIItemName$))
+				oryUIButtonGroupItemReleased = 1
+			endif
 		endif
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleased = 0
 	endif
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleased = 0
 endfunction oryUIButtonGroupItemReleased
 
 function OryUIGetButtonGroupItemReleasedIndex(oryUIButtonGroupID as integer)
 	local oryUIButtonGroupItemReleasedIndex as integer
 	
-	oryUIButtonGroupItemReleasedIndex = OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleasedIndex = 0
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		oryUIButtonGroupItemReleasedIndex = OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleasedIndex = 0
+	endif
 endfunction oryUIButtonGroupItemReleasedIndex
 
 function OryUIGetButtonGroupItemReleasedName(oryUIButtonGroupID as integer)
 	local oryUIButtonGroupItemReleasedName$ as string
 	
-	if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
-		oryUIButtonGroupItemReleasedName$ = OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased - 1].name$
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		if (OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased > -1)
+			oryUIButtonGroupItemReleasedName$ = OryUIButtonGroupCollection[oryUIButtonGroupID].buttons[OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased - 1].name$
+		endif
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleasedName$ = ""
 	endif
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth) then oryUIButtonGroupItemReleasedName$ = ""
 endfunction oryUIButtonGroupItemReleasedName$
 
 function OryUIGetButtonGroupItemSelectedIndex(oryUIButtonGroupID as integer)
@@ -277,10 +289,12 @@ function OryUIInsertButtonGroupItem(oryUIButtonGroupID as integer, oryUIIndex as
 endfunction
 
 function OryUIInsertButtonGroupListener(oryUIButtonGroupID as integer)
-	if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth or oryUITouchingTopBar = 1 or oryUITouchingTabs = 1)
-		OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = -1
-		OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = -1
-		exitfunction
+	if (GetSpriteExists(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer))
+		if (oryUIScrimVisible = 1 and GetSpriteDepth(OryUIButtonGroupCollection[oryUIButtonGroupID].sprContainer) >= oryUIScrimDepth or oryUITouchingTopBar = 1 or oryUITouchingTabs = 1)
+			OryUIButtonGroupCollection[oryUIButtonGroupID].buttonPressed = -1
+			OryUIButtonGroupCollection[oryUIButtonGroupID].buttonReleased = -1
+			exitfunction
+		endif
 	endif
 	
 	local oryUIButtonGroupItemIconSprite as integer

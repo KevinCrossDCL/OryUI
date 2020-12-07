@@ -1,0 +1,72 @@
+button as integer[20]
+menu as integer[20]
+
+button[1] = OryUICreateButton("size:25,5;text:Button;offset:0,0;position:5,5;depth:20")
+menu[1] = OryUICreateMenu("width:60;depth:5")
+OryUISetMenuItemCount(menu[1], 6)
+OryUIUpdateMenuItem(menu[1], 1, "name:NewTab;text:New Tab")
+OryUIUpdateMenuItem(menu[1], 2, "name:Bookmarks;text:Bookmarks")
+OryUIUpdateMenuItem(menu[1], 3, "name:RecentTabs;text:Recent Tabs")
+OryUIUpdateMenuItem(menu[1], 4, "name:History;text:History")
+OryUIUpdateMenuItem(menu[1], 5, "name:Settings;text:Settings")
+OryUIUpdateMenuItem(menu[1], 6, "name:HelpFeedback;text:Help & Feedback")
+	
+button[2] = OryUICreateButton("size:25,5;text:Button;offset:25,0;position:95,5;depth:20")
+menu[2] = OryUICreateMenu("width:60;depth:5")
+OryUISetMenuItemCount(menu[2], 7)
+OryUIUpdateMenuItem(menu[2], 1, "name:Play;text:Play;color:0,0,0;textColor:255,255,255")
+OryUIUpdateMenuItem(menu[2], 2, "name:AddToQueue;text:Add to Queue;color:0,0,0;textColor:255,255,255")
+OryUIUpdateMenuItem(menu[2], 3, "name:AddToPlaylist;text:Add to Playlist;color:0,0,0;textColor:255,255,255")
+OryUIUpdateMenuItem(menu[2], 4, "name:ViewArtist;text:ViewArtist;color:0,0,0;textColor:255,255,255")
+OryUIUpdateMenuItem(menu[2], 5, "name:ViewAlbum;text:ViewAlbum;color:0,0,0;textColor:255,255,255")
+OryUIUpdateMenuItem(menu[2], 6, "name:Share;text:Share;color:0,0,0;textColor:255,255,255")
+OryUIUpdateMenuItem(menu[2], 7, "name:BuyMerchandise;text:BuyMerchandise;color:0,0,0;textColor:255,255,255")
+	
+button[3] = OryUICreateButton("size:25,5;text:Button;offset:0,0;position:5,90;depth:20")
+menu[3] = OryUICreateMenu("showRightIcon:true;width:60;depth:5")
+OryUISetMenuItemCount(menu[3], 6)
+OryUIUpdateMenuItem(menu[3], 1, "name:One;text:One;rightIcon:looks_one;rightIconColor:255,0,0")
+OryUIUpdateMenuItem(menu[3], 2, "name:Two;text:Two;rightIcon:looks_two;rightIconColor:255,0,0")
+OryUIUpdateMenuItem(menu[3], 3, "name:Three;text:Three;rightIcon:looks_3;rightIconColor:255,0,0")
+OryUIUpdateMenuItem(menu[3], 4, "name:Four;text:Four;rightIcon:looks_4;rightIconColor:255,0,0")
+OryUIUpdateMenuItem(menu[3], 5, "name:Five;text:Five;rightIcon:looks_5;rightIconColor:255,0,0")
+OryUIUpdateMenuItem(menu[3], 6, "name:Six;text:Six;rightIcon:looks_6;rightIconColor:255,0,0")
+	
+greenFlagImage as integer : greenFlagImage = LoadImage("FlagGreen.png")
+redFlagImage as integer : redFlagImage = LoadImage("FlagRed.png")
+yellowFlagImage as integer : yellowFlagImage = LoadImage("FlagYellow.png")
+button[4] = OryUICreateButton("size:25,5;text:Button;offset:25,0;position:95,90;depth:20")
+menu[4] = OryUICreateMenu("showLeftIcon:true;showRightIcon:true;width:60;depth:5")
+OryUISetMenuItemCount(menu[4], 3)
+OryUIUpdateMenuItem(menu[4], 1, "name:Red;text:Red;leftIconID:" + str(redFlagImage) + ";leftIconColor:255,255,255")
+OryUIUpdateMenuItem(menu[4], 2, "name:Yellow;text:Yellow;leftIconID:" + str(yellowFlagImage) + ";leftIconColor:255,255,255;rightIcon:check")
+OryUIUpdateMenuItem(menu[4], 3, "name:Green;text:Green;leftIconID:" + str(greenFlagImage) + ";leftIconColor:255,255,255")
+
+do
+	for i = 1 to 3
+		if (OryUIGetButtonReleased(button[i]))
+			OryUIShowMenu(menu[i], OryUIGetButtonX(button[i]), OryUIGetButtonY(button[i]) + OryUIGetButtonHeight(button[i]))
+		endif
+		OryUIInsertMenuListener(menu[i])
+		if (OryUIGetMenuItemReleasedIndex(menu[i]) > 0)
+			print("'" + OryUIGetMenuItemReleasedName(menu[i]) + "' Released")
+		endif
+	next
+	
+	// This is how you would react to a menu based on the item names
+	if (OryUIGetButtonReleased(button[4]))
+		OryUIShowMenu(menu[4], OryUIGetButtonX(button[4]), OryUIGetButtonY(button[4]) + OryUIGetButtonHeight(button[4]))
+	endif
+	OryUIInsertMenuListener(menu[4])
+	if (OryUIGetMenuItemReleasedName(menu[4]) = "Red")
+		print("'Red Flag' Released")
+	endif
+	if (OryUIGetMenuItemReleasedName(menu[4]) = "Yellow")
+		print("'Yellow Flag' Released")
+	endif
+	if (OryUIGetMenuItemReleasedName(menu[4]) = "Green")
+		print("'Green Flag' Released")
+	endif
+	
+	OryUISync()
+loop

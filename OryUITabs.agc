@@ -399,6 +399,9 @@ function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as inte
 			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].label$ = oryUIParameters.text$
 			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].txtLabel, upper(oryUIParameters.text$))
 		endif
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].txtLabel, oryUIParameters.textSize#)
+		endif
 		remstart
 		if (oryUIParameters.icon$ <> "") then OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].icon$ = lower(oryUIParameters.icon$)
 		if (lower(oryUIParameters.icon$) = "add") then SetSpriteImage(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprIcon, oryUIIconAddImage)

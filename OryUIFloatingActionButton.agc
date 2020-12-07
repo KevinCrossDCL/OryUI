@@ -6,6 +6,7 @@ type typeOryUIFloatingActionButton
 	attachToSpriteID as integer
 	mini as integer
 	placement$ as string
+	placementOffset# as float[2]
 	pressed as integer
 	shadow as integer
 	sprContainer as integer
@@ -29,6 +30,8 @@ function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	// DEFAULT SETTINGS
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = 0
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1] = 0
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2] = 0
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = 1
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].visible = 1
 	
@@ -52,7 +55,7 @@ function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	FixSpriteToScreen(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 1)
 	
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon = CreateSprite(0)
-	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3) //2.87
+	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3.5) //2.87
 	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconAddImage)
 	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, 255, 255, 255, 255)
 	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, GetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) - 2)
@@ -183,8 +186,8 @@ function OryUIShowFloatingActionButton(oryUIFloatingActionButtonID as integer)
 			if (OryUIAnyTextfieldFocused() = 1 and (GetDeviceBaseName() = "android" or GetDeviceBaseName() = "ios")) then oryUIFloatingActionButtonY# = 50
 		endif
 	endif
-	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIFloatingActionButtonX#, oryUIFloatingActionButtonY# + 0.5)
-	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIFloatingActionButtonX#, oryUIFloatingActionButtonY#)
+	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIFloatingActionButtonX# + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1], oryUIFloatingActionButtonY# + 0.5 + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2])
+	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIFloatingActionButtonX# + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1], oryUIFloatingActionButtonY# + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2])
 	OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 endfunction
 
@@ -216,6 +219,12 @@ function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer,
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, -1, 6.78)
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3)
 			endif
+		endif
+		if (oryUIParameters.placementOffset#[1] > -999999)
+			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1] = oryUIParameters.placementOffset#[1]
+		endif
+		if (oryUIParameters.placementOffset#[2] > -999999)
+			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2] = oryUIParameters.placementOffset#[2]
 		endif
 		if (lower(oryUIParameters.placement$) = "bottomright")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"
