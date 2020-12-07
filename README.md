@@ -156,4 +156,4 @@ This is the first framework I've attempted to create so any feedback, suggestion
 ## License
 The OryUI framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
 
-The OryUI framework uses some icons from the Material-UI icons set. [Material-UI icons](https://material.io/resources/icons/?style=baseline)
+The OryUI framework uses icons from the Material icons set. [Material icons](https://material.io/resources/icons/?style=baseline)

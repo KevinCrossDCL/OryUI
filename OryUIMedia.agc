@@ -50,4 +50,6 @@ global oryUIScrollToTopButtonShadowImage as integer : oryUIScrollToTopButtonShad
 global oryUITopBarShadowImage as integer : oryUITopBarShadowImage = LoadImage("OryUIMedia/Top-Bar-Shadow.png")
 global oryUITopShadowImage as integer : oryUITopShadowImage = LoadImage("OryUIMedia/Top-Shadow.png")
 
+OryUIConvertMaterialIconSubImages(4, 400)
+
 foldend

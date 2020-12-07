@@ -5,17 +5,17 @@ VARSION 0.14a
 	- Added each widget when created to a list of created widgets
 
 - OryUI
+	- 1,500+ Material icons added (https://github.com/google/material-design-icons)
     - Added "copy" icon
 	- Added function OryUICreateWidget()
 	- Added function OryUISync()
-	- Replaced icons with Material-UI icons (https://github.com/google/material-design-icons)
 
 - OryUIButton
 	- Fixed a bug where pressed flag wasn't resetting when button was released
 	- Fixed a bug where code at end of the button listener was not checking if button existed
 
 - OryUIDefaultSettings
-	- Increased the default size for ScrollToTop icon to 3 because the Material-UI icon is smaller than the original
+	- Increased the default size for ScrollToTop icon to 3 because the Material icon is smaller than the original
 
 - OryUIDialog
 	- Fixed a bug where OryUIDeleteDialog() was deleting all but one button

@@ -11,12 +11,6 @@
 
 foldstart
 
-function OryUIAddCreatedWidget(oryUIID as integer, oryUIType$ as string)
-	local oryUIT as typeOryUICreatedWidgets
-    oryUIT.type$ = oryUIType$
-    oryUIT.id = oryUIID
-endfunction oryUIT
-
 type typeOryUICreatedWidgets
 	id as integer
 	type$ as string
@@ -269,6 +263,13 @@ endtype
 type typeOryUIJSONVariables
 	variable$ as string
 	value$ as string
+endtype
+
+type typeOryUIMaterialIcon
+	sortKey$ as string
+	imageID as integer
+	index as integer
+	name$ as string
 endtype
 
 type typeOryUIParameters
@@ -538,6 +539,7 @@ global oryUIDefaults as typeOryUIDefaults
 global oryUIDialogVisible as integer
 global oryUILocalJSONVariables as typeOryUIJSONVariables[]
 if (GetFileExists("OryUILocalVariables.json")) then oryUILocalJSONVariables.load("OryUILocalVariables.json")
+global oryUIMaterialIcon as typeOryUIMaterialIcon[]
 global oryUIParameters as typeoryUIParameters
 global oryUIPickerVisible as integer
 global OryUIScreenActive as integer
@@ -552,6 +554,22 @@ foldend
 
 
 foldstart
+
+function OryUIAddCreatedWidget(oryUIID as integer, oryUIType$ as string)
+	local oryUIT as typeOryUICreatedWidgets
+	oryUIT.type$ = oryUIType$
+	oryUIT.id = oryUIID
+endfunction oryUIT
+
+function OryUIAddLeadingZeros(oryUINumber$ as string, oryUINumberOfZeros as integer)
+	local oryUIForI as integer
+
+	for oryUIForI = 1 to oryUINumberOfZeros
+		if (len(oryUINumber$) < oryUINumberOfZeros)
+			oryUINumber$ = "0" + oryUINumber$
+		endif
+	next
+endfunction oryUINumber$
 
 function OryUIAddToContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIContentHeight# + oryUIHeight#
@@ -597,6 +615,34 @@ function OryUIConvertColor(oryUIColor$ as string)
 		if (oryUICommaCount = 4) then oryUIRGBA#[4] = valFloat(GetStringToken(oryUIColor$, ",", 4))
 	endif
 endfunction oryUIRGBA#
+
+function OryUIConvertMaterialIconSubImages(oryUIAMax as integer, oryUIBMax as integer)
+	local oryUIBlankIcon as typeOryUIMaterialIcon
+	local oryUIFileID as integer
+	local oryUIForA as integer
+	local oryUIForB as integer
+	local oryUIID as integer
+	local oryUIImage as integer
+	local oryUILine$ as string
+	local oryUISubImage as integer
+
+	oryUIFileID = OpenToRead("OryUIMedia/Material-Icons/Material-Icons.txt")
+	for oryUIForA = 1 to oryUIAMax
+		oryUIImage = LoadImage("OryUIMedia/Material-Icons/Material-Icons-" + OryUIAddLeadingZeros(str(oryUIForA), len(str(oryUIAMax)) + 1) + ".png")
+		for oryUIForB = 1 to oryUIBMax
+			oryUILine$ = ReadLine(oryUIFileID)
+			oryUISubImage = LoadSubImage(oryUIImage, "icon" + str(oryUIForB))
+			oryUIMaterialIcon.insert(oryUIBlankIcon)
+			oryUIID = oryUIMaterialIcon.length
+			oryUIMaterialIcon[oryUIID].sortKey$ = oryUILine$
+			oryUIMaterialIcon[oryUIID].index = oryUIID
+			oryUIMaterialIcon[oryUIID].imageID = oryUISubImage
+			oryUIMaterialIcon[oryUIID].name$ = oryUILine$
+		next
+	next
+	CloseFile(oryUIFileID)
+	oryUIMaterialIcon.sort()
+endfunction
 
 function OryUICreateWidget(oryUIWidgetParameters$)
 	OryUIResetParametersType()
@@ -1066,7 +1112,8 @@ endfunction
 
 function OryUIReturnIconID(oryUIIcon$ as string)
 	local oryUIIconID as integer
-	
+	local oryUIMaterialIconIndex as integer
+
 	oryUIIconID = -999999
 	if (lower(oryUIIcon$) = "add") then oryUIIconID = oryUIIconAddImage
 	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
@@ -1083,6 +1130,8 @@ function OryUIReturnIconID(oryUIIcon$ as string)
 	if (lower(oryUIIcon$) = "scrolltotop") then oryUIIconID = oryUIIconScrollToTopImage
 	if (lower(oryUIIcon$) = "share") then oryUIIconID = oryUIIconShareImage
 	if (lower(oryUIIcon$) = "subtract") then oryUIIconID = oryUIIconSubtractImage
+	oryUIMaterialIconIndex = oryUIMaterialIcon.find(lower(oryUIIcon$))
+	if (oryUIMaterialIconIndex >= 0) then oryUIIconID = oryUIMaterialIcon[oryUIMaterialIconIndex].imageID
 endfunction oryUIIconID
 
 function OryUISetContentHeight(oryUIHeight# as float)
