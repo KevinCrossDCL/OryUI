@@ -45,7 +45,7 @@ function FloatingActionButtonScreenPreviewTab()
 
 	fab[3] = OryUICreateFloatingActionButton("icon:camera_alt;mini:true;shadow:true;placement:bottomcenter;placementOffset:20,4;color:50,50,50;attachToSpriteID:" + str(sprCatProfilePic) + ";depth:15")
 
-	fab[4] = OryUICreateFloatingActionButton("icon:add;shadow:true;color:52,73,94;depth:10")
+	fab[4] = OryUICreateFloatingActionButton("icon:save;shadow:true;color:52,73,94;depth:10")
 	OryUIHideFloatingActionButton(fab[4])
 	
 	formIcon as integer[20]

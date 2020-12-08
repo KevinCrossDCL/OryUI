@@ -132,7 +132,7 @@ do
 			PaginationScreen()
 		endcase
 		case constProgressIndicatorScreen
-			ProgressIndicatorScreen()
+			ProgressIndicatorScreen(tabSelected[screen])
 		endcase
 		case constScrollBarScreen
 			ScrollBarScreen()

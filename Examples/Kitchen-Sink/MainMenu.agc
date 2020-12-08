@@ -3,7 +3,7 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 7)
+	OryUISetNavigationDrawerItemCount(mainMenu, 8)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
 	inc mainMenuItemCount
@@ -30,8 +30,8 @@ function BuildMainMenu()
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIMenu;itemType:option;text:OryUIMenu;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIPagination;itemType:option;text:OryUIPagination;textSize:2.6;rightText:;")
-//~	inc mainMenuItemCount
-//~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIProgressIndicator;itemType:option;text:OryUIProgressIndicator;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIProgressIndicator;itemType:option;text:OryUIProgressIndicator;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIScrollBar;itemType:option;text:OryUIScrollBar;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
@@ -79,6 +79,10 @@ function ProcessMainMenu()
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIMenu"))
 		tabSelected[screen] = 1
 		screen = constMenuScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIProgressIndicator"))
+		tabSelected[screen] = 1
+		screen = constProgressIndicatorScreen
 	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "About"))
 		screen = constAboutScreen

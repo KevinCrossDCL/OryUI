@@ -1,0 +1,30 @@
+progress# as float
+progressIndicator as integer[20]
+txtLabel as integer[20]
+	
+txtLabel[1] = OryUICreateText("text:Determinate (0%)[colon];size:3;bold:true;position:5," + str(contentHeight#) + ";color:0,0,0;depth:20")
+contentHeight# = contentHeight# + GetTextTotalHeight(txtLabel[1]) + 3
+progressIndicator[1] = OryUICreateProgressIndicator("color:255,0,0;size:90,2;offset:center;position:50," + str(contentHeight#))
+OryUISetProgressIndicatorPercentage(progressIndicator[1], 0)
+contentHeight# = contentHeight# + OryUIGetProgressIndicatorHeight(progressIndicator[1]) + 2
+
+txtLabel[2] = OryUICreateText("text:Indeterminate[colon];size:3;bold:true;position:5," + str(contentHeight#) + ";color:0,0,0;depth:20")
+contentHeight# = contentHeight# + GetTextTotalHeight(txtLabel[2]) + 2
+progressIndicator[2] = OryUICreateProgressIndicator("progressType:indeterminate;color:52,73,94;size:90,0.5;offset:center;position:50," + str(contentHeight#))
+contentHeight# = contentHeight# + OryUIGetProgressIndicatorHeight(progressIndicator[2]) + 2
+	
+txtLabel[3] = OryUICreateText("text:Circular[colon];size:3;bold:true;position:5," + str(contentHeight#) + ";color:0,0,0;depth:20")
+contentHeight# = contentHeight# + GetTextTotalHeight(txtLabel[3]) + 8
+progressIndicator[3] = OryUICreateProgressIndicator("progressType:circular;color:0,0,0;size:25,-1;offset:center;position:50," + str(contentHeight#))
+contentHeight# = contentHeight# + OryUIGetProgressIndicatorHeight(progressIndicator[3]) + 2
+
+do
+	progress# = progress# + random(0, 10) / 10.0
+	if (progress# > 100) then progress# = 0
+	OryUIUpdateText(txtLabel[1], "text:Determinate (" + str(progress#, 0) + "%)[colon]")
+	OryUISetProgressIndicatorPercentage(progressIndicator[1], progress#)
+
+	OryUIAnimateProgressIndicator(progressIndicator[2])
+	
+	OryUISync()
+loop
