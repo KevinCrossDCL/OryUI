@@ -89,6 +89,7 @@ Sync()
 OryUISetSyncRate(30, 0)
 
 global debugMode as integer : debugMode = 0
+global imgLogo as integer : imgLogo = LoadImage("Logo.png")
 global screen as integer
 global tabSelected as integer[100]
 screen = constHomeScreen

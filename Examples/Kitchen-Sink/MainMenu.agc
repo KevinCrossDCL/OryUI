@@ -3,9 +3,11 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 8)
+	OryUISetNavigationDrawerItemCount(mainMenu, 9)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "image:" + str(imgLogo) + ";name:Home;itemType:header;text:;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:Home;itemType:option;text:Home;textSize:2.6;rightText:;")
 	inc mainMenuItemCount

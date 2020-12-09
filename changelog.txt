@@ -32,6 +32,7 @@ VARSION 0.14a
 
 - OryUINavigationDrawer
 	- Fixed a bug where OryUIDeleteNavigationDrawer() was deleting all but on navigation drawer item
+	- Header text bar background now disappears if no text is given
 
 - OryUIPagination
 	- Fixed a bug where OryUIDeletePagination() was deleting all but one button

@@ -668,6 +668,9 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.text$)
 		endif
+		if (GetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel) = "")
+			SetSpriteColorAlpha(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprHeaderTextScrim, 0)
+		endif
 		if (oryUIParameters.textBold > -999999)
 			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.textBold)
 		endif
