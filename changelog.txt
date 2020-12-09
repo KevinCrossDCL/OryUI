@@ -43,6 +43,9 @@ VARSION 0.14a
 	- Fixed a bug where OryUIDeleteTabsButton() was not deleting the container sprite
 	- Fixed a bug where you could scroll the screen when touching the tabs
 
+- OryUITextCard
+	- Fixed a bug where supportingTextAlignment right wasn't positioning correctly
+	
 - OryUITopBar
 	- Added missing parameter 'textSize'
 	- Fixed a bug where OryUIDeleteTopBar() was deleting all but on action button

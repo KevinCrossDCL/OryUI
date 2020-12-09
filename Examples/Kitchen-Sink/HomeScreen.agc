@@ -7,7 +7,7 @@ function HomeScreen()
 	topBar as integer : topBar = OryUICreateWidget("widget:TopBar;text:OryUI Kitchen Sink;navigationIcon:menu;navigationName:Menu;depth:10")
 	BuildMainMenu()
 	contentHeight# = OryUIGetTopBarHeight(topBar) + 2
-		
+
 	textCard as integer[10]
 	
 	textCard[1] = OryUICreateTextCard("width:94;headerText:What is OryUI?;supportingText:OryUI is an opensource UI framework for building apps in AGK (AppGameKit). It is written in AGK Tier 1." + chr(10) + chr(10) + "It has a number of widgets available, with more being added over time. Some of the available widgets include[colon] buttons, dialogs, menus, progress bars, scroll bars, and textfields." + chr(10) + chr(10) + "It is primarily designed for mobile apps.;position:3," + str(contentHeight#) + ";autoHeight:true;depth:20")

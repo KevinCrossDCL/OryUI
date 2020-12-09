@@ -60,7 +60,8 @@ Sync()
 #constant constTextCardScreen 19
 #constant constTooltipScreen 20
 #constant constTopBarScreen 21
-#constant constAboutScreen 22
+#constant constMoreSoonScreen 22
+#constant constAboutScreen 23
 
 #insert "MainMenu.agc"
 #insert "HomeScreen.agc"
@@ -84,6 +85,7 @@ Sync()
 #insert "TextCardScreen.agc"
 #insert "TooltipScreen.agc"
 #insert "TopBarScreen.agc"
+#insert "MoreSoonScreen.agc"
 #insert "AboutScreen.agc"
 
 OryUISetSyncRate(30, 0)
@@ -151,13 +153,16 @@ do
 			TextScreen()
 		endcase
 		case constTextCardScreen
-			TextCardScreen()
+			TextCardScreen(tabSelected[screen])
 		endcase
 		case constTooltipScreen
 			TooltipScreen()
 		endcase
 		case constTopBarScreen
 			TopBarScreen()
+		endcase
+		case constMoreSoonScreen
+			MoreSoonScreen()
 		endcase
 		case constAboutScreen
 			AboutScreen()

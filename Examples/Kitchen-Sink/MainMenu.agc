@@ -3,7 +3,7 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 9)
+	OryUISetNavigationDrawerItemCount(mainMenu, 11)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
 	inc mainMenuItemCount
@@ -44,12 +44,14 @@ function BuildMainMenu()
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUITabs;itemType:option;text:OryUITabs;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIText;itemType:option;text:OryUIText;textSize:2.6;rightText:;")
-//~	inc mainMenuItemCount
-//~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUITextCard;itemType:option;text:OryUITextCard;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUITextCard;itemType:option;text:OryUITextCard;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUITooltip;itemType:option;text:OryUITooltip;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUITopBar;itemType:option;text:OryUITopBar;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:MoreSoon;itemType:option;text:More Coming Soon...;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:About;itemType:option;text:About;textSize:2.6;rightText:;")
 endfunction
@@ -85,6 +87,13 @@ function ProcessMainMenu()
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIProgressIndicator"))
 		tabSelected[screen] = 1
 		screen = constProgressIndicatorScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUITextCard"))
+		tabSelected[screen] = 1
+		screen = constTextCardScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "MoreSoon"))
+		screen = constMoreSoonScreen
 	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "About"))
 		screen = constAboutScreen
