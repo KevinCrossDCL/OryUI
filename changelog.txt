@@ -44,6 +44,7 @@ VARSION 0.14a
 	- Fixed a bug where you could scroll the screen when touching the tabs
 
 - OryUITextCard
+	- Fixed a bug where headerTextAlignment right wasn't positioning correctly
 	- Fixed a bug where supportingTextAlignment right wasn't positioning correctly
 	
 - OryUITopBar
