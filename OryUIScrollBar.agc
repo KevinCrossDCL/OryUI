@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollBar Component (Updated 07/07/2020)
+foldstart // OryUIScrollBar Widget (Updated 07/07/2020)
 
 type typeOryUIScrollBar
 	id as integer
@@ -68,11 +68,13 @@ function OryUICalculateScrollBarWindowVariables(oryUIScrollBarID as integer)
 endfunction
 remend
 
-function OryUICreateScrollBar(oryUIComponentParameters$ as string)
+function OryUICreateScrollBar(oryUIWidgetParameters$ as string)
 	local oryUIScrollBarID as integer
 	OryUIScrollBarCollection.length = OryUIScrollBarCollection.length + 1
 	oryUIScrollBarID = OryUIScrollBarCollection.length
 	OryUIScrollBarCollection[oryUIScrollBarID].id = oryUIScrollBarID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIScrollBarID, "ScrollBar"))
 
 	// DEFAULT SETTINGS
 	OryUIScrollBarCollection[oryUIScrollBarID].alwaysVisible = 0
@@ -135,8 +137,8 @@ function OryUICreateScrollBar(oryUIComponentParameters$ as string)
 
 	OryUIScrollBarCollection[oryUIScrollBarID].justCreated = 1
 	
-	if (oryUIComponentParameters$ <> "")
-		OryUIUpdateScrollBar(oryUIScrollBarID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "")
+		OryUIUpdateScrollBar(oryUIScrollBarID, oryUIWidgetParameters$)
 	else
 		OryUIScrollBarCollection[oryUIScrollBarID].justCreated = 0
 	endif
@@ -472,11 +474,11 @@ function OryUIShowScrollBar(oryUIScrollBarID as integer)
 	OryUIScrollBarCollection[oryUIScrollBarID].gripVisible = 1
 endfunction
 
-function OryUIUpdateScrollBar(oryUIScrollBarID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateScrollBar(oryUIScrollBarID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIScrollBarCollection[oryUIScrollBarID].sprGrip))
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.gripSize#[1] > -999999 and oryUIParameters.gripSize#[2] > -999999)
 			OryUIScrollBarCollection[oryUIScrollBarID].gripSize#[1] = oryUIParameters.gripSize#[1]
 			OryUIScrollBarCollection[oryUIScrollBarID].gripSize#[2] = oryUIParameters.gripSize#[2]

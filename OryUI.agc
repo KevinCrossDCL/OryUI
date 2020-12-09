@@ -11,6 +11,11 @@
 
 foldstart
 
+type typeOryUICreatedWidgets
+	id as integer
+	type$ as string
+endtype
+
 type typeOryUIDefaults
 
 	// OryUIButton
@@ -260,6 +265,13 @@ type typeOryUIJSONVariables
 	value$ as string
 endtype
 
+type typeOryUIMaterialIcon
+	sortKey$ as string
+	imageID as integer
+	index as integer
+	name$ as string
+endtype
+
 type typeOryUIParameters
 	activeButtonColor# as float[4]
 	activeColor# as float[4]
@@ -415,6 +427,7 @@ type typeOryUIParameters
 	offsetCenter as integer
 	placeholderText$ as string
 	placement$ as string
+	placementOffset# as float[2]
 	position# as float[2]
 	postData$ as string
 	progressType$ as string
@@ -503,11 +516,11 @@ type typeOryUIParameters
 	unselectedTextBold as integer
 	unselectedTextColor# as float[4]
 	unselectedTextSize# as float
+	widget$ as string
 	wrapList as integer
 	wrapListBottomY# as float
 	wrapListTopY# as float
 endtype
-
 
 foldend
 
@@ -522,12 +535,15 @@ global oryUIContentHeight# as float 			// NOT YET USED
 global oryUIContentStartX# as float				// NOT YET USED
 global oryUIContentStartY# as float				// NOT YET USED
 global oryUIContentWidth# as float				// NOT YET USED
+global oryUICreatedWidgets as typeOryUICreatedWidgets[]
 global oryUIDefaults as typeOryUIDefaults
 global oryUIDialogVisible as integer
 global oryUILocalJSONVariables as typeOryUIJSONVariables[]
 if (GetFileExists("OryUILocalVariables.json")) then oryUILocalJSONVariables.load("OryUILocalVariables.json")
+global oryUIMaterialIcon as typeOryUIMaterialIcon[]
 global oryUIParameters as typeoryUIParameters
 global oryUIPickerVisible as integer
+global OryUIScreenActive as integer
 global oryUIScrimDepth as integer
 global oryUIScrimVisible as integer
 global oryUIMaxSyncRate# as integer : oryUIMaxSyncRate# = 60.0
@@ -539,6 +555,22 @@ foldend
 
 
 foldstart
+
+function OryUIAddCreatedWidget(oryUIID as integer, oryUIType$ as string)
+	local oryUIT as typeOryUICreatedWidgets
+	oryUIT.type$ = oryUIType$
+	oryUIT.id = oryUIID
+endfunction oryUIT
+
+function OryUIAddLeadingZeros(oryUINumber$ as string, oryUINumberOfZeros as integer)
+	local oryUIForI as integer
+
+	for oryUIForI = 1 to oryUINumberOfZeros
+		if (len(oryUINumber$) < oryUINumberOfZeros)
+			oryUINumber$ = "0" + oryUINumber$
+		endif
+	next
+endfunction oryUINumber$
 
 function OryUIAddToContentHeight(oryUIHeight# as float)
 	oryUIContentHeight# = oryUIContentHeight# + oryUIHeight#
@@ -584,6 +616,195 @@ function OryUIConvertColor(oryUIColor$ as string)
 		if (oryUICommaCount = 4) then oryUIRGBA#[4] = valFloat(GetStringToken(oryUIColor$, ",", 4))
 	endif
 endfunction oryUIRGBA#
+
+function OryUIConvertMaterialIconSubImages(oryUIAMax as integer, oryUIBMax as integer)
+	local oryUIBlankIcon as typeOryUIMaterialIcon
+	local oryUIFileID as integer
+	local oryUIForA as integer
+	local oryUIForB as integer
+	local oryUIID as integer
+	local oryUIImage as integer
+	local oryUILine$ as string
+	local oryUISubImage as integer
+
+	oryUIFileID = OpenToRead("OryUIMedia/Material-Icons/Material-Icons.txt")
+	for oryUIForA = 1 to oryUIAMax
+		oryUIImage = LoadImage("OryUIMedia/Material-Icons/Material-Icons-" + OryUIAddLeadingZeros(str(oryUIForA), len(str(oryUIAMax)) + 1) + ".png")
+		for oryUIForB = 1 to oryUIBMax
+			oryUILine$ = ReadLine(oryUIFileID)
+			oryUISubImage = LoadSubImage(oryUIImage, "icon" + str(oryUIForB))
+			oryUIMaterialIcon.insert(oryUIBlankIcon)
+			oryUIID = oryUIMaterialIcon.length
+			oryUIMaterialIcon[oryUIID].sortKey$ = oryUILine$
+			oryUIMaterialIcon[oryUIID].index = oryUIID
+			oryUIMaterialIcon[oryUIID].imageID = oryUISubImage
+			oryUIMaterialIcon[oryUIID].name$ = oryUILine$
+		next
+	next
+	CloseFile(oryUIFileID)
+	oryUIMaterialIcon.sort()
+endfunction
+
+function OryUICreateWidget(oryUIWidgetParameters$)
+	OryUIResetParametersType()
+
+	local oryUIForI as integer
+	local oryUIValue$ as string
+	local oryUIVariable$ as string
+	local oryUIWidget as integer
+	local oryUIWidgetEnd as integer
+	local oryUIWidgetParameter$ as string
+	local oryUIWidgetStart as integer
+
+	oryUIWidgetStart = FindString(oryUIWidgetParameters$, "widget:", 1, 1)
+	oryUIWidgetEnd = FindString(oryUIWidgetParameters$, ";", 1, oryUIWidgetStart)
+	oryUIWidgetParameter$ = Mid(oryUIWidgetParameters$, oryUIWidgetStart, oryUIWidgetEnd - oryUIWidgetStart)
+	oryUIVariable$ = lower(TrimString(GetStringToken(oryUIWidgetParameter$, ":", 1), " "))
+	oryUIValue$ = GetStringToken(oryUIWidgetParameter$, ":", 2)
+	oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
+	oryUIValue$ = ReplaceString(oryUIValue$, "[semicolon]", ";", -1)
+
+	if (oryUIValue$ = "") then oryUIValue$ = "null"
+	if (oryUIVariable$ = "widget")
+		oryUIParameters.widget$ = lower(oryUIValue$)
+	endif
+	
+	select oryUIParameters.widget$
+		case "button"
+			oryUIWidget = OryUICreateButton(oryUIWidgetParameters$)
+		endcase
+		case "buttongroup"
+			oryUIWidget = OryUICreateButtonGroup(oryUIWidgetParameters$)
+		endcase
+		case "dialog"
+			oryUIWidget = OryUICreateDialog(oryUIWidgetParameters$)
+		endcase
+		case "editavatarscreen"
+			oryUIWidget = OryUICreateEditAvatarScreen(oryUIWidgetParameters$)
+		endcase
+		case "floatingactionbutton"
+			oryUIWidget = OryUICreateFloatingActionButton(oryUIWidgetParameters$)
+		endcase
+		case "httpsqueue"
+			oryUIWidget = OryUICreateHTTPSQueue(oryUIWidgetParameters$)
+		endcase
+		case "inputspinner"
+			oryUIWidget = OryUICreateInputSpinner(oryUIWidgetParameters$)
+		endcase
+		case "list"
+			oryUIWidget = OryUICreateList(oryUIWidgetParameters$)
+		endcase
+		case "menu"
+			oryUIWidget = OryUICreateMenu(oryUIWidgetParameters$)
+		endcase
+		case "navigationdrawer"
+			oryUIWidget = OryUICreateNavigationDrawer(oryUIWidgetParameters$)
+		endcase
+		case "pagination"
+			oryUIWidget = OryUICreatePagination(oryUIWidgetParameters$)
+		endcase
+		case "progressindicator"
+			oryUIWidget = OryUICreateProgressIndicator(oryUIWidgetParameters$)
+		endcase
+		case "scrollbar"
+			oryUIWidget = OryUICreateScrollBar(oryUIWidgetParameters$)
+		endcase
+		case "scrolltotop"
+			oryUIWidget = OryUICreateScrollToTop(oryUIWidgetParameters$)
+		endcase
+		case "sprite"
+			oryUIWidget = OryUICreateSprite(oryUIWidgetParameters$)
+		endcase
+		case "tabs"
+			oryUIWidget = OryUICreateTabs(oryUIWidgetParameters$)
+		endcase
+		case "text"
+			oryUIWidget = OryUICreateText(oryUIWidgetParameters$)
+		endcase
+		case "textcard"
+			oryUIWidget = OryUICreateTextCard(oryUIWidgetParameters$)
+		endcase
+		case "textfield"
+			oryUIWidget = OryUICreateTextfield(oryUIWidgetParameters$)
+		endcase
+		case "tooltip"
+			oryUIWidget = OryUICreateTooltip(oryUIWidgetParameters$)
+		endcase
+		case "topbar"
+			oryUIWidget = OryUICreateTopBar(oryUIWidgetParameters$)
+		endcase
+	endselect
+endfunction oryUIWidget
+
+function OryUIDeleteAllWidgets()
+	local oryUIForI as integer
+	OryUISync()
+	for oryUIForI = 0 to oryUICreatedWidgets.length
+		select oryUICreatedWidgets[oryUIForI].type$
+			case "Button"
+				OryUIDeleteButton(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "ButtonGroup"
+				OryUIDeleteButtonGroup(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Dialog"
+				OryUIDeleteDialog(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "EditAvatarScreen"
+				OryUIDeleteEditAvatarScreen(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "FloatingActionButton"
+				OryUIDeleteFloatingActionButton(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "InputSpinner"
+				OryUIDeleteInputSpinner(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "List"
+				OryUIDeleteList(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Menu"
+				OryUIDeleteMenu(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "NavigationDrawer"
+				OryUIDeleteNavigationDrawer(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Pagination"
+				OryUIDeletePagination(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "ProgressIndicator"
+				OryUIDeleteProgressIndicator(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "ScrollBar"
+				OryUIDeleteScrollBar(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "ScrollToTop"
+				OryUIDeleteScrollToTop(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Sprite"
+				DeleteSprite(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Tabs"
+				OryUIDeleteTabs(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Text"
+				DeleteText(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "TextCard"
+				OryUIDeleteTextCard(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Textfield"
+				OryUIDeleteTextfield(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Tooltip"
+				OryUIDeleteTooltip(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "TopBar"
+				OryUIDeleteTopBar(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+		endselect
+	next
+	oryUICreatedWidgets.length = -1
+endfunction
 
 function OryUIGetLocalJSONVariable(oryUIVariable$ as string)
 	local oryUIForI as integer
@@ -813,7 +1034,8 @@ function OryUIResetParametersType()
 	oryUIParameters.trailingIconID = -999999
 	oryUIParameters.uncheckedImageID = -999999
 	oryUIParameters.unselectedTextBold = -999999
-	oryUIParameters.unselectedTextSize# = -999999	
+	oryUIParameters.unselectedTextSize# = -999999
+	oryUIParameters.widget$ = ""
 	oryUIParameters.wrapList = -999999	
 	oryUIParameters.wrapListBottomY# = -999999	
 	oryUIParameters.wrapListTopY# = -999999	
@@ -835,6 +1057,7 @@ function OryUIResetParametersType()
 			oryUIParameters.minPosition#[oryUIForI] = -999999
 			oryUIParameters.minView#[oryUIForI] = -999999
 			oryUIParameters.offset#[oryUIForI] = -999999
+			oryUIParameters.placementOffset#[oryUIForI] = -999999
 			oryUIParameters.position#[oryUIForI] = -999999
 			oryUIParameters.size#[oryUIForI] = -999999
 			oryUIParameters.subtractIconSize#[oryUIForI] = -999999
@@ -891,22 +1114,17 @@ endfunction
 
 function OryUIReturnIconID(oryUIIcon$ as string)
 	local oryUIIconID as integer
-	
+	local oryUIMaterialIconIndex as integer
+
 	oryUIIconID = -999999
-	if (lower(oryUIIcon$) = "add") then oryUIIconID = oryUIIconAddImage
 	if (lower(oryUIIcon$) = "back") then oryUIIconID = oryUIIconBackImage
-	if (lower(oryUIIcon$) = "cancel") then oryUIIconID = oryUIIconCancelImage
-	if (lower(oryUIIcon$) = "camera") then oryUIIconID = oryUIIconCameraImage
-	if (lower(oryUIIcon$) = "edit") then oryUIIconID = oryUIIconEditImage
-	if (lower(oryUIIcon$) = "menu") then oryUIIconID = oryUIIconMenuImage
 	if (lower(oryUIIcon$) = "morehorizontal" or lower(oryUIIcon$) = "morehoriz") then oryUIIconID = oryUIIconMoreHorizontalImage
 	if (lower(oryUIIcon$) = "morevertical" or lower(oryUIIcon$) = "morevert") then oryUIIconID = oryUIIconMoreVerticalImage
 	if (lower(oryUIIcon$) = "profile") then oryUIIconID = oryUIIconProfileImage
-	if (lower(oryUIIcon$) = "refresh") then oryUIIconID = oryUIIconRefreshImage
-	if (lower(oryUIIcon$) = "save") then oryUIIconID = oryUIIconSaveImage
 	if (lower(oryUIIcon$) = "scrolltotop") then oryUIIconID = oryUIIconScrollToTopImage
-	if (lower(oryUIIcon$) = "share") then oryUIIconID = oryUIIconShareImage
 	if (lower(oryUIIcon$) = "subtract") then oryUIIconID = oryUIIconSubtractImage
+	oryUIMaterialIconIndex = oryUIMaterialIcon.find(lower(oryUIIcon$))
+	if (oryUIMaterialIconIndex >= 0) then oryUIIconID = oryUIMaterialIcon[oryUIMaterialIconIndex].imageID
 endfunction oryUIIconID
 
 function OryUISetContentHeight(oryUIHeight# as float)
@@ -938,20 +1156,21 @@ function OryUISetLocalJSONVariable(oryUIVariable$ as string, oryUIVariableValue$
 	oryUILocalJSONVariables.save("OryUILocalVariables.json")
 endfunction
 
-function OryUISetParametersType(oryUIComponentParameters$ as string)
+function OryUISetParametersType(oryUIWidgetParameters$ as string)
 	OryUIResetParametersType()
 	
-	local oryUIComponentParameter$ as string
+	local oryUIWidgetParameter$ as string
 	local oryUIForI as integer
 	local oryUIForJ as integer
 	local oryUIValue$ as string
 	local oryUIVariable$ as string
 	
-	for oryUIForI = 1 to CountStringTokens(oryUIComponentParameters$, ";")
-		oryUIComponentParameter$ = GetStringToken(oryUIComponentParameters$, ";", oryUIForI)
-		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIComponentParameter$, ":", 1), " "))
-		oryUIValue$ = GetStringToken(oryUIComponentParameter$, ":", 2)
+	for oryUIForI = 1 to CountStringTokens(oryUIWidgetParameters$, ";")
+		oryUIWidgetParameter$ = GetStringToken(oryUIWidgetParameters$, ";", oryUIForI)
+		oryUIVariable$ = lower(TrimString(GetStringToken(oryUIWidgetParameter$, ":", 1), " "))
+		oryUIValue$ = GetStringToken(oryUIWidgetParameter$, ":", 2)
 		oryUIValue$ = ReplaceString(oryUIValue$, "[colon]", ":", -1)
+		oryUIValue$ = ReplaceString(oryUIValue$, "[semicolon]", ";", -1)
 		if (oryUIValue$ = "") then oryUIValue$ = "null"
 		if (oryUIVariable$ = "activebuttoncolor" or oryUIVariable$ = "activebuttoncolorid")
 			oryUIParameters.activeButtonColor# = OryUIConvertColor(oryUIValue$)
@@ -997,7 +1216,7 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.backgroundColor# = OryUIConvertColor(oryUIValue$)
 		elseif (OryUIVariable$ = "blockorder")
 			for oryUIForJ = 1 to CountStringTokens(oryUIValue$, ",")
-				oryUIParameters.blockOrder$.insert(GetStringToken(oryUIComponentParameters$, ",", oryUIForJ))
+				oryUIParameters.blockOrder$.insert(GetStringToken(oryUIWidgetParameters$, ",", oryUIForJ))
 			next
 		elseif (oryUIVariable$ = "bold")
 			oryUIParameters.bold = OryUIConvertBoolean(oryUIValue$)
@@ -1333,6 +1552,9 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.placeholderText$ = oryUIValue$
 		elseif (oryUIVariable$ = "placement")
 			oryUIParameters.placement$ = oryUIValue$
+		elseif (oryUIVariable$ = "placementoffset")
+			oryUIParameters.placementOffset#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.placementOffset#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "position")
 			oryUIParameters.position#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.position#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -1539,6 +1761,8 @@ function OryUISetParametersType(oryUIComponentParameters$ as string)
 			oryUIParameters.unselectedTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedtextsize")
 			oryUIParameters.unselectedTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "widget")
+			oryUIParameters.widget$ = lower(oryUIValue$)
 		elseif (oryUIVariable$ = "width")
 			oryUIParameters.size#[1] = valFloat(oryUIValue$)
 		elseif (oryUIVariable$ = "wraplist")
@@ -1558,6 +1782,13 @@ endfunction
 function OryUISetSyncRate(oryUISyncRate# as float, oryUIMode as integer)
 	SetSyncRate(oryUISyncRate#, oryUIMode)
 	oryUIMaxSyncRate# = oryUISyncRate#
+endfunction
+
+function OryUISync()
+	OryUIEndTrackingTouch()
+	UpdateAllTweens(GetFrameTime())
+	Sync()
+	OryUIStartTrackingTouch()
 endfunction
 
 foldend

@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Component (Updated 07/07/2020)
+foldstart // OryUITextfield Widget (Updated 07/07/2020)
 
 type typeOryUITextfield
 	id as integer
@@ -43,11 +43,13 @@ function OryUIAnyTextfieldFocused()
 	if (OryUITextfieldIDFocused >= 0) then oryUIIsAnyTextfieldFocused = 1
 endfunction oryUIIsAnyTextfieldFocused
 
-function OryUICreateTextfield(oryUIComponentParameters$ as string)
+function OryUICreateTextfield(oryUIWidgetParameters$ as string)
 	local oryUITextfieldID as integer
 	OryUITextfieldCollection.length = OryUITextfieldCollection.length + 1
 	oryUITextfieldID = OryUITextfieldCollection.length
 	OryUITextfieldCollection[oryUITextfieldID].id = oryUITextfieldID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITextfieldID, "Textfield"))
 
 	// DEFAULT SETTINGS
 	OryUITextfieldCollection[oryUITextfieldID].textColor#[1] = 0
@@ -122,7 +124,7 @@ function OryUICreateTextfield(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon, 0, 0)
 	SetSpritePhysicsOff(OryUITextfieldCollection[oryUITextfieldID].sprTrailingIcon)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTextfield(oryUITextfieldID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTextfield(oryUITextfieldID, oryUIWidgetParameters$)
 endfunction oryUITextfieldID
 
 function OryUIDeleteTextfield(oryUITextfieldID as integer)
@@ -290,13 +292,13 @@ function OryUISetTextfieldString(oryUITextfieldID as integer, oryUITextfieldStri
 	SetEditBoxText(OryUITextfieldCollection[oryUITextfieldID].editBox, oryUITextfieldString$)
 endfunction
 
-function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTextfield(oryUITextfieldID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 	
 	if (oryUITextfieldID <= OryUITextfieldCollection.length)
 		if (GetEditBoxExists(OryUITextfieldCollection[oryUITextfieldID].editBox))
 
-			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+			// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 			if (oryUIParameters.size#[1] > -999999)
 				SetSpriteSize(OryUITextfieldCollection[oryUITextfieldID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITextfieldCollection[oryUITextfieldID].sprContainer))
 				SetEditBoxSize(OryUITextfieldCollection[oryUITextfieldID].editBox, GetSpriteWidth(OryUITextfieldCollection[oryUITextfieldID].sprContainer) - 6, GetEditBoxHeight(OryUITextfieldCollection[oryUITextfieldID].editBox))

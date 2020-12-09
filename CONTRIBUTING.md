@@ -13,13 +13,16 @@ Thank you for showing an interest and taking the time to contribute!
 
 ## Coding conventions
 
-  * All component names are prefixed with OryUI
-  * All function names are prefixed with OryUI
-  * All type names are prefixed typeOryUI
-  * Global, local and parameter variable names are all lower camel case (except component names)
-  * `#` is used at the end of each float/decimal variable name i.e. `var1# = 0.1`, not `var1 = 0.1`
-  * `$` is used at the end of each string variable name i.e. `var2$ = "Hello"`, not `var2 = "Hello"`
-  * Spaces are added after each comma in function parameters i.e. `FunctionName(1, 2, 3)`, not `FunctionName(1,2,3)`
-  * Spaces are also added around all operators i.e. `x = x + y`, not `x=x+y`
+  * All component names are prefixed with OryUI.
+  * All function names are prefixed with OryUI.
+  * All function parameter names are prefixed with oryUI.
+  * All type names are prefixed typeOryUI.
+  * Global, local and parameter variable names are all lower camel case (except component names).
+  * The framework has been designed to work with projects that have #option_explicit which means variables in and outside of function should be initiated as lock or global.
+  * `#` is used at the end of each float/decimal variable name i.e. `var1# = 0.1`, not `var1 = 0.1`.
+  * `$` is used at the end of each string variable name i.e. `var2$ = "Hello"`, not `var2 = "Hello"`.
+  * Spaces are added after each comma in function parameters i.e. `FunctionName(1, 2, 3)`, not `FunctionName(1,2,3)`.
+  * Spaces are also added around all operators i.e. `x = x + y`, not `x=x+y`.
   * Indents are tabbed and the width of a single indent is 4 spaces.
- 
+  * New widgets should follow the same/similar style as the others. A OryUITemplate.agc file has been provided as a starting point.
+  * Function names in a single widget file should be sorted in alphabetical order.

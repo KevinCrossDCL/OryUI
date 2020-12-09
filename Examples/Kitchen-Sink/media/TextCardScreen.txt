@@ -1,0 +1,16 @@
+textCard as integer[10]
+
+widgetY# as float : widgetY# = 2
+textCard[1] = OryUICreateTextCard("color:244,244,244;width:94;headerText:Auto Size And Wrap To Content;supportingText:TextCards can be auto sized to their content, and all text is autowrapped." + chr(10) + chr(10) + "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi mattis ex in dignissim faucibus. Quisque vitae dictum urna. Duis pulvinar nec ex ut volutpat. Integer commodo libero purus, sed rutrum augue tristique in. Nam dictum porttitor metus, ac efficitur lectus maximus sodales.;supportingTextAlignment:left;position:3," + str(widgetY#) + ";autoHeight:true;depth:20")
+widgetY# = widgetY# + OryUIGetTextCardHeight(textCard[1]) + 2
+	
+textCard[2] = OryUICreateTextCard("color:244,244,244;width:94;headerText:Text Alignment;headerTextAlignment:center;supportingText:Text in text card headers and supporting text can be aligned.[colon] left (default), center, and right;supportingTextAlignment:right;position:3," + str(widgetY#) + ";autoHeight:true;depth:20")
+widgetY# = widgetY# + OryUIGetTextCardHeight(textCard[2]) + 2
+	
+textCard[3] = OryUICreateTextCard("color:30,30,30;size:45.5,13;headerText:Sunny;headerTextAlignment:center;headerTextColor:255,255,255;headerTextSize:2.5;supportingText:21°C;supportingTextAlignment:center;supportingTextColor:255,255,255;supportingTextSize:7;position:3," + str(widgetY#) + ";depth:20")
+textCard[4] = OryUICreateTextCard("color:#fad744;size:45.5,13;headerText:Users;headerTextAlignment:left;headerTextColor:221,94,90;headerTextSize:2.5;supportingText:1.2M;supportingTextAlignment:center;supportingTextColor:221,94,90;supportingTextSize:7;position:51.5," + str(widgetY#) + ";depth:20")
+	
+do
+	
+	OryUISync()
+loop

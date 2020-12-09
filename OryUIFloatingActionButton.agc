@@ -1,11 +1,12 @@
 
-foldstart // OryUIFloatingActionButton Component (Updated 19/08/2019)
+foldstart // OryUIFloatingActionButton Widget (Updated 19/08/2019)
 
 type typeOryUIFloatingActionButton
 	id as integer
 	attachToSpriteID as integer
 	mini as integer
 	placement$ as string
+	placementOffset# as float[2]
 	pressed as integer
 	shadow as integer
 	sprContainer as integer
@@ -18,15 +19,19 @@ endtype
 global OryUIFloatingActionButtonCollection as typeOryUIFloatingActionButton[]
 OryUIFloatingActionButtonCollection.length = 1
 
-function OryUICreateFloatingActionButton(oryUIComponentParameters$ as string)
+function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	local oryUIFloatingActionButtonID as integer
 	OryUIFloatingActionButtonCollection.length = OryUIFloatingActionButtonCollection.length + 1
 	oryUIFloatingActionButtonID = OryUIFloatingActionButtonCollection.length
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].id = oryUIFloatingActionButtonID
 
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIFloatingActionButtonID, "FloatingActionButton"))
+
 	// DEFAULT SETTINGS
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = 0
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1] = 0
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2] = 0
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = 1
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].visible = 1
 	
@@ -50,7 +55,7 @@ function OryUICreateFloatingActionButton(oryUIComponentParameters$ as string)
 	FixSpriteToScreen(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 1)
 	
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon = CreateSprite(0)
-	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3) //2.87
+	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3.5) //2.87
 	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconAddImage)
 	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, 255, 255, 255, 255)
 	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, GetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) - 2)
@@ -59,7 +64,7 @@ function OryUICreateFloatingActionButton(oryUIComponentParameters$ as string)
 	OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 	FixSpriteToScreen(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, 1)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID, oryUIWidgetParameters$)
 endfunction oryUIFloatingActionButtonID
 
 function OryUIDeleteFloatingActionButton(oryUIFloatingActionButtonID as integer)
@@ -181,13 +186,13 @@ function OryUIShowFloatingActionButton(oryUIFloatingActionButtonID as integer)
 			if (OryUIAnyTextfieldFocused() = 1 and (GetDeviceBaseName() = "android" or GetDeviceBaseName() = "ios")) then oryUIFloatingActionButtonY# = 50
 		endif
 	endif
-	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIFloatingActionButtonX#, oryUIFloatingActionButtonY# + 0.5)
-	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIFloatingActionButtonX#, oryUIFloatingActionButtonY#)
+	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIFloatingActionButtonX# + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1], oryUIFloatingActionButtonY# + 0.5 + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2])
+	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIFloatingActionButtonX# + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1], oryUIFloatingActionButtonY# + OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2])
 	OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)
 endfunction
 
-function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
 		if (oryUIParameters.attachToSpriteID > 0) then OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].attachToSpriteID = oryUIParameters.attachToSpriteID
@@ -214,6 +219,12 @@ function OryUIUpdateFloatingActionButton(oryUIFloatingActionButtonID as integer,
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, -1, 6.78)
 				SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3)
 			endif
+		endif
+		if (oryUIParameters.placementOffset#[1] > -999999)
+			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1] = oryUIParameters.placementOffset#[1]
+		endif
+		if (oryUIParameters.placementOffset#[2] > -999999)
+			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2] = oryUIParameters.placementOffset#[2]
 		endif
 		if (lower(oryUIParameters.placement$) = "bottomright")
 			OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"

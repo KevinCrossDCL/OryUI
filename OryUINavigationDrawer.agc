@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Component (Updated 07/07/2020)
+foldstart // OryUINavigationDrawer Widget (Updated 07/07/2020)
 
 type typeOryUINavigationDrawer
 	id as integer
@@ -50,11 +50,13 @@ endtype
 global OryUINavigationDrawerCollection as typeOryUINavigationDrawer[]
 OryUINavigationDrawerCollection.length = 1
 
-function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
+function OryUICreateNavigationDrawer(oryUIWidgetParameters$ as string)
 	local oryUINavigationDrawerID as integer
 	OryUINavigationDrawerCollection.length = OryUINavigationDrawerCollection.length + 1
 	oryUINavigationDrawerID = OryUINavigationDrawerCollection.length
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].id = oryUINavigationDrawerID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUINavigationDrawerID, "NavigationDrawer"))
 
 	// DEFAULTS
 	OryUINavigationDrawerCollection[oryUINavigationDrawerID].drawerLocation$ = oryUIDefaults.navigationDrawerLocation$
@@ -95,7 +97,7 @@ function OryUICreateNavigationDrawer(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow, -999999, -999999)
 	SetSpritePhysicsOff(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateNavigationDrawer(oryUINavigationDrawerID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateNavigationDrawer(oryUINavigationDrawerID, oryUIWidgetParameters$)
 endfunction oryUINavigationDrawerID
 
 function OryUIDeleteNavigationDrawer(oryUINavigationDrawerID as integer)
@@ -103,7 +105,7 @@ function OryUIDeleteNavigationDrawer(oryUINavigationDrawerID as integer)
 	DeleteSprite(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprScrim)
 	DeleteSprite(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprShadow)
 	DeleteSprite(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprStatusBar)
-	while (OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length > 0)
+	while (OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length >= 0)
 		OryUIDeleteNavigationDrawerItem(oryUINavigationDrawerID, 0)
 	endwhile
 endfunction
@@ -203,7 +205,7 @@ function OryUIHideNavigationDrawer(oryUINavigationDrawerID as integer)
 	next
 endfunction
 
-function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, oryUINavigationDrawerIndex as integer, oryUIComponentParameters$ as string)
+function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, oryUINavigationDrawerIndex as integer, oryUIWidgetParameters$ as string)
 	local oryUINavigationDrawerItemID as integer
 	if (oryUINavigationDrawerIndex = -1)
 		OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length = OryUINavigationDrawerCollection[oryUINavigationDrawerID].items.length + 1
@@ -278,7 +280,7 @@ function OryUIInsertNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 	SetTextDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].txtSubtitle, GetSpriteDepth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].sprContainer) - 1)
 	SetTextPosition(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID].txtSubtitle, -999999, -999999)
 
-	OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID, oryUINavigationDrawerItemID + 1, oryUIComponentParameters$)
+	OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID, oryUINavigationDrawerItemID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertNavigationDrawerListener(oryUINavigationDrawerID as integer)
@@ -538,11 +540,11 @@ function OryUIShowNavigationDrawer(oryUINavigationDrawerID as integer)
 	OryUIPositionItemsInNavigationDrawer(oryUINavigationDrawerID)
 endfunction
 
-function OryUIUpdateNavigationDrawer(oryUINavigationDrawerID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateNavigationDrawer(oryUINavigationDrawerID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer))
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUINavigationDrawerCollection[oryUINavigationDrawerID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
 		elseif (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] = -999999)
@@ -590,11 +592,11 @@ function OryUIUpdateNavigationDrawer(oryUINavigationDrawerID as integer, oryUICo
 	endif
 endfunction
 
-function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, oryUINavigationDrawerItemID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, oryUINavigationDrawerItemID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer))
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (lower(oryUIParameters.itemType$) = "divider")
 			OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].itemType$ = "divider"
 			SetSpriteSize(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer, GetSpriteWidth(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprContainer), oryUIDefaults.navigationDrawerDividerHeight#)
@@ -665,6 +667,9 @@ function OryUIUpdateNavigationDrawerItem(oryUINavigationDrawerID as integer, ory
 		if (oryUIParameters.text$ <> "")
 			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			SetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.text$)
+		endif
+		if (GetTextString(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel) = "")
+			SetSpriteColorAlpha(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].sprHeaderTextScrim, 0)
 		endif
 		if (oryUIParameters.textBold > -999999)
 			SetTextBold(OryUINavigationDrawerCollection[oryUINavigationDrawerID].items[oryUINavigationDrawerItemID - 1].txtLabel, oryUIParameters.textBold)

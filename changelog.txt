@@ -1,3 +1,57 @@
+VARSION 0.14a
+------------------------
+- All files
+	- Changed all references to components to widgets
+	- Added each widget when created to a list of created widgets
+
+- OryUI
+	- 1,500+ Material icons added (https://github.com/google/material-design-icons)
+    - Added "copy" icon
+	- Added function OryUICreateWidget()
+	- Added function OryUISync()
+
+- OryUIButton
+	- Fixed a bug where pressed flag wasn't resetting when button was released
+	- Fixed a bug where code at end of the button listener was not checking if button existed
+
+- OryUIButtonGroup
+	- Fixed a bug where referencing a button group that did not exist in the released by name function would eventually crash the app
+	- Fixed a bug where referencing a button group that did not exist in the listener function would eventually crash the app
+
+- OryUIDefaultSettings
+	- Increased the default size for ScrollToTop icon to 3 because the Material icon is smaller than the original
+
+- OryUIDialog
+	- Fixed a bug where OryUIDeleteDialog() was deleting all but one button
+
+- OryUIList
+	- Fixed a bug where OryUIDeleteList() was deleting all but one list item
+
+- OryUIMenu
+	- Fixed a bug where OryUIDeleteMenu() was deleting all but one menu item
+
+- OryUINavigationDrawer
+	- Fixed a bug where OryUIDeleteNavigationDrawer() was deleting all but on navigation drawer item
+	- Header text bar background now disappears if no text is given
+
+- OryUIPagination
+	- Fixed a bug where OryUIDeletePagination() was deleting all but one button
+
+- OryUITabs
+	- Added missing parameter 'textSize'
+	- Fixed a bug where OryUIDeleteTabs() was deleting all but one tab
+	- Fixed a bug where OryUIDeleteTabsButton() was not deleting the container sprite
+	- Fixed a bug where you could scroll the screen when touching the tabs
+
+- OryUITextCard
+	- Fixed a bug where supportingTextAlignment right wasn't positioning correctly
+	
+- OryUITopBar
+	- Added missing parameter 'textSize'
+	- Fixed a bug where OryUIDeleteTopBar() was deleting all but on action button
+	- Removed automatic case changing that was being applied to navigationName
+
+
 
 VERSION 0.13a
 ------------------------

@@ -1,5 +1,5 @@
 
-foldstart // OryUIProgressIndicator Component (Updated 07/07/2020)
+foldstart // OryUIProgressIndicator Widget (Updated 07/07/2020)
 
 type typeOryUIProgressIndicator
 	id as integer
@@ -32,11 +32,13 @@ function OryUIAnimateProgressIndicator(oryUIProgressIndicatorID as integer)
 	endif
 endfunction
 
-function OryUICreateProgressIndicator(oryUIComponentParameters$ as string)
+function OryUICreateProgressIndicator(oryUIWidgetParameters$ as string)
 	local oryUIProgressIndicatorID as integer
 	OryUIProgressIndicatorCollection.length = OryUIProgressIndicatorCollection.length + 1
 	oryUIProgressIndicatorID = OryUIProgressIndicatorCollection.length
 	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].id = oryUIProgressIndicatorID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIProgressIndicatorID, "ProgressIndicator"))
 
 	// DEFAULT SETTINGS
 	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].progressType$ = "Determinate"
@@ -56,7 +58,7 @@ function OryUICreateProgressIndicator(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, 0)
 	SetSpritePhysicsOff(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateProgressIndicator(oryUIProgressIndicatorID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateProgressIndicator(oryUIProgressIndicatorID, oryUIWidgetParameters$)
 endfunction oryUIProgressIndicatorID
 
 function OryUIDeleteProgressIndicator(oryUIProgressIndicatorID as integer)
@@ -105,14 +107,14 @@ function OryUISetProgressIndicatorPercentage(oryUIProgressIndicatorID as integer
 	endif
 endfunction
 
-function OryUIUpdateProgressIndicator(oryUIProgressIndicatorID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateProgressIndicator(oryUIProgressIndicatorID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	local oryUIForI as integer
 	
 	if (GetSpriteExists(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack))
 		
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.progressType$ <> "")
 			OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].progressType$ = oryUIParameters.progressType$
 			if (lower(oryUIParameters.progressType$) = "circular")

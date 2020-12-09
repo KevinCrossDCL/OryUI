@@ -43,11 +43,13 @@ endtype
 global OryUIEditAvatarScreenCollection as typeOryUIEditAvatarScreen[]
 OryUIEditAvatarScreenCollection.length = 1
 
-function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
+function OryUICreateEditAvatarScreen(oryUIWidgetParameters$ as string)
 	local oryUIEditAvatarScreenID as integer
 	OryUIEditAvatarScreenCollection.length = OryUIEditAvatarScreenCollection.length + 1
 	oryUIEditAvatarScreenID = OryUIEditAvatarScreenCollection.length
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].id = oryUIEditAvatarScreenID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIEditAvatarScreenID, "EditAvatarScreen"))
 
 	// DEFAULT SETTINGS
 	OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].frameShape$ = "Square"
@@ -183,7 +185,7 @@ function OryUICreateEditAvatarScreen(oryUIComponentParameters$ as string)
 	OryUIPinTextToCentreOfSprite(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprSaveButtonContainer, 0, 0)
 	//FixTextToScreen(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].txtSaveButtonLabel, 1)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateEditAvatarScreen(oryUIEditAvatarScreenID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateEditAvatarScreen(oryUIEditAvatarScreenID, oryUIWidgetParameters$)
 endfunction oryUIEditAvatarScreenID
 
 function OryUIDeleteEditAvatarScreen(oryUIEditAvatarScreenID as integer)
@@ -374,11 +376,11 @@ function OryUIInsertEditAvatarScreenListener(oryUIEditAvatarScreenID as integer)
 	endif
 endfunction
 
-function OryUIUpdateEditAvatarScreen(oryUIEditAvatarScreenID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateEditAvatarScreen(oryUIEditAvatarScreenID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].sprBackground))
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
 			if (oryUIParameters.position#[1] <> OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# and oryUIParameters.position#[2] <> OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenY#)
 				OryUIEditAvatarScreenCollection[oryUIEditAvatarScreenID].screenX# = oryUIParameters.position#[1]

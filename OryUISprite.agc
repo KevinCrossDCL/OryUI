@@ -1,13 +1,16 @@
 
 foldstart // OryUISprite (Updated 07/07/2020)
 
-function OryUICreateSprite(oryUIComponentParameters$ as string)
+function OryUICreateSprite(oryUIWidgetParameters$ as string)
 	local oryUISpriteID as integer
 	oryUISpriteID = CreateSprite(0)
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUISpriteID, "Sprite"))
+
 	SetSpriteOffset(oryUISpriteID, 0, 0)
 	SetSpritePhysicsOff(oryUISpriteID)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateSprite(oryUISpriteID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateSprite(oryUISpriteID, oryUIWidgetParameters$)
 endfunction oryUISpriteID
 
 function OryUIPinSpriteToBottomCentreOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
@@ -76,8 +79,8 @@ function OryUIPinSpriteToTopRightOfSprite(oryUISpriteA as integer, oryUISpriteB 
 	endif
 endfunction
 
-function OryUIUpdateSprite(oryUISpriteID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateSprite(oryUISpriteID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(oryUISpriteID))
 		if (oryUIParameters.size#[1] > -999999 and oryUIParameters.size#[2] > -999999)

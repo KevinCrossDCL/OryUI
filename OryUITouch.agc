@@ -219,6 +219,8 @@ function OryUIGetTouchStartY()
 endfunction OryUITouchCollection[OryUITouchCollection[0].touchCount].startY#
 
 function OryUISetScreenScrollLimits(oryUIMinX# as float, oryUIMaxX# as float, oryUIMinY# as float, oryUIMaxY# as float)
+	if (oryUIMaxX# < oryUIMinX#) then oryUIMaxX# = oryUIMinX#
+	if (oryUIMaxY# < oryUIMinY#) then oryUIMaxY# = oryUIMinY#
 	OryUITouchCollection[0].minViewX# = oryUIMinX#
 	OryUITouchCollection[0].maxViewX# = oryUIMaxX#
 	OryUITouchCollection[0].minViewY# = oryUIMinY#

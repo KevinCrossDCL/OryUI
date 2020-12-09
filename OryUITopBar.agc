@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Component (Updated 07/07/2020)
+foldstart // OryUITopBar Widget (Updated 07/07/2020)
 
 type typeOryUITopBar
 	id as integer
@@ -32,11 +32,13 @@ endtype
 global OryUITopBarCollection as typeOryUITopBar[]
 OryUITopBarCollection.length = 1
 
-function OryUICreateTopBar(oryUIComponentParameters$ as string)
+function OryUICreateTopBar(oryUIWidgetParameters$ as string)
 	local oryUITopBarID as integer
 	OryUITopBarCollection.length = OryUITopBarCollection.length + 1
 	oryUITopBarID = OryUITopBarCollection.length
 	OryUITopBarCollection[oryUITopBarID].id = oryUITopBarID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITopBarID, "TopBar"))
 
 	// DEFAULT SETTINGS
 	OryUITopBarCollection[oryUITopBarID].defaultIconColor#[1] = 255
@@ -84,7 +86,7 @@ function OryUICreateTopBar(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprShadow, GetSpriteX(OryUITopBarCollection[oryUITopBarID].sprContainer), GetSpriteY(OryUITopBarCollection[oryUITopBarID].sprContainer) + GetSpriteHeight(OryUITopBarCollection[oryUITopBarID].sprContainer))
 	SetSpritePhysicsOff(OryUITopBarCollection[oryUITopBarID].sprShadow)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTopBar(oryUITopBarID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTopBar(oryUITopBarID, oryUIWidgetParameters$)
 endfunction oryUITopBarID
 
 function OryUIDeleteTopBar(oryUITopBarID as integer)
@@ -93,7 +95,7 @@ function OryUIDeleteTopBar(oryUITopBarID as integer)
 	DeleteSprite(OryUITopBarCollection[oryUITopBarID].sprShadow)
 	DeleteSprite(OryUITopBarCollection[oryUITopBarID].sprStatusBar)
 	DeleteText(OryUITopBarCollection[oryUITopBarID].txtTitle)
-	while (OryUITopBarCollection[oryUITopBarID].actions.length > 0)
+	while (OryUITopBarCollection[oryUITopBarID].actions.length >= 0)
 		OryUIDeleteTopBarAction(oryUITopBarID, 0)
 	endwhile
 endfunction
@@ -234,7 +236,7 @@ function OryUIGetTopBarNavigationReleasedName(oryUITopBarID as integer)
 	endif
 endfunction oryUITopBarNavigationName$
 
-function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComponentParameters$ as string)
+function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIWidgetParameters$ as string)
 	local oryUITopBarActionID as integer
 	if (oryUIIndex = -1)
 		OryUITopBarCollection[oryUITopBarID].actions.length = OryUITopBarCollection[oryUITopBarID].actions.length + 1
@@ -251,7 +253,7 @@ function OryUIInsertTopBarAction(oryUITopBarID as integer, oryUIIndex, oryUIComp
 	
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTopBarAction(oryUITopBarID, oryUITopBarActionID + 1, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTopBarAction(oryUITopBarID, oryUITopBarActionID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertTopBarListener(oryUITopBarID as integer)	
@@ -399,14 +401,14 @@ function OryUISetTopBarActionCount(oryUITopBarID as integer, oryUINewTopBarActio
 	next
 endfunction
 
-function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	local oryUIForI as integer
 	
 	if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].sprContainer))
 
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.position#[1] > -999999 and oryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])
 			SetSpritePositionByOffset(OryUITopBarCollection[oryUITopBarID].sprStatusBar, oryUIParameters.position#[1], oryUIParameters.position#[2])
@@ -460,7 +462,7 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		endif
 		if (oryUIParameters.navigationName$ <> "")
 			if (lower(oryUIParameters.navigationName$) = "null") then oryUIParameters.navigationName$ = ""
-			OryUITopBarCollection[oryUITopBarID].navigationName$ = lower(oryUIParameters.navigationName$)
+			OryUITopBarCollection[oryUITopBarID].navigationName$ = oryUIParameters.navigationName$
 		endif
 		if (oryUIParameters.text$ <> "")
 			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
@@ -482,13 +484,16 @@ function OryUIUpdateTopBar(oryUITopBarID as integer, oryUIComponentParameters$ a
 		if (oryUIParameters.textColor#[1] > -999999 or oryUIParameters.textColor#[2] > -999999 or oryUIParameters.textColor#[3] > -999999 or oryUIParameters.textColor#[4] > -999999)
 			SetTextColor(OryUITopBarCollection[oryUITopBarID].txtTitle, oryUIParameters.textColor#[1], oryUIParameters.textColor#[2], oryUIParameters.textColor#[3], oryUIParameters.textColor#[4])
 		endif
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUITopBarCollection[oryUITopBarID].txtTitle, oryUIParameters.textSize#)
+		endif
 	endif
 
 	OryUIPositionNavigationAndActionsInTopBar(oryUITopBarID)
 endfunction
 
-function OryUIUpdateTopBarAction(oryUITopBarID as integer, oryUITopBarActionID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTopBarAction(oryUITopBarID as integer, oryUITopBarActionID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (oryUITopBarActionID - 1 <= OryUITopBarCollection[oryUITopBarID].actions.length)
 		if (GetSpriteExists(OryUITopBarCollection[oryUITopBarID].actions[oryUITopBarActionID - 1].sprIcon))

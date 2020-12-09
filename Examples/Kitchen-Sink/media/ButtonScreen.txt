@@ -1,0 +1,26 @@
+button as integer[10]
+
+button[1] = OryUICreateButton("size:30,5;offset:center;position:50,10;text:Button")
+
+button[2] = OryUICreateButton("size:30,5;offset:center;position:50,20;text:Button;color:255,0,0")
+
+button[3] = OryUICreateButton("size:30,5;offset:center;position:50,30;text:Button;alpha:0;textColor:87,7,235")
+
+button[4] = OryUICreateButton("size:12,5;offset:center;position:50,40;text:;icon:share")
+
+button[5] = OryUICreateButton("size:36,5;offset:center;position:50,50;text:Button;icon:Share;iconSize:-1,2;iconPlacement:left")
+
+button[6] = OryUICreateButton("size:30,5;offset:center;position:50,60;text:Button;enabled:false")
+
+playButtonImage = LoadImage("PlayButton.png")
+button[7] = OryUICreateButton("size:20,-1;offset:center;position:50,75;text: ;image:" + str(playButtonImage) + ";color:255,255,255")
+
+do
+	for i = 1 to 7
+		if (OryUIGetButtonReleased(button[i]))
+			print("Button " + str(i) + " Released")
+		endif
+	next
+	
+	OryUISync()
+loop

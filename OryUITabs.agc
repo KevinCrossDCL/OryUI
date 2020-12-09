@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Component (Updated 07/07/2020)
+foldstart // OryUITabs Widget (Updated 07/07/2020)
 
 type typeOryUITabs
 	id as integer
@@ -33,11 +33,13 @@ endtype
 global OryUITabsCollection as typeOryUITabs[]
 OryUITabsCollection.length = 1
 
-function OryUICreateTabs(oryUIComponentParameters$ as string)
+function OryUICreateTabs(oryUIWidgetParameters$ as string)
 	local oryUITabsID as integer
 	OryUITabsCollection.length = OryUITabsCollection.length + 1
 	oryUITabsID = OryUITabsCollection.length
 	OryUITabsCollection[oryUITabsID].id = oryUITabsID
+
+	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUITabsID, "Tabs"))
 
 	// DEFAULT SETTINGS
 	OryUITabsCollection[oryUITabsID].defaultActiveColor#[1] = 255
@@ -75,19 +77,20 @@ function OryUICreateTabs(oryUIComponentParameters$ as string)
 	SetSpritePositionByOffset(OryUITabsCollection[oryUITabsID].sprShadow, GetSpriteX(OryUITabsCollection[oryUITabsID].sprContainer), GetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer) + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 	SetSpritePhysicsOff(OryUITabsCollection[oryUITabsID].sprShadow)
 	
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabs(oryUITabsID, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTabs(oryUITabsID, oryUIWidgetParameters$)
 endfunction oryUITabsID
 
 function OryUIDeleteTabs(oryUITabsID as integer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].sprActiveIndicator)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].sprContainer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].sprShadow)
-	while (OryUITabsCollection[oryUITabsID].buttons.length > 0)
+	while (OryUITabsCollection[oryUITabsID].buttons.length >= 0)
 		OryUIDeleteTabsButton(oryUITabsID, 0)
 	endwhile
 endfunction
 
 function OryUIDeleteTabsButton(oryUITabsID as integer, oryUIButtonID as integer)
+	DeleteSprite(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].sprContainer)
 	DeleteSprite(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].sprIcon)
 	DeleteText(OryUITabsCollection[oryUITabsID].buttons[oryUIButtonID].txtLabel)
 	OryUITabsCollection[oryUITabsID].buttons.remove(oryUIButtonID)
@@ -133,7 +136,7 @@ function OryUIGetTabsHeight(oryUITabsID as integer)
 	endif
 endfunction oryUITabsHeight#
 
-function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponentParameters$ as string)
+function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIWidgetParameters$ as string)
 	local oryUITabsButtonID as integer
 	if (oryUIIndex = -1)
 		OryUITabsCollection[oryUITabsID].buttons.length = OryUITabsCollection[oryUITabsID].buttons.length + 1
@@ -165,7 +168,7 @@ function OryUIInsertTabsButton(oryUITabsID as integer, oryUIIndex, oryUIComponen
 	
 	OryUIPositionButtonsInTabs(oryUITabsID)
 
-	if (oryUIComponentParameters$ <> "") then OryUIUpdateTabsButton(oryUITabsID, oryUITabsButtonID + 1, oryUIComponentParameters$)
+	if (oryUIWidgetParameters$ <> "") then OryUIUpdateTabsButton(oryUITabsID, oryUITabsButtonID + 1, oryUIWidgetParameters$)
 endfunction
 
 function OryUIInsertTabsListener(oryUITabsID as integer)
@@ -178,14 +181,8 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 
 	OryUITabsCollection[oryUITabsID].buttonReleased = -1
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
-		SetSpriteX(OryUITabsCollection[oryUITabsID].sprContainer, OryUITabsCollection[oryUITabsID].minPosition#[1])
-		if (GetViewOffsetY() > OryUITabsCollection[oryUITabsID].originalPosition#[2] - OryUITabsCollection[oryUITabsID].minPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer, GetViewOffsetY() + OryUITabsCollection[oryUITabsID].minPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + OryUITabsCollection[oryUITabsID].minPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
-		else
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprContainer, OryUITabsCollection[oryUITabsID].originalPosition#[2])
-			SetSpriteY(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetY() + GetScreenBoundsTop() + OryUITabsCollection[oryUITabsID].originalPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
-		endif
+		SetSpritePosition(OryUITabsCollection[oryUITabsID].sprContainer, GetViewOffsetX() + (OryUITabsCollection[oryUITabsID].minPosition#[1] - OryUITabsCollection[oryUITabsID].originalPosition#[1]), GetViewOffsetY() + OryUITabsCollection[oryUITabsID].originalPosition#[2])
+		SetSpritePosition(OryUITabsCollection[oryUITabsID].sprShadow, GetViewOffsetX() + (OryUITabsCollection[oryUITabsID].minPosition#[1] - OryUITabsCollection[oryUITabsID].originalPosition#[1]), GetViewOffsetY() + OryUITabsCollection[oryUITabsID].originalPosition#[2] + GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 		
 		for oryUIForI = 0 to OryUITabsCollection[oryUITabsID].buttons.length
 			if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer))
@@ -197,13 +194,15 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 				else
 					SetTextColor(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].txtLabel, OryUITabsCollection[oryUITabsID].defaultInactiveColor#[1], OryUITabsCollection[oryUITabsID].defaultInactiveColor#[2], OryUITabsCollection[oryUITabsID].defaultInactiveColor#[3], 128)
 				endif
-				if (OryUIGetSwipingVertically() = 0)
+				if (OryUIGetSwipingHorizontally() = 0 and OryUIGetSwipingVertically() = 0)
 					oryUITabsSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 					if (GetPointerPressed())
 						if (oryUITabsSprite = 1)
 							oryUITouchingTabs = 1
+							oryUIBlockScreenScrolling = 1
 						else
 							oryUITouchingTabs = 0
+							oryUIBlockScreenScrolling = 0
 						endif
 						oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 						if (oryUITabsButtonSprite = 1)
@@ -213,8 +212,10 @@ function OryUIInsertTabsListener(oryUITabsID as integer)
 						if (GetPointerState())
 							if (oryUITabsSprite = 1)
 								oryUITouchingTabs = 1
+								oryUIBlockScreenScrolling = 1
 							else
 								oryUITouchingTabs = 0
+								oryUIBlockScreenScrolling = 0
 							endif
 							oryUITabsButtonSprite = GetSpriteHitTest(OryUITabsCollection[oryUITabsID].buttons[oryUIForI].sprContainer, ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 							if (OryUITabsCollection[oryUITabsID].buttons[oryUIForI].pressed)
@@ -300,12 +301,12 @@ function OryUISetTabsButtonSelectedByName(oryUITabsID as integer, oryUITabsButto
 	next
 endfunction
 
-function OryUIUpdateTabs(oryUITabsID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTabs(oryUITabsID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].sprContainer))
 
-		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE COMPONENT
+		// IMPORTANT PARAMETERS FIRST WHICH AFFECT THE SIZE, OFFSET, AND POSITION OF THE WIDGET
 		if (oryUIParameters.size#[1] > -999999)
 			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprContainer, oryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprContainer))
 			SetSpriteSize(OryUITabsCollection[oryUITabsID].sprShadow, oryUIParameters.size#[1], GetSpriteHeight(OryUITabsCollection[oryUITabsID].sprShadow))
@@ -382,8 +383,8 @@ function OryUIUpdateTabs(oryUITabsID as integer, oryUIComponentParameters$ as st
 	OryUIPositionButtonsInTabs(oryUITabsID)
 endfunction
 
-function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as integer, oryUIComponentParameters$ as string)
-	OryUISetParametersType(oryUIComponentParameters$)
+function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as integer, oryUIWidgetParameters$ as string)
+	OryUISetParametersType(oryUIWidgetParameters$)
 
 	if (GetSpriteExists(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].sprContainer))
 		if (oryUIParameters.color#[1] > -999999 or oryUIParameters.color#[2] > -999999 or oryUIParameters.color#[3] > -999999 or oryUIParameters.color#[4] > -999999)
@@ -397,6 +398,9 @@ function OryUIUpdateTabsButton(oryUITabsID as integer, oryUITabsButtonID as inte
 			if (lower(oryUIParameters.text$) = "null") then oryUIParameters.text$ = ""
 			OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].label$ = oryUIParameters.text$
 			SetTextString(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].txtLabel, upper(oryUIParameters.text$))
+		endif
+		if (oryUIParameters.textSize# > -999999)
+			SetTextSize(OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].txtLabel, oryUIParameters.textSize#)
 		endif
 		remstart
 		if (oryUIParameters.icon$ <> "") then OryUITabsCollection[oryUITabsID].buttons[oryUITabsButtonID - 1].icon$ = lower(oryUIParameters.icon$)
