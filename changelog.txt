@@ -1,4 +1,4 @@
-VARSION 0.14a
+VERSION 0.14a
 ------------------------
 - All files
 	- Changed all references to components to widgets
