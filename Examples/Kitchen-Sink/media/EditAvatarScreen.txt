@@ -1,0 +1,43 @@
+defaultAvatarImage as integer : defaultAvatarImage = LoadImage("DefaultAvatar.png")
+sprAvatar as integer : sprAvatar = OryUICreateSprite("size:50,-1;image:" + str(defaultAvatarImage) + ";offset:topCenter;color:255,255,255,255;position:50," + str(contentHeight#))
+avatarCircleFrameImage as integer : avatarCircleFrameImage = LoadImage("AvatarCircleFrame.png")
+sprAvatarFrame as integer : sprAvatarFrame = OryUICreateSprite("size:50,-1;image:" + str(avatarCircleFrameImage) + ";offset:topCenter;position:50," + str(contentHeight#))
+fabChangeAvatar as integer : fabChangeAvatar = OryUICreateFloatingActionButton("icon:camera_alt;mini:true;shadow:false;color:50,50,50;attachToSpriteID:" + str(sprAvatar))
+OryUIShowFloatingActionButton(fabChangeAvatar)
+
+do
+	OryUIShowFloatingActionButton(fabChangeAvatar)
+	if (OryUIGetFloatingActionButtonReleased(fabChangeAvatar))
+		OryUIHideFloatingActionButton(fabChangeAvatar)
+		avatarChosenImage as integer : avatarChosenImage = 0
+		ShowChooseImageScreen()
+		repeat
+			if (GetRawKeyPressed(27))
+				exit
+			endif
+			Sync()
+		until (IsChoosingImage() = 0)
+		avatarChosenImage = GetChosenImage()
+		if (avatarChosenImage > 0)
+			editAvatarScreen = OryUICreateEditAvatarScreen("position:200,0;frameShape:circle;image:" + str(avatarChosenImage) + ";maxZoom:5;cancelText:Cancel;saveText:Use")
+		endif
+	endif
+	if (avatarChosenImage > 0)
+		do
+		    OryUIInsertEditAvatarScreenListener(editAvatarScreen)
+			if (OryUIGetEditAvatarCancelButtonReleased(editAvatarScreen))
+				avatarChosenImage = 0
+				exit
+			endif
+			if (OryUIGetFinalAvatar(editAvatarScreen) > 0)
+				SetSpriteImage(sprAvatar, OryUIGetFinalAvatar(editAvatarScreen))
+				avatarChosenImage = 0
+				exit
+			endif
+			
+			OryUISync()
+		loop
+	endif
+	
+	OryUISync()
+loop
