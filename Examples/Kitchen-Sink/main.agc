@@ -111,7 +111,7 @@ do
 			DialogScreen(tabSelected[screen])
 		endcase
 		case constEditAvatarScreen
-			EditAvatarScreen()
+			EditAvatarScreen(tabSelected[screen])
 		endcase
 		case constFloatingActionButtonScreen
 			FloatingActionButtonScreen(tabSelected[screen])

@@ -1,3 +1,14 @@
+VERSION 0.15a
+------------------------
+- OryUI
+	- Added the following options to parameter offset: topLeft, topCenter, topRight, centerLeft (also accepts middleLeft), centerRight (also accepts middleRight), bottomLeft, bottomCenter, bottomRight
+	- Fixed a bug where all options like: left, center, and right were case sensitive.
+
+- OryUIEditAvatarScreen
+	- Stopped working in a previous version. Working again now.
+
+
+
 VERSION 0.14a
 ------------------------
 - All files

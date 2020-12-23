@@ -110,6 +110,11 @@ function FloatingActionButtonScreenPreviewTab()
 			OryUIShowTooltip(tooltip, GetViewOffsetX() + 50, GetViewOffsetY() + 90)
 		endif
 		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			screen = constHomeScreen
+		endif
+		
 		// Change Screen/Tab?
 		if (screen <> thisScreen or tabSelected[thisScreen] <> thisTab) then exit
 		
@@ -174,6 +179,11 @@ function FloatingActionButtonScreenCodeTab()
 
 		if (OryUIGetFloatingActionButtonReleased(fabShare))
 			ShareCode("FloatingActionButtonScreen.txt")
+		endif
+		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			tabSelected[thisScreen] = 1
 		endif
 		
 		// Change Screen/Tab?

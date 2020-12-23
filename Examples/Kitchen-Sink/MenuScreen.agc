@@ -141,6 +141,11 @@ function MenuScreenPreviewTab()
 			endif
 		next
 		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			screen = constHomeScreen
+		endif
+		
 		// Change Screen/Tab?
 		if (screen <> thisScreen or tabSelected[thisScreen] <> thisTab) then exit
 		
@@ -203,6 +208,11 @@ function MenuScreenCodeTab()
 
 		if (OryUIGetFloatingActionButtonReleased(fabShare))
 			ShareCode("MenuScreen.txt")
+		endif
+		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			tabSelected[thisScreen] = 1
 		endif
 		
 		// Change Screen/Tab?
