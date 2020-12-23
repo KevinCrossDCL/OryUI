@@ -47,7 +47,7 @@ function HomeScreen()
 		
 		// ScrollToTop listeners need to be added to the top of the do loop. Adding it to the bottom causes the screen to flicker when pressed.
 		OryUIInsertScrollToTopListener(scrollToTop)	
-			
+		
 		OryUIInsertTopBarListener(topBar)
 		if (OryUIGetTopBarNavigationReleasedName(topBar) = "Menu")
 			OryUIShowNavigationDrawer(mainMenu)
@@ -59,6 +59,11 @@ function HomeScreen()
 		endif
 		if (OryUIGetButtonReleased(buttonAGKURL))
 			OpenBrowser("https://appgamekit.com")
+		endif
+		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			MinimizeApp()
 		endif
 		
 		// Change Screen?

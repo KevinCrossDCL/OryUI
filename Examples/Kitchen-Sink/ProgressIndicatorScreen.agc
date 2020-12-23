@@ -80,6 +80,11 @@ function ProgressIndicatorScreenPreviewTab()
 		OryUIUpdateText(txtLabel[1], "text:Determinate (" + str(progress#, 0) + "%)[colon]")
 		OryUISetProgressIndicatorPercentage(progressIndicator[1], progress#)
     
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			screen = constHomeScreen
+		endif
+		
 		// Change Screen/Tab?
 		if (screen <> thisScreen or tabSelected[thisScreen] <> thisTab) then exit
 		
@@ -141,6 +146,11 @@ function ProgressIndicatorScreenCodeTab()
 
 		if (OryUIGetFloatingActionButtonReleased(fabShare))
 			ShareCode("ProgressIndicatorScreen.txt")
+		endif
+		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			tabSelected[thisScreen] = 1
 		endif
 		
 		// Change Screen/Tab?

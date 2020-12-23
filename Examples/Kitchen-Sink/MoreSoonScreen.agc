@@ -52,7 +52,6 @@ function MoreSoonScreen()
 	textCard[14] = OryUICreateTextCard("width:94;headerText:OryUITopBar;supportingText:OryUITopBar can be found on every screen in this app. In this app I've chosen to add the menu to all screens for convenient but you can have other buttons in its place, like the back button to go back to the previous screen. Top bars also allow for action buttons to be added to the top right of the top bar. You'll see a demo of this on the OryUIMenu screen in this app.;position:3," + str(contentHeight#) + ";autoHeight:true;depth:20")
 	contentHeight# = contentHeight# + OryUIGetTextCardHeight(textCard[14]) + 50
 
-	
 	startScrollBarY# as float : startScrollBarY# = OryUIGetTopBarHeight(topBar) + 1
 	trackBarHeight# as float : trackBarHeight# = 100 - startScrollBarY# - 1
 	scrollBar as integer : scrollBar = OryUICreateScrollBar("alwaysVisible:false;autoResize:false;contentSize:100," + str(contentHeight#) + ";direction:vertical;draggable:true;gripColor:52,73,94;gripIconColor:255,255,255;gripIconSize:4,5;gripSize:4.5,5;invisibleGripSize:8.5,7;scrollType:fastscroll;showGripIcon:true;trackColor:0,0,0;trackPosition:93," + str(startScrollBarY#) + ";trackSize:4.5," + str(trackBarHeight#))
@@ -79,6 +78,11 @@ function MoreSoonScreen()
 		endif
 		ProcessMainMenu()
 
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			screen = constHomeScreen
+		endif
+		
 		// Change Screen?
 		if (screen <> constMoreSoonScreen) then exit
 		

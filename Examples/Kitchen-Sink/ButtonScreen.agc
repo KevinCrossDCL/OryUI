@@ -97,6 +97,11 @@ function ButtonScreenPreviewTab()
 			endif
 		next
 		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			screen = constHomeScreen
+		endif
+		
 		// Change Screen/Tab?
 		if (screen <> thisScreen or tabSelected[thisScreen] <> thisTab) then exit
 		
@@ -157,6 +162,11 @@ function ButtonScreenCodeTab()
 
 		if (OryUIGetFloatingActionButtonReleased(fabShare))
 			ShareCode("ButtonScreen.txt")
+		endif
+		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			tabSelected[thisScreen] = 1
 		endif
 		
 		// Change Screen/Tab?

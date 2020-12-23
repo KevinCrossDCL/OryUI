@@ -424,7 +424,15 @@ type typeOryUIParameters
 	noOfPages as integer
 	noOfRightLines as integer
 	offset# as float[2]
+	offsetBottomCenter as integer
+	offsetBottomLeft as integer
+	offsetBottomRight as integer
 	offsetCenter as integer
+	offsetCenterLeft as integer
+	offsetCenterRight as integer
+	offsetTopCenter as integer
+	offsetTopLeft as integer
+	offsetTopRight as integer
 	placeholderText$ as string
 	placement$ as string
 	placementOffset# as float[2]
@@ -968,7 +976,15 @@ function OryUIResetParametersType()
 	oryUIParameters.noOfLeftLines = -999999
 	oryUIParameters.noOfPages = -999999
 	oryUIParameters.noOfRightLines = -999999
+	oryUIParameters.offsetBottomCenter = -999999
+	oryUIParameters.offsetBottomLeft = -999999
+	oryUIParameters.offsetBottomRight = -999999
 	oryUIParameters.offsetCenter = -999999
+	oryUIParameters.offsetCenterLeft = -999999
+	oryUIParameters.offsetCenterRight = -999999
+	oryUIParameters.offsetTopCenter = -999999
+	oryUIParameters.offsetTopLeft = -999999
+	oryUIParameters.offsetTopRight = -999999
 	oryUIParameters.placeholderText$ = ""
 	oryUIParameters.placement$ = ""
 	oryUIParameters.postData$ = ""
@@ -1191,11 +1207,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "addtofront")
 			oryUIParameters.addToFront = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "alignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.alignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.alignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.alignment = 2
 			endif
 		elseif (oryUIVariable$ = "alpha")
@@ -1272,11 +1288,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "disabledtext")
 			oryUIParameters.disabledText$ = oryUIValue$
 		elseif (oryUIVariable$ = "disabledtextalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.disabledTextAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.disabledTextAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.disabledTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "disabledtextbold")
@@ -1292,11 +1308,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "draggable")
 			oryUIParameters.draggable = OryUIConvertBoolean(oryUIValue$)
 		elseif (oryUIVariable$ = "drawerlocation")
-			if (oryUIValue$ = "bottom")
+			if (lower(oryUIValue$) = "bottom")
 				oryUIParameters.drawerLocation$ = "Bottom"
-			elseif (oryUIValue$ = "left")
+			elseif (lower(oryUIValue$) = "left")
 				oryUIParameters.drawerLocation$ = "Left"
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.drawerLocation$ = "Right"
 			endif
 		elseif (oryUIVariable$ = "drawertype")
@@ -1320,11 +1336,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "enabledtext")
 			oryUIParameters.enabledText$ = oryUIValue$
 		elseif (oryUIVariable$ = "enabledtextalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.enabledTextAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.enabledTextAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.enabledTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "enabledtextbold")
@@ -1372,11 +1388,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "headertext")
 			oryUIParameters.headerText$ = oryUIValue$
 		elseif (oryUIVariable$ = "headertextalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.headerTextAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.headerTextAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.headerTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "headertextbold")
@@ -1542,8 +1558,24 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "noofrightlines")
 			oryUIParameters.noOfRightLines = val(oryUIValue$)	
 		elseif (oryUIVariable$ = "offset")
-			if (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			if (lower(oryUIValue$) = "topleft")
+				oryUIParameters.offsetTopLeft = 1
+			elseif (lower(oryUIValue$) = "topcenter" or lower(oryUIValue$) = "topcentre")
+				oryUIParameters.offsetTopCenter = 1
+			elseif (lower(oryUIValue$) = "topright")
+				oryUIParameters.offsetTopRight = 1
+			elseif (lower(oryUIValue$) = "centerleft" or lower(oryUIValue$) = "centreleft" or lower(oryUIValue$) = "middleleft")
+				oryUIParameters.offsetCenterLeft = 1
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre" or lower(oryUIValue$) = "middle")
 				oryUIParameters.offsetCenter = 1
+			elseif (lower(oryUIValue$) = "centerright" or lower(oryUIValue$) = "centreright" or lower(oryUIValue$) = "middleright")
+				oryUIParameters.offsetCenterRight = 1
+			elseif (lower(oryUIValue$) = "bottomleft")
+				oryUIParameters.offsetBottomLeft = 1
+			elseif (lower(oryUIValue$) = "bottomcenter" or lower(oryUIValue$) = "bottomcentre")
+				oryUIParameters.offsetBottomCenter = 1
+			elseif (lower(oryUIValue$) = "bottomright")
+				oryUIParameters.offsetBottomRight = 1
 			else
 				oryUIParameters.offset#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 				oryUIParameters.offset#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -1665,11 +1697,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "subtitletext")
 			oryUIParameters.subtitleText$ = oryUIValue$
 		elseif (oryUIVariable$ = "subtitletextalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.subtitleTextAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.subtitleTextAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.subtitleTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "subtitletextbold")
@@ -1691,11 +1723,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "supportingtext")
 			oryUIParameters.supportingText$ = oryUIValue$
 		elseif (oryUIVariable$ = "supportingtextalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.supportingTextAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.supportingTextAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.supportingTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "supportingtextbold")
@@ -1707,11 +1739,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "text")
 			oryUIParameters.text$ = oryUIValue$
 		elseif (oryUIVariable$ = "textalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.textAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.textAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.textAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "textbold")
@@ -1725,11 +1757,11 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "titletext")
 			oryUIParameters.titleText$ = oryUIValue$
 		elseif (oryUIVariable$ = "titletextalignment")
-			if (oryUIValue$ = "left")
+			if (lower(oryUIValue$) = "left")
 				oryUIParameters.titleTextAlignment = 0
-			elseif (oryUIValue$ = "center" or oryUIValue$ = "centre")
+			elseif (lower(oryUIValue$) = "center" or lower(oryUIValue$) = "centre")
 				oryUIParameters.titleTextAlignment = 1
-			elseif (oryUIValue$ = "right")
+			elseif (lower(oryUIValue$) = "right")
 				oryUIParameters.titleTextAlignment = 2
 			endif
 		elseif (oryUIVariable$ = "titletextbold")

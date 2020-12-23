@@ -47,6 +47,11 @@ function IconsScreen()
 			OpenBrowser("https://material.io/resources/icons/?style=baseline")
 		endif
 		
+		// Device OS back button pressed
+		if (GetRawKeyPressed(27))
+			screen = constHomeScreen
+		endif
+		
 		// Change Screen/Tab?
 		if (screen <> thisScreen) then exit
 		

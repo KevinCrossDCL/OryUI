@@ -13,6 +13,10 @@ function OryUICreateSprite(oryUIWidgetParameters$ as string)
 	if (oryUIWidgetParameters$ <> "") then OryUIUpdateSprite(oryUISpriteID, oryUIWidgetParameters$)
 endfunction oryUISpriteID
 
+function OryUIPinSpriteToBottomCenterOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
+	OryUIPinSpriteToBottomCentreOfSprite(oryUISpriteA, oryUISpriteB, oryUIOffsetX#, oryUIOffsetY#)
+endfunction
+
 function OryUIPinSpriteToBottomCentreOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
 	if (GetSpriteExists(oryUISpriteA) and GetSpriteExists(oryUISpriteB))
 		SetSpritePositionByOffset(oryUISpriteA, GetSpriteX(oryUISpriteB) + (GetSpriteWidth(oryUISpriteB) / 2), GetSpriteY(oryUISpriteB) + GetSpriteHeight(oryUISpriteB) - oryUIOffsetY#)
@@ -29,6 +33,20 @@ function OryUIPinSpriteToBottomRightOfSprite(oryUISpriteA as integer, oryUISprit
 	if (GetSpriteExists(oryUISpriteA) and GetSpriteExists(oryUISpriteB))
 		SetSpritePositionByOffset(oryUISpriteA, (GetSpriteX(oryUISpriteB) + GetSpriteWidth(oryUISpriteB)) - (GetSpriteWidth(oryUISpriteA) + oryUIOffsetX#), (GetSpriteY(oryUISpriteB) + GetSpriteHeight(oryUISpriteB)) - (GetSpriteHeight(oryUISpriteA) + oryUIOffsetY#))
 	endif
+endfunction
+
+
+
+function OryUIPinSpriteToCenterLeftOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
+	OryUIPinSpriteToCentreLeftOfSprite(oryUISpriteA, oryUISpriteB, oryUIOffsetX#, oryUIOffsetY#)
+endfunction
+
+function OryUIPinSpriteToCenterOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
+	OryUIPinSpriteToCentreOfSprite(oryUISpriteA, oryUISpriteB, oryUIOffsetX#, oryUIOffsetY#)
+endfunction
+
+function OryUIPinSpriteToCenterRightOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
+	OryUIPinSpriteToCentreRightOfSprite(oryUISpriteA, oryUISpriteB, oryUIOffsetX#, oryUIOffsetY#)
 endfunction
 
 function OryUIPinSpriteToCentreLeftOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
@@ -49,16 +67,20 @@ function OryUIPinSpriteToCentreRightOfSprite(oryUISpriteA as integer, oryUISprit
 	endif
 endfunction
 
-function OryUIPinSpriteToCentreTopOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
-	if (GetSpriteExists(oryUISpriteA) and GetSpriteExists(oryUISpriteB))
-		SetSpritePositionByOffset(oryUISpriteA, GetSpriteX(oryUISpriteB) + (GetSpriteWidth(oryUISpriteB) / 2), GetSpriteY(oryUISpriteB) + oryUIOffsetY#)
-	endif
-endfunction
+//function OryUIPinSpriteToCentreTopOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
+//	if (GetSpriteExists(oryUISpriteA) and GetSpriteExists(oryUISpriteB))
+//		SetSpritePositionByOffset(oryUISpriteA, GetSpriteX(oryUISpriteB) + (GetSpriteWidth(oryUISpriteB) / 2), GetSpriteY(oryUISpriteB) + oryUIOffsetY#)
+//	endif
+//endfunction
 
 function OryUIPinSpriteToSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
 	if (GetSpriteExists(oryUISpriteA) and GetSpriteExists(oryUISpriteB))
 		SetSpritePositionByOffset(oryUISpriteA, GetSpriteX(oryUISpriteB) + oryUIOffsetX#, GetSpriteY(oryUISpriteB) + oryUIOffsetY#)
 	endif
+endfunction
+
+function OryUIPinSpriteToTopCenterOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
+	OryUIPinSpriteToTopCentreOfSprite(oryUISpriteA, oryUISpriteB, oryUIOffsetX#, oryUIOffsetY#)
 endfunction
 
 function OryUIPinSpriteToTopCentreOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
@@ -111,8 +133,25 @@ function OryUIUpdateSprite(oryUISpriteID as integer, oryUIWidgetParameters$ as s
 		if (oryUIParameters.imageID > 0)
 			SetSpriteImage(oryUISpriteID, oryUIParameters.imageID)
 		endif
-		if (oryUIParameters.offsetCenter = 1)
-			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID) / 2, GetSpriteHeight(oryUISpriteID) / 2)
+
+		if (oryUIParameters.offsetTopLeft = 1)
+			SetSpriteOffset(oryUISpriteID, 0, 0)
+		elseif (oryUIParameters.offsetTopCenter = 1)
+			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID) / 2.0, 0)
+		elseif (oryUIParameters.offsetTopRight = 1)
+			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID), 0)
+		elseif (oryUIParameters.offsetCenterLeft = 1)
+			SetSpriteOffset(oryUISpriteID, 0, GetSpriteHeight(oryUISpriteID) / 2.0)
+		elseif (oryUIParameters.offsetCenter = 1)
+			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID) / 2.0, GetSpriteHeight(oryUISpriteID) / 2.0)
+		elseif (oryUIParameters.offsetCenterRight = 1)
+			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID), GetSpriteHeight(oryUISpriteID) / 2.0)
+		elseif (oryUIParameters.offsetBottomLeft = 1)
+			SetSpriteOffset(oryUISpriteID, 0, GetSpriteHeight(oryUISpriteID))
+		elseif (oryUIParameters.offsetBottomCenter = 1)
+			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID) / 2.0, GetSpriteHeight(oryUISpriteID))
+		elseif (oryUIParameters.offsetBottomRight = 1)
+			SetSpriteOffset(oryUISpriteID, GetSpriteWidth(oryUISpriteID), GetSpriteHeight(oryUISpriteID))
 		else
 			if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
 				SetSpriteOffset(oryUISpriteID, oryUIParameters.offset#[1], oryUIParameters.offset#[2])

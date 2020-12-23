@@ -3,7 +3,7 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 11)
+	OryUISetNavigationDrawerItemCount(mainMenu, 12)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
 	inc mainMenuItemCount
@@ -18,8 +18,8 @@ function BuildMainMenu()
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIButtonGroup;itemType:option;text:OryUIButtonGroup;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIDialog;itemType:option;text:OryUIDialog;textSize:2.6;rightText:;")
-//~	inc mainMenuItemCount
-//~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIEditAvatarScreen;itemType:option;text:OryUIEditAvatarScreen;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIEditAvatarScreen;itemType:option;text:OryUIEditAvatarScreen;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIFloatingActionButton;itemType:option;text:OryUIFloatingActionButton;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
@@ -75,6 +75,10 @@ function ProcessMainMenu()
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIDialog"))
 		tabSelected[screen] = 1
 		screen = constDialogScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIEditAvatarScreen"))
+		tabSelected[screen] = 1
+		screen = constEditAvatarScreen
 	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIFloatingActionButton"))
 		tabSelected[screen] = 1
