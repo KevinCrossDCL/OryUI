@@ -1,5 +1,5 @@
 
-foldstart // OryUIHTTPSQueue Widget (Updated 07/07/2020)
+foldstart // OryUIHTTPSQueue Widget
 
 type typeOryUIHTTPSQueue
 	id as integer

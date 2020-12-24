@@ -486,6 +486,35 @@ oryUIDefaults.scrollToTopWidth# = -1
 
 foldend
 
+foldstart // Default Settings for OryUISwitch
+
+// TRACK
+oryUIDefaults.switchTrackCheckedColor#[1] = 156
+oryUIDefaults.switchTrackCheckedColor#[2] = 119
+oryUIDefaults.switchTrackCheckedColor#[3] = 227
+oryUIDefaults.switchTrackCheckedColor#[4] = 255
+oryUIDefaults.switchTrackDepth = 100
+oryUIDefaults.switchTrackHeight# = 2
+oryUIDefaults.switchTrackUncheckedColor#[1] = 155
+oryUIDefaults.switchTrackUncheckedColor#[2] = 155
+oryUIDefaults.switchTrackUncheckedColor#[3] = 155
+oryUIDefaults.switchTrackUncheckedColor#[4] = 155
+oryUIDefaults.switchTrackWidth# = 12
+
+// SWITCH
+oryUIDefaults.switchCheckedColor#[1] = 87
+oryUIDefaults.switchCheckedColor#[2] = 37
+oryUIDefaults.switchCheckedColor#[3] = 229
+oryUIDefaults.switchCheckedColor#[4] = 255
+oryUIDefaults.switchHeight# = 3
+oryUIDefaults.switchUncheckedColor#[1] = 150
+oryUIDefaults.switchUncheckedColor#[2] = 150
+oryUIDefaults.switchUncheckedColor#[3] = 150
+oryUIDefaults.switchUncheckedColor#[4] = 255
+oryUIDefaults.switchWidth# = -1
+
+foldend
+
 foldstart // Default Settings for OryUITemplate
 
 // MAIN

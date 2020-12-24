@@ -27,6 +27,7 @@ UseNewDefaultFonts(1)
 #insert "OryUIScrollBar.agc"
 #insert "OryUIScrollToTop.agc"
 #insert "OryUISprite.agc"
+#insert "OryUISwitch.agc"
 #insert "OryUITabs.agc"
 #insert "OryUIText.agc"
 #insert "OryUITextCard.agc"

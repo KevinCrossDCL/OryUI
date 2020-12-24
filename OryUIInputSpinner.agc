@@ -1,5 +1,5 @@
 
-foldstart // OryUIInputSpinner Widget (Updated 07/07/2020)
+foldstart // OryUIInputSpinner Widget
 
 type typeOryUIInputSpinner
 	id as integer
@@ -449,6 +449,29 @@ function OryUIUpdateInputSpinner(oryUIInputSpinnerID as integer, oryUIWidgetPara
 			SetSpriteSize(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, oryUIParameters.size#[1] - GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer) - GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].buttons[1].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
 			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover) / 2, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover) / 2)
 			oryUIRepositionInputSpinnerButtons = 1
+		endif
+		if (oryUIParameters.offsetTopLeft = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, 0, 0)
+		elseif (oryUIParameters.offsetTopCenter = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) / 2.0, 0)
+		elseif (oryUIParameters.offsetTopRight = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer), 0)
+		elseif (oryUIParameters.offsetCenterLeft = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, 0, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) / 2.0)
+		elseif (oryUIParameters.offsetCenter = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) / 2.0, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) / 2.0)
+		elseif (oryUIParameters.offsetCenterRight = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) / 2.0)
+		elseif (oryUIParameters.offsetBottomLeft = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, 0, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+		elseif (oryUIParameters.offsetBottomCenter = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer) / 2.0, GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+		elseif (oryUIParameters.offsetBottomRight = 1)
+			SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, GetSpriteWidth(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer), GetSpriteHeight(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer))
+		else
+			if (oryUIParameters.offset#[1] > -999999 or oryUIParameters.offset#[2] > -999999)
+				SetSpriteOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.offset#[1], oryUIParameters.offset#[2])
+			endif
 		endif
 		if (oryUIParameters.position#[1] > -999999 or oryUIParameters.position#[2] > -999999)
 			SetSpritePositionByOffset(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprContainer, oryUIParameters.position#[1], oryUIParameters.position#[2])

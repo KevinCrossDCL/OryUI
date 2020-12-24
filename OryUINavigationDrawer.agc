@@ -1,5 +1,5 @@
 
-foldstart // OryUINavigationDrawer Widget (Updated 07/07/2020)
+foldstart // OryUINavigationDrawer Widget
 
 type typeOryUINavigationDrawer
 	id as integer

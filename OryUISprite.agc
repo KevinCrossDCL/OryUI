@@ -1,5 +1,5 @@
 
-foldstart // OryUISprite (Updated 07/07/2020)
+foldstart // OryUISprite
 
 function OryUICreateSprite(oryUIWidgetParameters$ as string)
 	local oryUISpriteID as integer
@@ -34,8 +34,6 @@ function OryUIPinSpriteToBottomRightOfSprite(oryUISpriteA as integer, oryUISprit
 		SetSpritePositionByOffset(oryUISpriteA, (GetSpriteX(oryUISpriteB) + GetSpriteWidth(oryUISpriteB)) - (GetSpriteWidth(oryUISpriteA) + oryUIOffsetX#), (GetSpriteY(oryUISpriteB) + GetSpriteHeight(oryUISpriteB)) - (GetSpriteHeight(oryUISpriteA) + oryUIOffsetY#))
 	endif
 endfunction
-
-
 
 function OryUIPinSpriteToCenterLeftOfSprite(oryUISpriteA as integer, oryUISpriteB as integer, oryUIOffsetX# as float, oryUIOffsetY# as float)
 	OryUIPinSpriteToCentreLeftOfSprite(oryUISpriteA, oryUISpriteB, oryUIOffsetX#, oryUIOffsetY#)

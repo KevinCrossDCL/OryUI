@@ -7,7 +7,7 @@
  * 	License	: MIT
  */
  
-// OryUI (Updated 07/07/2020)
+// OryUI
 
 foldstart
 
@@ -241,6 +241,18 @@ type typeOryUIDefaults
 	scrollToTopStartY# as float
 	scrollToTopWidth# as float
 
+	// OryUISwitch
+	switchCheckedColor# as float[4]
+	switchDepth as integer
+	switchHeight# as float
+	switchTrackCheckedColor# as float[4]
+	switchTrackDepth as integer
+	switchTrackHeight# as float
+	switchTrackUncheckedColor# as float[4]
+	switchTrackWidth# as float
+	switchUncheckedColor# as float[4]
+	switchWidth# as float
+
 	// OryUITemplate
 	templateColor# as float[4]
 	templateDepth as integer
@@ -299,6 +311,7 @@ type typeOryUIParameters
 	checkboxTextBold as integer
 	checkboxTextColor# as float[4]
 	checkboxTextSize# as float
+	checkedColor# as float[4]
 	checkedImageID as integer
 	color# as float[4]
 	contentSize# as float[2]
@@ -436,6 +449,7 @@ type typeOryUIParameters
 	placeholderText$ as string
 	placement$ as string
 	placementOffset# as float[2]
+	platformStyle$ as string
 	position# as float[2]
 	postData$ as string
 	progressType$ as string
@@ -488,6 +502,7 @@ type typeOryUIParameters
 	step# as float
 	stickUntilComplete as integer
 	strokeColor# as float[4]
+	style$ as string
 	subtitleText$ as string
 	subtitleTextAlignment as integer
 	subtitleTextBold as integer
@@ -502,6 +517,12 @@ type typeOryUIParameters
 	supportingTextBold as integer
 	supportingTextColor# as float[4]
 	supportingTextSize# as float
+	switchCheckedColor# as float[4]
+	switchCheckedImageID as integer
+	switchImageID as integer
+	switchUncheckedColor# as float[4]
+	switchUncheckedImageID as integer
+	switchSize# as float[2]
 	text$ as string
 	textAlignment as integer
 	textBold as integer
@@ -513,11 +534,17 @@ type typeOryUIParameters
 	titleTextBold as integer
 	titleTextColor# as float[4]
 	titleTextSize# as float
+	trackCheckedColor# as float[4]
+	trackCheckedImageID as integer
 	trackColor# as float[4]
+	trackImageID as integer
 	trackPosition# as float[2]
 	trackSize# as float[2]
+	trackUncheckedColor# as float[4]
+	trackUncheckedImageID as integer
 	trailingIcon$ as string
 	trailingIconID as integer
+	uncheckedColor# as float[4]
 	uncheckedImageID as integer
 	unselectedColor# as float[4]
 	unselectedIconColor# as float[4]
@@ -723,6 +750,9 @@ function OryUICreateWidget(oryUIWidgetParameters$)
 		case "sprite"
 			oryUIWidget = OryUICreateSprite(oryUIWidgetParameters$)
 		endcase
+		case "switch"
+			oryUIWidget = OryUICreateSwitch(oryUIWidgetParameters$)
+		endcase
 		case "tabs"
 			oryUIWidget = OryUICreateTabs(oryUIWidgetParameters$)
 		endcase
@@ -790,6 +820,9 @@ function OryUIDeleteAllWidgets()
 			endcase
 			case "Sprite"
 				DeleteSprite(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Switch"
+				OryUIDeleteSwitch(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Tabs"
 				OryUIDeleteTabs(oryUICreatedWidgets[oryUIForI].id)
@@ -987,6 +1020,7 @@ function OryUIResetParametersType()
 	oryUIParameters.offsetTopRight = -999999
 	oryUIParameters.placeholderText$ = ""
 	oryUIParameters.placement$ = ""
+	oryUIParameters.platformStyle$ = ""
 	oryUIParameters.postData$ = ""
 	oryUIParameters.progressType$ = ""
 	oryUIParameters.rightIcon$ = ""
@@ -1027,6 +1061,7 @@ function OryUIResetParametersType()
 	oryUIParameters.startY# = -999999
 	oryUIParameters.step# = -999999
 	oryUIParameters.stickUntilComplete = -999999
+	oryUIParameters.style$ = ""
 	oryUIParameters.subtitleText$ = ""
 	oryUIParameters.subtitleTextAlignment = -999999
 	oryUIParameters.subtitleTextBold = -999999
@@ -1037,6 +1072,9 @@ function OryUIResetParametersType()
 	oryUIParameters.supportingTextAlignment = -999999
 	oryUIParameters.supportingTextBold = -999999
 	oryUIParameters.supportingTextSize# = -999999
+	oryUIParameters.switchCheckedImageID = -999999
+	oryUIParameters.switchImageID = -999999
+	oryUIParameters.switchUncheckedImageID = -999999
 	oryUIParameters.text$ = ""
 	oryUIParameters.textAlignment = -999999
 	oryUIParameters.textBold = -999999
@@ -1046,6 +1084,9 @@ function OryUIResetParametersType()
 	oryUIParameters.titleTextAlignment = -999999
 	oryUIParameters.titleTextBold = -999999
 	oryUIParameters.titleTextSize# = -999999
+	oryUIParameters.trackCheckedImageID = -999999
+	oryUIParameters.trackImageID = -999999
+	oryUIParameters.trackUncheckedImageID = -999999
 	oryUIParameters.trailingIcon$ = ""
 	oryUIParameters.trailingIconID = -999999
 	oryUIParameters.uncheckedImageID = -999999
@@ -1077,6 +1118,8 @@ function OryUIResetParametersType()
 			oryUIParameters.position#[oryUIForI] = -999999
 			oryUIParameters.size#[oryUIForI] = -999999
 			oryUIParameters.subtractIconSize#[oryUIForI] = -999999
+			oryUIParameters.switchSize#[oryUIForI] = -999999
+			oryUIParameters.trackSize#[oryUIForI] = -999999
 		endif
 		oryUIParameters.activeButtonColor#[oryUIForI] = -999999
 		oryUIParameters.activeColor#[oryUIForI] = -999999
@@ -1085,6 +1128,7 @@ function OryUIResetParametersType()
 		oryUIParameters.backgroundColor#[oryUIForI] = -999999
 		oryUIParameters.checkboxColor#[oryUIForI] = -999999
 		oryUIParameters.checkboxTextColor#[oryUIForI] = -999999
+		oryUIParameters.checkedColor#[oryUIForI] = -999999
 		oryUIParameters.color#[oryUIForI] = -999999
 		oryUIParameters.disabledColor#[oryUIForI] = -999999
 		oryUIParameters.disabledIconColor#[oryUIForI] = -999999
@@ -1119,9 +1163,14 @@ function OryUIResetParametersType()
 		oryUIParameters.subtitleTextColor#[oryUIForI] = -999999
 		oryUIParameters.subtractIconColor#[oryUIForI] = -999999
 		oryUIParameters.supportingTextColor#[oryUIForI] = -999999
+		oryUIParameters.switchCheckedColor#[oryUIForI] = -999999
+		oryUIParameters.switchUncheckedColor#[oryUIForI] = -999999
 		oryUIParameters.textColor#[oryUIForI] = -999999
 		oryUIParameters.titleTextColor#[oryUIForI] = -999999
+		oryUIParameters.trackCheckedColor#[oryUIForI] = -999999
 		oryUIParameters.trackColor#[oryUIForI] = -999999
+		oryUIParameters.trackUncheckedColor#[oryUIForI] = -999999
+		oryUIParameters.uncheckedColor#[oryUIForI] = -999999
 		oryUIParameters.unselectedColor#[oryUIForI] = -999999
 		oryUIParameters.unselectedIconColor#[oryUIForI] = -999999
 		oryUIParameters.unselectedTextColor#[oryUIForI] = -999999
@@ -1250,6 +1299,8 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 			oryUIParameters.checkboxTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "checkboxtextsize")
 			oryUIParameters.checkboxTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "checkedcolor" or oryUIVariable$ = "checkedcolorid")
+			oryUIParameters.checkedColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "checkedimageid")
 			oryUIParameters.checkedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "color" or oryUIVariable$ = "colorid")
@@ -1587,6 +1638,8 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 		elseif (oryUIVariable$ = "placementoffset")
 			oryUIParameters.placementOffset#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.placementOffset#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "platformstyle")
+			oryUIParameters.platformStyle$ = oryUIValue$
 		elseif (oryUIVariable$ = "position")
 			oryUIParameters.position#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.position#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
@@ -1694,6 +1747,8 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 			oryUIParameters.text$ = oryUIValue$
 		elseif (oryUIVariable$ = "strokecolor" or oryUIVariable$ = "strokecolorid")
 			oryUIParameters.strokeColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "style")
+			oryUIParameters.style$ = oryUIValue$
 		elseif (oryUIVariable$ = "subtitletext")
 			oryUIParameters.subtitleText$ = oryUIValue$
 		elseif (oryUIVariable$ = "subtitletextalignment")
@@ -1736,6 +1791,19 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 			oryUIParameters.supportingTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "supportingtextsize")
 			oryUIParameters.supportingTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "switchcheckedcolor" or oryUIVariable$ = "switchcheckedcolorid")
+			oryUIParameters.switchCheckedColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "switchcheckedimage")
+			oryUIParameters.switchCheckedImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "switchimage")
+			oryUIParameters.switchImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "switchuncheckedimage")
+			oryUIParameters.switchUncheckedImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "switchsize")
+			oryUIParameters.switchSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
+			oryUIParameters.switchSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "switchuncheckedcolor" or oryUIVariable$ = "switchuncheckedcolorid")
+			oryUIParameters.switchUncheckedColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "text")
 			oryUIParameters.text$ = oryUIValue$
 		elseif (oryUIVariable$ = "textalignment")
@@ -1770,17 +1838,29 @@ function OryUISetParametersType(oryUIWidgetParameters$ as string)
 			oryUIParameters.titleTextColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "titletextsize")
 			oryUIParameters.titleTextSize# = valFloat(oryUIValue$)
+		elseif (oryUIVariable$ = "trackcheckedcolor" or oryUIVariable$ = "trackcheckedcolorid")
+			oryUIParameters.trackCheckedColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "trackcolor" or oryUIVariable$ = "trackcolorid")
 			oryUIParameters.trackColor# = OryUIConvertColor(oryUIValue$)
+		elseif (oryUIVariable$ = "trackcheckedimage")
+			oryUIParameters.trackCheckedImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "trackimage")
+			oryUIParameters.trackImageID = val(oryUIValue$)
+		elseif (oryUIVariable$ = "trackuncheckedimage")
+			oryUIParameters.trackUncheckedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "trackposition")
 			oryUIParameters.trackPosition#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.trackPosition#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
 		elseif (oryUIVariable$ = "tracksize")
 			oryUIParameters.trackSize#[1] = valFloat(GetStringToken(oryUIValue$, ",", 1))
 			oryUIParameters.trackSize#[2] = valFloat(GetStringToken(oryUIValue$, ",", 2))
+		elseif (oryUIVariable$ = "trackuncheckedcolor" or oryUIVariable$ = "trackuncheckedcolorid")
+			oryUIParameters.trackUncheckedColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "trailingicon")
 			oryUIParameters.trailingIcon$ = oryUIValue$
 			oryUIParameters.trailingIconID = OryUIReturnIconID(oryUIValue$)
+		elseif (oryUIVariable$ = "uncheckedcolor" or oryUIVariable$ = "uncheckedcolorid")
+			oryUIParameters.uncheckedColor# = OryUIConvertColor(oryUIValue$)
 		elseif (oryUIVariable$ = "uncheckedimageid")
 			oryUIParameters.uncheckedImageID = val(oryUIValue$)
 		elseif (oryUIVariable$ = "unselectedcolor" or oryUIVariable$ = "unselectedcolorid")

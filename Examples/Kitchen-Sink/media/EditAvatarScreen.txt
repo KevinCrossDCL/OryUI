@@ -1,7 +1,7 @@
 defaultAvatarImage as integer : defaultAvatarImage = LoadImage("DefaultAvatar.png")
-sprAvatar as integer : sprAvatar = OryUICreateSprite("size:50,-1;image:" + str(defaultAvatarImage) + ";offset:topCenter;color:255,255,255,255;position:50," + str(contentHeight#))
+sprAvatar as integer : sprAvatar = OryUICreateSprite("size:50,-1;image:" + str(defaultAvatarImage) + ";offset:topCenter;color:255,255,255,255;position:50,10")
 avatarCircleFrameImage as integer : avatarCircleFrameImage = LoadImage("AvatarCircleFrame.png")
-sprAvatarFrame as integer : sprAvatarFrame = OryUICreateSprite("size:50,-1;image:" + str(avatarCircleFrameImage) + ";offset:topCenter;position:50," + str(contentHeight#))
+sprAvatarFrame as integer : sprAvatarFrame = OryUICreateSprite("size:50,-1;image:" + str(avatarCircleFrameImage) + ";offset:topCenter;position:50,10")
 fabChangeAvatar as integer : fabChangeAvatar = OryUICreateFloatingActionButton("icon:camera_alt;mini:true;shadow:false;color:50,50,50;attachToSpriteID:" + str(sprAvatar))
 OryUIShowFloatingActionButton(fabChangeAvatar)
 

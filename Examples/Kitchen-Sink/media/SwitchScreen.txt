@@ -1,0 +1,34 @@
+switch as integer[10]
+
+switch[1] = OryUICreateSwitch("position:50,10")
+
+switch[2] = OryUICreateSwitch("position:50,20;checkedColor:95,169,49;uncheckedColor:150,150,150")
+
+switch[3] = OryUICreateSwitch("position:50,30;switchCheckedColor:200,200,200;switchUncheckedColor:200,200,200;trackCheckedColor:137,188,105;trackUncheckedColor:222,110,62")
+
+switch[4] = OryUICreateSwitch("platformStyle:Android;position:50,40")
+
+switch[5] = OryUICreateSwitch("platformStyle:iOS;position:50,50")
+
+switch[6] = OryUICreateSwitch("platformStyle:Android;position:50,60;switchCheckedColor:231,197,211;switchUncheckedColor:227,227,227;trackCheckedColor:191,163,177;trackUncheckedColor:169,169,169")
+
+switch[7] = OryUICreateSwitch("platformStyle:iOS;position:50,70;switchCheckedColor:231,197,211;switchUncheckedColor:227,227,227;trackCheckedColor:191,163,177;trackUncheckedColor:169,169,169")
+
+switchOffImage = LoadImage("SwitchSwitchOff.png")
+switchOnImage = LoadImage("SwitchSwitchOn.png")
+trackOffImage = LoadImage("SwitchTrackOff.png")
+trackOnImage = LoadImage("SwitchTrackOn.png")
+switch[8] = OryUICreateSwitch("trackSize:24,6;switchSize:-1,7;position:50,80;switchCheckedImage:" + str(switchOnImage) + ";switchUncheckedImage:" + str(switchOffImage) + ";trackCheckedImage:" + str(trackOnImage) + ";trackUncheckedImage:" + str(trackOffImage))
+
+do
+	for i = 1 to 8
+		OryUIInsertSwitchListener(switch[i])
+		if (OryUIGetSwitchChecked(switch[i]))
+			print("Switch " + str(i) + " is checked")
+		else
+			print("Switch " + str(i) + " is unchecked")
+		endif
+	next
+	
+	OryUISync()
+loop

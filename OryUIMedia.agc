@@ -1,5 +1,5 @@
 
-foldstart // OryUIMedia (Updated 28/06/2020)
+foldstart // OryUIMedia
 
 global oryUIBottomShadowImage as integer : oryUIBottomShadowImage = LoadImage("OryUIMedia/Bottom-Shadow.png")
 global oryUICheckboxCheckedImage as integer : oryUICheckboxCheckedImage = LoadImage("OryUIMedia/Checkbox-Checked.png")
@@ -46,6 +46,10 @@ global oryUIScrollFastButtonImage as integer : oryUIScrollFastButtonImage = Load
 global oryUIScrollFastButtonIconImage as integer : oryUIScrollFastButtonIconImage = LoadImage("OryUIMedia/Scroll-Fast-Button-Icon.png")
 global oryUIScrollToTopButtonImage as integer : oryUIScrollToTopButtonImage = LoadImage("OryUIMedia/Scroll-To-Top-Button.png")
 global oryUIScrollToTopButtonShadowImage as integer : oryUIScrollToTopButtonShadowImage = LoadImage("OryUIMedia/Scroll-To-Top-Button-Shadow.png")
+global oryUISwitchSwitchAndroidImage as integer : oryUISwitchSwitchAndroidImage = LoadImage("OryUIMedia/Switch-Switch-Android.png")
+global oryUISwitchSwitchIOSImage as integer : oryUISwitchSwitchIOSImage = LoadImage("OryUIMedia/Switch-Switch-iOS.png")
+global oryUISwitchTrackAndroidImage as integer : oryUISwitchTrackAndroidImage = LoadImage("OryUIMedia/Switch-Track-Android.png")
+global oryUISwitchTrackIOSImage as integer : oryUISwitchTrackIOSImage = LoadImage("OryUIMedia/Switch-Track-iOS.png")
 global oryUITopBarShadowImage as integer : oryUITopBarShadowImage = LoadImage("OryUIMedia/Top-Bar-Shadow.png")
 global oryUITopShadowImage as integer : oryUITopShadowImage = LoadImage("OryUIMedia/Top-Shadow.png")
 

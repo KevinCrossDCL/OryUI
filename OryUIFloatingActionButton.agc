@@ -1,5 +1,5 @@
 
-foldstart // OryUIFloatingActionButton Widget (Updated 19/08/2019)
+foldstart // OryUIFloatingActionButton Widget
 
 type typeOryUIFloatingActionButton
 	id as integer

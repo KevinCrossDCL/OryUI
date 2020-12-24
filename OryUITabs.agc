@@ -1,5 +1,5 @@
 
-foldstart // OryUITabs Widget (Updated 07/07/2020)
+foldstart // OryUITabs Widget
 
 type typeOryUITabs
 	id as integer

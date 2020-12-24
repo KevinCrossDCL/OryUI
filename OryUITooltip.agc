@@ -1,5 +1,5 @@
 
-foldstart // OryUITooltip Widget (Updated 01/03/2020)
+foldstart // OryUITooltip Widget
 
 type typeOryUITooltip
 	id as integer

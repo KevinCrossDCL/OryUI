@@ -30,6 +30,7 @@ Sync()
 #insert "..\..\..\OryUI\OryUIScrollBar.agc"
 #insert "..\..\..\OryUI\OryUIScrollToTop.agc"
 #insert "..\..\..\OryUI\OryUISprite.agc"
+#insert "..\..\..\OryUI\OryUISwitch.agc"
 #insert "..\..\..\OryUI\OryUITabs.agc"
 #insert "..\..\..\OryUI\OryUIText.agc"
 #insert "..\..\..\OryUI\OryUITextCard.agc"
@@ -55,13 +56,14 @@ Sync()
 #constant constScrollBarScreen 14
 #constant constScrollToTopScreen 15
 #constant constSpriteScreen 16
-#constant constTabsScreen 17
-#constant constTextScreen 18
-#constant constTextCardScreen 19
-#constant constTooltipScreen 20
-#constant constTopBarScreen 21
-#constant constMoreSoonScreen 22
-#constant constAboutScreen 23
+#constant constSwitchScreen 17
+#constant constTabsScreen 18
+#constant constTextScreen 19
+#constant constTextCardScreen 20
+#constant constTooltipScreen 21
+#constant constTopBarScreen 22
+#constant constMoreSoonScreen 23
+#constant constAboutScreen 24
 
 #insert "MainMenu.agc"
 #insert "HomeScreen.agc"
@@ -80,6 +82,7 @@ Sync()
 #insert "ScrollBarScreen.agc"
 #insert "ScrollToTopScreen.agc"
 #insert "SpriteScreen.agc"
+#insert "SwitchScreen.agc"
 #insert "TabsScreen.agc"
 #insert "TextScreen.agc"
 #insert "TextCardScreen.agc"
@@ -123,7 +126,7 @@ do
 			IconsScreen()
 		endcase
 		case constInputSpinnerScreen
-			InputSpinnerScreen()
+			InputSpinnerScreen(tabSelected[screen])
 		endcase
 		case constListScreen
 			ListScreen()
@@ -145,6 +148,9 @@ do
 		endcase
 		case constSpriteScreen
 			SpriteScreen()
+		endcase
+		case constSwitchScreen
+			SwitchScreen(tabSelected[screen])
 		endcase
 		case constTabsScreen
 			TabsScreen()

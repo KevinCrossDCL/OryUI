@@ -3,7 +3,7 @@
 </p>
 
 # OryUI
-OryUI (v0.15a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
+OryUI (v0.16a) is a UI framework to be used with AGK2 (AppGameKit). It's written in Tier 1 and is a work in progress.
 
 With it you can create the following UI widgets:
 
@@ -22,6 +22,7 @@ With it you can create the following UI widgets:
 * Scroll Bars (including Fast Scroller)
 * Scroll To Top Button
 * Sprites
+* Switches
 * Tabs
 * Text
 * Text Cards (Simple cards, with title and supporting text)
@@ -58,6 +59,7 @@ To include it in your project add the following line to the top of your script
 #insert "..\OryUI\OryUIScrollBar.agc"
 #insert "..\OryUI\OryUIScrollToTop.agc"
 #insert "..\OryUI\OryUISprite.agc"
+#insert "..\OryUI\OryUISwitch.agc"
 #insert "..\OryUI\OryUITabs.agc"
 #insert "..\OryUI\OryUIText.agc"
 #insert "..\OryUI\OryUITextCard.agc"

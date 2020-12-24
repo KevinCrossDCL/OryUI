@@ -1,5 +1,5 @@
 
-foldstart // OryUIList Widget (Updated 07/07/2020)
+foldstart // OryUIList Widget
 
 type typeOryUIList
 	id as integer
