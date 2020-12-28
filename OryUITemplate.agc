@@ -1,6 +1,6 @@
 // This is a template file to use for future widgets
 
-foldstart // OryUITemplate Widget (Updated 07/07/2020)
+foldstart // OryUITemplate Widget
 
 type typeOryUITemplate
 	id as integer

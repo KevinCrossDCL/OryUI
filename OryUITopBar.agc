@@ -1,5 +1,5 @@
 
-foldstart // OryUITopBar Widget (Updated 07/07/2020)
+foldstart // OryUITopBar Widget
 
 type typeOryUITopBar
 	id as integer

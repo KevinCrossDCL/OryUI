@@ -1,5 +1,5 @@
 
-foldstart // OryUITextfield Widget (Updated 07/07/2020)
+foldstart // OryUITextfield Widget
 
 type typeOryUITextfield
 	id as integer

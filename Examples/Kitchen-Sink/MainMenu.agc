@@ -3,7 +3,7 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 12)
+	OryUISetNavigationDrawerItemCount(mainMenu, 15)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
 	inc mainMenuItemCount
@@ -17,6 +17,8 @@ function BuildMainMenu()
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIButtonGroup;itemType:option;text:OryUIButtonGroup;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUICheckbox;itemType:option;text:OryUICheckbox;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIDialog;itemType:option;text:OryUIDialog;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIEditAvatarScreen;itemType:option;text:OryUIEditAvatarScreen;textSize:2.6;rightText:;")
@@ -24,8 +26,8 @@ function BuildMainMenu()
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIFloatingActionButton;itemType:option;text:OryUIFloatingActionButton;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIHTTPSQueue;itemType:option;text:OryUIHTTPSQueue;textSize:2.6;rightText:;")
-//~	inc mainMenuItemCount
-//~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIInputSpinner;itemType:option;text:OryUIInputSpinner;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIInputSpinner;itemType:option;text:OryUIInputSpinner;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIList;itemType:option;text:OryUIList;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
@@ -40,6 +42,8 @@ function BuildMainMenu()
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIScrollToTop;itemType:option;text:OryUIScrollToTop;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUISprite;itemType:option;text:OryUISprite;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUISwitch;itemType:option;text:OryUISwitch;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
 //~	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUITabs;itemType:option;text:OryUITabs;textSize:2.6;rightText:;")
 //~	inc mainMenuItemCount
@@ -72,6 +76,10 @@ function ProcessMainMenu()
 		tabSelected[screen] = 1
 		screen = constButtonGroupScreen
 	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUICheckbox"))
+		tabSelected[screen] = 1
+		screen = constCheckboxScreen
+	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIDialog"))
 		tabSelected[screen] = 1
 		screen = constDialogScreen
@@ -84,6 +92,10 @@ function ProcessMainMenu()
 		tabSelected[screen] = 1
 		screen = constFloatingActionButtonScreen
 	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIInputSpinner"))
+		tabSelected[screen] = 1
+		screen = constInputSpinnerScreen
+	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIMenu"))
 		tabSelected[screen] = 1
 		screen = constMenuScreen
@@ -91,6 +103,10 @@ function ProcessMainMenu()
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIProgressIndicator"))
 		tabSelected[screen] = 1
 		screen = constProgressIndicatorScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUISwitch"))
+		tabSelected[screen] = 1
+		screen = constSwitchScreen
 	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUITextCard"))
 		tabSelected[screen] = 1

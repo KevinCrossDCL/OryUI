@@ -1,5 +1,5 @@
 
-foldstart // OryUIPagination Widget (Updated 07/07/2020)
+foldstart // OryUIPagination Widget
 
 type typeOryUIPagination
 	id as integer

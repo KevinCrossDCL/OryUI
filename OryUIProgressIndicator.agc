@@ -1,5 +1,5 @@
 
-foldstart // OryUIProgressIndicator Widget (Updated 07/07/2020)
+foldstart // OryUIProgressIndicator Widget
 
 type typeOryUIProgressIndicator
 	id as integer

@@ -1,5 +1,5 @@
 
-foldstart // OryUIEditAvatarScreen (Updated 07/07/2020)
+foldstart // OryUIEditAvatarScreen
 
 type typeOryUIEditAvatarScreen
 	id as integer

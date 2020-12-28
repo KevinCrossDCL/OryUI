@@ -1,5 +1,5 @@
 
-foldstart // OryUIMenu Widget (Updated 07/07/2020)
+foldstart // OryUIMenu Widget
 
 type typeOryUIMenu
 	id as integer

@@ -1,5 +1,5 @@
 
-foldstart // OryUITextCard Widget (Updated 07/07/2020)
+foldstart // OryUITextCard Widget
 
 type typeOryUITextCard
 	id as integer

@@ -1,5 +1,5 @@
 
-foldstart // OryUIButtonGroup Widget (Updated 07/07/2020)
+foldstart // OryUIButtonGroup Widget
 
 type typeOryUIButtonGroup
 	id as integer

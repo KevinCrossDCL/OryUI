@@ -1,5 +1,5 @@
 
-foldstart // OryUIText (Updated 07/07/2020)
+foldstart // OryUIText
 
 function OryUICreateText(oryUIWidgetParameters$ as string)
 	local oryUITextID as integer

@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollToTop Widget (Updated 07/07/2020)
+foldstart // OryUIScrollToTop Widget
 
 type typeOryUIScrollToTop
 	id as integer

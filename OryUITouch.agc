@@ -1,5 +1,5 @@
 
-foldstart // OryUITouch (Updated 07/07/2020)
+foldstart // OryUITouch
 
 SetRawTouchMoveSensitivity(1)
 SetViewZoomMode(1)

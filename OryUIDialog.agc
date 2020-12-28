@@ -1,5 +1,5 @@
 
-foldstart // OryUIDialog Widget (Updated 07/07/2020)
+foldstart // OryUIDialog Widget
 
 type typeOryUIDialog
 	id as integer

@@ -43,6 +43,25 @@ oryUIDefaults.buttonSize#[2] = 5
 
 foldend
 
+foldstart // Default Settings for OryUICheckbox
+
+// MAIN
+oryUIDefaults.checkboxCheckedColor#[1] = 87
+oryUIDefaults.checkboxCheckedColor#[2] = 37
+oryUIDefaults.checkboxCheckedColor#[3] = 229
+oryUIDefaults.checkboxCheckedColor#[4] = 255
+oryUIDefaults.checkboxCheckedImage = OryUIReturnIconID("check_box")
+oryUIDefaults.checkboxDepth = 100
+oryUIDefaults.checkboxSize#[1] = -1
+oryUIDefaults.checkboxSize#[2] = 3.5
+oryUIDefaults.checkboxUncheckedColor#[1] = 150
+oryUIDefaults.checkboxUncheckedColor#[2] = 150
+oryUIDefaults.checkboxUncheckedColor#[3] = 150
+oryUIDefaults.checkboxUncheckedColor#[4] = 255
+oryUIDefaults.checkboxUncheckedImage = OryUIReturnIconID("check_box_outline_blank")
+
+foldend
+
 foldstart // Default Settings for OryUIDialog
 
 // MAIN
@@ -483,6 +502,35 @@ oryUIDefaults.scrollToTopPlacement$ = "bottomCenter"
 oryUIDefaults.scrollToTopShowShadow = 1
 oryUIDefaults.scrollToTopStartY# = 0
 oryUIDefaults.scrollToTopWidth# = -1
+
+foldend
+
+foldstart // Default Settings for OryUISwitch
+
+// TRACK
+oryUIDefaults.switchTrackCheckedColor#[1] = 156
+oryUIDefaults.switchTrackCheckedColor#[2] = 119
+oryUIDefaults.switchTrackCheckedColor#[3] = 227
+oryUIDefaults.switchTrackCheckedColor#[4] = 255
+oryUIDefaults.switchTrackDepth = 100
+oryUIDefaults.switchTrackHeight# = 2
+oryUIDefaults.switchTrackUncheckedColor#[1] = 155
+oryUIDefaults.switchTrackUncheckedColor#[2] = 155
+oryUIDefaults.switchTrackUncheckedColor#[3] = 155
+oryUIDefaults.switchTrackUncheckedColor#[4] = 155
+oryUIDefaults.switchTrackWidth# = 12
+
+// SWITCH
+oryUIDefaults.switchCheckedColor#[1] = 87
+oryUIDefaults.switchCheckedColor#[2] = 37
+oryUIDefaults.switchCheckedColor#[3] = 229
+oryUIDefaults.switchCheckedColor#[4] = 255
+oryUIDefaults.switchHeight# = 3
+oryUIDefaults.switchUncheckedColor#[1] = 150
+oryUIDefaults.switchUncheckedColor#[2] = 150
+oryUIDefaults.switchUncheckedColor#[3] = 150
+oryUIDefaults.switchUncheckedColor#[4] = 255
+oryUIDefaults.switchWidth# = -1
 
 foldend
 

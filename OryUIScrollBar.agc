@@ -1,5 +1,5 @@
 
-foldstart // OryUIScrollBar Widget (Updated 07/07/2020)
+foldstart // OryUIScrollBar Widget
 
 type typeOryUIScrollBar
 	id as integer
