@@ -13,6 +13,7 @@ UseNewDefaultFonts(1)
 #insert "OryUI.agc"
 #insert "OryUIButton.agc"
 #insert "OryUIButtonGroup.agc"
+#insert "OryUICheckbox.agc"
 #insert "OryUIDialog.agc"
 #insert "OryUIEditAvatarScreen.agc"
 #insert "OryUIFloatingActionButton.agc"

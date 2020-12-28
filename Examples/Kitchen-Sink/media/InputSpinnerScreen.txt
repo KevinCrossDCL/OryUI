@@ -1,6 +1,6 @@
 inputSpinner as integer[10]
 
-inputSpinner[1] = OryUICreateInputSpinner("offset:topCenter;position:50,10;activeButtonColor:52,73,94")
+inputSpinner[1] = OryUICreateInputSpinner("offset:topCenter;position:50,10")
 
 inputSpinner[2] = OryUICreateInputSpinner("offset:topCenter;min:5;max:10;step:1;position:50,20;activeButtonColor:52,73,94;inactiveButtonColor:52,73,94")
 

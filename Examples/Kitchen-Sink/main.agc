@@ -16,6 +16,7 @@ Sync()
 #insert "..\..\..\OryUI\OryUI.agc"
 #insert "..\..\..\OryUI\OryUIButton.agc"
 #insert "..\..\..\OryUI\OryUIButtonGroup.agc"
+#insert "..\..\..\OryUI\OryUICheckbox.agc"
 #insert "..\..\..\OryUI\OryUIDialog.agc"
 #insert "..\..\..\OryUI\OryUIEditAvatarScreen.agc"
 #insert "..\..\..\OryUI\OryUIFloatingActionButton.agc"
@@ -43,32 +44,34 @@ Sync()
 #constant constHomeScreen 1
 #constant constButtonScreen 2
 #constant constButtonGroupScreen 3
-#constant constDialogScreen 4
-#constant constEditAvatarScreen 5
-#constant constFloatingActionButtonScreen 6
-#constant constHTTPSQueueScreen 7
-#constant constIconsScreen 8
-#constant constInputSpinnerScreen 9
-#constant constListScreen 10
-#constant constMenuScreen 11
-#constant constPaginationScreen 12
-#constant constProgressIndicatorScreen 13
-#constant constScrollBarScreen 14
-#constant constScrollToTopScreen 15
-#constant constSpriteScreen 16
-#constant constSwitchScreen 17
-#constant constTabsScreen 18
-#constant constTextScreen 19
-#constant constTextCardScreen 20
-#constant constTooltipScreen 21
-#constant constTopBarScreen 22
-#constant constMoreSoonScreen 23
-#constant constAboutScreen 24
+#constant constCheckboxScreen 4
+#constant constDialogScreen 5
+#constant constEditAvatarScreen 6
+#constant constFloatingActionButtonScreen 7
+#constant constHTTPSQueueScreen 8
+#constant constIconsScreen 9
+#constant constInputSpinnerScreen 10
+#constant constListScreen 11
+#constant constMenuScreen 12
+#constant constPaginationScreen 13
+#constant constProgressIndicatorScreen 14
+#constant constScrollBarScreen 15
+#constant constScrollToTopScreen 16
+#constant constSpriteScreen 17
+#constant constSwitchScreen 18
+#constant constTabsScreen 19
+#constant constTextScreen 20
+#constant constTextCardScreen 21
+#constant constTooltipScreen 22
+#constant constTopBarScreen 23
+#constant constMoreSoonScreen 24
+#constant constAboutScreen 25
 
 #insert "MainMenu.agc"
 #insert "HomeScreen.agc"
 #insert "ButtonScreen.agc"
 #insert "ButtonGroupScreen.agc"
+#insert "CheckboxScreen.agc"
 #insert "DialogScreen.agc"
 #insert "EditAvatarScreen.agc"
 #insert "FloatingActionButtonScreen.agc"
@@ -109,6 +112,9 @@ do
 		endcase
 		case constButtonGroupScreen
 			ButtonGroupScreen(tabSelected[screen])
+		endcase
+		case constCheckboxScreen
+			CheckboxScreen(tabSelected[screen])
 		endcase
 		case constDialogScreen
 			DialogScreen(tabSelected[screen])

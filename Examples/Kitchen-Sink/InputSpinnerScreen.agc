@@ -38,7 +38,7 @@ function InputSpinnerScreenPreviewTab()
 	
 	txtLabel[1] = OryUICreateText("text:Default input spinner[colon];size:3;bold:true;position:5," + str(contentHeight#) + ";color:0,0,0;depth:20")
 	contentHeight# = contentHeight# + GetTextTotalHeight(txtLabel[1]) + 2
-	inputSpinner[1] = OryUICreateInputSpinner("offset:topCenter;position:50," + str(contentHeight#) + ";activeButtonColor:52,73,94;depth:20")
+	inputSpinner[1] = OryUICreateInputSpinner("offset:topCenter;position:50," + str(contentHeight#) + ";depth:20")
 	contentHeight# = contentHeight# + OryUIGetInputSpinnerHeight(inputSpinner[1]) + 2
 	
 	txtLabel[2] = OryUICreateText("text:Min & max input spinner[colon];size:3;bold:true;position:5," + str(contentHeight#) + ";color:0,0,0;depth:20")

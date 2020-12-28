@@ -1,0 +1,28 @@
+checkbox as integer[10]
+
+checkbox[1] = OryUICreateCheckbox("position:50,10")
+
+checkbox[2] = OryUICreateCheckbox("position:50,20;checkedColor:95,169,49;uncheckedColor:150,150,150")
+
+checkbox[3] = OryUICreateCheckbox("position:50,30;checkedColor:255,0,0;checkedImageID:" + str(OryUIReturnIconID("favorite")) + ";uncheckedColor:150,150,150;uncheckedImageID:" + str(OryUIReturnIconID("favorite_border")))
+
+checkbox[4] = OryUICreateCheckbox("size:-1,5;position:50,40")
+
+checkbox[5] = OryUICreateCheckbox("size:-1,5;position:50,50;checkedColor:0,0,0;checkedImageID:" + str(oryUICheckboxCheckedImage) + ";uncheckedColor:0,0,0;uncheckedImageID:" + str(oryUICheckboxUncheckedImage))
+	
+checkedImage = LoadImage("CheckboxChecked.png")
+uncheckedImage = LoadImage("CheckboxUnchecked.png")
+checkbox[6] = OryUICreateCheckbox("size:-1,5;position:50,60;checkedColor:255,255,255;checkedImageID:" + str(checkedImage) + ";uncheckedColor:255,255,255;uncheckedImageID:" + str(uncheckedImage))
+
+do
+	for i = 1 to 6
+		OryUIInsertCheckboxListener(checkbox[i])
+		if (OryUIGetCheckboxChecked(checkbox[i]))
+			print("Checkbox " + str(i) + " is checked")
+		else
+			print("Checkbox " + str(i) + " is unchecked")
+		endif
+	next
+	
+	OryUISync()
+loop

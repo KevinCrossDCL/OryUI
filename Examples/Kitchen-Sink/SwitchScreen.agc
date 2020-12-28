@@ -77,7 +77,7 @@ function SwitchScreenPreviewTab()
 	trackOnImage = LoadImage("SwitchTrackOn.png")
 	txtLabel[8] = OryUICreateText("text:Switch from 4 images (Unchecked)[colon];size:3;bold:true;position:5," + str(contentHeight#) + ";color:0,0,0;depth:20")
 	contentHeight# = contentHeight# + GetTextTotalHeight(txtLabel[8]) + 2
-	switch[8] = OryUICreateSwitch("trackSize:24,6;switchSize:-1,7;offset:topCenter;position:50," + str(contentHeight#) + ";switchCheckedImage:" + str(switchOnImage) + ";switchUncheckedImage:" + str(switchOffImage) + ";trackCheckedImage:" + str(trackOnImage) + ";trackUncheckedImage:" + str(trackOffImage) + ";depth:20")
+	switch[8] = OryUICreateSwitch("trackSize:20,5.5;switchSize:-1,5;offset:topCenter;position:50," + str(contentHeight#) + ";switchCheckedImage:" + str(switchOnImage) + ";switchUncheckedImage:" + str(switchOffImage) + ";trackCheckedImage:" + str(trackOnImage) + ";trackUncheckedImage:" + str(trackOffImage) + ";depth:20")
 	contentHeight# = contentHeight# + OryUIGetSwitchHeight(switch[8]) + 50
 
 	tooltip as integer : tooltip = OryUICreateTooltip("")

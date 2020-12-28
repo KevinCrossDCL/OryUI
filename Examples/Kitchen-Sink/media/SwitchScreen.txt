@@ -18,7 +18,7 @@ switchOffImage = LoadImage("SwitchSwitchOff.png")
 switchOnImage = LoadImage("SwitchSwitchOn.png")
 trackOffImage = LoadImage("SwitchTrackOff.png")
 trackOnImage = LoadImage("SwitchTrackOn.png")
-switch[8] = OryUICreateSwitch("trackSize:24,6;switchSize:-1,7;position:50,80;switchCheckedImage:" + str(switchOnImage) + ";switchUncheckedImage:" + str(switchOffImage) + ";trackCheckedImage:" + str(trackOnImage) + ";trackUncheckedImage:" + str(trackOffImage))
+switch[8] = OryUICreateSwitch("trackSize:20,5.5;switchSize:-1,5;position:50,80;switchCheckedImage:" + str(switchOnImage) + ";switchUncheckedImage:" + str(switchOffImage) + ";trackCheckedImage:" + str(trackOnImage) + ";trackUncheckedImage:" + str(trackOffImage))
 
 do
 	for i = 1 to 8

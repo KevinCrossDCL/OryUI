@@ -3,7 +3,7 @@ global mainMenu as integer
 
 function BuildMainMenu()
 	mainMenu = OryUICreateNavigationDrawer("showRightText:true")
-	OryUISetNavigationDrawerItemCount(mainMenu, 14)
+	OryUISetNavigationDrawerItemCount(mainMenu, 15)
 	
 	mainMenuItemCount as integer : mainMenuItemCount = 0
 	inc mainMenuItemCount
@@ -16,6 +16,8 @@ function BuildMainMenu()
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIButton;itemType:option;text:OryUIButton;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIButtonGroup;itemType:option;text:OryUIButtonGroup;textSize:2.6;rightText:;")
+	inc mainMenuItemCount
+	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUICheckbox;itemType:option;text:OryUICheckbox;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
 	OryUIUpdateNavigationDrawerItem(mainMenu, mainMenuItemCount, "name:OryUIDialog;itemType:option;text:OryUIDialog;textSize:2.6;rightText:;")
 	inc mainMenuItemCount
@@ -73,6 +75,10 @@ function ProcessMainMenu()
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIButtonGroup"))
 		tabSelected[screen] = 1
 		screen = constButtonGroupScreen
+	endif
+	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUICheckbox"))
+		tabSelected[screen] = 1
+		screen = constCheckboxScreen
 	endif
 	if (OryUIGetNavigationDrawerItemReleasedByName(mainMenu, "OryUIDialog"))
 		tabSelected[screen] = 1

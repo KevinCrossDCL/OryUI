@@ -252,8 +252,8 @@ function OryUIUpdateSwitch(oryUISwitchID as integer, oryUIWidgetParameters$ as s
 			OryUISwitchCollection[oryUISwitchID].switchUncheckedColor#[4] = 255
 		endif
 		if (lower(oryUIParameters.platformStyle$) = "ios")
-			SetSpriteSize(OryUISwitchCollection[oryUISwitchID].sprContainer, 14, 4.2)
-			SetSpriteSize(OryUISwitchCollection[oryUISwitchID].sprTrack, 14, 4.2)
+			SetSpriteSize(OryUISwitchCollection[oryUISwitchID].sprContainer, 15, 4.2)
+			SetSpriteSize(OryUISwitchCollection[oryUISwitchID].sprTrack, 15, 4.2)
 			SetSpriteImage(OryUISwitchCollection[oryUISwitchID].sprTrack, oryUISwitchTrackIOSImage)
 			OryUISwitchCollection[oryUISwitchID].trackCheckedColor#[1] = 137
 			OryUISwitchCollection[oryUISwitchID].trackCheckedColor#[2] = 188

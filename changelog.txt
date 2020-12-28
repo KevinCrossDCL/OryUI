@@ -1,5 +1,7 @@
 VERSION 0.16a
 ------------------------
+- OryUICheckbox (New Widget)
+
 - OryUIInputSpinner
 	- Added missing parameter 'offset'
 

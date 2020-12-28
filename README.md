@@ -9,6 +9,7 @@ With it you can create the following UI widgets:
 
 * Buttons
 * Button Groups (Radio buttons)
+* Checkboxes
 * Dialogs
 * Edit Avatar Screen
 * Floating Action Buttons
@@ -45,6 +46,7 @@ To include it in your project add the following line to the top of your script
 #insert "..\OryUI\OryUI.agc"
 #insert "..\OryUI\OryUIButton.agc"
 #insert "..\OryUI\OryUIButtonGroup.agc"
+#insert "..\OryUI\OryUICheckbox.agc"
 #insert "..\OryUI\OryUIDialog.agc"
 #insert "..\OryUI\OryUIEditAvatarScreen.agc"
 #insert "..\OryUI\OryUIFloatingActionButton.agc"

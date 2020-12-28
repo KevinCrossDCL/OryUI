@@ -37,6 +37,14 @@ type typeOryUIDefaults
 	buttonEnabledTextSize# as float
 	buttonSize# as float[2]
 
+	// OryUICheckbox
+	checkboxCheckedColor# as float[4]
+	checkboxCheckedImage as integer
+	checkboxDepth as integer
+	checkboxSize# as float[2]
+	checkboxUncheckedColor# as float[4]
+	checkboxUncheckedImage as integer
+
 	// OryUIDialog
 	dialogAutoHeight as integer
 	dialogBottomMargin# as float
@@ -711,6 +719,9 @@ function OryUICreateWidget(oryUIWidgetParameters$)
 		case "buttongroup"
 			oryUIWidget = OryUICreateButtonGroup(oryUIWidgetParameters$)
 		endcase
+		case "checkbox"
+			oryUIWidget = OryUICreateCheckbox(oryUIWidgetParameters$)
+		endcase
 		case "dialog"
 			oryUIWidget = OryUICreateDialog(oryUIWidgetParameters$)
 		endcase
@@ -784,6 +795,9 @@ function OryUIDeleteAllWidgets()
 			endcase
 			case "ButtonGroup"
 				OryUIDeleteButtonGroup(oryUICreatedWidgets[oryUIForI].id)
+			endcase
+			case "Checkbox"
+				OryUIDeleteCheckbox(oryUICreatedWidgets[oryUIForI].id)
 			endcase
 			case "Dialog"
 				OryUIDeleteDialog(oryUICreatedWidgets[oryUIForI].id)
