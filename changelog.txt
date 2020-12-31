@@ -1,5 +1,8 @@
 VERSION 0.17a
 ------------------------
+- OryUIDefaultSettings
+	- Added default settings for OryUIFloatingActionButton
+	
 - OryUIScrollToTop
 	- Widget automatically hides after 3 seconds.
 

@@ -83,6 +83,17 @@ type typeOryUIDefaults
 	dialogTopMargin# as float
 	dialogWidth# as float
 
+	// OryUIFloatingActionButton
+	floatingActionButtonColor# as float[4]
+	floatingActionButtonDepth as integer
+	floatingActionButtonIcon as integer
+	floatingActionButtonIconColor# as float[4]
+	floatingActionButtonIconSize# as float[2]
+	floatingActionButtonMini as integer
+	floatingActionButtonPlacement$ as string
+	floatingActionButtonShadow as integer
+	floatingActionButtonSize# as float[2]
+
 	// OryUIInputSpinner
 	inputSpinnerAutoCorrectIfOutOfRange as integer
 	inputSpinnerBackgroundColor# as float[4]
