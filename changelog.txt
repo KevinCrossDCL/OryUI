@@ -2,7 +2,10 @@ VERSION 0.17a
 ------------------------
 - OryUIDefaultSettings
 	- Added default settings for OryUIFloatingActionButton
-	
+
+- OryUIInputSpinner
+	- Now checks to see if editbox has just lost focus and flags it has changedValue if so
+
 - OryUIScrollToTop
 	- Widget automatically hides after 3 seconds.
 

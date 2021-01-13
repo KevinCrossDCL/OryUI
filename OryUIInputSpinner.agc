@@ -278,6 +278,7 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 		SetEditBoxText(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, str(OryUIInputSpinnerCollection[oryUIInputSpinnerID].defaultValue#, OryUIInputSpinnerCollection[oryUIInputSpinnerID].decimals))
 	endif
 	if (oryUIInputSpinnerID <= OryUIInputSpinnerCollection.length)
+		OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = -1
 		if (OryUIGetSwipingVertically() = 0)
 			if (GetEditBoxExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
 				if (GetEditBoxHasFocus(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox))
@@ -290,9 +291,11 @@ function OryUIInsertInputSpinnerListener(oryUIInputSpinnerID as integer)
 					endif
 					SetEditBoxActive(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox, 0)
 				endif
+				if (GetEditBoxChanged(OryUIInputSpinnerCollection[oryUIInputSpinnerID].editBox) = 1)
+					OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = 1
+				endif
 			endif
 		endif
-		OryUIInputSpinnerCollection[oryUIInputSpinnerID].changedValue = -1
 		if (GetSpriteExists(OryUIInputSpinnerCollection[oryUIInputSpinnerID].sprInvisibleCover))
 			if (OryUIGetSwipingVertically() = 0)
 				if (GetPointerPressed())
