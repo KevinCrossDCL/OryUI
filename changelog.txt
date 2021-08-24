@@ -1,5 +1,8 @@
 VERSION 0.17a
 ------------------------
+- OryUI
+	- Icons replaced with larger versions (from 48x58px to 96x96px)
+	
 - OryUIDefaultSettings
 	- Added default settings for OryUIFloatingActionButton
 
