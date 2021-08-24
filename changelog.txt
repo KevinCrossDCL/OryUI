@@ -1,3 +1,25 @@
+VERSION 0.17a
+------------------------
+- OryUI
+	- Icons replaced with larger versions (from 48x58px to 96x96px)
+	
+- OryUIDefaultSettings
+	- Added default settings for OryUIFloatingActionButton
+
+- OryUIInputSpinner
+	- Now checks to see if editbox has just lost focus and flags it has changedValue if so
+
+- OryUIList
+	- Added function OryUIGetListItemReleased()
+
+- OryUIProgressIndicator
+	- Added SetSpriteShapeBox to remove the box from the sprites so that items underneath it can be touched/pressed
+	
+- OryUIScrollToTop
+	- Widget automatically hides after 3 seconds.
+
+
+
 VERSION 0.16a
 ------------------------
 - OryUICheckbox (New Widget)

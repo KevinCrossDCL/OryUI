@@ -28,17 +28,18 @@ function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	oryUICreatedWidgets.insert(OryUIAddCreatedWidget(oryUIFloatingActionButtonID, "FloatingActionButton"))
 
 	// DEFAULT SETTINGS
-	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = 0
-	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = "bottomRight"
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].mini = oryUIDefaults.floatingActionButtonMini
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placement$ = oryUIDefaults.floatingActionButtonPlacement$
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[1] = 0
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].placementOffset#[2] = 0
-	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = 1
+	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].shadow = oryUIDefaults.floatingActionButtonShadow
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].visible = 1
-	
+
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow = CreateSprite(0)
 	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIFloatingActionButtonShadowImage)
-	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, -1, 9.5) //8.63
+	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIDefaults.floatingActionButtonSize#[1], oryUIDefaults.floatingActionButtonSize#[2]) //8.63
 	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 255, 255, 255, 255)
+	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIDefaults.floatingActionButtonDepth)
 	SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 98, 98)
 	SetSpritePhysicsOff(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow)
@@ -46,19 +47,19 @@ function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer = CreateSprite(0)
 	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIFloatingActionButtonImage)
-	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, -1, 9.5) //8.63
-	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 255, 255, 255, 255)
-	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, GetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) - 1)
+	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIDefaults.floatingActionButtonSize#[1], oryUIDefaults.floatingActionButtonSize#[2]) //8.63
+	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIDefaults.floatingActionButtonColor#[1], oryUIDefaults.floatingActionButtonColor#[2], oryUIDefaults.floatingActionButtonColor#[3], oryUIDefaults.floatingActionButtonColor#[4])
+	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIDefaults.floatingActionButtonDepth)
 	SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer))
 	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 98, 98)
 	SetSpritePhysicsOff(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer)
 	FixSpriteToScreen(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 1)
 	
 	OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon = CreateSprite(0)
-	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, -1, 3.5) //2.87
-	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIIconAddImage)
-	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, 255, 255, 255, 255)
-	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, GetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) - 2)
+	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIDefaults.floatingActionButtonIconSize#[1], oryUIDefaults.floatingActionButtonIconSize#[2]) //2.87
+	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIDefaults.floatingActionButtonIcon)
+	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, oryUIDefaults.floatingActionButtonIconColor#[1], oryUIDefaults.floatingActionButtonIconColor#[2], oryUIDefaults.floatingActionButtonIconColor#[3], oryUIDefaults.floatingActionButtonIconColor#[4])
+	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, GetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow) - 1)
 	SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon) / 2, GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon) / 2)
 	SetSpritePhysicsOff(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon)
 	OryUIPinSpriteToCentreOfSprite(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprIcon, OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, 0, 0)

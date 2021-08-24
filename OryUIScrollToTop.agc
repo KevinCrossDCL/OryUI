@@ -11,6 +11,7 @@ type typeOryUIScrollToTop
 	sprIcon as integer
 	sprShadow as integer
 	startY# as float
+	timeLastVisible# as integer
 	visible as integer
 endtype
 
@@ -127,7 +128,16 @@ endfunction
 
 function OryUIInsertScrollToTopListener(oryUIScrollToTopID as integer)
 	local oryUIShowScrollToTopButton as integer
-	if (GetViewOffsetY() + GetScreenBoundsTop() > OryUIScrollToTopCollection[oryUIScrollToTopID].startY#) then oryUIShowScrollToTopButton = 1
+	if (GetViewOffsetY() + GetScreenBoundsTop() > OryUIScrollToTopCollection[oryUIScrollToTopID].startY#)
+		oryUIShowScrollToTopButton = 1
+		if (OryUIGetSwipingVertically())
+			OryUIScrollToTopCollection[oryUIScrollToTopID].timeLastVisible# = timer()
+		else
+			if (timer() - OryUIScrollToTopCollection[oryUIScrollToTopID].timeLastVisible# > 3)
+				oryUIShowScrollToTopButton = 0
+			endif
+		endif
+	endif
 	if (oryUIScrimVisible = 1) then oryUIShowScrollToTopButton = 0
 	if (OryUIAnyTextfieldFocused() = 1 and (GetDeviceBaseName() = "android" or GetDeviceBaseName() = "ios")) then oryUIShowScrollToTopButton = 0
 	if (oryUIShowScrollToTopButton = 0)

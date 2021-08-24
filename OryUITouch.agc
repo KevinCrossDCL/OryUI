@@ -135,6 +135,7 @@ function OryUIEndTrackingTouch()
 			OryUITouchCollection[0].swipingRight = 0
 			OryUITouchCollection[0].swipingUp = 0			
 			OryUITouchCollection[0].swipingVertically = 0
+			OryUITouchCollection[0].touchCount = 0
 		endif
 	endif
 endfunction
@@ -249,6 +250,10 @@ function OryUISetViewOffset(oryUIMode as integer)
 			OryUITouchCollection[0].inertia.amount.x = OryUITouchCollection[0].viewX# - GetViewOffsetX()
 			OryUITouchCollection[0].inertia.amount.y = OryUITouchCollection[0].viewY# - GetViewOffsetY()				
 			SetViewOffset(OryUITouchCollection[0].viewX#, OryUITouchCollection[0].viewY#)	
+			if (GetDeviceBaseName() = "mac")
+				OryUITouchCollection[0].startViewX# = OryUITouchCollection[0].viewX#
+				OryUITouchCollection[0].startViewY# = OryUITouchCollection[0].viewY#
+			endif
 			OryUITouchCollection[0].inertia.average.insert(OryUITouchCollection[0].inertia.amount)
 			if (OryUITouchCollection[0].inertia.average.length > ORYUI_SCROLL_SAMPLES)
 				OryUITouchCollection[0].inertia.average.remove(0)
@@ -340,7 +345,7 @@ function OryUIStartTrackingTouch()
 		if (OryUITouchCollection[0].touchCount > 0)
 			OryUITouchCollection[0].currentZoom# = GetViewZoom()
 			OryUITouchCollection[0].currentViewX# = GetViewOffsetX()
-			OryUITouchCollection[0].currentViewY# = GetViewOffsetY() //+ GetScreenBoundsTop()
+			OryUITouchCollection[0].currentViewY# = GetViewOffsetY()
 			if (OryUITouchCollection[0].previousTouchCount <> OryUITouchCollection[0].touchCount)
 				OryUITouchCollection[0].startZoom# = OryUITouchCollection[0].currentZoom#
 				OryUITouchCollection[0].startViewX# = OryUITouchCollection[0].currentViewX#
@@ -411,13 +416,15 @@ function OryUIStartTrackingTouch()
 			OryUITouchCollection[1].firstSpriteHit = GetSpriteHit(ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 			OryUITouchCollection[0].touchTime# = timer()
 			OryUITouchCollection[0].startViewX# = GetViewOffsetX()
-			OryUITouchCollection[0].startViewY# = GetViewOffsetY() //+ GetScreenBoundsTop()
+			OryUITouchCollection[0].startViewY# = GetViewOffsetY()
 		else
 			if (GetPointerState())
 				OryUITouchCollection[1].currentSpriteHit = GetSpriteHit(ScreenToWorldX(GetPointerX()), ScreenToWorldY(GetPointerY()))
 				if (timer() - OryUITouchCollection[0].touchTime# > 0.1)
-					OryUITouchCollection[0].currentDistanceX# = OryUITouchCollection[0].startX# - ScreenToWorldX(GetPointerX())
-					OryUITouchCollection[0].currentDistanceY# = OryUITouchCollection[0].startY# - ScreenToWorldY(GetPointerY())
+					OryUITouchCollection[0].currentX# = ScreenToWorldX(GetPointerX())
+					OryUITouchCollection[0].currentY# = ScreenToWorldY(GetPointerY())
+					OryUITouchCollection[0].currentDistanceX# = OryUITouchCollection[0].startX# - OryUITouchCollection[0].currentX#
+					OryUITouchCollection[0].currentDistanceY# = OryUITouchCollection[0].startY# - OryUITouchCollection[0].currentY#
 					OryUITouchCollection[0].viewX# = OryUITouchCollection[0].startViewX# + OryUITouchCollection[0].currentDistanceX#
 					OryUITouchCollection[0].viewY# = OryUITouchCollection[0].startViewY# + OryUITouchCollection[0].currentDistanceY#
 					//if (ScreenToWorldX(startX#) > contentStartX#)
@@ -468,6 +475,9 @@ function OryUIStartTrackingTouch()
 					if (OryUITouchCollection[0].viewY# > OryUITouchCollection[0].maxViewY#) then OryUITouchCollection[0].viewY# = OryUITouchCollection[0].maxViewY#
 					if (oryUIBlockScreenScrolling = 0 and (OryUITouchCollection[0].minViewX# > 0 or OryUITouchCollection[0].maxViewX# > 0 or OryUITouchCollection[0].minViewY# > 0 or OryUITouchCollection[0].maxViewY# > 0)) then OryUISetViewOffset(ORYUI_SCROLL_STEP)
 				endif
+			endif
+			if (GetPointerReleased())
+				OryUISetViewOffset(ORYUI_SCROLL_INERTIA)
 			endif
 		endif
 	endif

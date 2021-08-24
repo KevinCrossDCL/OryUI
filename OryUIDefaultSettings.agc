@@ -129,6 +129,30 @@ oryUIDefaults.dialogButtonYSpacing# = 1
 	
 foldend
 
+foldstart // Default Settings for OryUIFloatingActionButton
+
+// MAIN
+oryUIDefaults.floatingActionButtonColor#[1] = 87
+oryUIDefaults.floatingActionButtonColor#[2] = 37
+oryUIDefaults.floatingActionButtonColor#[3] = 229
+oryUIDefaults.floatingActionButtonColor#[4] = 255
+oryUIDefaults.floatingActionButtonDepth = 10
+oryUIDefaults.floatingActionButtonIcon = OryUIReturnIconID("add")
+oryUIDefaults.floatingActionButtonIconColor#[1] = 255
+oryUIDefaults.floatingActionButtonIconColor#[2] = 255
+oryUIDefaults.floatingActionButtonIconColor#[3] = 255
+oryUIDefaults.floatingActionButtonIconColor#[4] = 255
+oryUIDefaults.floatingActionButtonIconSize#[1] = -1
+oryUIDefaults.floatingActionButtonIconSize#[2] = 3.5
+oryUIDefaults.floatingActionButtonMini = 0
+oryUIDefaults.floatingActionButtonPlacement$ = "bottomRight"
+oryUIDefaults.floatingActionButtonShadow = 1
+oryUIDefaults.floatingActionButtonSize#[1] = -1
+oryUIDefaults.floatingActionButtonSize#[2] = 9.5
+
+foldend
+
+
 foldstart // Default Settings for OryUIInputSpinner
 
 // MAIN
