@@ -200,7 +200,7 @@ endfunction oryUIDialogWidth#
 
 function OryUIGetDialogVisible(oryUIDialogID as integer)
 
-endfunction oryUIDialogVisible
+endfunction OryUIDialogCollection[oryUIDialogID].visible //oryUIDialogVisible
 
 function OryUIHideDialog(oryUIDialogID as integer)
 	local oryUIForI as integer

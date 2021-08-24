@@ -6,6 +6,12 @@ VERSION 0.17a
 - OryUIInputSpinner
 	- Now checks to see if editbox has just lost focus and flags it has changedValue if so
 
+- OryUIList
+	- Added function OryUIGetListItemReleased()
+
+- OryUIProgressIndicator
+	- Added SetSpriteShapeBox to remove the box from the sprites so that items underneath it can be touched/pressed
+	
 - OryUIScrollToTop
 	- Widget automatically hides after 3 seconds.
 

@@ -39,7 +39,7 @@ function OryUICreateFloatingActionButton(oryUIWidgetParameters$ as string)
 	SetSpriteImage(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIFloatingActionButtonShadowImage)
 	SetSpriteSize(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIDefaults.floatingActionButtonSize#[1], oryUIDefaults.floatingActionButtonSize#[2]) //8.63
 	SetSpriteColor(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 255, 255, 255, 255)
-	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprContainer, oryUIDefaults.floatingActionButtonDepth)
+	SetSpriteDepth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, oryUIDefaults.floatingActionButtonDepth)
 	SetSpriteOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, GetSpriteWidth(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow), GetSpriteHeight(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow))
 	SetSpritePositionByOffset(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow, 98, 98)
 	SetSpritePhysicsOff(OryUIFloatingActionButtonCollection[oryUIFloatingActionButtonID].sprShadow)

@@ -230,7 +230,7 @@ function OryUIInsertHTTPSQueueListener(oryUIHTTPSQueueID as integer)
 					else
 						OryUIMoveItemToEndOfHTTPSQueue(oryUIHTTPSQueueID, 0)
 					endif
-				elseif (oryUIHTTPResponseCode > 0)
+				elseif (oryUIHTTPResponseCode > 0 and GetHTTPStatusCode(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http) = 200)
 					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].failedCount = 0
 					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestName$ = OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].items[0].name$
 					OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].requestResponse$ = GetHTTPResponse(OryUIHTTPSQueueCollection[oryUIHTTPSQueueID].http)

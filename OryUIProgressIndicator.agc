@@ -49,6 +49,7 @@ function OryUICreateProgressIndicator(oryUIWidgetParameters$ as string)
 	SetSpriteOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack, 0, 0)
 	SetSpritePositionByOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack, 0, 0)
 	SetSpritePhysicsOff(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack)
+	SetSpriteShapeBox(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprTrack, 0, 0, 0, 0, 0)
 
 	OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator = CreateSprite(0)
 	SetSpriteSize(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, oryUIDefaults.progressIndicatorTrackHeight#)
@@ -57,6 +58,7 @@ function OryUICreateProgressIndicator(oryUIWidgetParameters$ as string)
 	SetSpriteOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, 0)
 	SetSpritePositionByOffset(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, 0)
 	SetSpritePhysicsOff(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator)
+	SetSpriteShapeBox(OryUIProgressIndicatorCollection[oryUIProgressIndicatorID].sprIndicator, 0, 0, 0, 0, 0)
 	
 	if (oryUIWidgetParameters$ <> "") then OryUIUpdateProgressIndicator(oryUIProgressIndicatorID, oryUIWidgetParameters$)
 endfunction oryUIProgressIndicatorID
