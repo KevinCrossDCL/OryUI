@@ -108,7 +108,7 @@ loop
 
 ```
 
-## Example Screen File i.e. HomeScreen.agc
+## Example HomeScreen.agc File
 ```
 function HomeScreen()
 	SetViewOffset(0, 0)
@@ -143,6 +143,41 @@ function HomeScreen()
 endfunction
 ```
 
+## Example AboutScreen.agc File
+```
+function AboutScreen()
+	SetViewOffset(0, 0)
+
+	// Initiate Screen
+	contentHeight# as float
+
+	topBar as integer : topBar = OryUICreateTopBar("text:About;depth:10")
+	contentHeight# = contentHeight# + OryUIGetTopBarHeight(topBar) + 2
+	
+	button as integer : button = OryUICreateButton("text:Home;offset:center;position:50," + str(contentHeight#) + ";depth:20")
+	contentHeight# = contentHeight# + OryUIGetButtonHeight(button)
+	
+	// Manage Screen
+	do
+		OryUIInsertTopBarListener(topBar)
+		if (OryUIGetButtonReleased(button))
+			screen = constHomeScreen
+		endif
+		
+		// Change Screen?
+		if (screen <> constAboutScreen) then exit
+
+		// Scroll Limits
+		OryUISetScreenScrollLimits(0, 0, 0, contentHeight#)
+		
+		OryUISync()
+	loop
+	
+	// Delete all OryUI created widgets
+	OryUIDeleteAllWidgets()
+endfunction
+```
+
 ## Documentation
 I've started on some documentation which can be found here in the Wiki section: https://github.com/KevinCrossDCL/OryUI/wiki
 
@@ -152,9 +187,6 @@ Please check out the [How to contribute to OryUI guide](https://github.com/Kevin
 
 ## Screenshots
 <img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090809_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090816_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090825_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-090918_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-091158_ChastiKey.jpg" height=400>&nbsp;&nbsp;<img src="https://github.com/KevinCrossDCL/OryUI/blob/screenshots/screenshots/Screenshot_20200628-091215_ChastiKey.jpg" height=400>
-
-## Showcase
-ChastiKey ([App Store](https://itunes.apple.com/gb/app/chastikey/id1375243924?mt=8) / [Play Store](https://play.google.com/store/apps/details?id=co.uk.kevincross.chastikey))
 
 ## Feedback / Suggestions
 This is the first framework I've attempted to create so any feedback, suggestions, and constructive criticsm will be greatly appreciated. You can contact me on the below forum post:
